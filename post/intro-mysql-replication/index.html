@@ -158,7 +158,7 @@
 
 <p>Cấu hình my.cnf</p>
 
-<pre><code>event-scheduler = on
+<pre><code class="language-bash">event-scheduler = on
 bind-address = 172.17.0.1
 server-id = 1
 
@@ -174,19 +174,19 @@ expire_logs_days=2
 
 <p>Tạo user replication</p>
 
-<pre><code>GRANT REPLICATION SLAVE ON *.* TO 'slave_user'@'172.16.0.2' IDENTIFIED BY 'p@ssword';
+<pre><code class="language-sql">GRANT REPLICATION SLAVE ON *.* TO 'slave_user'@'172.16.0.2' IDENTIFIED BY 'p@ssword';
 FLUSH PRIVILEGES;
 </code></pre>
 
 <p>Tạo schema, dữ liệu để test</p>
 
-<pre><code>CREATE SCHEMA dwh_prod CHARACTER SET utf8 COLLATE utf8_general_ci;
+<pre><code class="language-sql">CREATE SCHEMA dwh_prod CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE tb1 (
  id INT,
  data VARCHAR(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        
+ 
 CREATE TABLE tb2 (
  id INT,
  data VARCHAR(100)
@@ -199,7 +199,7 @@ SHOW TABLES;
 
 <p>Cấu hình my.cnf</p>
 
-<pre><code>event_scheduler=off
+<pre><code class="language-bash">event_scheduler=off
 bind-address = 172.17.0.2
 server-id=2
 
@@ -220,7 +220,7 @@ expire_logs_days=2
 
 <p>Trên Master DB</p>
 
-<pre><code>FLUSH TABLES WITH READ LOCK;
+<pre><code class="language-sql">FLUSH TABLES WITH READ LOCK;
 SHOW MASTER STATUS;
 
 +----------------+----------+--------------+------------------+
@@ -239,13 +239,13 @@ SHOW MASTER STATUS;
 
 <p>Sau đó ta sẽ dump dữ liệu từ Master DB và đẩy qua Slave DB (sau khi dump xong có thể <code>UNLOCK TABLES;</code> để Master DB có thể hoạt động lại).</p>
 
-<pre><code>mysqldump -uroot -p dwh_prod &gt; dwh_prod_03072015.sql
+<pre><code class="language-bash">mysqldump -uroot -p dwh_prod &gt; dwh_prod_03072015.sql
 rsync -avz -P -e'ssh' dwh_prod_03072015.sql root@172.17.0.2:/root/
 </code></pre>
 
 <p>Trên Slave</p>
 
-<pre><code>mysql -uroot -p dwh_prod &lt; /root/dwh_prod_03072015.sql
+<pre><code class="language-sql">mysql -uroot -p dwh_prod &lt; /root/dwh_prod_03072015.sql
 
 &gt; CHANGE MASTER TO MASTER_HOST='172.17.0.1',MASTER_USER='slave_user', MASTER_PASSWORD='p@ssword', MASTER_LOG_FILE='m01-bin.000001', MASTER_LOG_POS=827;
 &gt; START SLAVE
@@ -254,7 +254,7 @@ rsync -avz -P -e'ssh' dwh_prod_03072015.sql root@172.17.0.2:/root/
 
 <p>Một số thông tin đã được lược bỏ cho dễ nhìn</p>
 
-<pre><code>*************************** 1. row ***************************
+<pre><code class="language-sql">*************************** 1. row ***************************
                Slave_IO_State: Waiting for master to send event
                   Master_Host: 172.0.0.1
                   Master_User: slave_user
@@ -294,7 +294,7 @@ rsync -avz -P -e'ssh' dwh_prod_03072015.sql root@172.17.0.2:/root/
 
 <p>Trên Master</p>
 
-<pre><code>mysql&gt; USE dwh_prod
+<pre><code class="language-sql">mysql&gt; USE dwh_prod
 mysql&gt; SHOW TABLES;
 +--------------------+
 | Tables_in_dwh_prod |
@@ -308,7 +308,7 @@ mysql&gt; SHOW TABLES;
 
 <p>Trên Slave</p>
 
-<pre><code>mysql&gt; USE dwh_prod
+<pre><code class="language-sql">mysql&gt; USE dwh_prod
 mysql&gt; SHOW TABLES;
 +--------------------+
 | Tables_in_dwh_prod |
@@ -320,7 +320,7 @@ mysql&gt; SHOW TABLES;
 +--------------------+
 </code></pre>
 
-<pre><code>mysql -e -p 'SHOW SLAVE STATUS\G' | grep -i 'error\|seconds'
+<pre><code class="language-sql">mysql -e -p 'SHOW SLAVE STATUS\G' | grep -i 'error\|seconds'
                    Last_Error: 
         Seconds_Behind_Master: 0
                 Last_IO_Error: 
@@ -331,7 +331,7 @@ mysql&gt; SHOW TABLES;
 
 <p>Giờ giả sử ta sẽ tạo một table với tên là tb00 trên Slave và kiểm tra xem có đúng là khi ghi dữ liệu lên Slave DB thì replication có bị hỏng hay không.</p>
 
-<pre><code>mysql&gt; CREATE TABLE tb00 (
+<pre><code class="language-sql">mysql&gt; CREATE TABLE tb00 (
  id INT,
  data VARCHAR(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -351,7 +351,7 @@ mysql&gt; SHOW TABLES;
 
 <p>Kiểm tra các table trên Master DB</p>
 
-<pre><code>mysql&gt; SHOW TABLES;
+<pre><code class="language-sql">mysql&gt; SHOW TABLES;
 +--------------------+
 | Tables_in_dwh_prod |
 +--------------------+
@@ -364,7 +364,7 @@ mysql&gt; SHOW TABLES;
 
 <p>Và kiểm tra lại trạng thái của replication</p>
 
-<pre><code>mysql -e 'SHOW SLAVE STATUS\G' | grep -i 'error\|seconds'                                                                                                   
+<pre><code class="language-sql">mysql -e 'SHOW SLAVE STATUS\G' | grep -i 'error\|seconds'                                                                                                   
             Last_Error: 
       Seconds_Behind_Master: 0
             Last_IO_Error: 
@@ -375,7 +375,7 @@ mysql&gt; SHOW TABLES;
 
 <p>Giờ chúng ta sẽ thử thêm một trường hợp nữa là trên Master ta sẽ tạo một table tên là tb6 để kiểm tra xem chuyện gì sẽ xảy ra</p>
 
-<pre><code>mysql&gt; CREATE TABLE tb6 (
+<pre><code class="language-sql">mysql&gt; CREATE TABLE tb6 (
  id INT,
  data VARCHAR(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -394,7 +394,7 @@ mysql&gt; SHOW TABLES;
 
 <p>Kiểm tra các table trên Slave DB</p>
 
-<pre><code>mysql&gt; SHOW TABLES;
+<pre><code class="language-sql">mysql&gt; SHOW TABLES;
 +--------------------+
 | Tables_in_dwh_prod |
 +--------------------+
@@ -409,7 +409,7 @@ mysql&gt; SHOW TABLES;
 
 <p>=&gt; bảng tb6 đã được đồng bộ từ Master qua, kiểm tra trạng thái replication</p>
 
-<pre><code>mysql -e 'SHOW SLAVE STATUS\G' | grep -i 'error\|seconds'
+<pre><code class="language-sql">mysql -e 'SHOW SLAVE STATUS\G' | grep -i 'error\|seconds'
                    Last_Error: 
         Seconds_Behind_Master: 0
                 Last_IO_Error: 
@@ -422,11 +422,11 @@ mysql&gt; SHOW TABLES;
 
 <p>Kiểm tra trạng thái replication trên Slave</p>
 
-<pre><code>mysql -e 'SHOW SLAVE STATUS\G' | grep -i 'error\|seconds'
-                   Last_Error: Error 'Table 'tb00' already exists' on query. Default database: 'dwh_prod'. Query: 'CREATE TABLE tb00 (
-        Seconds_Behind_Master: NULL
-                Last_IO_Error: 
-               Last_SQL_Error: Error 'Table 'tb00' already exists' on query. Default database: 'dwh_prod'. Query: 'CREATE TABLE tb00 (
+<pre><code class="language-sql">mysql -e 'SHOW SLAVE STATUS\G' | grep -i 'error\|seconds'
+              Last_Error: Error 'Table 'tb00' already exists' on query. Default database: 'dwh_prod'. Query: 'CREATE TABLE tb00 (
+   Seconds_Behind_Master: NULL
+           Last_IO_Error:
+          Last_SQL_Error: Error 'Table 'tb00' already exists' on query. Default database: 'dwh_prod'. Query: 'CREATE TABLE tb00 (
 </code></pre>
 
 <p>=&gt; như ta thấy hệ thống báo lỗi do trên Slave không thể thực thi hành động tạo table tb00 từ Master đẩy xuống (do table này đã tồn tại trước đó)</p>
@@ -490,9 +490,9 @@ mysql&gt; SHOW TABLES;
 <li>Dữ liệu nén bằng chuẩn tgz ~ 2-3GB</li>
 <li>Máy chủ 24 core, 32GB RAM, SSD Plextor M6 PRO (4x256, RAID 10)</li>
 <li>Thời gian dump dữ liệu là 1h-1h30</li>
-<li>Thời gian sync bản dump qua các server (local, port 1Gb) -&gt; không nhớ</li>
-<li>Thời gian import dữ liệu -&gt; không nhớ</li>
-<li>Thời gian <code>Second_Behind_Master</code> sau khi import xong -&gt; không nhớ</li>
+<li>Thời gian sync bản dump qua các server (local, port 1Gb) ~ 1h</li>
+<li>Thời gian import dữ liệu ~1.5h</li>
+<li>Thời gian <code>Second_Behind_Master</code> sau khi import xong ~ 3600s</li>
 </ul>
 
 </main>
