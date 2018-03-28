@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Docker Ecosystem | xluffy&#39;s page</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/categories/">~/categories</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">Docker Ecosystem</span></h1>
+<h2 class="author">xluffy</h2>
+<h2 class="date">2018/03/27</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/docker">docker</a> 
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<p>Hôm nay mình đọc được một bài khá là hay của tác giả @lherrera trên <a href="https://medium.com/@lherrera/mapping-docker-d003aa9017c1#.xjvvz5j39">medium</a>, nó giải thích khá nhiều các thông tin cho các bạn mới bắt đầu với Docker. Mình xin phép lược dịch (có bỏ một số phần cho đơn giản và dễ hiểu cũng như thêm một số phần khác để giải thích kỹ hơn)</p>
+
+<p>Khi mới bắt đầu với Docker bạn có thể bị nhầm lẫn giữa một rừng các công cụ với tên kiểu Docker-something. Có một công cụ Docker Client, một thứ gọi là Docker Engine, rồi lại có một công cụ tên là Docker Machine, rồi build cluster với Docker Swarm, rồi lại đóng gói multi-container với Docker Compose và ti tỉ thứ khác&hellip; Mới nghe đã choáng hết cả đầu rồi.</p>
+
+<p><strong>Vì vậy mục đích của bài viết này là chúng ta sẽ cố gắng tìm hiểu ý nghĩa của các công cụ đó và mối quan hệ giữa chúng để hiểu rõ hơn về hệ sinh thái Docker.</strong></p>
+
+<h2 id="1-docker-engine">1. Docker Engine</h2>
+
+<p>Nó là một công cụ lightweight runtime (từ này mình không biết dịch sao), nó giúp chúng ta build và chạy các <strong>Docker container</strong>. Về bản chất thì Docker là một ứng dụng <strong>client-server</strong>. Docker Client sẽ nói chuyện với Docker Engine thông qua một RESTful API, để thực thi các lệnh như <strong>build</strong>, <strong>ship</strong> và <strong>run</strong> một container như ví dụ dưới đây</p>
+
+<p><img src="http://i.imgur.com/98Oj97q.png" alt="echo" /></p>
+
+<p>Ở đây, lệnh <code>docker</code> chính là Docker Client, khi ta gõ lệnh <code>docker version</code> bản chất là Docker Client gọi tới API của Docker Engine với phương thức GET thông qua unix-socket.</p>
+
+<p>Điều này có nghĩa là ta hoàn toàn có thể giao tiếp với Docker Engine bằng một công cụ khác cũng được, miễn sao nó &ldquo;biết&rdquo; cách gọi tới các API của Docker Engine. Danh sách các API được cung cấp tại <a href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.20/">link</a>.</p>
+
+<p>Có 4 đối tượng lớn trong thế giới của Docker Engine và tất cả chúng đều có ID. Và bằng cách nào đó để chúng làm việc với nhau thì chúng ta có thể buid, ship và run application của chúng ta ở bất cứ nơi đâu.</p>
+
+<ul>
+<li><strong>Images</strong>: image được sử dụng để đóng gói ứng dụng và các thành phần phụ thuộc của ứng dụng. Image có thể được lưu trữ ở local hoặc trên một registry. Registry là một dịch vụ giúp tổ chức và cung cấp các kho chứa các image.</li>
+<li><strong>Container</strong>: container là một running instance của một Docker Images. Nếu thấy quá khó hiểu bạn có thể liên tưởng nó với một virtual machine về mặt chức năng.</li>
+<li><strong>Network</strong>: Cung cấp một private network mà chỉ tồn tại giữa container và host. Bắt đầu từ phiên bản 1.09 thì private network có thể mở rộng trên multi-host. Các bạn có thể đọc thêm về docker network trong một <a href="http://kipalog.com/posts/Co-ban-ve-docker-network">bài viết</a> của anh @huydx.</li>
+<li><strong>Volume</strong>: volume được thiết kể để lưu trữ các dữ liệu độc lập với vòng đời của container.</li>
+</ul>
+
+<p>Chúng ta sẽ xem qua một biểu đồ minh họa các lệnh phổ biến của Docker Client và mối quan hệ giữa 4 thành phần trên.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*FZpFz0gM5vuADIPe_0jtJg.png" alt="docker" /></p>
+
+<p>Ngoài ra thì Docker Engine cho phép load thêm các third-party plugins để mở rộng thêm các chức năng khác. Ví dụ <strong>Flocker</strong> là một volume-plugin cung cấp cơ chế volume cho multi-host hoặc <strong>Weave</strong> là một network-plugin cho phép tạo một mạng ảo, kết nối các Docker container trên nhiều host lại với nhau, cho phép tự động discovery các ứng dụng.</p>
+
+<h2 id="2-distribution-tools">2. Distribution tools</h2>
+
+<p>Docker cung cấp 3 công cụ phân tán giúp chúng ta lưu trữ và quản lý các Docker image. Để tự dựng một private registry và lưu trữ các private image chúng ta có thể sử dụng một trong 2 công cụ sau:</p>
+
+<ul>
+<li><strong>Docker Registry</strong>: một open source image distribution tool giúp lưu trữ và quản lý image</li>
+<li><strong>Docker Trusted Registry</strong>: một công cụ trả phí, nó khác với Docker Registry là có giao diện quản lý và cung cấp một số tính năng bảo mật (nghe bảo thế)</li>
+</ul>
+
+<p>Và ngoài ra chúng ta còn có một dịch vụ</p>
+
+<ul>
+<li><strong>Docker Hub</strong>: đây là một dịch vụ khi mà bạn không muốn tự quản lý registry. Cung cấp public và private image repository. Mặc định Docker Client sẽ sử dụng Docker Hub nếu không có registry nào được cấu hình. Trên này có rất nhiều các image offcial của các phần mềm như nginx, mongodb, mysql, jenkins &hellip;</li>
+</ul>
+
+<h2 id="3-orchestration-tools">3. Orchestration tools</h2>
+
+<ul>
+<li><strong>Docker Machine</strong>: là một provisioning tool giúp dễ dàng tiếp cận từ &ldquo;Zero to Docker&rdquo;. Machine tạo Docker Engine trên laptop của bạn hoặc trên bất cứ dịch vụ cloud phổ biến nào như AWS, Azure, Google Cloud, Softlayer hoặc trên hệ thống data center như VMware, OpenStack. Docker Machine sẽ tạo các máy ảo và cài Docker Engine lên chúng và cuối cùng nó sẽ cấu hình Docker Client để giao tiếp với Docker Engine một cách bảo mật.</li>
+<li><strong>Docker Swarm</strong>: là một công cụ giúp chúng ta tạo ra một clustering Docker. Nó. giúp chúng ta gom nhiều Docker Engine lại với nhau và ta có thể &ldquo;nhìn&rdquo; nó như duy nhất một virtual Docker Engine. Tất nhiên là bất cứ công cụ nào có thể giao tiếp với Docker Engine thì cũng sẽ giao tiếp với Docker Swarm bình thường theo đúng chuẩn Docker API, và tất nhiên là trong suốt. Một cụm Swarm có thể được cấu hình và deploy thông qua Docker-Machine. Và theo như bài test của Docker thì họ có thể scale ra 30.000 container trên 1000 node AWS với chỉ một Swarm Manager. Bạn có thể xem nó tương tự như Kubernetes, nhưng theo Docker thì công cụ Swarm của họ lightweight và <a href="https://www.docker.com/cp/docker-and-kubernetes">nhanh hơn gấp 5 lần so với Kubernetes</a>.</li>
+<li><strong>Docker Compose</strong>: là một orchestration tool giúp ta tạo multi-container một cách dễ dàng (lưu ý đối tượng ở đây là container chứ không phải host hay engine nhé).Tất nhiên Docker Compose cũng có thể hoạt động với Swarm để có thể tạo multi-container. Mặc định thì Docker Compose sẽ tạo một single-network cho các ứng dụng của bạn và các container có thể truy cập lẫn nhau thông qua mạng này. Nếu nó vẫn qua khó hiểu với bạn thì bạn có thể xem một <a href="https://github.com/docker/example-voting-app/blob/master/docker-compose.yml">ví dụ</a> như sau</li>
+</ul>
+
+<p>Đại khái nó sẽ giúp ta tạo container service vote, container redis, container worker, container db, container result nodejs. Với Docker Compose ta sẽ không cần tạo thủ công từng container như trước nữa.</p>
+
+<h2 id="4-management-tools">4. Management tools</h2>
+
+<p>Phần này mình sẽ không nói nhiều, vì 3 công cụ ở đầy đều là công cụ trả phí, mình thì không có nhu cầu với các công cụ này nên nếu bạn tò mò thì có thể tìm hiểu với các keyword như ở dưới.</p>
+
+<ul>
+<li>Docker Universal Control Plane</li>
+<li>Docker Datacenter</li>
+<li>Docker Cloud</li>
+</ul>
+
+<h2 id="5-tools-for-local-environments">5. Tools for local environments</h2>
+
+<p>Về phía local ta có các công cụ như sau để hỗ trợ quá trình development.</p>
+
+<ul>
+<li><strong>Docker Toolbox</strong>: Bởi vì Docker Engine dùng một số feature của kernel Linux nên ta sẽ không thể chạy Docker Engine natively trên Windows hoặc BSD được. Ở các phiên bản trước đây thì ta sẽ cần một máy ảo cài một phiên bản Linux nào đó và sau đó cài Docker Engine lên máy ảo đó. Nghĩa là từ <strong>Docker Client -&gt; VirtualBox (VM Linux) -&gt; Docker Engine</strong> thay vì trực tiếp từ <strong>Docker Client -&gt; Docker Engine</strong> như trên Linux. Nếu bạn dùng Mac OS X và Microsoft Windows thì nó sẽ giúp bạn cài Docker Client, Docker Compose, Docker Machine, Docker Kitematic (một GUI client), và sử dụng VirtualBox để deploy Docker Engine trên boot2docker (tinycore). Như hình dưới đây.</li>
+</ul>
+
+<p><img src="http://i.imgur.com/mtTIj8P.png" alt="linux-windows-mac" /></p>
+
+<ul>
+<li><strong>Docker for Mac and Docker for Windows</strong>: Ở phiên bản gần đây thì Docker tung ra công cụ này ở bản beta, và hiện tại đã public beta. Tuy nhiên bạn phải nhớ rằng Docker Engine vẫn không thể chạy trên Windows hay BSD (cá nhân mình tin là sau này cũng vẫn thế thôi). Mà thực chất nó vẫn phải chạy trên một máy ảo Linux. Điểm khác biệt là bạn không nhất thiết phải dùng VirtualBox. Đối với Mac thì Docker Engine sẽ chạy trên xhyve Virtual Machine (VM), xhyve là một giải pháp ảo hóa lightweight trên OSX, và distribution chạy trên nền ảo hóa này là Alpine Linux, một distribution vô cùng nhỏ ngọn. Đối với Windows thì Docker Engine cũng sẽ trên một máy ảo Alpine Linux, trên công nghệ ảo hóa của Windows là Hyper-V, bạn nào làm system sẽ biết Hyper-V. Với Hyper-V thì sẽ có một số yêu cần về phiên bản Windows và phần cứng (phần này các bạn tự tìm hiểu, mình không có hứng thú với M$)</li>
+</ul>
+
+<p>Có một câu hỏi ở đây là tại sao không dùng VirtualBox mà phải chuyển qua nền tảng mới. Nếu bạn biết một chút về ảo hóa thì VirtualBox là type-2 hypervisor, còn Hyper-V là type-1 hypervisor. Điểm khác biệt là tốc độ, thế thôi.</p>
+
+<h2 id="6-tổng-kết">6. Tổng kết</h2>
+
+<p>Docker cho phép chúng ta build, ship, và run bất kỳ ứng dụng nào ở bất kỳ đâu.</p>
+
+<ul>
+<li><strong>Build</strong>: Docker Engine (<code>docker buid -t</code>) và Docker Compose (<code>docker-compose build</code>, dành cho multi-container)</li>
+<li><strong>Ship</strong>: Docker Registry, Docker Trusted Registry, Docker Hub (SaaS)</li>
+<li><strong>Run</strong>: Docker Engine (<code>docker run</code>) , Docker Swarm (cụm Docker Engines), Docker Compose (<code>docker-compose up</code>)</li>
+<li><strong>Manage</strong>: Docker Universal Control Plane và Docker Cloud (CaaS)</li>
+<li><strong>Provisioning of Docker Engines</strong>: Docker Machine (trên hầu hết các public cloud phổ biến và hạ tầng của chính bạn) hoặc Docker Toolbox, Docker cho  Mac, Docker for Windows (cho laptop của bạn)</li>
+</ul>
+
+<p>Ok, hi vọng nó hữu ích với những ai đang bắt đầu với Docker và hiểu hơn về hệ sinh thái Docker</p>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+      
+      <p><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a></p>
+    </footer>
+  </body>
+</html>
+
