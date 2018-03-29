@@ -22,22 +22,22 @@ Có nhiều cách để fix slave tùy vào từng trường hợp cụ thể, m
     </item>
     
     <item>
+      <title>Docker Ecosystem</title>
+      <link>https://xluffy.github.io/post/docker-eco-system/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/docker-eco-system/</guid>
+      <description>Hôm nay mình đọc được một bài khá là hay của tác giả @lherrera trên medium, nó giải thích khá nhiều các thông tin cho các bạn mới bắt đầu với Docker. Mình xin phép lược dịch (có bỏ một số phần cho đơn giản và dễ hiểu cũng như thêm một số phần khác để giải thích kỹ hơn)
+Khi mới bắt đầu với Docker bạn có thể bị nhầm lẫn giữa một rừng các công cụ với tên kiểu Docker-something.</description>
+    </item>
+    
+    <item>
       <title>Intro MySQL replication</title>
       <link>https://xluffy.github.io/post/intro-mysql-replication/</link>
       <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/intro-mysql-replication/</guid>
       <description>1. Giới thiệu Right tool for right job. Trước tiên phải hiểu là MySQL Replication không phải là giải pháp giải quyết mọi bài toán về quá tải hệ thống cơ sở dữ liệu. Để mở rộng một hệ thống ta có hai phương pháp mở rộng là scale up và scale out. Bắt đầu với 1 máy chủ thì hai phương pháp trên được diễn giải như sau:</description>
-    </item>
-    
-    <item>
-      <title>Docker Ecosystem</title>
-      <link>https://xluffy.github.io/post/docker-eco-system/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://xluffy.github.io/post/docker-eco-system/</guid>
-      <description>Hôm nay mình đọc được một bài khá là hay của tác giả @lherrera trên medium, nó giải thích khá nhiều các thông tin cho các bạn mới bắt đầu với Docker. Mình xin phép lược dịch (có bỏ một số phần cho đơn giản và dễ hiểu cũng như thêm một số phần khác để giải thích kỹ hơn)
-Khi mới bắt đầu với Docker bạn có thể bị nhầm lẫn giữa một rừng các công cụ với tên kiểu Docker-something.</description>
     </item>
     
   </channel>
