@@ -65,7 +65,7 @@
 
 <p>Khi vận hành một hệ thống MySQL replication, thì khi một server slave bị lỗi có nghĩa là dữ liệu giữa Slave và Master đã có sự sai lệch, và lúc đó Slave sẽ không còn tác dụng trong hệ thống nữa. Nhiệm vụ của người vận hành hệ thống là cần fix để đưa slave quay trở lại hoạt động bình thường.</p>
 
-<p>Có nhiều cách để fix slave tùy vào từng trường hợp cụ thể, một trong những yêu cầu cần thiết để có thể giải quyết nhanh chóng khi hệ thống M-S bị lỗi đó là bạn phải <strong>hiểu</strong> dữ liệu của bạn, phải biết là table đó làm gì, dữ liệu lưu trong đó có tác dụng gì, phục vụ cho chức năng nào, yêu cầu độ chính xác của dự liệu đó ra sao thì mới có hướng giải quyết cụ thể.</p>
+<p>Có nhiều cách để fix slave tùy vào từng trường hợp cụ thể, một trong những yêu cầu cần thiết để có thể giải quyết nhanh chóng khi hệ thống M-S bị lỗi đó là bạn phải <strong>hiểu</strong> dữ liệu của bạn, phải biết là table đó làm gì, dữ liệu lưu trong đó có tác dụng gì, phục vụ cho chức năng nào, yêu cầu độ chính xác của dữ liệu đó ra sao thì mới có hướng giải quyết cụ thể.</p>
 
 <p>Cơ bản sẽ có 2 phương pháp chính:</p>
 
@@ -76,7 +76,7 @@
 
 <h2 id="1-rebuild-new-slave-with-mysqldump">1. Rebuild new slave with mysqldump</h2>
 
-<p>Rebuild lại một slave cũng tương tự như cách chúng ta setup một hệ thống MySQL replication từ đầu, chỉ khác một điểm đó là hệ thống hiện tại đang online và bất cứ hành đồng nào tác động đến Master server đều ảnh hưởng trực tiếp tới người dùng. Với phương pháp này ta cần dùng <code>mysqldump</code> để dump dữ liệu ra sql file và đồng bộ dữ liệu, mình tóm gọn nó trong vào bước như sau:</p>
+<p>Rebuild lại một slave cũng tương tự như cách chúng ta setup một hệ thống MySQL replication từ đầu, chỉ khác một điểm đó là <strong>hệ thống hiện tại đang online</strong> và bất cứ hành đồng nào tác động đến Master server đều ảnh hưởng trực tiếp tới người dùng. Với phương pháp này ta cần dùng <code>mysqldump</code> để dump dữ liệu ra sql file và đồng bộ dữ liệu, mình tóm gọn nó trong vào bước như sau:</p>
 
 <pre><code>## Master
 mysql&gt; FLUSH TABLES WITH READ LOCK;
@@ -105,11 +105,11 @@ mysql&gt; SHOW SLAVE STATUS\G
 <li>Nhược điểm là thư mục backup có kích thước chính bằng data-raw, trong khi dump sql thì rất nhẹ.</li>
 </ul>
 
-<p>Với các hệ thống có CSDL lớn thì dùng <code>xtrabackup</code> là giải pháp hoàn hảo cho việc backup cũng như rebuild 1 slave server vừa <strong>không ảnh hưởng</strong> tới hệ thống đang chạy, <strong>vừa nhanh</strong> hơn so với phương pháp truyền thống. Cụ thể gồm 2 bước như sau</p>
+<p>Với các hệ thống có CSDL lớn thì dùng <code>xtrabackup</code> là giải pháp hoàn hảo cho việc backup cũng như rebuild 1 slave server vừa <strong>không ảnh hưởng</strong> tới hệ thống đang chạy, <strong>vừa nhanh</strong> hơn so với phương pháp truyền thống. Cụ thể gồm 2 bước như sau:</p>
 
 <ul>
 <li>Backup và restore dữ liệu với <code>xtrabackup</code>.</li>
-<li>Point slave tới binlog và position của binlog trên master và sync dữ liệu</li>
+<li>Point slave tới binlog và position của binlog trên master và sync dữ liệu.</li>
 </ul>
 
 <p>Để backup và restore dữ liệu với <code>xtrabackup</code> ta có 3 bước cơ bản như sau:</p>
@@ -159,7 +159,7 @@ mysql-bin.000209    713297953
 
 <h3 id="2-1-một-số-tips-với-xtrabackup">2.1 Một số tips với xtrabackup</h3>
 
-<p>Nếu chịu đào xới documentt của <code>xtrabackup</code> bạn có thể tìm thấy khá nhiều thứ hữu ích trong nhiều tình huống khác nhau. Thực tế mình cũng đã gặp những tình huống đó và mới thấy sự powerful của <code>xtrabackup</code></p>
+<p>Nếu chịu đào xới documentt của <code>xtrabackup</code> bạn có thể tìm thấy khá nhiều thứ hữu ích trong nhiều tình huống khác nhau. Thực tế mình cũng đã gặp những tình huống đó và mới thấy sự powerful của <code>xtrabackup</code>.</p>
 
 <p><strong>Backup và stream qua network</strong></p>
 
@@ -169,15 +169,15 @@ mysql-bin.000209    713297953
 &gt; nc -l 9999 | cat - &gt; /data/backups/backup.tar
 </code></pre>
 
-<p>=&gt; sẽ mở một port 9999 và output ra một file archive</p>
+<p>=&gt; sẽ mở một port 9999 và output ra một file archive.</p>
 
 <pre><code>## Master
 &gt; innobackupex --stream=tar ./ | nc 172.17.0.2 9999
 </code></pre>
 
-<p>=&gt; backup và gửi trực tiếp qua slave</p>
+<p>=&gt; backup và gửi trực tiếp qua slave.</p>
 
-<p>Như ta thấy, sau khi backup xong ta sẽ có một file archive trên slave, và việc còn lại chỉ là unarchive và restore data. NHƯNG ta cũng có thể giải nén luôn trong quá trình stream</p>
+<p>Như ta thấy, sau khi backup xong ta sẽ có một file archive trên slave, và việc còn lại chỉ là unarchive và restore data. NHƯNG ta cũng có thể giải nén luôn trong quá trình stream.</p>
 
 <pre><code>## New Slave
 &gt; nc -l 9999 | tar -ivxf -
@@ -188,18 +188,18 @@ mysql-bin.000209    713297953
 
 <p><strong>Tạo newslave mới từ slave cũ</strong></p>
 
-<p>Giả sử ta có một server Master, một server slave, nhưng vì lý do nào đó mà server slave cần bảo trì, ta sẽ cần build slave mới thay thế. Nhưng ta lại không muốn đụng tới server Master, ta có thể dễ dàng tạo slave mới từ server slave sắp bảo trì với <code>xtrabackup</code> như sau</p>
+<p>Giả sử ta có một server Master, một server slave, nhưng vì lý do nào đó mà server slave cần bảo trì, ta sẽ cần build slave mới thay thế. Nhưng ta lại không muốn đụng tới server Master, ta có thể dễ dàng tạo slave mới từ server slave sắp bảo trì với <code>xtrabackup</code> như sau:</p>
 
 <pre><code>## Old slave
 &gt; xtrabackup --backup --slave-info --target-dir=/backup/data
 </code></pre>
 
-<p>Điểm khác biệt duy nhất là binlog và position thay vì được lưu trên <code>xtrabackup_binlog_info</code> thì sẽ được lưu trong <code>xtrabackup_slave_info</code>, ta chỉ cần thực hiện prepare-data, restore và point slave mới tới master với thông tin trong file <code>xtrabackup_slave_info</code></p>
+<p>Điểm khác biệt duy nhất là binlog và position thay vì được lưu trên <code>xtrabackup_binlog_info</code> thì sẽ được lưu trong <code>xtrabackup_slave_info</code>, ta chỉ cần thực hiện prepare-data, restore và point slave mới tới master với thông tin trong file <code>xtrabackup_slave_info</code>.</p>
 
 <h3 id="2-2-một-số-thông-tin-thực-tế">2.2 Một số thông tin thực tế</h3>
 
 <ul>
-<li>Data 500GB, dùng <code>xtrabackup</code> stream qua network tốn 93 phút, unachive file tar 420GB tốn 39 phút, <code>--apply-log</code> tốn cỡ 60ph.</li>
+<li>Data 500GB, dùng <code>xtrabackup</code> stream qua network tốn 93 phút, unachive file tar 420GB tốn 39 phút, <code>--prepare</code> tốn cỡ 60ph.</li>
 <li>Data 500GB, dùng <code>xtrabackup</code> stream và unarchive trực tiếp cho tới khi build xong slave tốn ~2h.</li>
 <li>Data 500GB, dùng <code>mysqldump</code> data ra đĩa, tốn 183 phút, file sql nặng 182GB chưa nén.</li>
 </ul>
@@ -216,9 +216,9 @@ mysql-bin.000209    713297953
 <p>Ví dụ:</p>
 
 <ul>
-<li>Ứng dụng quản lý tồn kho, các query read được đẩy vào Slave</li>
-<li>Một sản phẩm tồn kho còn 1, user sau khi mua số lượng 1, số tồn kho được trừ về 0 trên master</li>
-<li>Binlog sinh ra, sync qua slave và được apply vào slave nhưng bị lỗi</li>
+<li>Ứng dụng quản lý tồn kho, các query read được đẩy vào Slave.</li>
+<li>Một sản phẩm tồn kho còn 1, user sau khi mua số lượng 1, số tồn kho được trừ về 0 trên master.</li>
+<li>Binlog sinh ra, sync qua slave và được apply vào slave nhưng bị lỗi.</li>
 <li>Thực hiện skip qua transaction đó -&gt; số tồn kho của sản phẩm đó vẫn là 1 trên slave -&gt; và nếu không có thêm bất cứ tác động gì tới record đó thì slave vẫn hoạt động và sync data bình thường.</li>
 </ul>
 
@@ -245,7 +245,7 @@ mysql-bin.000209    713297953
                    Last_Error: Error 'Duplicate key name 'users_id_photo_idx'' ON query. DEFAULT DATABASE: 'facebook'. Query: 'CREATE INDEX `users_id_photo_idx` ON `users`(`id`, `photo_id`) USING BTREE'
 </code></pre>
 
-<p>=&gt; như ở trên báo lỗi ở file binlog là <code>mysql-bin.000569</code>, vị trí 619131881, ta sẽ cần decode binlog</p>
+<p>=&gt; như ở trên báo lỗi ở file binlog là <code>mysql-bin.000569</code>, vị trí 619131881, ta sẽ cần decode binlog.</p>
 
 <pre><code>&gt; mysqlbinlog --base64-output=DECODE-ROWS --verbose mysql-bin.000569 &gt; mysql-bin.000569.decode.sql
 &gt; grep --color=always -A 30 619131881 decode.sql
@@ -253,7 +253,7 @@ mysql-bin.000209    713297953
 
 <p>=&gt; bản chất là không hiểu bằng cách nào đó, <code>users_id_photo_idx</code> đã tồn tại trên slave, và khi ta đánh index trên master, index này đc sync qua slave và apply thì báo lỗi đã tồn tại.</p>
 
-<p>Cách fix đơn giản là xóa index <code>users_id_photo_idx</code> trên slave và slave lại replication là có thể fix</p>
+<p>Cách fix đơn giản là xóa index <code>users_id_photo_idx</code> trên slave và slave lại replication là có thể fix.</p>
 
 <p>Ví dụ 2:</p>
 
