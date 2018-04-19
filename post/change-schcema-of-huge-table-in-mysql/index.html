@@ -95,6 +95,7 @@
 <li><code>pt-osc</code> vẫn sẽ acquire metadata lock, điểm khác biệt là thời gian lock sẽ nhanh hơn nhiều so với cách thông thường</li>
 <li>Cần đọc kĩ tài liệu và lên kế hoạch cẩn thận nếu bảng có khóa ngoại ràng buộc</li>
 <li>Bảng đã có trigger sẽ không thể sử dụng <code>pt-osc</code></li>
+<li>Luôn chạy trong <code>tmux</code> hoặc <code>screen</code> để tránh rớt kết nối</li>
 </ul>
 
 <h2 id="2-alter-table-in-mysql-5-6">2. ALTER TABLE in MySQL &gt;= 5.6</h2>
