@@ -123,7 +123,11 @@ mysql&gt; SHOW SLAVE STATUS\G
 
 <p>Sync data qua slave và chạy prepare data:</p>
 
-<pre><code>&gt; xtrabackup --prepare --rebuild-indexes /backup/data/ 
+<pre><code>&gt; xtrabackup --prepare --rebuild-indexes --target-dir=/backup/data/
+
+InnoDB: Starting shutdown...
+InnoDB: Shutdown completed; log sequence number 22528643996
+180329 14:48:04 completed OK!
 </code></pre>
 
 <p>=&gt; trong quá trình backup, có thể có những uncommited transaction không hoàn thành hoặc các transaction trong log cần phải được relay -&gt; quá trình này nhằm đảm bảo tính nhất quán của dữ liệu. Cũng có thể sử dụng thêm tùy chọn <code>--rebuild-threads=16</code> để tạo nhiều worker-theard để rebuild-index tại cùng một thời điểm.</p>
@@ -132,7 +136,7 @@ mysql&gt; SHOW SLAVE STATUS\G
 
 <pre><code>&gt; service mysql stop
 &gt; rm -rf /var/lib/mysql/
-&gt; rsync -avz -P /backup/data/ /var/lib/mysql
+&gt; xtrabackup --copy-back --target-dir=/backup/data/
 
 &gt; chown -R mysql: /var/lib/mysql
 </code></pre>

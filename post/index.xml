@@ -6,10 +6,19 @@
     <description>Recent content in Posts on xluffy&#39;s page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 Mar 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 19 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Change schema of huge table in MySQL</title>
+      <link>https://xluffy.github.io/post/change-schcema-of-huge-table-in-mysql/</link>
+      <pubDate>Thu, 19 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/change-schcema-of-huge-table-in-mysql/</guid>
+      <description>1. Giới thiệu ALTER TABLE cho phép ta có thể thay đổi cấu trúc của một bảng đã tồn tại. Ví dụ ta có thể thêm/xóa cột, tạo hoặc xóa index trên bảng thay đổi kiểu dữ liệu của một cột hoặc đổi tên cột/bảng/storage engine. Khi thay đổi cấu trúc của bảng, nếu có một connection khác sử dụng bảng này, một metadata lock sẽ được bật lên và truy vấn SQL đó sẽ phải chờ cho tới khi lock được release.</description>
+    </item>
     
     <item>
       <title>How to fix MySQL replication</title>
