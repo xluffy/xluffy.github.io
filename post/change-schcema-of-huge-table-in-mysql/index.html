@@ -141,7 +141,7 @@ mysql&gt; ALTER TABLE t1 ADD c INT, ALGORITHM=INPLACE;
 
 <ul>
 <li><code>--nodrop-old-table</code>: tùy chọn ngăn chặn việc xóa bảng cũ sau khi swap, ta sẽ cần xóa tay nhưng an toàn</li>
-<li><code>chunk-side=10000</code>: copy từng chunk 10000</li>
+<li><code>--chunk-side=10000</code>: copy từng chunk 10000</li>
 <li><code>--progress percentage,1</code>: hiện thị process thực hiện theo dạng phần trăm</li>
 <li><code>--print</code>: in detail khi thực hiện lệnh</li>
 <li><code>--execute</code> hoặc <code>--dry-run</code> để thực thi lệnh hoặc chạy thử</li>
