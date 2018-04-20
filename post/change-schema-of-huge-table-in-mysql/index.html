@@ -184,6 +184,11 @@ sys     0m0.194s
 
 <p>Trong thực tế, một bảng với khoảng 24tr record, 4-6 cột sẽ mất 18 phút nếu chạy test và mất 35 phút nếu chạy với workload production.</p>
 
+<p><code>OPTIMIZE TABLE</code> thường được dùng để lấy lại không gian lưu trữ không còn được sử dụng (ví dụ DELETE dữ liệu trong bảng sẽ cần restart mới trả lại không gian đĩa đã xóa) hoặc chống phân mảnh dữ liệu. Tất nhiên <code>OPTIMIZE TABLE</code> cũng lock table trong quá trình chạy, nhưng bạn cũng có thể dùng <code>pt-osc</code> để <code>OPTIMIZE TABLE</code> như sau:</p>
+
+<pre><code>&gt; pt-online-schema-change &lt;options&gt; --alter='ENGINE=InnoDB' D=test,t=users
+</code></pre>
+
 <h2 id="4-ref">4. Ref</h2>
 
 <ul>
