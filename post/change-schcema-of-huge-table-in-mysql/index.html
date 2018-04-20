@@ -137,7 +137,7 @@ mysql&gt; ALTER TABLE t1 ADD c INT, ALGORITHM=INPLACE;
 <p>Ví dụ 1:</p>
 
 <pre><code>&gt; pt-online-schema-change --nodrop-old-table --chunk-size=10000 --progress percentage,1 --print --execute \
---alter &quot;ADD COLUMN photo_id int(11) default null, ADD INDEX idx_photo_photo_id (photo_id) USING BTREE&quot; D=test,t=photo
+--alter &quot;ADD COLUMN photo_id int(11) default null, ADD INDEX idx_photo_photo_id (photo_id) USING BTREE&quot; D=test,t=photos
 </code></pre>
 
 <ul>
@@ -147,8 +147,8 @@ mysql&gt; ALTER TABLE t1 ADD c INT, ALGORITHM=INPLACE;
 <li><code>--print</code>: in detail khi thực hiện lệnh</li>
 <li><code>--execute</code> hoặc <code>--dry-run</code> để thực thi lệnh hoặc chạy thử</li>
 <li><code>--alter &quot;ADD COLUMN photo_id int(11) default null&quot;</code> là thêm một cột</li>
-<li><code>--alter &quot;ADD INDEX idx_photo_photo_id (photo_id) USING BTREE&quot;</code> và đánh index cho cột` =&gt; ở đây là vừa thay đổi cấu trúc, vừa đánh index nên 2 lệnh liên tiếp nhau sẽ cách nhau bởi dấu phẩy</li>
-<li><code>D=test,t=photo</code>: tên database và tên bảng</li>
+<li><code>--alter &quot;ADD INDEX idx_photos_photo_id (photo_id) USING BTREE&quot;</code> và đánh index cho cột =&gt; ở đây là vừa thay đổi cấu trúc, vừa đánh index nên 2 lệnh liên tiếp nhau sẽ cách nhau bởi dấu phẩy</li>
+<li><code>D=test,t=photos</code>: tên database và tên bảng</li>
 </ul>
 
 <p>Với những bảng lớn cần điều chỉnh các giá trị cho phù hợp</p>
