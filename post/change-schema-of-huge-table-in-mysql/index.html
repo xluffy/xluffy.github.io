@@ -65,7 +65,7 @@
 
 <h2 id="1-giới-thiệu">1. Giới thiệu</h2>
 
-<p><code>ALTER TABLE</code> cho phép ta có thể thay đổi cấu trúc của một bảng đã tồn tại. Ví dụ ta có thể thêm/xóa cột, tạo hoặc xóa index trên bảng thay đổi kiểu dữ liệu của một cột hoặc đổi tên cột/bảng/storage engine. Khi thay đổi cấu trúc của bảng, nếu có một connection khác sử dụng bảng này, một <strong>metadata lock</strong> sẽ được bật lên và truy vấn SQL đó sẽ phải <strong>chờ</strong> cho tới khi lock được release. Điều này cũng sẽ đúng với các non-transactional table (ví dụ các table MyISAM).</p>
+<p><code>ALTER TABLE</code> cho phép ta có thể thay đổi cấu trúc của một bảng đã tồn tại. Ví dụ ta có thể thêm/xóa cột, tạo hoặc xóa index trên bảng, thay đổi kiểu dữ liệu của một cột hoặc đổi tên cột/bảng/storage engine. Khi thay đổi cấu trúc của bảng, nếu có một connection khác sử dụng bảng đó, một <strong>metadata lock</strong> sẽ được bật lên và truy vấn SQL đó sẽ phải <strong>chờ</strong> cho tới khi lock được release. Điều này cũng sẽ đúng với các non-transactional table (ví dụ các table MyISAM).</p>
 
 <p>Nếu bảng có ít dữ liệu, lock sẽ nhanh chóng được release và ứng dụng sẽ chỉ chậm trong một khoảng thời gian ngắn, sự ảnh hưởng là rất nhỏ. Nhưng với các bảng có hàng triệu, chục triệu record dữ liệu, việc thay đổi cấu trúc bảng sẽ rất tốn thời gian và việc lock bảng tới vài tiếng là một việc không thể chấp nhận được (bảng sẽ bị lock cho tới khi thay đổi xong cấu trúc).</p>
 
