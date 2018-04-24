@@ -63,7 +63,7 @@
 <main>
 <p>Trong bài <a href="https://xluffy.github.io/post/intro-mysql-replication">Giới thiệu về MySQL Replication</a> mình có giới thiệu một chức năng của hệ thống Replication đó là <strong>realtime backup</strong>. Nếu server master gặp sự cố như hư hỏng ổ cứng mà không thể phục hồi dữ liệu từ ổ cứng thì các bản backup offline định kì sẽ có độ trễ dữ liệu. Ví dụ nếu ta chỉ chạy offline backup dữ liệu <strong>2 lần/ngày</strong> thì dữ liệu trong trường hợp xấu nhất sẽ bị mất trong vòng 12 tiếng. Nếu sử dụng MySQL replication thì việc mất dữ liệu sẽ vô cùng nhỏ, tối đa là khoảng vài giây.</p>
 
-<p>Tuy nhiên trong việc vận hành hệ thống, luôn có những rủi ro về con người không thể lường trước được như xóa nhầm data, <code>DROP TABLE</code>, <code>DROP DATABASE</code>:</p>
+<p>Tuy nhiên trong việc vận hành hệ thống, luôn có những rủi ro về con người không thể lường trước được như xóa nhầm data, <code>DROP TABLE</code>, <code>DROP DATABASE</code> 🙀 -&gt; 😨 -&gt; 🙏</p>
 
 <ul>
 <li><a href="https://about.gitlab.com/2017/02/10/postmortem-of-database-outage-of-january-31">[Gitlab] - Postmortem of database outage of January 31</a></li>
@@ -71,6 +71,8 @@
 </ul>
 
 <p>Nếu sử dụng replication thì data bị xóa sẽ replicate sang slave ngay lập tức (trong điều kiện lý tưởng độ trễ = 0). Lúc đó sử dụng replication cũng không thể <strong>cứu</strong> được những data xóa nhầm.</p>
+
+<p>Từ tâm trạng của người đã <strong>vài lần</strong> từng làm <strong>những chuyện tương tự</strong>  thì mình xin khẳng định là chuyện này hoàn toàn &hellip; <a href="https://en.wikipedia.org/wiki/Human_error"><strong>bình thường</strong></a> 🙈🙈, là con người thì cũng có lúc mệt mỏi và stress. Tất nhiên ở góc độ hệ thống và khách hàng thì những hành động này là không được phép xảy ra, và dù xảy ra thì <strong>bằng mọi giá</strong> cũng phải phục hồi lại dữ liệu cho khách hàng.</p>
 
 <p>Từ MySQL 5.6 chúng ta có thể cấu hình để slave có độ trễ tối thiểu nào đó so với master. Cấu hình cực kì đơn giản nhưng lợi ích thì vô cùng lớn.</p>
 
