@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Delayed Replication in MySQL | xluffy&#39;s page</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/categories/">~/categories</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">Delayed Replication in MySQL</span></h1>
+
+<h2 class="date">2018/04/24</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/mysql">mysql</a> 
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+<p>Trong bài <a href="https://xluffy.github.io/post/intro-mysql-replication">Giới thiệu về MySQL Replication</a> mình có giới thiệu một chức năng của hệ thống Replication đó là <strong>realtime backup</strong>. Nếu server master gặp sự cố như hư hỏng ổ cứng mà không thể phục hồi dữ liệu từ ổ cứng thì các bản backup offline định kì sẽ có độ trễ dữ liệu. Ví dụ nếu ta chỉ chạy offline backup dữ liệu <strong>2 lần/ngày</strong> thì dữ liệu trong trường hợp xấu nhất sẽ bị mất trong vòng 12 tiếng. Nếu sử dụng MySQL replication thì việc mất dữ liệu sẽ vô cùng nhỏ, tối đa là khoảng vài giây.</p>
+
+<p>Tuy nhiên trong việc vận hành hệ thống, luôn có những rủi ro về con người không thể lường trước được như xóa nhầm data, <code>DROP TABLE</code>, <code>DROP DATABASE</code>:</p>
+
+<ul>
+<li><a href="https://about.gitlab.com/2017/02/10/postmortem-of-database-outage-of-january-31">[Gitlab] - Postmortem of database outage of January 31</a></li>
+<li><a href="https://blog.travis-ci.com/2018-04-03-incident-post-mortem">[Travis-CI] - Incident Post-Mortem and Security Advisory: Data Exposure After travis-ci.com Outage</a></li>
+</ul>
+
+<p>Nếu sử dụng replication thì data bị xóa sẽ replicate sang slave ngay lập tức (trong điều kiện lý tưởng độ trễ = 0). Lúc đó sử dụng replication cũng không thể <strong>cứu</strong> được những data xóa nhầm.</p>
+
+<p>Từ MySQL 5.6 chúng ta có thể cấu hình để slave có độ trễ tối thiểu nào đó so với master. Cấu hình cực kì đơn giản nhưng lợi ích thì vô cùng lớn.</p>
+
+<pre><code>mysql&gt; CHANGE MASTER TO MASTER_DELAY = N;
+</code></pre>
+
+<p>Với N là thời gian tối thiểu mà slave lag so với master, ví dụ:</p>
+
+<pre><code>mysql&gt; CHANGE MASTER TO MASTER_DELAY = 3660;
+</code></pre>
+
+<p>Slave sẽ luôn trễ 1 giờ dữ liệu so với master, nếu có bất kỳ <strong>human error</strong> gì chúng ta cũng vẫn còn cơ hội để phục hồi lại data.</p>
+
+<p>Ngoài ra, cấu hình độ trễ của slave so với master còn có thể ứng dụng trong việc test xem chuyện gì sẽ xảy ra khi độ lag tăng dần. Ví dụ khi ứng dụng heavy load, độ trễ tăng cao thì có phát sinh bug gì trong hệ thống hay không.</p>
+
+<p>Trong hệ thống production, giả định những <strong>tình huống xấu nhất</strong> luôn là việc cần thiết để đảm bảo giảm thiểu tối đa rủi ro của hệ thống. Dù hệ thống có tốt, có những kỹ sư xuất sắc đến như thế nào cũng luôn có những tình huống <strong>thật không thể tin được</strong> như Gitlab, Travis-CI. Cẩn tắc vô áy náy, luôn cần chuẩn bị cho những tình huống như trên.</p>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+      
+      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+    </footer>
+  </body>
+</html>
+

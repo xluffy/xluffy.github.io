@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://xluffy.github.io/post/delayed-replication-in-mysql/</loc>
+    <lastmod>2018-04-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://xluffy.github.io/post/change-schema-of-huge-table-in-mysql/</loc>
     <lastmod>2018-04-19T00:00:00+00:00</lastmod>
   </url>
@@ -35,13 +40,13 @@
   
   <url>
     <loc>https://xluffy.github.io/categories/mysql/</loc>
-    <lastmod>2018-04-19T00:00:00+00:00</lastmod>
+    <lastmod>2018-04-24T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://xluffy.github.io/post/</loc>
-    <lastmod>2018-04-19T00:00:00+00:00</lastmod>
+    <lastmod>2018-04-24T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -52,7 +57,7 @@
   
   <url>
     <loc>https://xluffy.github.io/</loc>
-    <lastmod>2018-04-19T00:00:00+00:00</lastmod>
+    <lastmod>2018-04-24T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
