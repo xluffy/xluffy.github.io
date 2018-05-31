@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sql on xluffy&#39;s page</title>
+    <link>https://xluffy.github.io/categories/sql/</link>
+    <description>Recent content in Sql on xluffy&#39;s page</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 18 May 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://xluffy.github.io/categories/sql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How joins work</title>
+      <link>https://xluffy.github.io/post/how-joins-work/</link>
+      <pubDate>Fri, 18 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/how-joins-work/</guid>
+      <description>Truy vấn JOIN là một trong các truy vấn rất thường được sử dụng và mạnh mẽ trong hệ CSQL quan hệ. Tuy nhiên thường thì ta chỉ quan tâm tới các phép toán JOIN chứ ít khi quan tâm SQL engine xử lý như thê nào trên các phép JOIN đó.
+Bài này giải thích một số thuật toán thường gặp mà database sử dụng để tính toán bao gồm các thuật toán như: nested loop, hash, and merge joins.</description>
+    </item>
+    
+  </channel>
+</rss>

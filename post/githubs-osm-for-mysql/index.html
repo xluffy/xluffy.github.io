@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Categories | xluffy&#39;s page</title>
+    <title>GitHub&#39;s online schema migration for MySQL | xluffy&#39;s page</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
     
@@ -22,7 +22,7 @@
       </li>
       
       
-      <li class="pull-left current">
+      <li class="pull-left ">
         <a href="/categories/">~/categories</a>
       </li>
       
@@ -43,33 +43,35 @@
   <body>
     <br/>
 
+<div class="article-meta">
+<h1><span class="title">GitHub&#39;s online schema migration for MySQL</span></h1>
 
-<h1>Categories</h1>
+<h2 class="date">2018/05/14</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/mysql">mysql</a> 
+  
+  
+  
+  
+</p>
+</div>
 
-<ul class="terms">
-  
-  <li>
-    <a href="/categories/docker">
-      docker
-    </a>
-    (1)
-  </li>
-  
-  <li>
-    <a href="/categories/mongod">
-      mongod
-    </a>
-    (1)
-  </li>
-  
-  <li>
-    <a href="/categories/mysql">
-      mysql
-    </a>
-    (4)
-  </li>
-  
-</ul>
+
+
+<main>
+
+
+<h2 id="1-why-triggerless">1. Why triggerless</h2>
+
+<p>Ở <a href="https://xluffy.github.io/post/change-schema-of-huge-table-in-mysql">bài trước</a> mình có giải thích cách hoạt động của <code>pt-osc</code>, trong đó có một phần giải thích bằng cách nào mà các dữ liệu <strong>mới</strong> được thay đổi trong bảng tạm đó là tạo các trigger trên bảng gốc.</p>
+
+<p>Ngoài <code>pt-osc</code> các giải pháp khác như <a href="https://github.com/soundcloud/lhm">lhm</a> hoặc <a href="https://www.facebook.com/notes/mysql-at-facebook/online-schema-change-for-mysql/430801045932">Facebook OSC</a> đều có cách tiếp cận tương tự, tuy nhiên hầu hết đều sử dụng synchronous để đồng bộ, riêng Facebook OSC thì họ sử dụng asynchronous, thay đổi sẽ được thêm vào một changelog table, sau đó được xem xét và áp dụng vào bảnh tạm.</p>
+
+<p><a href="https://github.com/github/gh-ost">https://github.com/github/gh-ost</a></p>
+
+</main>
 
     <footer>
       

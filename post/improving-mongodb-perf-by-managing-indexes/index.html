@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Improving MongoDB performance by managing indexes | xluffy&#39;s page</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/categories/">~/categories</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">Improving MongoDB performance by managing indexes</span></h1>
+
+<h2 class="date">2018/05/30</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/mongod">mongod</a> 
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<p>Ai cũng biết đánh index giúp tăng tốc các truy vấn tìm kiếm, tìm kiếm trong cây index (B-Tree) sẽ nhanh hơn scan trong toàn bộ bảng. Ai cũng biết nên không nói nhiều về index là gì nữa :troll: vậy nhé.</p>
+
+<h2 id="1-sơ-sơ-về-index">1. Sơ sơ về index</h2>
+
+<p>Index trong Mongo cũng tương tự các cơ sở dữ liệu quan hệ, ví dụ ta có một index được định nghĩa như sau:</p>
+
+<pre><code>db.users.ensureIndex({
+  user_status: 1
+}, {
+  background: true,
+  name: 'idx_users_by_user_status'
+});
+</code></pre>
+
+<p>Câu trên sẽ nói với database build một index dựa trên giá trị của field <code>user_status</code> của collection <code>users</code>.</p>
+
+<p>Ngoài ra nó có thêm một tùy trọn là <code>backgroud: true</code> để build index ở dạng backgroud, thông thường đánh index sẽ block tất cả các operation khác, và với các collection có kích thước lớn thì việc đánh index sẽ tốn tới vài giờ để hoàn thành và trong thời gian này database sẽ không thể response, đánh index <code>background</code> để tránh tính trạng block các operation khác [nhưng không hẳn đời lúc nào cũng như mơ].</p>
+
+<p>Lưu ý là nên chạy query đánh index trong <code>tmux</code> để tránh rớt kết nối và để kiểm tra process của index ta có thể truy vấn:</p>
+
+<pre><code>db.currentOp(
+  { &quot;msg&quot;: /Index Build/ }
+);
+</code></pre>
+
+<p>Ok, tiếp tục với index phía trên, nó sẽ có tác dụng với các truy vấn tìm kiếm với điều kiện là field <code>user_status</code>, ví dụ như sau:</p>
+
+<pre><code>db.users.find({
+  &quot;user_status&quot;: &quot;new_user&quot;
+});
+</code></pre>
+
+<p>Không có gì phải bàn cãi thêm, truy vấn trên sử dụng index <code>idx_users_by_user_status</code> và trả về kết quả với tốc độ của một vị thần gió. 😤</p>
+
+<p>Giờ giả sử, ta có một truy vấn lấy ra tất cả các user <code>confirmed</code> NHƯNG trong một tháng của năm 2013 như sau:</p>
+
+<pre><code>var start = ISODate(&quot;2013-04-01T00:00:00Z&quot;);
+var end = ISODate(&quot;2013-04-30T23:59:59Z&quot;);
+
+db.users.find({
+	&quot;user_status&quot;: &quot;confirmed&quot;,
+	&quot;created_at&quot;: { $gte: start, $lte: end}
+});
+</code></pre>
+
+<p>Tương tự như trên, lấy ra danh sách các <code>confirmed</code> khá nhanh chóng do sử dụng index như câu truy vấn trên cùng, tuy nhiên trong danh sách trả ra <code>confirmed</code> ta cần lọc thêm một lần nữa để lấy ra các user đăng kí trong tháng đó, và do <code>created_at</code> không được đánh index nên có bao nhiêu <code>confirmed</code> thì ta cần quét toàn bộ từng đấy.</p>
+
+<p>Để giải quyết truy vấn trên, ta cần đánh index trên 2 field, gọi là <strong>compound index</strong> như sau:</p>
+
+<pre><code>db.users.ensureIndex({
+  user_status: 1,
+  created_at: 1 
+}, {
+  background: true, 
+  name: 'idx_users_by_user_status_and_created_at' 
+});
+</code></pre>
+
+<p>Ok, trong có vẻ ngon rồi, truy vấn của chúng ta đã nhanh hơn rồi. Nhưng thử nghĩ xem, chúng ta có thể làm tốt hơn hay không nhỉ?</p>
+
+<p>Giả sử bạn có 20 triệu register user (hoặc bạn có thể tưởng tượng bạn có 1 tỷ register user và bạn giàu hơn Mark Zuckerberg 🙂 cũng được) <code>user_status</code> có các giá trị sau:</p>
+
+<ul>
+<li>new_user</li>
+<li>confirmed</li>
+<li>banned</li>
+<li>deleted</li>
+</ul>
+
+<p>Nếu không có index trên <code>user_status</code>, bạn cần quét hết 20 triệu docs này, đánh index trên <code>user_status</code> con số giảm từ 20 triệu -&gt; 5 triệu (<sup>1</sup>&frasl;<sub>4</sub>).</p>
+
+<p>Giờ giả sử, start-úp mặt của bạn ra đời năm 2015, đến bây giờ là 3 năm, giả sử user đăng kí đồng đều giữa các ngày (thực tế thì đéo phải như vậy đâu  😅). Bạn index lại như sau:</p>
+
+<pre><code>db.users.ensureIndex({
+  created_at: 1,
+  user_status: 1
+}, {
+  background: true,
+  name: 'idx_users_by_created_at_user_status'
+});
+</code></pre>
+
+<p>Giờ với câu truy vấn trên, ta được một danh sách các user đăng ký trong vòng 1 tháng trước đó là cỡ hơn 500 ngàn user (1 ngày có ~ 18 ngàn user đăng ký), sau đó lọc theo điều kiện <code>new_user</code> ta chỉ cần quét trong tập 500k user này so với 5 triệu như cách đánh index ban đầu.</p>
+
+<p>Chốt lại, với <strong>compound index</strong> nên đánh index field có giá trị uniqe nhiều hơn trước. Ở trên thì đánh <code>created_at</code> trước vì các giá trị trong field này hầu hết đều khác nhau (trong khi <code>user_status</code> chỉ có 4 giá trị), nên sẽ giảm được vùng tìm kiếm của truy vấn nhiều hơn.</p>
+
+<h2 id="2-how-to-improving">2. How to improving</h2>
+
+<p>Xong xuôi việc đánh index, bây giờ làm cách nào để ta có thể chắc chắn rằng database sẽ sử dụng index một cách hiệu quả? Index cũng như dữ liệu, được lưu trữ trên đĩa cứng, và để index có thể được sử dụng hiệu quả thì tốt nhất là nó nên được đặt trên RAM. Trong Mongo, RAM thì thường được sử dụng để giữ các dữ liệu và index thường xuyên truy vấn (WiredTiger internal cache) tránh phải đọc đĩa thường xuyên. Recommend là 50% physical memory, ví dụ server có 32GB thì WiredTiger internal cache là 15GB.</p>
+
+<p>Nhưng data thì lúc nào cũng lớn hơn RAM, bạn không thể đặt toàn bộ dữ liệu lên Wiretiger cache được, với index cũng vậy, đánh index thì các truy vấn đọc dữ liệu trên điều kiện sẽ nhanh, nhưng quá nhiều index dư thừa thì gây ra 2 vấn đề</p>
+
+<ul>
+<li>Không thể chứa tất cả các index trên memory.</li>
+<li>Làm chậm các truy vấn ghi dữ liệu như Insert/Update/Delte -&gt; nhưng thực ra
+nếu phần ghi chiếm tới 80-95% thì việc đánh đổi cũng đáng kể.</li>
+</ul>
+
+<p>Bạn có thể kiểm tra kích thước tổng thể của index trên cơ sở dữ liệu như sau:</p>
+
+<pre><code>db.runCommand({ dbStats: 1, scale: 1 });
+{
+    &quot;db&quot; : &quot;test&quot;,
+    &quot;collections&quot; : 2,
+    &quot;objects&quot; : 2000000,
+    &quot;avgObjSize&quot; : 96.120665,
+    &quot;dataSize&quot; : 192241330,
+    &quot;storageSize&quot; : 374370304,
+    &quot;numExtents&quot; : 0,
+    &quot;indexes&quot; : 6,
+    &quot;indexSize&quot; : 53964800,
+    &quot;ok&quot; : 1
+}
+</code></pre>
+
+<p>Cụ thể hơn</p>
+
+<pre><code>db.stats().indexSize
+86508650496
+</code></pre>
+
+<p>=&gt; kích thước của tất cả các index trên CSDL là 86GB, có nghĩa là index không thể fit hết trên memory, nên khi nào cần sử dụng tới index, nếu index đó không có sẵn trên memory thì cần đọc index đó từ đĩa lên.</p>
+
+<p>Nói chung, xác định bao nhiêu memory là cần thiết không dễ, bạn có thể trả lời vài câu hỏi sau để tự xác định và điều chỉnh memory cho hợp lý:</p>
+
+<ul>
+<li>Độ lớn data của bạn là bao nhiêu How large is your data?</li>
+<li>Độ lớn của index</li>
+<li>Độ phát triển của dữ liệu (trong 1 tháng, 1 năm?)</li>
+<li>Độ lớn của tập dữ liệu thường xuyên truy cập nhất (gọi là working set)</li>
+</ul>
+
+<p>Vậy chiến lược để giữ index có kích thước nhỏ là như thế nào?</p>
+
+<h3 id="2-1-xóa-các-index-không-sử-dụng">2.1 Xóa các index không sử dụng</h3>
+
+<pre><code>db.users.aggregate([ { $indexStats: {} } ]);
+[{
+	&quot;name&quot;: &quot;idx_users_by_created_at_user_status&quot;,
+	&quot;key&quot;: {
+		&quot;created_at&quot;: 1,
+		&quot;user_status&quot;: 1
+	},
+	&quot;host&quot;: &quot;6b1b716ae456:27017&quot;,
+	&quot;accesses&quot;: {
+		&quot;ops&quot;: NumberLong(456550227),
+		&quot;since&quot;: ISODate(&quot;2018-05-31T15:31:09.020Z&quot;)
+	}
+} {
+	&quot;name&quot;: &quot;idx_users_by_user_status&quot;,
+	&quot;key&quot;: {
+		&quot;user_status&quot;: 1
+	},
+	&quot;host&quot;: &quot;6b1b716ae456:27017&quot;,
+	&quot;accesses&quot;: {
+		&quot;ops&quot;: NumberLong(277641131),
+		&quot;since&quot;: ISODate(&quot;2018-05-31T15:05:39.148Z&quot;)
+	}
+} {
+	&quot;name&quot;: &quot;_id_&quot;,
+	&quot;key&quot;: {
+		&quot;_id&quot;: 1
+	},
+	&quot;host&quot;: &quot;6b1b716ae456:27017&quot;,
+	&quot;accesses&quot;: {
+		&quot;ops&quot;: NumberLong(0),
+		&quot;since&quot;: ISODate(&quot;2018-05-31T15:03:12.197Z&quot;)
+	}
+}]
+</code></pre>
+
+<p>Ở ví dụ trên, ta có 3 index, ở giá trị <code>accesses</code>, ta thấy 2 index đầu tiên được sử dụng rất nhiều lần, trong khi đó index thứ bà không hề được sử dụng. Con số bao nhiêu là hợp lí để loại bỏ một index tùy thuộc vào số lượng truy vấn và nghiệp vụ của chính bạn, bạn có thể tự cân nhắc, đo lường và loại bỏ nếu không cần thiết.</p>
+
+<p>Cần lưu ý, <code>ops</code> có thể bị reset, con số hiện tại thể hiện số lần được sử dụng kể từ <code>since</code> -&gt; thời gian mongod được restart.</p>
+
+<h3 id="2-2-loại-bỏ-các-index-dư-thừa">2.2 Loại bỏ các index dư thừa</h3>
+
+<pre><code>db.users.aggregate([ { $indexStats: {} } ])
+[{
+	&quot;name&quot;: &quot;idx_users_by_created_at_user_status&quot;,
+	&quot;key&quot;: {
+		&quot;created_at&quot;: 1,
+		&quot;user_status&quot;: 1
+	},
+	&quot;host&quot;: &quot;6b1b716ae456:27017&quot;,
+	&quot;accesses&quot;: {
+		&quot;ops&quot;: NumberLong(456550227),
+		&quot;since&quot;: ISODate(&quot;2018-05-31T15:31:09.020Z&quot;)
+	}
+} {
+	&quot;name&quot;: &quot;idx_users_by_user_status&quot;,
+	&quot;key&quot;: {
+		&quot;user_status&quot;: 1
+	},
+	&quot;host&quot;: &quot;6b1b716ae456:27017&quot;,
+	&quot;accesses&quot;: {
+		&quot;ops&quot;: NumberLong(277641131),
+		&quot;since&quot;: ISODate(&quot;2018-05-31T15:05:39.148Z&quot;)
+	}
+}]
+</code></pre>
+
+<p>Ở ví dụ trên, cả 2 index đều được sử dụng. Tuy nhiên index đầu tiên có thể làm cho index đầu tiên trở lên dư thừa, vì các truy vấn chỉ trên điều kiện <code>user_status</code> có thể sử dụng index thứ 2 mà không có vấn đề gì.</p>
+
+<h3 id="2-3-sử-dụng-sparse-index">2.3 Sử dụng sparse index</h3>
+
+<p>Đây là kiểu đánh index trên điều kiện, ví dụ ta có 20 triệu user, nhưng nếu ta chỉ thường truy vấn <code>user_status</code> là <code>new_user</code> thì ta có thể đánh index riêng với tập <code>new_user</code> thôi -&gt; giả sử số lượng <code>new_user</code> là 40% trên tổng số user -&gt; index của chúng ta sẽ giảm xuống tới 60% kích thước.</p>
+
+<h3 id="2-4-giảm-bớt-kích-thước-của-collection">2.4 Giảm bớt kích thước của collection</h3>
+
+<p>Cách duy nhất để giảm kích thước của collection đó là &hellip; xóa dữ liệu  , thực tế có những nghiệp vụ lưu trữ logs, events không cần giữ quá 1-2 năm để tra cứu thì ta có thể xóa bớt các dữ liệu không còn cần thiết (hoặc di chuyển nó sang một CSDL khác với tần suất tuy vấn thấp hơn). Khi kích thước của collection giảm, kích thước của index cũng sẽ giảm theo và data/index có thể fit vừa trên RAM.</p>
+
+<h3 id="2-4-giữ-index-đơn-giản">2.4 Giữ index đơn giản</h3>
+
+<p>Compound index rất lợi hại trong trường hợp truy vấn dữ liệu trên nhiều điều kiện khác nhau, tuy nhiên nó cũng tốt chi phí bảo trì và dữ liệu càng lớn thì index size sẽ càng tăng nhanh.</p>
+
+<p>Tương tự như query, tốt nhất dữ nó đơn giản nhất có thể.</p>
+
+<h2 id="3-bonus">3. Bonus</h2>
+
+<p>Đáng ra đéo có phần này, <a href="http://whyyoushouldusemongodb.com">nhưng sợ anh em lại bảo thằng chuyên bài trừ Mongo mà nay lại viết về Mongo</a>, thấy sai sai thế éo nào nên phải viết thêm tí.</p>
+
+<p>Thật ra những lý thuyết trên đều có thể áp dụng cho các cơ sở dữ liệu quan hệ như MySQL hay Postgres. Với Postgres cũng có một kiểu index trên điều kiện đó là partial index tương tự như sparse index (MySQL thì không biết có không). Lần sau sẽ viết thêm một tí về một số metric trong các CSDL quan hệ để improve.</p>
+
+<h2 id="4-ref">4. Ref</h2>
+
+<ul>
+<li><a href="https://mixmax.com/blog/improving-mongo-performance-by-managing-indexes">https://mixmax.com/blog/improving-mongo-performance-by-managing-indexes</a></li>
+<li><a href="https://github.com/ozlerhakan/mongodb-json-files">https://github.com/ozlerhakan/mongodb-json-files</a></li>
+<li><a href="https://docs.mongodb.com/manual/tutorial/ensure-indexes-fit-ram">https://docs.mongodb.com/manual/tutorial/ensure-indexes-fit-ram</a></li>
+</ul>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+      
+      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+    </footer>
+  </body>
+</html>
+
