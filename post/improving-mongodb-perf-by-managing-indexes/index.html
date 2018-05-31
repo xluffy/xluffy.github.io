@@ -65,6 +65,8 @@
 
 <p>Ai cũng biết đánh index giúp tăng tốc các truy vấn tìm kiếm, tìm kiếm trong cây index (B-Tree) sẽ nhanh hơn scan trong toàn bộ bảng. Ai cũng biết nên không nói nhiều về index là gì nữa :troll: vậy nhé.</p>
 
+<p>Ở dưới cùng có link users dataset, bạn có thể tải về chơi thử.</p>
+
 <h2 id="1-sơ-sơ-về-index">1. Sơ sơ về index</h2>
 
 <p>Index trong Mongo cũng tương tự các cơ sở dữ liệu quan hệ, ví dụ ta có một index được định nghĩa như sau:</p>
@@ -149,7 +151,7 @@ db.users.find({
 
 <p>Chốt lại, với <strong>compound index</strong> nên đánh index field có giá trị uniqe nhiều hơn trước. Ở trên thì đánh <code>created_at</code> trước vì các giá trị trong field này hầu hết đều khác nhau (trong khi <code>user_status</code> chỉ có 4 giá trị), nên sẽ giảm được vùng tìm kiếm của truy vấn nhiều hơn.</p>
 
-<h2 id="2-how-to-improving">2. How to improving</h2>
+<h2 id="2-how-to-improve">2. How to improve</h2>
 
 <p>Xong xuôi việc đánh index, bây giờ làm cách nào để ta có thể chắc chắn rằng database sẽ sử dụng index một cách hiệu quả? Index cũng như dữ liệu, được lưu trữ trên đĩa cứng, và để index có thể được sử dụng hiệu quả thì tốt nhất là nó nên được đặt trên RAM. Trong Mongo, RAM thì thường được sử dụng để giữ các dữ liệu và index thường xuyên truy vấn (WiredTiger internal cache) tránh phải đọc đĩa thường xuyên. Recommend là 50% physical memory, ví dụ server có 32GB thì WiredTiger internal cache là 15GB.</p>
 
@@ -279,7 +281,7 @@ nếu phần ghi chiếm tới 80-95% thì việc đánh đổi cũng đáng k�
 
 <p>Compound index rất lợi hại trong trường hợp truy vấn dữ liệu trên nhiều điều kiện khác nhau, tuy nhiên nó cũng tốt chi phí bảo trì và dữ liệu càng lớn thì index size sẽ càng tăng nhanh.</p>
 
-<p>Tương tự như query, tốt nhất dữ nó đơn giản nhất có thể.</p>
+<p>Tương tự như query, tốt nhất giữ index đơn giản nhất có thể.</p>
 
 <h2 id="3-bonus">3. Bonus</h2>
 
@@ -290,6 +292,7 @@ nếu phần ghi chiếm tới 80-95% thì việc đánh đổi cũng đáng k�
 <h2 id="4-ref">4. Ref</h2>
 
 <ul>
+<li><a href="https://github.com/xluffy/assets/blob/master/users.bson.gz">MongoDB users dataset</a></li>
 <li><a href="https://mixmax.com/blog/improving-mongo-performance-by-managing-indexes">https://mixmax.com/blog/improving-mongo-performance-by-managing-indexes</a></li>
 <li><a href="https://github.com/ozlerhakan/mongodb-json-files">https://github.com/ozlerhakan/mongodb-json-files</a></li>
 <li><a href="https://docs.mongodb.com/manual/tutorial/ensure-indexes-fit-ram">https://docs.mongodb.com/manual/tutorial/ensure-indexes-fit-ram</a></li>
