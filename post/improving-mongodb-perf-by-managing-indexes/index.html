@@ -279,7 +279,7 @@ nếu phần ghi chiếm tới 80-95% thì việc đánh đổi cũng đáng k�
 
 <h3 id="2-4-giữ-index-đơn-giản">2.4 Giữ index đơn giản</h3>
 
-<p>Compound index rất lợi hại trong trường hợp truy vấn dữ liệu trên nhiều điều kiện khác nhau, tuy nhiên nó cũng tốt chi phí bảo trì và dữ liệu càng lớn thì index size sẽ càng tăng nhanh.</p>
+<p>Compound index rất lợi hại trong trường hợp truy vấn dữ liệu trên nhiều điều kiện khác nhau, tuy nhiên nó cũng tốn chi phí bảo trì và dữ liệu càng lớn thì index size sẽ càng tăng nhanh.</p>
 
 <p>Tương tự như query, tốt nhất giữ index đơn giản nhất có thể.</p>
 
@@ -287,7 +287,7 @@ nếu phần ghi chiếm tới 80-95% thì việc đánh đổi cũng đáng k�
 
 <p>Đáng ra đéo có phần này, <a href="http://whyyoushouldusemongodb.com">nhưng sợ anh em lại bảo thằng chuyên bài trừ Mongo mà nay lại viết về Mongo</a>, thấy sai sai thế éo nào nên phải viết thêm tí.</p>
 
-<p>Thật ra những lý thuyết trên đều có thể áp dụng cho các cơ sở dữ liệu quan hệ như MySQL hay Postgres. Với Postgres cũng có một kiểu index trên điều kiện đó là partial index tương tự như sparse index (MySQL thì không biết có không). Lần sau sẽ viết thêm một tí về một số metric trong các CSDL quan hệ để improve.</p>
+<p>Thật ra những lý thuyết trên đều có thể áp dụng cho các cơ sở dữ liệu quan hệ như MySQL hay Postgres. Với Postgres cũng có một kiểu index trên điều kiện đó là partial index tương tự như sparse index (MySQL thì không biết có không). Lần sau sẽ viết thêm một tí về một số metric trong các CSDL quan hệ để improve perf.</p>
 
 <h2 id="4-ref">4. Ref</h2>
 
