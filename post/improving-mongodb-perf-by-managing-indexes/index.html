@@ -147,7 +147,7 @@ db.users.find({
 });
 </code></pre>
 
-<p>Giờ với câu truy vấn trên, ta được một danh sách các user đăng ký trong vòng 1 tháng trước đó là cỡ hơn 500 ngàn user (1 ngày có ~ 18 ngàn user đăng ký), sau đó lọc theo điều kiện <code>new_user</code> ta chỉ cần quét trong tập 500k user này so với 5 triệu như cách đánh index ban đầu.</p>
+<p>Giờ với câu truy vấn trên, ta được một danh sách các user đăng ký trong vòng 1 tháng, là cỡ hơn 500 ngàn user (1 ngày có ~ 18 ngàn user đăng ký), sau đó lọc theo điều kiện <code>new_user</code> ta chỉ cần quét trong tập 500k user này so với 5 triệu như cách đánh index ban đầu.</p>
 
 <p>Chốt lại, với <strong>compound index</strong> nên đánh index field có giá trị uniqe nhiều hơn trước. Ở trên thì đánh <code>created_at</code> trước vì các giá trị trong field này hầu hết đều khác nhau (trong khi <code>user_status</code> chỉ có 4 giá trị), nên sẽ giảm được vùng tìm kiếm của truy vấn nhiều hơn.</p>
 
@@ -159,7 +159,7 @@ db.users.find({
 
 <ul>
 <li>Không thể chứa tất cả các index trên memory.</li>
-<li>Làm chậm các truy vấn ghi dữ liệu như Insert/Update/Delte -&gt; nhưng thực ra
+<li>Làm chậm các truy vấn ghi dữ liệu như Insert/Update/Delete -&gt; nhưng thực ra
 nếu phần ghi chiếm tới 80-95% thì việc đánh đổi cũng đáng kể.</li>
 </ul>
 
@@ -180,7 +180,7 @@ nếu phần ghi chiếm tới 80-95% thì việc đánh đổi cũng đáng k�
 }
 </code></pre>
 
-<p>Cụ thể hơn</p>
+<p>Cụ thể hơn (dữ liệu này ăn cắp trên production)</p>
 
 <pre><code>db.stats().indexSize
 86508650496
