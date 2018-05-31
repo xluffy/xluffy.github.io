@@ -17,8 +17,8 @@
       <pubDate>Wed, 30 May 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/improving-mongodb-perf-by-managing-indexes/</guid>
-      <description>Ai cũng biết đánh index giúp tăng tốc các truy vấn tìm kiếm, tìm kiếm trong cây index (B-Tree) sẽ nhanh hơn scan trong toàn bộ bảng. Ai cũng biết nên không nói nhiều về index là gì nữa :troll: vậy nhé.
-Ở dưới cùng có link users dataset, bạn có thể tải về chơi thử.
+      <description>Ai cũng biết đánh index giúp tăng tốc các truy vấn tìm kiếm, tìm kiếm trong cây index (B-Tree) sẽ nhanh hơn scan trong toàn bộ bảng. Ai cũng biết nên không nói nhiều về index là gì nữa vậy nhé.
+Đây là MongoDB users dataset bạn có thể tải về chơi thử.
 1. Sơ sơ về index Index trong Mongo cũng tương tự các cơ sở dữ liệu quan hệ, ví dụ ta có một index được định nghĩa như sau:</description>
     </item>
     
