@@ -155,9 +155,9 @@ db.users.find({
 
 <h2 id="2-how-to-improve">2. How to improve</h2>
 
-<p>Xong xuôi việc đánh index, bây giờ làm cách nào để ta có thể chắc chắn rằng database sẽ sử dụng index một cách hiệu quả? Index cũng như dữ liệu, được lưu trữ trên đĩa cứng, và để index có thể được sử dụng hiệu quả thì tốt nhất là nó nên được đặt trên RAM. Trong Mongo, RAM thì thường được sử dụng để giữ các dữ liệu và index thường xuyên truy vấn (WiredTiger internal cache) tránh phải đọc đĩa thường xuyên. Recommend là 50% physical memory, ví dụ server có 32GB thì WiredTiger internal cache là 15GB.</p>
+<p>Xong xuôi việc đánh index, bây giờ làm cách nào để ta có thể chắc chắn rằng database sẽ sử dụng index một cách hiệu quả? Index cũng như dữ liệu, được lưu trữ trên đĩa cứng, và để index có thể được sử dụng hiệu quả thì tốt nhất là nó nên được đặt trên RAM. Trong Mongo, RAM thì thường được sử dụng để giữ các dữ liệu và index thường xuyên truy vấn (WiredTiger internal cache) tránh phải đọc đĩa thường xuyên. Recommend là 50% physical memory, ví dụ server có 32GB thì d internal cache là 15GB.</p>
 
-<p>Nhưng data thì lúc nào cũng lớn hơn RAM, bạn không thể đặt toàn bộ dữ liệu lên Wiretiger cache được, với index cũng vậy, đánh index thì các truy vấn đọc dữ liệu trên điều kiện sẽ nhanh, nhưng quá nhiều index dư thừa thì gây ra 2 vấn đề</p>
+<p>Nhưng data thì lúc nào cũng lớn hơn RAM, bạn không thể đặt toàn bộ dữ liệu lên Wiredtiger cadhe được, với index cũng vậy, đánh index thì các truy vấn đọc dữ liệu trên điều kiện sẽ nhanh, nhưng quá nhiều index dư thừa thì gây ra 2 vấn đề:</p>
 
 <ul>
 <li>Không thể chứa tất cả các index trên memory.</li>
@@ -194,9 +194,9 @@ nếu phần ghi chiếm tới 80-95% thì việc đánh đổi cũng đáng k�
 
 <ul>
 <li>Độ lớn data của bạn là bao nhiêu?</li>
-<li>Độ lớn của index</li>
+<li>Độ lớn của index là bao nhiêu?</li>
 <li>Độ phát triển của dữ liệu (trong 1 tháng, 1 năm?)</li>
-<li>Độ lớn của tập dữ liệu thường xuyên truy cập nhất (gọi là working set)</li>
+<li>Độ lớn của tập dữ liệu thường xuyên truy cập nhất (gọi là working set)?</li>
 </ul>
 
 <p>Vậy chiến lược để giữ index có kích thước nhỏ là như thế nào?</p>
