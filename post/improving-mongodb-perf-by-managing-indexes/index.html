@@ -244,10 +244,10 @@ nếu phần ghi chiếm tới 80-95% thì việc đánh đổi cũng đáng k�
 
 <pre><code>db.users.aggregate([ { $indexStats: {} } ])
 [{
-	&quot;name&quot;: &quot;idx_users_by_created_at_user_status&quot;,
+	&quot;name&quot;: &quot;idx_users_by_user_status_created_at&quot;,
 	&quot;key&quot;: {
-		&quot;created_at&quot;: 1,
-		&quot;user_status&quot;: 1
+		&quot;user_status&quot;: 1,
+		&quot;created_at&quot;: 1
 	},
 	&quot;host&quot;: &quot;6b1b716ae456:27017&quot;,
 	&quot;accesses&quot;: {
