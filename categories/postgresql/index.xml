@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Postgresql on xluffy&#39;s page</title>
+    <link>https://xluffy.github.io/categories/postgresql/</link>
+    <description>Recent content in Postgresql on xluffy&#39;s page</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 01 Jun 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://xluffy.github.io/categories/postgresql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Speeding up backup/restore in PostgreSQL</title>
+      <link>https://xluffy.github.io/post/speeding-up-backup-and-restore-in-postgresql/</link>
+      <pubDate>Fri, 01 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/speeding-up-backup-and-restore-in-postgresql/</guid>
+      <description>Tương tự như MySQL, bạn có thể dùng replication để backup. Nhưng cuộc đời lúc nào cũng có những nhu cầu ngoại lệ, thường thấy nhất là data cho môi trường staging hoặc development hoặc đơn giản chỉ là chép một bảng từ chỗ này qua chỗ kia để test cái này cái kia. Cách đơn giản, dễ xài, có thể lấy một phần dữ liệu đó là pg_dump, ta có thể dump một table, dump schema &amp;hellip; dễ dàng với dữ liệu nhỏ.</description>
+    </item>
+    
+  </channel>
+</rss>

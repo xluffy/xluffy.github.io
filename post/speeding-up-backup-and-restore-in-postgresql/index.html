@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Speeding up backup/restore in PostgreSQL | xluffy&#39;s page</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/categories/">~/categories</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">Speeding up backup/restore in PostgreSQL</span></h1>
+
+<h2 class="date">2018/06/01</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/postgresql">postgresql</a> 
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<p>Tương tự như MySQL, bạn có thể <a href="https://xluffy.github.io/post/delayed-replication-in-mysql">dùng replication để backup</a>. Nhưng cuộc đời lúc nào cũng có những nhu cầu ngoại lệ, thường thấy nhất là data cho môi trường staging hoặc development hoặc đơn giản chỉ là chép một bảng từ chỗ này qua chỗ kia để test cái này cái kia. Cách đơn giản, dễ xài, có thể lấy một phần dữ liệu đó là <code>pg_dump</code>, ta có thể dump một table, dump schema &hellip; dễ dàng với dữ liệu nhỏ. Nhưng thử nghĩ, data ngày một tăng dần và một bảng có khi tới vài GB thì giải quyết làm sao.</p>
+
+<h2 id="1-dump-sql">1. Dump SQL</h2>
+
+<p>Cách tiếp cận thông thường, dump ra sql và execute file đó trong postgres</p>
+
+<pre><code>&gt; pg_dump db_name | gzip &gt; db_name.sql.gz
+&gt; gunzip db_name.sql.gz
+&gt; psql db_name &lt; db_name.sql
+</code></pre>
+
+<p>Hoặc chỉ lấy cái mình cần</p>
+
+<pre><code>&gt; pg_dump -s db_name | gzip &gt; db_name_schema.sql.gz # chỉ lấy schema của database
+&gt; pg_dump -a -t users -t products -t categories db_name | gzip &gt; db_name_data.sql.gz # dump data của một số bảng
+
+&gt; pgsql db_name &lt; db_name_schema.sql
+&gt; pgsql db_name &lt; db_name_data.sql
+</code></pre>
+
+<p>Để ý là compress lúc dump thì phải uncompress lúc restore, ta có thể pipe uncompress trong quá trình restore luôn, kiểu như:</p>
+
+<pre><code>&gt; zcat db_name.sql.gz | psql db_bamze
+</code></pre>
+
+<p>=&gt; tiết kiệm được quá trình ghi ra đĩa.</p>
+
+<h2 id="2-format-dump">2. Format dump</h2>
+
+<p><code>pg_dump</code> mặc định export ra SQL file, postgresql cho phép export với một vài định dạng khác ví dụ <strong>custom</strong> hoặc <strong>directory</strong> <a href="https://www.postgresql.org/docs/9.1/static/app-pgdump.html">1</a>. Theo tài liệu thì mặc định trong quá trình export với custome và directory PostgreSQL đã hỗ trợ compress luôn, tương tự như cách pipe uncompress.</p>
+
+<p>Ví dụ:</p>
+
+<pre><code>&gt; pg_dump -Fc db_name &gt; db_name_fc.gz
+&gt; pg_restore -C -d db_name db_name_fc.gz
+</code></pre>
+
+<pre><code>&gt; pg_dump -Fd -f db_name_fd db_name
+&gt; pg_restore -C -d db_name db_name_fd
+</code></pre>
+
+<p>Tuy nhiên lợi điểm lớn nhất của việc sử dụng custom hay directory format là parallel dump/restore, cách này giúp tăng tốc quá trình dump/restore trên dữ liệu lớn. PostgreSQL sẽ dump/restore nhiều table cùng một thời điểm, tất nhiên quá trình này sẽ ngốn một lượng lớn CPU dẫn tới tải cao trên server.</p>
+
+<p>Ví dụ</p>
+
+<pre><code>&gt; pg_dump -j 8 -Fd -f db_name_fd db_name
+&gt; pg_restore -j 8 -Fd -C -d db_name db_name_fd
+</code></pre>
+
+<h2 id="3-ref">3. Ref</h2>
+
+<ul>
+<li><a href="https://tech.gadventures.com/speeding-up-postgres-restores-de575149d17a">https://tech.gadventures.com/speeding-up-postgres-restores-de575149d17a</a></li>
+</ul>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+      
+      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+    </footer>
+  </body>
+</html>
+
