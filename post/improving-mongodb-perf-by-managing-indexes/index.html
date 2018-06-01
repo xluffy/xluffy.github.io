@@ -236,7 +236,7 @@ nếu phần ghi chiếm tới 80-95% thì việc đánh đổi cũng đáng k�
 }]
 </code></pre>
 
-<p>Ở ví dụ trên, ta có 3 index, ở giá trị <code>accesses</code>, ta thấy 2 index đầu tiên được sử dụng rất nhiều lần, trong khi đó index thứ bà không hề được sử dụng. Con số bao nhiêu là hợp lí để loại bỏ một index tùy thuộc vào số lượng truy vấn và nghiệp vụ của chính bạn, bạn có thể tự cân nhắc, đo lường và loại bỏ nếu không cần thiết.</p>
+<p>Ở ví dụ trên, ta có 3 index, ở giá trị <code>accesses</code>, ta thấy 2 index đầu tiên được sử dụng rất nhiều lần, trong khi đó index thứ 3 không hề được sử dụng. Con số bao nhiêu là hợp lí để loại bỏ một index tùy thuộc vào số lượng truy vấn và nghiệp vụ của chính bạn, bạn có thể tự cân nhắc, đo lường và loại bỏ nếu không cần thiết.</p>
 
 <p>Cần lưu ý, <code>ops</code> có thể bị reset, con số hiện tại thể hiện số lần được sử dụng kể từ <code>since</code> -&gt; thời gian mongod được restart.</p>
 
@@ -275,19 +275,21 @@ nếu phần ghi chiếm tới 80-95% thì việc đánh đổi cũng đáng k�
 
 <h3 id="2-4-giảm-bớt-kích-thước-của-collection">2.4 Giảm bớt kích thước của collection</h3>
 
-<p>Cách duy nhất để giảm kích thước của collection đó là &hellip; xóa dữ liệu  , thực tế có những nghiệp vụ lưu trữ logs, events không cần giữ quá 1-2 năm để tra cứu thì ta có thể xóa bớt các dữ liệu không còn cần thiết (hoặc di chuyển nó sang một CSDL khác với tần suất tuy vấn thấp hơn). Khi kích thước của collection giảm, kích thước của index cũng sẽ giảm theo và data/index có thể fit vừa trên RAM.</p>
+<p>Cách duy nhất để giảm kích thước của collection đó là &hellip; <strong>xóa dữ liệu</strong>, thực tế có những nghiệp vụ lưu trữ logs, events không cần giữ quá 1-2 năm để tra cứu thì ta có thể xóa bớt các dữ liệu không còn cần thiết (hoặc di chuyển nó sang một CSDL khác với tần suất tuy vấn thấp hơn). Khi kích thước của collection giảm, kích thước của index cũng sẽ giảm theo và data/index có thể fit vừa trên RAM.</p>
 
 <h3 id="2-4-giữ-index-đơn-giản">2.4 Giữ index đơn giản</h3>
 
-<p>Compound index rất lợi hại trong trường hợp truy vấn dữ liệu trên nhiều điều kiện khác nhau, tuy nhiên nó cũng tốn chi phí bảo trì và dữ liệu càng lớn thì index size sẽ càng tăng nhanh.</p>
-
-<p>Tương tự như query, tốt nhất giữ index đơn giản nhất có thể.</p>
+<p>Compound index rất lợi hại trong trường hợp truy vấn dữ liệu trên nhiều điều kiện khác nhau, tuy nhiên nó cũng tốn chi phí bảo trì và dữ liệu càng lớn thì index size sẽ càng tăng nhanh. Tương tự như truy vấn, cố gắng giữ cho index một cách đơn giản nhất có thể.</p>
 
 <h2 id="3-bonus">3. Bonus</h2>
 
 <p>Đáng ra đéo có phần này, <a href="http://whyyoushouldusemongodb.com">nhưng sợ anh em lại bảo thằng chuyên bài trừ Mongo mà nay lại viết về Mongo</a>, thấy sai sai thế éo nào nên phải viết thêm tí.</p>
 
-<p>Thật ra những lý thuyết trên đều có thể áp dụng cho các cơ sở dữ liệu quan hệ như MySQL hay Postgres. Với Postgres cũng có một kiểu index trên điều kiện đó là partial index tương tự như sparse index (MySQL thì không biết có không). Lần sau sẽ viết thêm một tí về một số metric trong các CSDL quan hệ để improve perf.</p>
+<p>Thật ra những lý thuyết trên về index và quản lý index đều có thể áp dụng cho các cơ sở dữ liệu quan hệ như MySQL hay PostgreSQL. Ví dụ với PostgreSQL cũng có index trên điều kiện đó là partial index tương tự như sparse index (MySQL thì không biết có không).</p>
+
+<p>Bản chất, nếu để ý sẽ thấy các hệ CSDL có rất nhiều đặc điểm giống nhau (kể cả M$ SQL), lý thuyết này có thể áp dụng cho CSDL khác, và ngược lại. Cốt lõi của vấn đề là <strong>tư duy</strong> về việc <strong>đo lường</strong>, cách thức đo lường và đánh giá hiệu quả của mỗi hành động tác động lên hệ thống</p>
+
+<p>Lần sau sẽ viết thêm về một số thứ liên quan đến metric trong CSDL quan hệ, hỗ trợ cho việc tối ưu hệ thống tương tự như trên MongoDB.</p>
 
 <h2 id="4-ref">4. Ref</h2>
 
