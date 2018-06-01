@@ -71,7 +71,7 @@
 
 <p>Index trong Mongo cũng tương tự các cơ sở dữ liệu quan hệ, ví dụ ta có một index được định nghĩa như sau:</p>
 
-<pre><code>db.users.ensureIndex({
+<pre><code>db.users.createIndex({
   user_status: 1
 }, {
   background: true,
@@ -114,7 +114,7 @@ db.users.find({
 
 <p>Để giải quyết truy vấn trên, ta cần đánh index trên 2 field, gọi là <strong>compound index</strong> như sau:</p>
 
-<pre><code>db.users.ensureIndex({
+<pre><code>db.users.createIndex({
   user_status: 1,
   created_at: 1 
 }, {
@@ -138,7 +138,7 @@ db.users.find({
 
 <p>Giờ giả sử, start-úp mặt của bạn ra đời năm 2015, đến bây giờ là 3 năm, giả sử user đăng kí đồng đều giữa các ngày (thực tế thì đéo phải như vậy đâu  😅). Bạn index lại như sau:</p>
 
-<pre><code>db.users.ensureIndex({
+<pre><code>db.users.createIndex({
   created_at: 1,
   user_status: 1
 }, {
