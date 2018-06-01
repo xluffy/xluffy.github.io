@@ -81,7 +81,7 @@
 
 <p>Câu trên sẽ nói với database build một index dựa trên giá trị của field <code>user_status</code> của collection <code>users</code>.</p>
 
-<p>Ngoài ra nó có thêm một tùy trọn là <code>backgroud: true</code> để build index ở dạng backgroud, thông thường đánh index sẽ block tất cả các operation khác, và với các collection có kích thước lớn thì việc đánh index sẽ tốn tới vài giờ để hoàn thành và trong thời gian này database sẽ không thể response, đánh index <code>background</code> để tránh tính trạng block các operation khác [nhưng không hẳn đời lúc nào cũng như mơ].</p>
+<p>Ngoài ra nó có thêm một tùy chọn là <code>backgroud: true</code> để build index ở dạng backgroud, thông thường đánh index sẽ block tất cả các operation khác, và với các collection có kích thước lớn thì việc đánh index sẽ tốn tới vài giờ để hoàn thành và trong thời gian này database sẽ không thể response, đánh index <code>background</code> để tránh tính trạng block các operation khác [nhưng không hẳn đời lúc nào cũng như mơ].</p>
 
 <p>Lưu ý là nên chạy query đánh index trong <code>tmux</code> để tránh rớt kết nối và để kiểm tra process của index ta có thể truy vấn:</p>
 
