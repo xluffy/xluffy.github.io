@@ -112,6 +112,11 @@
 &gt; pg_restore -j 8 -Fd -C -d db_name db_name_fd
 </code></pre>
 
+<p>Hoặc exclude một vài table không cần thiết như cách ban đầu</p>
+
+<pre><code>&gt; pg_dump -Fc db_name --exclude-table-data 'events' &gt; db_name_fc.gz
+</code></pre>
+
 <h2 id="3-ref">3. Ref</h2>
 
 <ul>
