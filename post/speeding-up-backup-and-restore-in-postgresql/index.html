@@ -65,6 +65,8 @@
 
 <p>Tương tự như MySQL, bạn có thể <a href="https://xluffy.github.io/post/delayed-replication-in-mysql">dùng replication để backup</a>. Nhưng cuộc đời lúc nào cũng có những nhu cầu ngoại lệ, thường thấy nhất là data cho môi trường staging hoặc development hoặc đơn giản chỉ là chép một bảng từ chỗ này qua chỗ kia để test cái này cái kia. Cách đơn giản, dễ xài, có thể lấy một phần dữ liệu đó là <code>pg_dump</code>, ta có thể dump một table, dump schema &hellip; dễ dàng với dữ liệu nhỏ. Nhưng thử nghĩ, data ngày một tăng dần và một bảng có khi tới vài GB thì giải quyết làm sao.</p>
 
+<p><strong>Lưu ý:</strong> Dump lock database trong quá trình thực hiện, <strong>luôn luôn</strong> dump trên slave database không phục vụ pubic user.</p>
+
 <h2 id="1-dump-sql">1. Dump SQL</h2>
 
 <p>Cách tiếp cận thông thường, dump ra sql và execute file đó trong postgres</p>
@@ -92,7 +94,7 @@
 
 <h2 id="2-format-dump">2. Format dump</h2>
 
-<p><code>pg_dump</code> mặc định export ra SQL file, postgresql cho phép export với một vài định dạng khác ví dụ <strong>custom</strong> hoặc <strong>directory</strong> <a href="https://www.postgresql.org/docs/9.1/static/app-pgdump.html">1</a>. Theo tài liệu thì mặc định trong quá trình export với custome và directory PostgreSQL đã hỗ trợ compress luôn, tương tự như cách pipe uncompress.</p>
+<p><code>pg_dump</code> mặc định export ra SQL file, postgresql cho phép export với một vài định dạng khác ví dụ <strong>custom</strong> hoặc <strong>directory</strong> <a href="https://www.postgresql.org/docs/9.1/static/app-pgdump.html">[1]</a>. Theo tài liệu thì mặc định trong quá trình export với custome và directory PostgreSQL đã hỗ trợ compress luôn, tương tự như cách pipe uncompress.</p>
 
 <p>Ví dụ:</p>
 
