@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>What is difference between SSL, TLS, and HTTPs? | xluffy&#39;s page</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/categories/">~/categories</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">What is difference between SSL, TLS, and HTTPs?</span></h1>
+
+<h2 class="date">2018/06/16</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/security">security</a> 
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+<p>Chắc ai cũng đã nghe qua về HTTPs (HTTP secure), SSL và TLS, nhưng có bao giờ bạn thắc mắc tụi này khác nhau như thế nào chưa? Và liệu có phải 3 thuật ngữ đó đều chỉ một thứ hay không?</p>
+
+<p><strong>SSL (Secure Sockets Layer)</strong>, đây là tên được đặt bởi những người phát minh ra giao thức này phiên bản đầu tiên, công ty Netspace (công ty này sau đó đã được AOL mua lại). Giao thức SSL có 3 phiên bản lần lượt là SSLv1, SSLv2, SSLv3.</p>
+
+<p><strong>TLS (Transport Layer Security)</strong> <strong>thực ra</strong> chính là SSL, nhưng giao thức này được <strong>đổi tên</strong> để tránh các vấn đề về pháp lý với Netspace, và đưa giao thức này thành một giao thức chuẩn, mở và miễn phí (được mô tả trong RFC). Tên giao thức cũng ẩn chứa ý tưởng là giao thức này có thể hoạt động trên bất kỳ luồng byte 2 chiều nào chứ không chỉ trên các kết nối dựa trên Internet.</p>
+
+<p>TLS có 3 phiên bản là TLS 1.0 (thực chất là SSLv3.1), TLS 1.1 và TLS 1.2.</p>
+
+<p>HTTPs với chữ <strong>s</strong> là giao thức SSL/TLS, có mỗi thế thôi.</p>
+
+<p>Vậy, cuối cùng tại sao phải biết mấy cái này làm gì?</p>
+
+<p><img src="https://raw.githubusercontent.com/xluffy/assets/master/but-why-meme.jpg" alt="but-why" /></p>
+
+<p>Nếu bạn có cấu hình SSL trên webserver như nginx, bạn sẽ thấy một đoạn kiểu như thế này:</p>
+
+<pre><code>ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+</code></pre>
+
+<p>Điều này nghĩa là webserver của bạn sẽ chỉ hỗ trợ các phiên bản TLS như trên, còn các phiên bản khác (SSL) sẽ không được hỗ trợ. Tại sao lại như vậy? Nếu bạn biết <a href="https://security.googleblog.com/2014/10/this-poodle-bites-exploiting-ssl-30.html">POODLE</a>, một vulnerability trên SSLv3 được khám phá bởi Google thì bạn sẽ biết rằng SSLv2 và SSLv3 không còn an toàn nữa, đó là lí do bạn chỉ nên hỗ trợ TLS các version mới. Đó là tất cả kiến thức bạn cần biết.</p>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+      
+      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+    </footer>
+  </body>
+</html>
+

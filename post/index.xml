@@ -6,10 +6,20 @@
     <description>Recent content in Posts on xluffy&#39;s page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>What is difference between SSL, TLS, and HTTPs?</title>
+      <link>https://xluffy.github.io/post/what-is-difference-between-ssl-tls-https/</link>
+      <pubDate>Sat, 16 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/what-is-difference-between-ssl-tls-https/</guid>
+      <description>Chắc ai cũng đã nghe qua về HTTPs (HTTP secure), SSL và TLS, nhưng có bao giờ bạn thắc mắc tụi này khác nhau như thế nào chưa? Và liệu có phải 3 thuật ngữ đó đều chỉ một thứ hay không?
+SSL (Secure Sockets Layer), đây là tên được đặt bởi những người phát minh ra giao thức này phiên bản đầu tiên, công ty Netspace (công ty này sau đó đã được AOL mua lại).</description>
+    </item>
     
     <item>
       <title>Speeding up backup/restore in PostgreSQL</title>
