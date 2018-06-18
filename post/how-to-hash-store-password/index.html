@@ -97,11 +97,11 @@
 
 <h2 id="2-tại-sao-phải-salt">2. Tại sao phải salt</h2>
 
-<p>Ta đã biết, hash là one-way-function, tức là không thể suy ngược trực tiếp ra password nếu có hash (khác với mã hóa, có thể giải mã thông qua chìa-khóa).</p>
+<p>Ta đã biết, hash algorithm là one-way-function, tức là không thể suy ngược trực tiếp ra password nếu có hash_value (khác với mã hóa, có thể giải mã thông qua chìa-khóa).</p>
 
-<p>Tuy nhiên vẫn có cách để từ hash có thể suy gián tiếp ra được password ví dụ brute-force attach, dictionary attach -&gt; điểm chung là ta cần <strong>thử</strong> và <strong>đoán</strong> password nhiều lần cho tới khi đúng cái cần tìm.</p>
+<p>Tuy nhiên vẫn có cách để từ hash_value có thể suy gián tiếp ra được password ví dụ brute-force attach, dictionary attach -&gt; điểm chung là ta cần <strong>thử</strong> và <strong>đoán</strong> password nhiều lần cho tới khi đúng cái cần tìm.</p>
 
-<p>Một cách khác đó là ta có thể <strong>tính toán trước</strong> giá trị hash của tất cả các trường hợp và của tất cả các thuật toán -&gt; cách này khó, tốn thời gian, nhưng bây giờ với tốc độ tính toán của máy tính, ta vẫn có thể làm được. Bảng lưu trữ password + hash của password gọi là <strong><a href="http://project-rainbowcrack.com/table.htm">Rainbow Table</a></strong>, có thể tự tạo hoặc tải một số bản miễn phí hoặc trả tiền để mua. Từ bây giờ nếu ta có hash ta có thể mapping để suy ra được password.</p>
+<p>Một cách khác đó là ta có thể <strong>tính toán trước</strong> giá trị hash của tất cả các trường hợp và của tất cả các thuật toán -&gt; cách này khó, tốn thời gian, nhưng bây giờ với tốc độ tính toán của máy tính, ta vẫn có thể làm được. Bảng lưu trữ password + hash_value của password gọi là <strong><a href="http://project-rainbowcrack.com/table.htm">Rainbow Table</a></strong>, có thể tự tạo hoặc tải một số bản miễn phí hoặc trả tiền để mua. Từ bây giờ nếu ta có hash_value ta có thể mapping để suy ra được password.</p>
 
 <p>Tuy nhiên nếu ta chỉ hash, ta gặp vấn đề đó là:</p>
 
@@ -110,7 +110,7 @@
 <li>User cố tình đặt password đơn giản và phổ biến (ví dụ password &lt; 4 kí tự, toàn số, toàn chữ) -&gt; dễ nhớ cho user nhưng dễ tra ngược.</li>
 </ul>
 
-<p>Và nếu chỉ hash password thì nếu mất hash, có thể tra trong rainbow table để tìm ra được password của người dùng.</p>
+<p>Và nếu chỉ hash password thì nếu mất hash_value, có thể tra trong rainbow table để tìm ra được password của người dùng.</p>
 
 <p>Giờ ta thử thay vì <code>hash(password)</code> ta sẽ <code>hash(salt + password)</code>:</p>
 
@@ -140,7 +140,7 @@
 <p>=&gt; Ta trả lời đc 3 câu hỏi:</p>
 
 <ul>
-<li>Salt có thể lưu trong database, cùng với hash.</li>
+<li>Salt có thể lưu trong database, cùng với hash_value.</li>
 <li>Không cần tìm cách giữ bí mật salt, nhưng cũng đừng <strong>tự ý công khai</strong> salt.</li>
 <li>Nhưng bắt buộc phải random salt cho từng user.</li>
 </ul>
@@ -152,7 +152,7 @@
 <ul>
 <li>Biết được thuật toán dùng để hash.</li>
 <li>Salt sẽ phải sinh ra ở client, vì ta cần hash password với salt (<code>hash(salt + password)</code>), và db chỉ lưu kết quả hash, không lưu salt.</li>
-<li>Nhưng nếu salt sinh ra ở client và salt random thì làm sao để compare với hash trong database? Vì lần chứng thực tới, salt sẽ lại random và sẽ khác với kết quả trong database -&gt; salt phải duy nhất cho tất cả các trường hợp.</li>
+<li>Nhưng nếu salt sinh ra ở client và salt random thì làm sao để compare với hash_value trong database? Vì lần chứng thực tới, salt sẽ lại random và sẽ khác với kết quả trong database -&gt; salt phải duy nhất cho tất cả các trường hợp.</li>
 <li>Hoặc salt có thể lưu ở DB, nhưng server phải gửi salt về trước cho user trước khi thực hiện hash -&gt; dễ dàng biết được salt hơn.</li>
 </ul>
 
@@ -171,7 +171,7 @@
 
 <p>SHA2 là hash algorithm (tất nhiên), nó được thiết kế với mục tiêu là tốc độ, với các CPU hiện đại, có thể generate hàng triệu kết quả trên giây. Nếu dùng một thuật toán có tốc độ như SHA2 tức là bạn đã đem lợi điểm tới cho kẻ tấn công brute-force. Thuật toán nhanh + cấu hình server mạnh, việc brute-force càng trở lên nhanh chóng hơn.</p>
 
-<p>Trong khi đó, bcrypt được gọi là slow-hash, có nghĩa là vẫn đạt được mục đích hash nhưng giảm thiểu nguy cơ tấn công brute-force.</p>
+<p>Trong khi đó, bcrypt được gọi là slow-hash algorithm, có nghĩa là vẫn đạt được mục đích hash nhưng giảm thiểu nguy cơ tấn công brute-force.</p>
 
 <p><strong>Tóm lại</strong>: SHA-512 không phải là một thuật toán yếu, mà vấn đề là SHA-512 không phù hợp cho việc hash password. Nếu cần hash password thì ta nên dùng các thuật toán slow hash như PBKDF2, bcrypt và scrypt.</p>
 
