@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Băm và lưu password đúng cách | xluffy&#39;s page</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/categories/">~/categories</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">Băm và lưu password đúng cách</span></h1>
+
+<h2 class="date">2018/06/18</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/security">security</a> 
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<p>Sau khi đọc bài biết <a href="https://vnhacker.blogspot.com/2018/05/bam-mat-khau-ung-cach.html">băm mật khẩu đúng cách</a> của anh thaidn, mình nhớ lại lúc mình mới ra trường, cũng đã từng nghĩ về vấn đề này (lúc đó mình khá thích môn Bảo Mật Thông Tin ở trường) nhưng chưa bao giờ hiểu tường tận. Chỉ biết là không nên:</p>
+
+<ul>
+<li>Lưu password ở dạng plain-text.</li>
+<li>Hash với một thuật toán hash mạnh, không nên xài MD5, SHA-1 &hellip;</li>
+<li>Hash với salt.</li>
+</ul>
+
+<p>Chỉ hiểu rằng phải nên làm thế, nhưng không hiểu tại sao lại như vậy và một số câu hỏi khác cũng chưa trả lời được như:</p>
+
+<ul>
+<li>Password user gửi lên, nên hash ở client hay ở server.</li>
+<li>Salt nên lưu ở đâu.</li>
+<li>Salt có cần giữ bí mật hay không?</li>
+<li>Salt chung cho tất cả, hay salt riêng cho từng user?</li>
+</ul>
+
+<p>Hôm nay, mình quyết định đi tìm câu trả lời cho những vấn đề mình thắc mắc, thay vì mặc định nó đúng.</p>
+
+<h2 id="1-tại-sao-không-nên-lưu-plain-text-encrypt-hoặc-dùng-md5-sha-1">1. Tại sao không nên lưu plain-text, encrypt hoặc dùng MD5, SHA-1</h2>
+
+<p>Nếu lưu plain-text, database bị hack, SQL-injection, password user chìa ra theo một cách không thể dễ dàng hơn để đánh cắp.</p>
+
+<p>Nếu mã hóa 2 chiều, sẽ luôn có một cách để giải mã bằng một chìa-khóa nào đó, sẽ phải tìm cách lưu chìa-khóa một cách an toàn.</p>
+
+<p>MD5 và SHA-1 được chứng minh có đụng độ, nghĩa là 2 password khác nhau, khi hash bằng MD5 hoặc SHA-1 có thể ra cùng một chuỗi.</p>
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/MD5#Collision_vulnerabilities">MD5 collision</a></li>
+<li><a href="https://security.googleblog.com/2017/02/announcing-first-sha1-collision.html">SHA1 collision</a></li>
+</ul>
+
+<h2 id="2-tại-sao-phải-salt">2. Tại sao phải salt</h2>
+
+<p>Ta đã biết, hash là one-way-function, tức là không thể suy ngược trực tiếp ra password nếu có hash (khác với mã hóa, có thể giải mã thông qua chìa-khóa).</p>
+
+<p>Tuy nhiên vẫn có cách để từ hash có thể suy gián tiếp ra được password ví dụ brute-force attach, dictionary attach -&gt; điểm chung là ta cần <strong>thử</strong> và <strong>đoán</strong> password nhiều lần cho tới khi đúng cái cần tìm.</p>
+
+<p>Một cách khác đó là ta có thể <strong>tính toán trước</strong> giá trị hash của tất cả các trường hợp và của tất cả các thuật toán -&gt; cách này khó, tốn thời gian, nhưng bây giờ với tốc độ tính toán của máy tính, ta vẫn có thể làm được. Bảng lưu trữ password + hash của password gọi là <strong><a href="http://project-rainbowcrack.com/table.htm">Rainbow Table</a></strong>, có thể tự tạo hoặc tải một số bản miễn phí hoặc trả tiền để mua. Từ bây giờ nếu ta có hash ta có thể mapping để suy ra được password.</p>
+
+<p>Tuy nhiên nếu ta chỉ hash, ta gặp vấn đề đó là:</p>
+
+<ul>
+<li><strong>2 mật khẩu giống nhau</strong> (user vô tình trùng password) thì chuỗi <code>hash(password)</code> sẽ giống nhau.</li>
+<li>User cố tình đặt password đơn giản và phổ biến (ví dụ password &lt; 4 kí tự, toàn số, toàn chữ) -&gt; dễ nhớ cho user nhưng dễ tra ngược.</li>
+</ul>
+
+<p>Và nếu chỉ hash password thì nếu mất hash, có thể tra trong rainbow table để tìm ra được password của người dùng.</p>
+
+<p>Giờ ta thử thay vì <code>hash(password)</code> ta sẽ <code>hash(salt + password)</code>:</p>
+
+<p>Từ <code>md5(123456)</code></p>
+
+<pre><code>id |          hash_md5                |
+---------------------------------------
+1  | e10adc3949ba59abbe56e057f20f883e |
+</code></pre>
+
+<p>Thành <code>md5(7nWZLcCK0vsPzIM + 123456)</code></p>
+
+<pre><code>id |          hash_md5                |    salt         |
+---------------------------------------------------------
+1  | 0510210d4b370165658bdc0d0b005244 | 7nWZLcCK0vsPzIM |
+</code></pre>
+
+<p>Giờ giả sử, ta mất bảng dữ liệu gồm <code>hash_md5, salt</code>, kẻ tấn công sẽ phải <strong>tính toán lại</strong> rainbow table của tất cả các trường hợp cộng với salt. Nếu salt là random cho từng user, kẻ tấn công sẽ phải tính toán toàn bộ trường hợp cộng với riêng từng salt cho toàn bộ user.</p>
+
+<p>Chi phí cho 2 phép tính trên là vô cùng lớn và tốn rất nhiều thời gian để thực hiện. Vậy tóm lại mục đích của salt và random-salt là:</p>
+
+<ul>
+<li>Bảo vệ user kể cả khi user dùng password phổ biến và password không mạnh vì user không thể nhớ được các password phức tạp nhưng tốc độ tính toán của máy tính thì càng ngày càng nhanh.</li>
+<li>Tạo ra nhiều chi phí tính toán, kẻ tấn công không thể tính toán trước rainbow table.</li>
+</ul>
+
+<p>=&gt; Ta trả lời đc 3 câu hỏi:</p>
+
+<ul>
+<li>Salt có thể lưu trong database, cùng với hash.</li>
+<li>Không cần tìm cách giữ bí mật salt, nhưng cũng đừng <strong>tự ý công khai</strong> salt.</li>
+<li>Nhưng bắt buộc phải random salt cho từng user.</li>
+</ul>
+
+<h2 id="3-hash-ở-đâu">3. Hash ở đâu?</h2>
+
+<p>Giờ giả sử <code>hash(password)</code> ở client-side thì vấn đề là gì?</p>
+
+<ul>
+<li>Biết được thuật toán dùng để hash.</li>
+<li>Salt sẽ phải sinh ra ở client, vì ta cần hash password với salt (<code>hash(salt + password)</code>), và db chỉ lưu kết quả hash, không lưu salt.</li>
+<li>Nhưng nếu salt sinh ra ở client và salt random thì làm sao để compare với hash trong database? Vì lần chứng thực tới, salt sẽ lại random và sẽ khác với kết quả trong database -&gt; salt phải duy nhất cho tất cả các trường hợp.</li>
+<li>Hoặc salt có thể lưu ở DB, nhưng server phải gửi salt về trước cho user trước khi thực hiện hash -&gt; dễ dàng biết được salt hơn.</li>
+</ul>
+
+<p>Nhìn sơ thì thấy việc dùng duy nhất một salt đã chống lại luận điểm ở mục số 2. Vậy quy trình chứng thực đúng là như thế nào?</p>
+
+<ul>
+<li>User sẽ gửi plain-text password lên server và over HTTPs.</li>
+<li>Server sẽ kiểm tra trong database lấy ra salt của user đó, cộng chuỗi ta được <code>salt + password</code>.</li>
+<li>Thực hiện <code>hash(salt + password)</code> trên server side.</li>
+<li>Compare kết quả trên với <code>hash_md5</code> trong database.</li>
+</ul>
+
+<h2 id="4-tại-sao-dùng-bcrypt-thay-cho-sha-512">4. Tại sao dùng bcrypt thay cho SHA-512</h2>
+
+<p>Kết quả của SHA-512 có độ dài 128 kí tự, độ dài của key là 64 bytes. Trông có vẻ cũng khá chắc chắn, vậy tại sao OWASP recommend sử dụng PBKDF2, bcrypt hoặc scrypt hơn là SHA2?</p>
+
+<p>SHA2 là hash algorithm (tất nhiên), nó được thiết kế với mục tiêu là tốc độ, với các CPU hiện đại, có thể generate hàng triệu kết quả trên giây. Nếu dùng một thuật toán có tốc độ như SHA2 tức là bạn đã đem lợi điểm tới cho kẻ tấn công brute-force. Thuật toán nhanh + cấu hình server mạnh, việc brute-force càng trở lên nhanh chóng hơn.</p>
+
+<p>Trong khi đó, bcrypt được gọi là slow-hash, có nghĩa là vẫn đạt được mục đích hash nhưng giảm thiểu nguy cơ tấn công brute-force.</p>
+
+<p><strong>Tóm lại</strong>: SHA-512 không phải là một thuật toán yếu, mà vấn đề là SHA-512 không phù hợp cho việc hash password. Nếu cần hash password thì ta nên dùng các thuật toán slow hash như PBKDF2, bcrypt và scrypt.</p>
+
+<h2 id="5-tại-sao-cần-pepper">5. Tại sao cần Pepper?</h2>
+
+<p>Một thực tế là nếu bạn chỉ có &ldquo;muối&rdquo; mà không có &ldquo;tiêu&rdquo;, ăn thịt gà luộc sẽ không ngon :v. Giả sử, database bạn chạy RAID-1, một ổ cứng hư và cần thay một ổ cứng mới. Nhưng như ta biết, đĩa bị hư là mirror của đĩa còn lại, bạn phải tiêu hủy ổ cứng hư đó nếu không ai đó có thể lục thùng rác và tái tạo lại một phần dữ liệu trong đĩa hư đó.</p>
+
+<p>Dù random-salt đã làm tăng chi phí tạo ra rainbow table nhưng đời không biết đâu mà lần, kẻ tấn công luôn có những động lực không tưởng để đạt được cái mình muốn. Giả sử kẻ tấn có một siêu siêu máy tính và một mirror ổ cứng hư lục từ một cái thùng rác nào đó. Với siêu máy tính đó, ta có rainbow-table để tra ngược ra password cần tìm.</p>
+
+<p>Vậy làm sao để giảm thiểu nguy cơ trên? Nguyên tắc là không bỏ tất cả trứng trong một giỏ, đó là pepper. Pepper là một chuỗi tương tự như salt, nhưng khác biệt là ta cần giữ bí mật pepper và lưu ở một chỗ khác ngoài database.</p>
+
+<p>Từ</p>
+
+<pre><code>hash(salt + password)
+</code></pre>
+
+<p>Thành</p>
+
+<pre><code>hash(pepper + salt + password)
+</code></pre>
+
+<p>Ta nên lưu pepper ở application hoặc ở một service khác, nếu database bị compromise, thì kẻ tấn công cũng không có pepper để tạo ra rainbow-table.</p>
+
+<h2 id="6-bonus">6. Bonus</h2>
+
+<p><img src="https://dropboxtechblog.files.wordpress.com/2016/09/layers.png" alt="dropbox-store-password" /></p>
+
+<p>Trong khi tìm câu trả lời để viết bài này, mình tìm được một bài blog của dropbox nói về cách họ lưu password như thế nào. Thấy có 2 điểm khá hay nên muốn nói thêm.</p>
+
+<ul>
+<li>Trước khi hash password với salt-per-user, họ có <code>SHA512(password)</code> trước để <strong>cố định</strong> độ dài của input-password. Theo Dropbox thì việc này giải quyết 2 issues của <code>bcrypt</code>
+
+<ul>
+<li>Một số implementation của bcrypt cắt đầu vào còn 72 bytes.</li>
+<li>Một số implementation khác của bcrypt thì không cắt đầu vào nhưng dẫn tới một vấn đề khác là DoS attack bởi vì cho phép độ dài mật khẩu tùy ý.</li>
+</ul></li>
+<li>Dropbox cũng có <strong>global pepper</strong> nhưng thay vì dùng nó để hash thì họ encrypt. Tức là thay vì <code>hash(pepper + salt + password)</code> thì họ <code>AES256(salt + password) + global-pepper-key</code>. Theo như họ giải thích thì pepper là một lớp phòng thủ sâu hơn và lưu trữ ở một nơi riêng biệt. Nhưng đồng nghĩa với việc là nơi lưu trữ pepper vẫn có thể bị compromise, và khi bị compromise thì việc rotate key không dễ dàng. Dùng pepper để encrypt vẫn đạt được mục đích bảo mật tương tự nhưng thêm khả năng rotate key khi bị compromise.</li>
+</ul>
+
+<h2 id="7-ref">7. Ref</h2>
+
+<ul>
+<li><a href="https://security.stackexchange.com/questions/211/how-to-securely-hash-passwords">https://security.stackexchange.com/questions/211/how-to-securely-hash-passwords</a></li>
+<li><a href="https://blogs.dropbox.com/tech/2016/09/how-dropbox-securely-stores-your-passwords">https://blogs.dropbox.com/tech/2016/09/how-dropbox-securely-stores-your-passwords</a></li>
+</ul>
+
+<p><strong>Lưu ý</strong> trong bài viết dùng MD5 để minh họa cho đơn giản, trong thực tế ta không dùng MD5.</p>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+      
+      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+    </footer>
+  </body>
+</html>
+

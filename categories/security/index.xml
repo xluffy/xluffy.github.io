@@ -6,10 +6,20 @@
     <description>Recent content in Security on xluffy&#39;s page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 16 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 18 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/categories/security/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Băm và lưu password đúng cách</title>
+      <link>https://xluffy.github.io/post/how-to-hash-store-password/</link>
+      <pubDate>Mon, 18 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/how-to-hash-store-password/</guid>
+      <description>Sau khi đọc bài biết băm mật khẩu đúng cách của anh thaidn, mình nhớ lại lúc mình mới ra trường, cũng đã từng nghĩ về vấn đề này (lúc đó mình khá thích môn Bảo Mật Thông Tin ở trường) nhưng chưa bao giờ hiểu tường tận. Chỉ biết là không nên:
+ Lưu password ở dạng plain-text. Hash với một thuật toán hash mạnh, không nên xài MD5, SHA-1 &amp;hellip; Hash với salt.</description>
+    </item>
     
     <item>
       <title>What is difference between SSL, TLS, and HTTPs?</title>
