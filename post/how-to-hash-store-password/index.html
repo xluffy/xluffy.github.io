@@ -179,6 +179,8 @@
 
 <p>Một thực tế là nếu bạn chỉ có &ldquo;muối&rdquo; mà không có &ldquo;tiêu&rdquo;, ăn thịt gà luộc sẽ không ngon :v. Giả sử, database bạn chạy RAID-1, một ổ cứng hư và cần thay một ổ cứng mới. Nhưng như ta biết, đĩa bị hư là mirror của đĩa còn lại, bạn phải tiêu hủy ổ cứng hư đó nếu không ai đó có thể lục thùng rác và tái tạo lại một phần dữ liệu trong đĩa hư đó.</p>
 
+<p>Xin lưu ý, bạn cần <code>wipe</code> trước khi vứt bỏ một ổ cứng có dữ liệu dù cá nhân hay server, tuy nhiên đĩa bị sốc điện, bad-sector thì <code>wipe</code> cũng chưa đủ an toàn, tốt nhất nên ngiền ra bã.</p>
+
 <p>Dù random-salt đã làm tăng chi phí tạo ra rainbow table nhưng đời không biết đâu mà lần, kẻ tấn công luôn có những động lực không tưởng để đạt được cái mình muốn. Giả sử kẻ tấn có một siêu siêu máy tính và một mirror ổ cứng hư lục từ một cái thùng rác nào đó. Với siêu máy tính đó, ta có rainbow-table để tra ngược ra password cần tìm.</p>
 
 <p>Vậy làm sao để giảm thiểu nguy cơ trên? Nguyên tắc là không bỏ tất cả trứng trong một giỏ, đó là pepper. Pepper là một chuỗi tương tự như salt, nhưng khác biệt là ta cần giữ bí mật pepper và lưu ở một chỗ khác ngoài database.</p>
