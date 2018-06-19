@@ -17,7 +17,7 @@
       <pubDate>Mon, 18 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/how-to-hash-store-password/</guid>
-      <description>Sau khi đọc bài biết băm mật khẩu đúng cách của anh thaidn, mình nhớ lại lúc mình mới ra trường, cũng đã từng nghĩ về vấn đề này (lúc đó mình khá thích môn Bảo Mật Thông Tin ở trường) nhưng chưa bao giờ hiểu tường tận. Chỉ biết là không nên:
+      <description>Sau khi đọc bài viết băm mật khẩu đúng cách của anh thaidn, mình nhớ lại lúc mình mới ra trường, cũng đã từng nghĩ về vấn đề này (lúc đó mình khá thích môn Bảo Mật Thông Tin ở trường) nhưng chưa bao giờ hiểu tường tận. Chỉ biết là không nên:
  Lưu password ở dạng plain-text. Hash với một thuật toán hash mạnh, không nên xài MD5, SHA-1 &amp;hellip; Hash với salt.</description>
     </item>
     
