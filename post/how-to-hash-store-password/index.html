@@ -103,7 +103,7 @@
 
 <p>Một cách khác đó là ta có thể <strong>tính toán trước</strong> giá trị hash của tất cả các trường hợp và của tất cả các thuật toán -&gt; cách này khó, tốn thời gian, nhưng bây giờ với tốc độ tính toán của máy tính, ta vẫn có thể làm được. Bảng lưu trữ password + hash_value của password gọi là <strong><a href="http://project-rainbowcrack.com/table.htm">Rainbow Table</a></strong>, có thể tự tạo hoặc tải một số bản miễn phí hoặc trả tiền để mua. Từ bây giờ nếu ta có hash_value ta có thể mapping để suy ra được password.</p>
 
-<p>Tuy nhiên nếu ta chỉ hash, ta gặp vấn đề đó là:</p>
+<p>Tuy nhiên nếu ta chỉ hash mỗi password, ta gặp vấn đề đó là:</p>
 
 <ul>
 <li><strong>2 password giống nhau</strong> (user vô tình trùng password) thì chuỗi <code>hash(password)</code> sẽ giống nhau.</li>
