@@ -230,7 +230,15 @@
 
 <p>Với trường hợp thứ 2 thì hơi lằng nhằng hơn 1 xíu, ta cần migrate kiểu <code>bcrypt(salt, SHA1(salt, password))</code> nếu thực sự muốn bcrypt với salt hoặc thực ra chỉ cần <code>bcrypt(SHA1(salt, password)</code> cũng được. Tùy tình huống bạn cần tradeoff có thể lựa chọn cách phù hợp.</p>
 
-<h2 id="8-ref">8. Ref</h2>
+<h2 id="8-thông-tin-của-bạn-có-an-toàn">8. Thông tin của bạn có an toàn?</h2>
+
+<p>Như ta thấy, ta đã làm rất nhiều thứ để đảm bảo rằng thông tin của chúng ta trở lên an toàn. Vậy thực sự thông tin của chúng ta đã an toàn hay không? Câu trả lời rất tiếc là KHÔNG? Thông tin của chúng ta có thể an toàn với &ldquo;bên ngoài&rdquo; nhưng không an toàn với &ldquo;bên trong&rdquo;. Tại sao lại vậy?</p>
+
+<p>Giờ bắt đầu với thông tin cơ bản nhất như địa chỉ, email, sở thích &hellip; Khi ta build staing environment, thông tin user được copy sang một môi trường khác, developer có thể overwrite hash_value của user bằng value của <code>hash(salt + 654321)</code> và dễ dàng đăng nhập trên staing environment với password là <code>654321</code> và tất cả các thông tin cơ bản của user đã có thể đọc được. Nhưng developer vẫn không biết chính xác password của user là gì.</p>
+
+<p>Nhưng, lại là nhưng. Người quản trị hệ thống có mọi quyền trên server mà họ quản trị, password dù đã over HTTPs nhưng tới server vẫn là plain-text. Vẫn có thể capture request ngay ở đầu server và output ra plain-text password của user và cuối cùng thì người quản trị hệ thống vẫn biết được chính xác password của user là gì. Đó là lí do tại sao ta không nên dùng một password cho tất cả các dịch vụ.</p>
+
+<h2 id="9-ref">9. Ref</h2>
 
 <ul>
 <li><a href="https://security.stackexchange.com/questions/211/how-to-securely-hash-passwords">https://security.stackexchange.com/questions/211/how-to-securely-hash-passwords</a></li>
