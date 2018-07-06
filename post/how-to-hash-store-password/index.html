@@ -171,7 +171,9 @@
 
 <p>SHA2 là hash algorithm (tất nhiên), nó được thiết kế với mục tiêu là tốc độ, với các CPU hiện đại, có thể generate hàng triệu kết quả trên giây. Nếu dùng một thuật toán có tốc độ như SHA2 tức là bạn đã đem lợi điểm tới cho kẻ tấn công brute-force. Thuật toán nhanh + cấu hình server mạnh, việc brute-force càng trở lên nhanh chóng hơn.</p>
 
-<p>Trong khi đó, bcrypt được gọi là slow-hash algorithm, có nghĩa là vẫn đạt được mục đích hash nhưng giảm thiểu nguy cơ tấn công brute-force.</p>
+<p>Trong khi đó, bcrypt được gọi là slow-hash algorithm, <code>bcrypt()</code> mất 100ms để tính toán ra chuỗi hash, chậm hơn 10.000 lần so với sha1().</p>
+
+<p>Có nghĩa là vẫn đạt được mục đích hash nhưng giảm thiểu nguy cơ tấn công brute-force.</p>
 
 <p><strong>Tóm lại</strong>: SHA-512 không phải là một thuật toán yếu, mà vấn đề là SHA-512 không phù hợp cho việc hash password. Nếu cần hash password thì ta nên dùng các thuật toán slow hash như PBKDF2, bcrypt và scrypt.</p>
 
