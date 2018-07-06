@@ -159,7 +159,7 @@ Press ENTER or type command to continue
 <li>Hàm chỉ trả về một giá trị duy nhất cho mỗi lần gọi hàm.</li>
 </ul>
 
-<p>Trong khi các ngôn ngữ bậc cao như python thì việc trả về nhiều giá trị rất đơn giản. Thực hiện truyền đố số cho hàm là tham chiếu giúp ta khắc phục nhược điểm trên.</p>
+<p>Trong khi các ngôn ngữ bậc cao như python thì việc trả về nhiều giá trị rất đơn giản. Thực hiện truyền đối số cho hàm là tham chiếu giúp ta khắc phục nhược điểm trên.</p>
 
 <p>Biến tham chiếu (reference variable) được xem như một tên khác của một biến nào đó có cùng kiểu dữ liệu. Sau khi được khai báo và khởi tạo, nó <strong>dùng chung vùng nhớ</strong> với biến mà nó tham chiếu tới.</p>
 
@@ -249,7 +249,7 @@ int main() {
 
 <p>Variable (biến) là một ô nhớ hoặc một vùng nhớ được hệ điều hành cấp phát cho chương trình dùng để lưu giá trị vào ô nhớ.</p>
 
-<p>Để truy xuất giá trị của biến đang nắm giữ, chương trình cần tìm tới <strong>địa chỉ</strong> của biến và đọc giá trị. Thông tường ta không cần quan tâm tới địa chỉ vùng nhớ, ta chỉ cần gọi <strong>định danh</strong> của biến để lấy ra giá trị cần.</p>
+<p>Để truy xuất giá trị của biến đang nắm giữ, chương trình cần tìm tới <strong>địa chỉ</strong> của biến và đọc giá trị. Thông thường ta không cần quan tâm tới địa chỉ vùng nhớ, ta chỉ cần gọi <strong>định danh</strong> của biến để lấy ra giá trị cần.</p>
 
 <p>Chương trình không thể truy xuất trực tiếp vào vùng nhớ vật lý mà chỉ truy xuất trên địa chỉ của vùng nhớ ảo, hệ điều hành sẽ quản lý một page-table để mapping một địa chỉ ảo sang địa chỉ vật lý. Còn việc truy xuất tới vùng nhớ vật lý từ vùng nhớ ảo sẽ do phần cứng <strong>MMU (memory management unit)</strong> quản lý.</p>
 
@@ -390,7 +390,7 @@ Press ENTER or type command to continue
   // truy xuat gia tri bien thong qua dinh danh
   cout &lt;&lt; x &lt;&lt; endl;
   
-  // truy xua gia tri cua bien thong qua dia chi cua bien, phep toan address-of operator
+  // truy xuat gia tri cua bien thong qua dia chi cua bien, phep toan address-of operator
   cout &lt;&lt; *(&amp;x) &lt;&lt; endl;
   
   // truy xuat gia tri bien thong qua dia chi cua bien luu trong con tro, tro toi bien
