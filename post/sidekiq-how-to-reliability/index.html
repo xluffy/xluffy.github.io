@@ -133,16 +133,16 @@ image source from <a href="https://brandonhilkert.com/blog/sidekiq-as-a-microser
 <li>Nếu sidekiq server đang xử lý một job, nhưng bị segfault hoặc crash hoặc force kill (kill -9) thì làm sao đảm bảo job vẫn sẽ được xử lý.</li>
 </ul>
 
-<p>Về câu hỏi đầu tiên, đây là một điểm khá thú ví về cách thiết kế, nếu ai quen với nginx sẽ thấy một cơ chế tương tự. Phần giải thích này thực chất là phần <a href="https://github.com/mperham/sidekiq/wiki/Signals">Signals</a> trong wiki của Sidekiq.</p>
+<p>Về câu hỏi đầu tiên, đây là một điểm khá thú vị về cách thiết kế, nếu ai quen với nginx sẽ thấy một cơ chế tương tự. Phần giải thích này thực chất là phần <a href="https://github.com/mperham/sidekiq/wiki/Signals">Signals</a> trong wiki của Sidekiq.</p>
 
 <ul>
 <li>Khi ta gửi TSTP signal tới sidekiq (<code>kill -TSTP [sidekiq_pid]</code>), Sidekiq sẽ hiểu là nó sẽ bị shutdown trong tương lai gần, sidekiq sẽ chuyển sang trạng thái &ldquo;quiet&rdquo; nghĩa là nó sẽ dừng việc fetch new job từ redis nhưng vẫn tiếp tục xử lý các job mà nó đang giữ, khi tất cả các current job được xử lý xong thì sidekiq sẽ shutdown.</li>
-<li>TERM signal nghĩa là Sidekiq nên shutdown sau khoảng thời thời gian <code>-t</code> timeout. Tương tự như <code>TSTP</code> sidekiq cũng sẽ không fetch job mới nhưng vẫn tiếp tục xử lý các job cũ cho xong. Điểm khác biệt là sau timeout nếu job không được <strong>hoàn thành</strong> thì sẽ bị force terminated và message đó sẽ được <strong>push back</strong> lại vào redis, để lần sau khi sidekiq được start job đó sẽ được fetch lại và được xử lý.</li>
+<li>TERM signal nghĩa là Sidekiq nên shutdown sau khoảng thời thời gian <code>-t</code> timeout. Tương tự như <code>TSTP</code> sidekiq cũng sẽ không fetch job mới nhưng vẫn tiếp tục xử lý các job cũ cho xong. Điểm khác biệt là sau timeout nếu job không được <strong>hoàn thành</strong> thì sẽ bị force terminated và job đó sẽ được <strong>push back</strong> lại vào redis, để lần sau khi sidekiq được start job đó sẽ được fetch lại và được xử lý.</li>
 </ul>
 
 <p>=&gt; Best practice là ta sẽ gửi signal <code>TSTP</code> lúc bắt đầu deploy và <code>TERM</code> lúc kết thúc deploy. Và lúc này có thể thoải mái restart mà không sợ bị miss bất cứ job nào.</p>
 
-<p>Sidekiq có built-in một chơ chế để retry, sẽ catch các exception và tự động retry thường xuyên dựa trên công thức <code>(retry_count ** 4) + 15 + (rand(30) * (retry_count + 1))</code> (tương đương 15, 16, 31, 96, 271, &hellip; giây + một lượng random time), với giá trị <a href="https://github.com/mperham/sidekiq/blob/master/lib/sidekiq/job_retry.rb#L63">default retry là 25</a> nghĩa là để thực hiện 25 lần retry sẽ vào khoảng 21 ngày, trong 21 ngày này ta có thể fix bug, deploy và job sẽ được xử lý thành công ở lần retry tiếp theo.</p>
+<p>Sidekiq có built-in một cơ chế để retry, sẽ catch các exception và tự động retry thường xuyên dựa trên công thức <code>(retry_count ** 4) + 15 + (rand(30) * (retry_count + 1))</code> (tương đương 15, 16, 31, 96, 271, &hellip; giây + một lượng random time), với giá trị <a href="https://github.com/mperham/sidekiq/blob/master/lib/sidekiq/job_retry.rb#L63">default retry là 25</a> nghĩa là để thực hiện 25 lần retry sẽ vào khoảng 21 ngày, trong 21 ngày này ta có thể fix bug, deploy và job sẽ được xử lý thành công ở lần retry tiếp theo.</p>
 
 <p>Nếu sau 25 lần retry và job vẫn không thành công thì sidekiq sẽ chuyển job đó và Dead Job queue và phải can thiệp thủ công để chạy lại job đó. Và nếu sau 6 tháng, job đó không được xử lý thì sidekiq sẽ discard job đó.</p>
 
