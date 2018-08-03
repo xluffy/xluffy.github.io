@@ -22,6 +22,19 @@
     </item>
     
     <item>
+      <title>Rails for DevOps engineer</title>
+      <link>https://xluffy.github.io/post/rails-for-devops-engineer/</link>
+      <pubDate>Wed, 25 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/rails-for-devops-engineer/</guid>
+      <description>Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer.
+1. Some Active-Record tips 1.1. include và n + 1 query Giả sử ta có model User như sau:
+class User has_many :posts end  =&amp;gt; một user có thể có nhiều post
+Với cách query thông thường trong active-record
+users = User.all users.each do |user| user.posts end  Đoạn trên sẽ generate ra n + 1 query như sau:</description>
+    </item>
+    
+    <item>
       <title>Setup hệ thống mạng cho cty vừa và nhỏ</title>
       <link>https://xluffy.github.io/post/how-to-setup-our-networking/</link>
       <pubDate>Mon, 16 Jul 2018 00:00:00 +0000</pubDate>

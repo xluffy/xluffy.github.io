@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rails for DevOps engineer | xluffy&#39;s page</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/categories/">~/categories</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">Rails for DevOps engineer</span></h1>
+
+<h2 class="date">2018/07/25</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/rails">rails</a> 
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<p>Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer.</p>
+
+<h2 id="1-some-active-record-tips">1. Some Active-Record tips</h2>
+
+<h3 id="1-1-include-và-n-1-query">1.1. <code>include</code> và n + 1 query</h3>
+
+<p>Giả sử ta có model User như sau:</p>
+
+<pre><code>class User
+  has_many :posts
+end
+</code></pre>
+
+<p>=&gt; một user có thể có nhiều post</p>
+
+<p>Với cách query thông thường trong active-record</p>
+
+<pre><code>users = User.all
+
+users.each do |user|
+  user.posts
+end
+</code></pre>
+
+<p>Đoạn trên sẽ generate ra n + 1 query như sau:</p>
+
+<pre><code>SELECT users.* FROM users;
+
+SELECT posts.* FROM posts WHERE posts.user_id = 1;
+SELECT posts.* FROM posts WHERE posts.user_id = 2;
+SELECT posts.* FROM posts WHERE posts.user_id = 3;
+SELECT posts.* FROM posts WHERE posts.user_id = 4;
+...
+SELECT posts.* FROM posts WHERE posts.user_id = n;
+</code></pre>
+
+<p>=&gt; nếu có bao nhiêu user thì generate ra bằng đó + 1 user nên gọi là n + 1</p>
+
+<p>Nếu ta dùng <code>includes</code> thì sẽ chỉ generate ra 2 query, 1 là load tất cả users và 1 là load tất cả các posts liên quan đến các users đó.</p>
+
+<pre><code>users = User.includes(:posts)
+
+users.each do |user|
+  user.posts
+end
+</code></pre>
+
+<pre><code>SELECT users.* FROM users;
+
+SELECT posts.* FROM posts WHERE posts.user_id IN (1, 2, 3, 4 ... n);
+</code></pre>
+
+<p>Ngoài <code>include</code> cũng có thể sử dụng <code>preload</code> hoặc <code>eager_load</code> để tránh n + 1 query</p>
+
+<h3 id="1-2-find-each-khi-load-một-lượng-lớn-record">1.2. <code>find_each</code> khi load một lượng lớn record</h3>
+
+<p>Tương tự như việc dùng <code>LIMIT</code> trong SQL</p>
+
+<pre><code>User.all.each do |user|
+  puts users
+end
+
+# SQL generate
+
+SELECT users.* FROM users;
+</code></pre>
+
+<p>Thay vì load tất cả các user thì ta có thể LIMIT lượng user hiển thị ra bằng cách dùng <code>find_each</code> như sau:</p>
+
+<pre><code>User.all.find_each(batch_size: 100) do |u|
+  puts u
+end
+
+# SQL query
+
+SELECT users.* FROM users ORDER BY users.id ASC LIMIT 100;
+SELECT users.* FROM users WHERE users.id &gt; 100 ORDER BY users.id ASC LIMIT 100;
+SELECT users.* FROM users WHERE users.id &gt; 200 ORDER BY users.id ASC LIMIT 100;
+...
+</code></pre>
+
+<p>Chú ý là các query sau sẽ có thêm điều kiện <code>users.id &gt; batch_size</code></p>
+
+<h3 id="1-3-chỉ-lấy-field-cần-với-pluck">1.3. Chỉ lấy field cần với <code>pluck</code></h3>
+
+<p>Tương tự trong SQL, không phải lúc nào ta cũng cần tất cả thuộc tính của model, thay vì:</p>
+
+<pre><code>SELECT * FROM users;
+</code></pre>
+
+<p>Ta chỉ lấy các thuộc tính cần thiết bằng câu query:</p>
+
+<pre><code>SELECT email FROM users;
+</code></pre>
+
+<p>Trong active-record thì thay vì dùng</p>
+
+<pre><code>user_emails = User.where(status: &quot;active&quot;).map(&amp;:email)
+# SELECT * FROM users;
+</code></pre>
+
+<p>Ta sẽ chỉ lấy thuộc tính email của user như sau:</p>
+
+<pre><code>user_emails = User.where(status: &quot;active&quot;).pluck(:email)
+# SELECT users.email FROM users;
+</code></pre>
+
+<h3 id="1-4-kiểm-tra-sự-tồn-tại-của-dữ-liệu-với-exist-thay-vì-present">1.4. Kiểm tra sự tồn tại của dữ liệu với <code>exist?</code> thay vì <code>present?</code></h3>
+
+<pre><code>if User.where(email: &quot;a@bc.d&quot;).present?
+  puts &quot;There is a user with email address a@bc.d&quot;
+else
+  puts &quot;There is no user with email address a@bc.d&quot;
+end
+</code></pre>
+
+<p>Câu query SQL sẽ generate thành:</p>
+
+<pre><code>SELECT * FROM users WHERE email = 'a@bc.d';
+</code></pre>
+
+<p>Câu query trên sẽ lãng phí bởi ví ta không cần load hết thuộc tính của user để kiểm tra user với email đó có tồn tại hay không. Thay vào đó có thể dùng như sau:</p>
+
+<pre><code>if User.where(email: &quot;a@bc.d&quot;).exist?
+  puts &quot;There is a user with email address a@bc.d&quot;
+else
+  puts &quot;There is no user with email address a@bc.d&quot;
+end
+</code></pre>
+
+<p>Query SQL sẽ thành:</p>
+
+<pre><code>SELECT 1 FROM users WHERE email = 'a@bc.d' LIMIT 1;
+</code></pre>
+
+<p>Kết quả chỉ trả về 1 record và không bao gồm bất kỳ thuộc tính nào.</p>
+
+<h3 id="1-5-bulk">1.5 Bulk</h3>
+
+<p>Ví dụ ta phải INSERT/UPDATE/DELETE một lượng lớn dữ liệu, thì bulk INSERT/UPDATE/DELETE sẽ nhanh hơn là thao tác với từng record dữ liệu.</p>
+
+<p>Ví dụ với tạo dữ liệu:</p>
+
+<pre><code>new_users = [
+  {name: &quot;A&quot;, email: &quot;a@bc.d&quot;},
+  {name: &quot;B&quot;, email: &quot;b@bc.d&quot;},
+  {name: &quot;C&quot;, email: &quot;c@bc.d&quot; },
+  ...
+  {name: &quot;Z&quot;, email: &quot;z@bc.d&quot; },
+]
+
+new_users.each do |u|
+  User.create(u)
+end
+
+-----------------------------------------
+INSERT INTO users VALUES (&quot;A&quot;, &quot;a@bc.d&quot;);
+INSERT INTO users VALUES (&quot;B&quot;, &quot;b@bc.d&quot;);
+INSERT INTO users VALUES (&quot;C&quot;, &quot;c@bc.d&quot;);
+...
+INSERT INTO users VALUES (&quot;Z&quot;, &quot;z@bc.d&quot;);
+</code></pre>
+
+<p>Ta có thể bulk INSERT bằng cách:</p>
+
+<pre><code>User.create(new_users)
+
+-------------------------------------------------------------------------------------------
+INSERT INTO users VALUES (&quot;A&quot;, &quot;a@bc.d&quot;), (&quot;B&quot;, &quot;b@bc.d&quot;), (&quot;C&quot;, &quot;c@bc.d&quot;), (&quot;Z&quot;, &quot;z@bc.d&quot;);
+</code></pre>
+
+<p>Ví dụ với cập nhật dữ liệu:</p>
+
+<pre><code>update_users = User.where(user_status: nil)
+
+update_users.each do |u|
+  u.updute(user_status: &quot;new_user&quot;)
+end
+
+</code></pre>
+
+<p>Ta có thể bulk UPDATE bằng cách:</p>
+
+<pre><code>update_users = User.where(user_status: nil)
+update_users.update_all(user_status: &quot;new_user&quot;)
+</code></pre>
+
+<p>Ví dụ với xóa dữ liệu:</p>
+
+<pre><code>banned_users = User.where(user_status: &quot;banned&quot;)
+
+banned_users.each do |u|
+  u.destroy
+end
+
+-------------------------------------------------------
+SELECT * FROM users WHERE users.user_status = &quot;banned&quot;;
+DELETE FROM users WHERE id = 1;
+DELETE FROM users WHERE id = 2;
+DELETE FROM users WHERE id = 3;
+DELETE FROM users WHERE id = 4;
+</code></pre>
+
+<p>=&gt; Lấy tất cả các user cần DELETE sau đó sinh ra n query DELETE từng user dựa trên id của user. Thay vì vậy ta có thể xài bulk DELETE như sau</p>
+
+<pre><code>banned_users = User.where(user_status: &quot;banned&quot;)
+banned_users.delete_all
+
+-----------------------------------------------------
+DELETE FROM users WHERE users.user_status = &quot;banned&quot;;
+</code></pre>
+
+<h3 id="1-6-map-vs-select">1.6. Map vs Select</h3>
+
+<p>Kết quả trả về của <code>map</code> sẽ là một mảng bằng mảng đầu vào, kết quả của <code>map</code> là mảng chứa kết quả của từng phần tử đối chiếu với điều kiện trong block.</p>
+
+<p><code>select</code> chỉ trả về các kết quả thỏa mãn với điều kiện trong block, <code>select</code> có thể xem như <code>map</code> + <code>compact</code></p>
+
+<pre><code>&gt; an_array = [0, 1, 2, 3, 4, 5]
+&gt; m_array = an_array.map { |e| e if e.even? }
+=&gt; [0, nil, 2, nil, 4, nil]
+&gt; m_array.compact
+=&gt; [0, 2, 4]
+
+&gt; s_array = an_array.select { |e| e if e.even? }
+=&gt; [0, 2, 4]
+</code></pre>
+
+<h2 id="2-other">2. Other</h2>
+
+<h3 id="2-1">2.1. <code>||=</code></h3>
+
+<p>Ví dụ <code>x ||= y</code> có nghĩa là <code>x || x = y</code>. Nếu <code>x = nil</code> hoặc <code>x = false</code> gán <code>x = y</code></p>
+
+<h2 id="3-ref">3. Ref</h2>
+
+<ul>
+<li><a href="https://medium.com/@User3141592/active-record-query-performance-tips-a3c3947b968">https://medium.com/@User3141592/active-record-query-performance-tips-a3c3947b968</a></li>
+<li><a href="https://www.netguru.co/codestories/activerecord-tips-2">https://www.netguru.co/codestories/activerecord-tips-2</a></li>
+</ul>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+      
+      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+    </footer>
+  </body>
+</html>
+
