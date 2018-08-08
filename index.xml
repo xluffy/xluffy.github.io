@@ -28,7 +28,7 @@
       
       <guid>https://xluffy.github.io/post/rails-for-devops-engineer/</guid>
       <description>Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer.
-1. Basic Active Record 1.1 find Tham số truyền vào của find là primary-key, ví dụ User.find(1) tương đương với SELECT * FROM users WHERE id = 1 LIMIT1
+1. Basic Active Record 1.1 find Tham số truyền vào của find là primary-key, ví dụ User.find(1) tương đương với SELECT * FROM users WHERE id = 1 LIMIT 1
 Cũng có thể nhận nhiều giá trị kiểu User.find(1, 10) hoặc User.find([1, 10]) sẽ tương đương với SELECT * FROM users WHERE id IN (1, 10)</description>
     </item>
     
