@@ -28,10 +28,8 @@
       
       <guid>https://xluffy.github.io/post/rails-for-devops-engineer/</guid>
       <description>Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer.
-1. Some Active-Record tips 1.1. include và n + 1 query Giả sử ta có model User như sau:
-class User has_many :posts end  =&amp;gt; một user có thể có nhiều post
-Với cách query thông thường trong active-record
-users = User.all users.each do |user| user.posts end  Đoạn trên sẽ generate ra n + 1 query như sau:</description>
+1. Basic Active Record 1.1 find Tham số truyền vào của find là primary-key, ví dụ User.find(1) tương đương với SELECT * FROM users WHERE id = 1 LIMIT1
+Cũng có thể nhận nhiều giá trị kiểu User.find(1, 10) hoặc User.find([1, 10]) sẽ tương đương với SELECT * FROM users WHERE id IN (1, 10)</description>
     </item>
     
   </channel>

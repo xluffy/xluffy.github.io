@@ -65,9 +65,73 @@
 
 <p>Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer.</p>
 
-<h2 id="1-some-active-record-tips">1. Some Active-Record tips</h2>
+<h2 id="1-basic-active-record">1. Basic Active Record</h2>
 
-<h3 id="1-1-include-và-n-1-query">1.1. <code>include</code> và n + 1 query</h3>
+<h3 id="1-1-find">1.1 find</h3>
+
+<p>Tham số truyền vào của <code>find</code> là primary-key, ví dụ <code>User.find(1)</code> tương đương với <code>SELECT * FROM users WHERE id = 1 LIMIT1</code></p>
+
+<p>Cũng có thể nhận nhiều giá trị kiểu <code>User.find(1, 10)</code> hoặc <code>User.find([1, 10])</code> sẽ tương đương với <code>SELECT * FROM users WHERE id IN (1, 10)</code></p>
+
+<h3 id="1-2-take-first-last">1.2 take/first/last</h3>
+
+<ul>
+<li><code>take</code> trả về một hoặc nhiều record tùy vào giá trị truyền vào nhưng KHÔNG SẮP XẾP</li>
+<li><code>first</code> mặc định trả về một record và SẮP XẾP GIẢM DẦN dựa trên primary key <code>ORDER BY id ASC</code>, cũng có thể trả về nhiều giá trị</li>
+<li><code>last</code> giống <code>first</code>, chỉ khác là sắp xếp tăng dần.</li>
+</ul>
+
+<p>Theo thứ tự active record và sql sẽ như sau:</p>
+
+<pre><code>User.take
+User.take(20)
+
+SELECT * FROM users LIMIT 1;
+SELECT * FROM users LIMIT 20;
+
+User.first
+User.first(2)
+
+SELECT * FROM users ORDER BY id ASC LIMIT 1
+SELECT * FROM users ORDER BY id ASC LIMIT 2
+
+User.last
+
+SELECT * FROM users ORDER BY id DESC LIMIT 1
+</code></pre>
+
+<h3 id="1-3-find-by-và-where-take">1.3 <code>find_by</code> và <code>where().take</code></h3>
+
+<ul>
+<li><code>find_by</code> trả về một record match với điều kiện.</li>
+<li><code>where</code> trả về record theo điều kiện.</li>
+</ul>
+
+<p>Ví dụ 2 query sau sẽ như nhau:</p>
+
+<pre><code>User.find_by name: 'Quang'
+User.where(name: 'Quang').take
+
+SELECT * FROM users WHERE name = 'Quang' LIMIT 1;
+</code></pre>
+
+<h3 id="1-4-unscope-và-only">1.4 <code>unscope</code> và <code>only</code></h3>
+
+<p><code>unscope</code> dùng để xóa một số <strong>điều kiện</strong> cụ thể nào đó, <code>only</code> thì ngược lại, chỉ định các <strong>điều kiện</strong> sẽ được giữ lại, ví dụ:</p>
+
+<pre><code>User.where(&quot;email LIKE '%@gmail%'&quot;).order(:id)
+SELECT  `users`.* FROM `users` WHERE (email LIKE '%@gmail%') ORDER BY `users`.`id` ASC;
+</code></pre>
+
+<p>Nhưng giờ mình muốn xóa điều kiện sắp xếp theo <code>id</code> thì dùng method <code>unscope</code> như sau:</p>
+
+<pre><code>User.where(&quot;email LIKE '%@gmail%'&quot;).order(:id).unscope(:order)
+SELECT  `users`.* FROM `users` WHERE (email LIKE '%@gmail%');
+</code></pre>
+
+<h2 id="2-some-active-record-tips">2. Some Active-Record tips</h2>
+
+<h3 id="2-1-include-và-n-1-query">2.1. <code>include</code> và n + 1 query</h3>
 
 <p>Giả sử ta có model User như sau:</p>
 
@@ -117,7 +181,7 @@ SELECT posts.* FROM posts WHERE posts.user_id IN (1, 2, 3, 4 ... n);
 
 <p>Ngoài <code>include</code> cũng có thể sử dụng <code>preload</code> hoặc <code>eager_load</code> để tránh n + 1 query</p>
 
-<h3 id="1-2-find-each-khi-load-một-lượng-lớn-record">1.2. <code>find_each</code> khi load một lượng lớn record</h3>
+<h3 id="2-2-find-each-khi-load-một-lượng-lớn-record">2.2. <code>find_each</code> khi load một lượng lớn record</h3>
 
 <p>Tương tự như việc dùng <code>LIMIT</code> trong SQL</p>
 
@@ -146,7 +210,7 @@ SELECT users.* FROM users WHERE users.id &gt; 200 ORDER BY users.id ASC LIMIT 10
 
 <p>Chú ý là các query sau sẽ có thêm điều kiện <code>users.id &gt; batch_size</code></p>
 
-<h3 id="1-3-chỉ-lấy-field-cần-với-pluck">1.3. Chỉ lấy field cần với <code>pluck</code></h3>
+<h3 id="2-3-chỉ-lấy-field-cần-với-pluck-hoặc-select">2.3. Chỉ lấy field cần với <code>pluck</code> hoặc <code>select</code></h3>
 
 <p>Tương tự trong SQL, không phải lúc nào ta cũng cần tất cả thuộc tính của model, thay vì:</p>
 
@@ -170,7 +234,14 @@ SELECT users.* FROM users WHERE users.id &gt; 200 ORDER BY users.id ASC LIMIT 10
 # SELECT users.email FROM users;
 </code></pre>
 
-<h3 id="1-4-kiểm-tra-sự-tồn-tại-của-dữ-liệu-với-exist-thay-vì-present">1.4. Kiểm tra sự tồn tại của dữ liệu với <code>exist?</code> thay vì <code>present?</code></h3>
+<p>Hoặc xài <code>select</code></p>
+
+<pre><code>User.select(:name)
+or
+User.select(&quot;name&quot;)
+</code></pre>
+
+<h3 id="2-4-kiểm-tra-sự-tồn-tại-của-dữ-liệu-với-exist-thay-vì-present">2.4. Kiểm tra sự tồn tại của dữ liệu với <code>exist?</code> thay vì <code>present?</code></h3>
 
 <pre><code>if User.where(email: &quot;a@bc.d&quot;).present?
   puts &quot;There is a user with email address a@bc.d&quot;
@@ -200,7 +271,7 @@ end
 
 <p>Kết quả chỉ trả về 1 record và không bao gồm bất kỳ thuộc tính nào.</p>
 
-<h3 id="1-5-bulk">1.5 Bulk</h3>
+<h3 id="2-5-bulk">2.5 Bulk</h3>
 
 <p>Ví dụ ta phải INSERT/UPDATE/DELETE một lượng lớn dữ liệu, thì bulk INSERT/UPDATE/DELETE sẽ nhanh hơn là thao tác với từng record dữ liệu.</p>
 
@@ -275,7 +346,7 @@ banned_users.delete_all
 DELETE FROM users WHERE users.user_status = &quot;banned&quot;;
 </code></pre>
 
-<h3 id="1-6-map-vs-select">1.6. Map vs Select</h3>
+<h3 id="2-6-map-vs-select">2.6. Map vs Select</h3>
 
 <p>Kết quả trả về của <code>map</code> sẽ là một mảng bằng mảng đầu vào, kết quả của <code>map</code> là mảng chứa kết quả của từng phần tử đối chiếu với điều kiện trong block.</p>
 
@@ -291,13 +362,13 @@ DELETE FROM users WHERE users.user_status = &quot;banned&quot;;
 =&gt; [0, 2, 4]
 </code></pre>
 
-<h2 id="2-other">2. Other</h2>
+<h2 id="3-other">3. Other</h2>
 
-<h3 id="2-1">2.1. <code>||=</code></h3>
+<h3 id="3-1">3.1. <code>||=</code></h3>
 
 <p>Ví dụ <code>x ||= y</code> có nghĩa là <code>x || x = y</code>. Nếu <code>x = nil</code> hoặc <code>x = false</code> gán <code>x = y</code></p>
 
-<h2 id="3-ref">3. Ref</h2>
+<h2 id="4-ref">4. Ref</h2>
 
 <ul>
 <li><a href="https://medium.com/@User3141592/active-record-query-performance-tips-a3c3947b968">https://medium.com/@User3141592/active-record-query-performance-tips-a3c3947b968</a></li>
