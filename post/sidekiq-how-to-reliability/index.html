@@ -77,7 +77,20 @@
 
 <p>Những tác vụ như vậy ta có thể đưa vào chạy nền hay còn gọi là backgroud job/asynchronous job. Giúp tránh bắt người dùng phải chờ đợi lâu mà vẫn đảm bảo là sẽ xử lý tác vụ đó cho người dùng.</p>
 
-<p>Sidekiq là một background processing framework cho ngôn ngữ Ruby để giải quyết các bài toán tương tự như trên. Xử lý background không phải là bài toán mới, bất kỳ ngôn ngữ lập trình nào cũng có những cách giải quyết tương tự, về job queue cũng có rất nhiều lựa chọn khác nhau ví dụ Gearmand, Celery.</p>
+<p>Mô hình chung sẽ như sau:</p>
+
+<p><img src="https://drivy.engineering/assets/posts/2015-10-12-taskqueues-go-wild/taskqueues.svg" alt="task-queue" /></p>
+
+<p><em>image source from <a href="https://drivy.engineering/taskqueues-tips">https://drivy.engineering/taskqueues-tips</a></em></p>
+
+<ul>
+<li>Broker là một queue ví dụ như redis, RabbitMQ.</li>
+<li>App sẽ enqueue các tác vụ cần xử lý background tùy vào từng request.</li>
+<li>CRON sẽ enqueue các bg job định kỳ vào những thời điểm cụ thể.</li>
+<li>Worker sẽ dequeue và xử lý các tác vụ đó.</li>
+</ul>
+
+<p>Sidekiq là một background processing framework cho ngôn ngữ Ruby để giải quyết các bài toán tương tự như trên. Xử lý background không phải là bài toán mới, bất kỳ ngôn ngữ lập trình nào cũng có những cách giải quyết tương tự, về job queue cũng có rất nhiều lựa chọn khác nhau ví dụ <a href="http://gearman.org">Gearmand</a>, <a href="http://www.celeryproject.org">Celery</a>, <a href="http://python-rq.org">rq</a>.</p>
 
 <h2 id="1-sidekiq-architecture">1. Sidekiq Architecture</h2>
 
@@ -90,9 +103,7 @@
 </ul>
 
 <p><img src="https://brandonhilkert.com/images/sidekiq/rails-web-worker.png" alt="sidekiq-flow" />
-image source from <a href="https://brandonhilkert.com/blog/sidekiq-as-a-microservice-message-queue">https://brandonhilkert.com/blog/sidekiq-as-a-microservice-message-queue</a></p>
-
-<p>Kiến trúc trên cũng tương tự các backgroud job khác như Gearmand, có client để tạo job, có nơi lưu trữ job và có nơi để lấy job từ nơi lưu trữ và xử lý.</p>
+<em>image source from <a href="https://brandonhilkert.com/blog/sidekiq-as-a-microservice-message-queue">https://brandonhilkert.com/blog/sidekiq-as-a-microservice-message-queue</a></em></p>
 
 <p>Đứng ở góc độ vận hành hệ thống, mình chỉ quan tâm chuyện gì xảy ra khi bất cứ thành phần trên fail và làm cách nào để đảm bảo hệ thống có khả năng fail-over. Để trả lời câu hỏi đó thì cần phải hiểu cách hoạt động, implement của sidekiq.</p>
 
