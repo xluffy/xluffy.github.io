@@ -6,10 +6,20 @@
     <description>Recent content in Posts on xluffy&#39;s page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 26 Jul 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Aug 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Build simple backgroud job with RabbitMQ</title>
+      <link>https://xluffy.github.io/post/build-simple-bg-job-with-rabbitmq/</link>
+      <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/build-simple-bg-job-with-rabbitmq/</guid>
+      <description>Ở trong một bài viết trước mình đã có tìm hiểu về Sidekiq - backgroud job, hiểu cách implement để đảm bảo tính tin cậy. Hôm nay nhân một người bạn có hỏi về một framework khác sử dụng RabbitMQ để làm queue, thấy khá thú vị nên dành chút thời gian đọc quá.
+Ý tưởng là sẽ viết một sender.rb để đóng gói các task thành dạng message và gửi vào queue.</description>
+    </item>
     
     <item>
       <title>Sidekiq, how to reliability?</title>
