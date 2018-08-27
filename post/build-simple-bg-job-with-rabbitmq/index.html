@@ -196,7 +196,7 @@ end
 
 <p>Còn với message, như ở trên <code>sender.rb</code> ta sẽ dùng thuộc tính <code>persistent</code> để đảm bảo một phần là message sẽ được lưu xuống đĩa.</p>
 
-<p>Một vấn đề tiếp theo đối với việc xử lý round-robin trong worker đó là các worker có thể sẽ không hoạt động đồng đều. Ví dụ ta có những task với số thứ tự lẻ là các heavy task cần nhiều thời gian xử lý và các task với số thứ tự chẵn là các task nhẹ nhàng hơn. Vấn đề là sẽ có worker xui xẻ nhận toàn các heavy task và lúc nào cũng busy, nhưng sẽ có những worker lại rất nhàn dỗi. Lí do là RabbitMQ không biết được số lượng <em>unacknowledged messages</em> của consumer nên nó cứ gửi message tuần tự tới consumer.</p>
+<p>Một vấn đề tiếp theo đối với việc xử lý round-robin trong worker đó là các worker có thể sẽ không hoạt động đồng đều. Ví dụ ta có những task với số thứ tự lẻ là các heavy task cần nhiều thời gian xử lý và các task với số thứ tự chẵn là các task nhẹ nhàng hơn. Vấn đề là sẽ có worker xui xẻo nhận toàn các heavy task và lúc nào cũng busy, nhưng sẽ có những worker lại rất nhàn dỗi. Lí do là RabbitMQ không biết được số lượng <em>unacknowledged messages</em> của consumer nên nó cứ gửi message tuần tự tới consumer.</p>
 
 <p>Để giải quyết vấn đề này, ta sẽ dùng method <code>prefetch(1)</code> để nói với RabbitMQ rằng không gửi hơn 1 message tới worker tại một thời điểm, hoặc không gửi message cho tới khi worker gửi lại tín hiệu ACK đã hoàn thành message trước đó. Thay vào đó RabbitMQ sẽ kiếm các worker nào đang nhàn rỗi và gửi message tới nó.</p>
 
@@ -252,7 +252,7 @@ end
 
 <h2 id="3-exchange-type">3. Exchange type</h2>
 
-<p>Nói thêm một chút xíu là message khi được gửi từ <code>sender.rb</code> hay producer sẽ không được gửi trực tiếp vào queue giống các message broker khác, thay vào đó nó sẽ được gửi tới <strong>exchange</strong> trước, sau đó sẽ được route tới queue tương ứng =&gt; routing chính là một trong các điểm của RabbitMQ với các mesage broker khác. Hoạt động như hình phía dưới sau:</p>
+<p>Nói thêm một chút xíu là message khi được gửi từ <code>sender.rb</code> hay producer sẽ không được gửi trực tiếp vào queue giống các message broker khác, thay vào đó nó sẽ được gửi tới <strong>exchange</strong> trước, sau đó sẽ được route tới queue tương ứng =&gt; routing chính là một trong các ưu điểm của RabbitMQ với các mesage broker khác. Hoạt động như hình phía dưới sau:</p>
 
 <p><img src="http://github.com/ruby-amqp/amqp/raw/master/docs/diagrams/001_hello_world_example_routing.png" alt="routing" /></p>
 
@@ -273,7 +273,7 @@ end
 
 <p><img src="https://github.com/ruby-amqp/amqp/raw/master/docs/diagrams/004_fanout_exchange.png" alt="fanout-exchange" /></p>
 
-<p>Fanout Exchange sẽ phù hợp với các bài toán dạng broadcast như các trang sport-news muốn distributing score update tới tất cả các client near-realtime hoặc các ứng dụng chat nhóm cần distrubute message tới những người trong nhóm.</p>
+<p>Fanout Exchange sẽ phù hợp với các bài toán dạng broadcast như các trang sport-news muốn distributing score update tới tất cả các client near-realtime (nghe có vẻ giống cách mà ForzaFootball đang làm) hoặc các ứng dụng chat nhóm cần distrubute message tới những người trong nhóm.</p>
 
 <h3 id="3-2-direct-exchange">3.2 Direct Exchange</h3>
 
