@@ -181,6 +181,7 @@ end
   wait = body.count('.').to_i
   sleep wait
   puts &quot; [x] Receive #{body} after #{wait} seconds&quot;
+  ch.ack(delivery_info.delivery_tag)
 end
 </code></pre>
 
@@ -198,6 +199,56 @@ end
 <p>Một vấn đề tiếp theo đối với việc xử lý round-robin trong worker đó là các worker có thể sẽ không hoạt động đồng đều. Ví dụ ta có những task với số thứ tự lẻ là các heavy task cần nhiều thời gian xử lý và các task với số thứ tự chẵn là các task nhẹ nhàng hơn. Vấn đề là sẽ có worker xui xẻ nhận toàn các heavy task và lúc nào cũng busy, nhưng sẽ có những worker lại rất nhàn dỗi. Lí do là RabbitMQ không biết được số lượng <em>unacknowledged messages</em> của consumer nên nó cứ gửi message tuần tự tới consumer.</p>
 
 <p>Để giải quyết vấn đề này, ta sẽ dùng method <code>prefetch(1)</code> để nói với RabbitMQ rằng không gửi hơn 1 message tới worker tại một thời điểm, hoặc không gửi message cho tới khi worker gửi lại tín hiệu ACK đã hoàn thành message trước đó. Thay vào đó RabbitMQ sẽ kiếm các worker nào đang nhàn rỗi và gửi message tới nó.</p>
+
+<p>Cuối cùng <code>sender.rb</code> sẽ như sau:</p>
+
+<pre><code>#!/usr/bin/env ruby
+
+require 'bunny'
+
+# create connection
+co = Bunny.new
+co.start
+
+# create queue
+ch = co.create_channel
+q = ch.queue('hello', durable: true)
+
+msg = ARGV.empty? ? 'Hello World!' : ARGV.join(' ')
+q.publish(msg, persistent: true)
+
+puts&quot; [x] Sent #{msg}&quot;
+
+co.close
+</code></pre>
+
+<p>Và <code>worker.rb</code> sẽ như sau:</p>
+
+<pre><code>#!/usr/bin/env ruby
+
+require 'bunny'
+
+co = Bunny.new
+co.start
+
+ch = co.create_channel
+q = ch.queue('hello', durable: true)
+
+ch.prefetch(1)
+puts ' [*] Waiting for messages. To exit press CTRL+C'
+
+begin
+  q.subscribe(manual_ack: true, block: true) do |_delivery_info, _properties, body|
+    wait = body.count('.').to_i
+    sleep wait
+    puts &quot; [x] Receive #{body} after #{wait} seconds&quot;
+    ch.ack(_delivery_info.delivery_tag)
+  end
+rescue Interrupt =&gt; _
+  co.close
+  exit(0)
+end
+</code></pre>
 
 <h2 id="3-exchange-type">3. Exchange type</h2>
 
