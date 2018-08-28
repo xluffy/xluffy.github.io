@@ -254,7 +254,7 @@ end
 
 <p>Nói thêm một chút xíu là message khi được gửi từ <code>sender.rb</code> hay producer sẽ không được gửi trực tiếp vào queue giống các message broker khác, thay vào đó nó sẽ được gửi tới <strong>exchange</strong> trước, sau đó sẽ được route tới queue tương ứng =&gt; routing chính là một trong các ưu điểm của RabbitMQ với các mesage broker khác. Hoạt động như hình phía dưới sau:</p>
 
-<p><img src="http://github.com/ruby-amqp/amqp/raw/master/docs/diagrams/001_hello_world_example_routing.png" alt="routing" /></p>
+<p><img src="https://github.com/ruby-amqp/amqp/raw/master/docs/diagrams/001_hello_world_example_routing.png" alt="routing" /></p>
 
 <p>Trong RabbitMQ cũng có nhiều loại exchange khác nhau như:</p>
 
@@ -319,7 +319,7 @@ puts&quot; [x] Sent #{msg}&quot;
 
 <p>Sau đó list queue trên như sau:</p>
 
-<pre><code>rabbitmqadmin list queues
+<pre><code>&gt; rabbitmqadmin list queues
 +--------------------------------+----------+
 |              name              | messages |
 +--------------------------------+----------+
@@ -333,7 +333,7 @@ puts&quot; [x] Sent #{msg}&quot;
 
 <p>Topic exchange sẽ route messate tới một hoặc nhiều queue dựa trên việc matching giữa message routing key và một pattern nào đó được liên kết với queue.</p>
 
-<p>Một ví dụ đó là việc routing tới các geographic location cụ thể nào đó. Ví dụ với routing key là <code>americas.south.#&quot;</code> message có thể được gửi tới các queue như:</p>
+<p>Một ví dụ đó là việc routing tới các geographic location cụ thể nào đó. Ví dụ với routing key là <code>americas.south.#&quot;</code> message sẽ được gửi tới các queue như:</p>
 
 <ul>
 <li>americas.south</li>
