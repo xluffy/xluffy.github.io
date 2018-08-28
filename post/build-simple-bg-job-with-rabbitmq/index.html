@@ -250,7 +250,19 @@ rescue Interrupt =&gt; _
 end
 </code></pre>
 
-<h2 id="3-exchange-type">3. Exchange type</h2>
+<h2 id="3-sneakers">3. Sneakers</h2>
+
+<p>Một người bạn giới thiệu cho mình về <a href="https://github.com/jondot/sneakers">sneakers</a> mình có đọc qua một xíu thì thấy bản chất cũng không khác gì cách sidekiq implement như ở bài trước mình có nói ngoại trừ việc dùng RabbitMQ làm queue. Thực ra cuối cùng để đảm bảo tính tin cậy thì vẫn phải cover đủ 3 layer dù có dùng cái gì đi chăng nữa:</p>
+
+<ul>
+<li>Client để enqueue và queue phải đảm bảo handle việc network fail bằng 1 giải pháp như local queue như ở bài trước mình trao đổi.</li>
+<li>Phải đảm bảo queue RabbitMQ phải luôn sống, với RabbitMQ thì mô hình HA có cluster tuy nhiên như ở phía trên thì việc <code>persistent</code> của rabbitmq vẫn không đảm bảo 100% không mất message =&gt; nói chung mình thấy redis cũng vậy nhưng redis thì đơn giản, dễ hiểu hơn.</li>
+<li>Worker sneakers để đảm bảo tính tin cậy có thể dùng <code>ack</code> như trong ví dụ phía trên, bản chất cũng tương tự cách dùng redis với <code>rpoplpush</code> để implement reliable queue =&gt; tuy nhiên là sidekiq tính phí phần này.</li>
+</ul>
+
+<p>Một số lý do khác khiến tác giả viết sneakers thay vì dùng sidekiq như vấn đề về performance (xử lý đc 1000 req/s với ack + persisted so với 600 req/s của sidekiq), support all core thì tùy nhiều yếu tố để đánh đổi.</p>
+
+<h2 id="4-exchange-type">4. Exchange type</h2>
 
 <p>Nói thêm một chút xíu là message khi được gửi từ <code>sender.rb</code> hay producer sẽ không được gửi trực tiếp vào queue giống các message broker khác, thay vào đó nó sẽ được gửi tới <strong>exchange</strong> trước, sau đó sẽ được route tới queue tương ứng =&gt; routing chính là một trong các ưu điểm của RabbitMQ với các mesage broker khác. Hoạt động như hình phía dưới sau:</p>
 
@@ -267,7 +279,7 @@ end
 
 <p>Ở đây mình sẽ giải thích ngắn gọn và một số use-case của từng loại exchange. Chi tiết có thể đọc thêm trong document của RabbitMQ.</p>
 
-<h3 id="3-1-fanout-exchange">3.1 Fanout Exchange</h3>
+<h3 id="4-1-fanout-exchange">4.1 Fanout Exchange</h3>
 
 <p>Fanout exchange sẽ routing message tới tất cả các queue liên quan, nếu có N queue liên quan tới fanout exchange thì khi một message được publish vào exchange sẽ có N bản copy của message được gửi tới tất cả N queue, ý tưởng là một dạng <strong>broadcast routing</strong>.</p>
 
@@ -275,7 +287,7 @@ end
 
 <p>Fanout Exchange sẽ phù hợp với các bài toán dạng broadcast như các trang sport-news muốn distributing score update tới tất cả các client near-realtime (nghe có vẻ giống cách mà ForzaFootball đang làm) hoặc các ứng dụng chat nhóm cần distrubute message tới những người trong nhóm.</p>
 
-<h3 id="3-2-direct-exchange">3.2 Direct Exchange</h3>
+<h3 id="4-2-direct-exchange">4.2 Direct Exchange</h3>
 
 <p>Direct exchange là loại exchange sẽ gửi message tới các queue dựa trên message routing key, ví dụ message dạng <code>image.resize</code> sẽ được gửi tới queue <code>resize</code>, message dạng <code>pdf.render</code> sẽ được gửi tới <code>render</code>.</p>
 
@@ -329,7 +341,7 @@ puts&quot; [x] Sent #{msg}&quot;
 +--------------------------------+----------+
 </code></pre>
 
-<h3 id="3-3-topic-exchange">3.3 Topic Exchange</h3>
+<h3 id="4-3-topic-exchange">4.3 Topic Exchange</h3>
 
 <p>Topic exchange sẽ route messate tới một hoặc nhiều queue dựa trên việc matching giữa message routing key và một pattern nào đó được liên kết với queue.</p>
 
@@ -344,7 +356,7 @@ puts&quot; [x] Sent #{msg}&quot;
 
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Multicast.svg/500px-Multicast.svg.png" alt="topic-exchange" /></p>
 
-<h2 id="4-ref">4. Ref</h2>
+<h2 id="5-ref">5. Ref</h2>
 
 <ul>
 <li><a href="https://www.rabbitmq.com/tutorials/tutorial-two-ruby.html">https://www.rabbitmq.com/tutorials/tutorial-two-ruby.html</a></li>
