@@ -251,7 +251,7 @@
 
 <p>Một số vấn đề khác về bao nhiêu queue là đủ, concurrent của sidekiq bao nhiêu là hợp lý có thể tìm thấy trong <a href="https://github.com/mperham/sidekiq/wiki/Advanced-Options#concurrency">wiki sidekiq</a></p>
 
-<h2 id="3-lock-chốt">3. Lock (chốt)</h2>
+<h2 id="3-chốt">3. Chốt</h2>
 
 <p>Nhưng tui đâu có biết Ruby đâu, vậy tại sao tui phải đọc bài này làm chi? Thực ra mục đích ban đầu của mình là tìm hiểu một số vấn đề của sidekiq như bao nhiêu queue là đủ, bao nhiêu sidekiq process hoặc tại sao lại timeout nhưng sau khi tìm hiểu xong học thêm đc khá nhiều thứ hay ho về cách thiết kế, implement và một số khái niệm mới:</p>
 
@@ -259,6 +259,14 @@
 <li>list/queue/blockingqueue và cách redis implement</li>
 <li>Reliable queue</li>
 <li>polling và long-polling</li>
+</ul>
+
+<p>Ngoài ra, sau khi đọc bài này bạn cũng sẽ hiểu một số metric cần thiết cho việc monitor nhằm đảm bảo tính tin cậy cho xử lý backgroud job, ví dụ một số metric cần lưu ý như:</p>
+
+<ul>
+<li>Ở phía client phải alert trong trường hợp network fail không thể connect tới queue.</li>
+<li>Ở redis queue phải đảm bảo rằng redis luôn availability, ngoài ra cần monitor thêm về số lượng job in queue, nếu số lượng job trong queue vượt ngưỡng nào đó có nghĩa là worker đang bị stuck hoặc số worker không đủ để xử lý đủ lượng job enqueue hoặc tất cả worker đều đang chết.</li>
+<li>Ở Worker cần phải monitor worker sống hay chết, và phải monitor thêm về thời gian xử lý các job, từ đây sẽ biết cách để tăng số worker hay tối ưu lại xử lý.</li>
 </ul>
 
 <h2 id="4-ref">4. Ref</h2>
