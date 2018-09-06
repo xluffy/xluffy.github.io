@@ -102,6 +102,15 @@
 
 <p>Sidekiq là một background processing framework cho ngôn ngữ Ruby để giải quyết các bài toán tương tự như trên. Xử lý background không phải là bài toán mới, bất kỳ ngôn ngữ lập trình nào cũng có những cách giải quyết tương tự, về job queue cũng có rất nhiều lựa chọn khác nhau ví dụ <a href="http://gearman.org">Gearmand</a>, <a href="http://www.celeryproject.org">Celery</a>, <a href="http://python-rq.org">rq</a>.</p>
 
+<p>Các xử lý mà sẽ phù hợp để đưa vào chạy nền bao gồm:</p>
+
+<ul>
+<li>Các xử lý nặng về CPU, ví dụ các phép tính toán học hoặc phân tích cấu trúc.</li>
+<li>Các xử lý nặng về I/O ví dụ load data tính toán report, ETL.</li>
+<li>Batch job ví dụ như update/processing report về đêm.</li>
+<li>&hellip;</li>
+</ul>
+
 <h2 id="1-sidekiq-architecture">1. Sidekiq Architecture</h2>
 
 <p>Sidekiq gồm 3 phần chính:</p>
@@ -276,6 +285,7 @@
 <li><a href="https://redis.io/topics/data-types-intro">https://redis.io/topics/data-types-intro</a></li>
 <li><a href="https://redis.io/commands/blpop">https://redis.io/commands/blpop</a></li>
 <li><a href="https://redis.io/commands/rpoplpush">https://redis.io/commands/rpoplpush</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/architecture/best-practices/background-jobs">https://docs.microsoft.com/en-us/azure/architecture/best-practices/background-jobs</a></li>
 </ul>
 
 </main>
