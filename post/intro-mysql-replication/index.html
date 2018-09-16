@@ -117,6 +117,10 @@
 
 <p>Với cơ sở dữ liệu lớn việc backup không thể thực hiện thường xuyên được (hàng giờ, hàng phút). Với các ứng dụng giao dịch tài chính, thanh toán, TMDT nếu bị mất dữ liệu 1 giờ, 1 ngày thì thiệt hại sẽ rất lớn (máy chủ chính tư dưng bị hỏng). Real time backup là một giải pháp bổ sung cho offline backup, chạy đồng thời cả 2 phương pháp này để bảo đảm sự an toàn cho dữ liệu.</p>
 
+<p>Tuy nhiên, việc dùng replicate để backup dữ liệu chỉ đảm bảo nếu đĩa cứng của master bị hỏng, trong trường hợp human error khi xóa nhầm dữ liệu, hành động xóa sẽ được replicate sang slave luôn =&gt; vẫn bị mất dữ liệu.</p>
+
+<p>Để tránh xảy ra trường hợp trên và giảm thiểu rủi ro mất dữ liệu, mình có giới thiệu một bài khác <a href="https://xluffy.github.io/post/delayed-replication-in-mysql/">delay-replication</a>.</p>
+
 <h1 id="2-hoạt-động-như-thế-nào">2. Hoạt động như thế nào?</h1>
 
 <h2 id="2-1-một-số-mô-hình">2.1 Một số mô hình</h2>
@@ -499,6 +503,45 @@ mysql&gt; SHOW TABLES;
 <li>Thời gian import dữ liệu ~1.5h</li>
 <li>Thời gian <code>Second_Behind_Master</code> sau khi import xong ~ 3600s</li>
 </ul>
+
+<h2 id="6-failover">6. Failover</h2>
+
+<p>Một vấn đề khác ngoài chuyện scale đó là <strong>nếu master db chết thì chuyện gì xảy ra?</strong>. Có một số mindset mà bạn bắt buộc phải hiểu khi chọn giải pháp replication master-slave đó là:</p>
+
+<ul>
+<li>Quá trình promote 1 Slave thay thế Master là thủ công, không thể tự động switch sang slave mà hệ thống không có vấn đề gì.</li>
+<li>Vẫn sẽ có downtime nếu master db chết, tuy nhiên việc dùng slave đảm bảo thời gian downtime tối thiểu nhất có thể.</li>
+</ul>
+
+<p>Quay trở lại mô hình 1 master và 2 slave (gọi lần lượt là S1 và S2), ta cần trả lời là nếu master chết thì chuyện gì xảy ra với hệ thống và cách promote một slave lên thay thế master là gì?</p>
+
+<p>Mặc định, Slave vẫn sẽ có binlog, và binlog này là của riêng slave chứ không giống với binlog của master (binlog của master khi đẩy qua slave sẽ thành relay-log), có nghĩa là nếu S1 đẩy lên làm master thì S2 sẽ không còn đồng bộ với S1 nữa và ta sẽ cần build lại S2.</p>
+
+<p>Để giải quyết vấn đề này, mysql khuyến cáo chúng ta bật <code>--skip-log-slave-updates</code> trên Slave, chuyện này đảm bảo:</p>
+
+<ul>
+<li>Slave vẫn sẽ có binlog nhưng với các hành vi apply relay-log (update dữ liệu như master) thì slave sẽ không ghi ra binlog.</li>
+<li>Khi master chết, ta có nhu cầu promote S1 lên làm master, ta sẽ cần reset master của S2 trỏ về S1, tuy nhiên như ở trên ta sẽ cần chỉ định file binlog và position của file log, và do S1 sau khi đc đổi thành master thì mới bắt đầu sinh ra binlog, nên trên S2 ta chỉ cần trỏ về file binlog và position đầu tiên của S2 là đủ. =&gt; chuyện này đảm bảo rằng S2 sẽ đồng bộ dữ liệu với S1.</li>
+</ul>
+
+<p>Sau khi việc promote hoàn thành, ta có thể cập nhật lại ở phía client địa chỉ củ a S1 và hoàn thành việc bảo trì hệ thống. Tuy nhiên để ý là quá trình trên là thủ công và ta vẫn có downtime trong quá trình promote.</p>
+
+<p>Tuy nhiên, điều trên chỉ đúng chỉ đúng khi slave sync với master trước khi master chết với <code>second_behind_master = 0</code>.</p>
+
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/replication-solutions-switch.html">https://dev.mysql.com/doc/refman/8.0/en/replication-solutions-switch.html</a></p>
+
+<h2 id="7-semi-synchronous">7. Semi-synchronous</h2>
+
+<p>Có một vấn đề với asynchronous đó là nếu bạn có nhu cầu đọc ngay dữ liệu vừa ghi xuống thì có thể dữ liệu sẽ sai, do slave chưa kịp apply dữ liệu từ master (lag dữ liệu), có 2 cách giải quyết tạm:</p>
+
+<ul>
+<li>Với trường hợp vừa ghi và đọc liền dữ liệu, ta nên dùng ở master.</li>
+<li>Dùng cơ chế semi-synchronous để giảm lag dữ liệu.</li>
+</ul>
+
+<p>Semi-synchronous là một kiểu lai giữa asynchronous và synchronous. Bình thường nếu xài synchronous thì càng nhiều slave thì càng giảm tốc độ ghi dữ liệu, do slave phải committed và trả lời ngược về master. Với semi-synchronous thì master coi như ghi thành công là khi có tối thiểu một slave <strong>đã nhận</strong> và <strong>ghi ra relay log</strong> event mà master gửi qua. Điểm khác biệt là không cần tất cả các slave gửi tín hiệu ngược lại master, và event cũng không bắt buộc phải được execute và commited trên slave, chỉ cần đảm bảo là đã nhận và ghi ra relay log là đủ.</p>
+
+<p>Như mô tả ở trên thì slave vẫn có thể không có dữ liệu nếu relay log bị tác động với con người, hoặc server bị hỏng ngay khi chưa kịp apply relay log, tuy nhiên nhờ việc đảm bảo binlog event đã đc nhận với slave và ghi xuống đĩa đã làm giảm thời gian delay và vấn đề về data race condition có thể được hạn chế phần nào.</p>
 
 </main>
 
