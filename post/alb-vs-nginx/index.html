@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ALB vs nginx | xluffy&#39;s page</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/categories/">~/categories</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://github.com/xluffy/til/issues">~/til</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="#">~/books</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">ALB vs nginx</span></h1>
+
+<h2 class="date">2018/11/30</h2>
+<p class="terms">
+  
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<blockquote>
+<p>Nhân một người bạn hỏi về vấn đề này, mình take note lại vì đã được hỏi 2 lần :sosad:</p>
+</blockquote>
+
+<p><strong>ALB</strong>: là dịch vụ Application Load Balancer của AWS, một dịch vụ về cân bằng tải của AWS hoạt động ở layer 7 support giao thức HTTP/HTTPs, Websocket, HTTP2.</p>
+
+<p><strong>nginx</strong>: là một webserver opensource, support cả chức năng cân bằng tải ở layer 7 (có support ở layer 4 nhưng khá cơ bản).</p>
+
+<p>Ngoài ALB và nginx thì còn có <strong>HAproxy</strong> cũng là một service cung cấp chức năng cân bằng tải ở layer 4 và layer 7 khá phổ biến.</p>
+
+<p>Load balancer là dịch vụ sẽ phục vụ như một single point giao tiếp với user. Load balancer sẽ phân tán các incomming request từ user tới nhiều server phía sau LB nhằm mục đích scale hệ thống.</p>
+
+<p>Câu hỏi đặt ra là khi xây dựng một hệ thống trên AWS, ta sẽ chọn cái gì để thực hiện chức năng cân bằng tải? ALB hay nginx? ưu nhược điểm của từng dịch vụ là gì?</p>
+
+<p>Về bản chất, ALB và nginx hoạt động cùng chức năng cân bằng tải, một trong các rule khi thiết kế hệ thống đó là <a href="https://wiki.archlinux.org/index.php/arch_terminology#KISS">KISS</a>, giữ cho hệ thống đơn giản nhất có thể, tránh gây confuse. Điều đó có nghĩa là về lý thuyết ta chỉ nên sử dụng một dịch vụ cho một chức năng cụ thể nào đó.</p>
+
+<h2 id="1-chỉ-xài-alb">1. Chỉ xài ALB</h2>
+
+<p>Ưu điểm:</p>
+
+<ul>
+<li>Chi phí rẻ, $20.</li>
+<li>Support tính năng host-based và path-based giúp routing request tới các cụm host có chức năng khác nhau.</li>
+<li>Tận dụng infra của AWS để hỗ trợ multi-zone, high availability dễ dàng.</li>
+</ul>
+
+<p>Nhược điểm:</p>
+
+<ul>
+<li>ALB chỉ hỗ trợ round robin algorithm.</li>
+<li>Log của ALB không nhiều thông tin hữu ích cho việc build 1 in-house metric system như nginx.</li>
+</ul>
+
+<p>Lưu ý thêm là round-robin là một thuật toán cân bằng tải rất không fair, LB sẽ tuần tự pass đều số lượng request incoming tới các instance phía sau mà không quan tâm trạng thái hay khả năng phục vụ của instance phía sau như thế náo. Sẽ dẫn tới trường hợp là:</p>
+
+<ul>
+<li>Có instance xui xẻo sẽ chỉ nhận các heavy request, nhưng nó chưa kịp xử lý xong đã bị pass tiếp nhiều heavy request khác vào.</li>
+<li>Có instance thì lại chỉ phải phục vụ các request rất nhanh, nhưng vì round-robin chia đều nên ở request tiếp theo nó vẫn có thể nhận được các request nhẹ nhàng đó tiếp.</li>
+</ul>
+
+<p>Tính năng multi-zone là một tính năng khá khó xây dựng trên một hệ thống on-premise, hiểu đơn giản thì nếu bạn có một LB đặt ở DC Viettel thì bạn sẽ phải có 1 LB khác cùng chức năng, sync với nhau và heartbeat với nhau ở DC của FPT.</p>
+
+<h2 id="2-nếu-chỉ-xài-nginx">2. Nếu chỉ xài nginx</h2>
+
+<p>Một lựa chọn khác đó là thay vì sử dụng dịch vụ của AWS, ta có thể tự build LB và tự vận hành như các hệ thống on-premise. Đây là bài toán cũ mà bất cứ ai xây dựng hệ thống on-premise cũng đã từng gặp qua.</p>
+
+<p>Ưu điểm:</p>
+
+<ul>
+<li>Hỗ trợ <a href="http://nginx.org/en/docs/http/load_balancing.html">nhiều thuật toán load balancer</a> như round-robin, round-robin weight, ip_hash (session persistence), least-connected.</li>
+<li>Log có nhiều thông tin hỗ trợ debug và metric.</li>
+<li>Hỗ trợ nhiều module giúp thực hiện nhiều chức năng nâng cao:
+
+<ul>
+<li><a href="https://github.com/openresty">lua modules.</a></li>
+<li><a href="https://github.com/openresty/headers-more-nginx-module">headers-more-nginx-module</a> -&gt; giúp ẩn token hoặc làm sai lệch token từ server -&gt; hữu ích khi cần che giấu công nghệ ở server-side.</li>
+<li>Các module giao tiếp trực tiếp tới các service như redis, memcached, mysql &hellip;</li>
+</ul></li>
+<li>Hỗ trợ các tính năng cản lọc cơ bản và lightweight ở tầng load balancer như block by ip, geoip, user-agent.</li>
+<li>Hỗ trợ routing từ một dải IP vào một cụm server nào đó trong backend -&gt; sẽ rất hữu ích khi muốn debug/test trên production mà không ảnh hưởng tới user.</li>
+</ul>
+
+<p>Nhược điểm:</p>
+
+<p>LB sẽ là single point of fail giữa user và server, sử dụng nginx làm LB ta phải đảm bảo được là dịch vụ LB sẽ luôn có khả năng dự phòng. Dự phòng ở đây cần đạt được ở 3 yêu cầu:</p>
+
+<ul>
+<li>Dự phòng ở mức service, dịch vụ nginx phải luôn luôn được phục vụ hoặc ít nhất có khả năng tự restart để giảm thiểu thời gian downtime (nhưng restart sẽ force close current connection).</li>
+<li>Dự phòng ở mức server, sẽ phải luôn có một server nginx tương tự để thay thế khi server chính bị hư hỏng phần cứng hoặc sập điện &hellip; Yêu cầu này có thể thực hiện ở khi sử dụng nginx + keepalived + floating IP.</li>
+<li>Ở mức dự phòng server, ta cần phải đặt LB ở một khu vực khác ví dụ như ở 2 DC khác nhau, đây là vấn đề không dễ và so với chi phí $20 của AWS thì đây là một mức giá quá hời cho tính năng này.</li>
+</ul>
+
+<p>Nói thêm về tính năng routing dựa trên client IP của nginx là nó vô cùng hữu ích khi ta cần test sản phẩm trên môi trường production, nhưng chỉ effect tới 1 lượng nhỏ user (ví dụ user là QC trong cty, routing dựa trên static ip của cty), ngoài ra cũng có thể routing tới 1 server mới với code mới nhưng database và các phần khác vẫn như cũ.</p>
+
+<p>Về metric, ta có thể có metric dạng như vầy giúp đánh giá hệ thống.</p>
+
+<p><img src="https://raw.githubusercontent.com/xluffy/assets/master/nginx_metric_log.png" alt="nginx-metric-log" /></p>
+
+<h2 id="3-tóm-lại">3. Tóm lại</h2>
+
+<p>Để tận dụng lợi thế của cả 2 dịch vụ, cuối cùng ta có diagram như sau:</p>
+
+<p><img src="https://github.com/xluffy/assets/blob/master/alb_nginx_backend.png?raw=true" alt="alb-nginx-backend" /></p>
+
+<blockquote>
+<p>Ngoài lý do ở đầu bài (do một người bạn hỏi) thì bài này nhằm thỏa mãn cho câu hỏi tại sao lại có <strong>2 service cùng chức năng</strong> trong hệ thống. Thắc mắc, tự đặt câu hỏi, tự tìm câu trả lời luôn đem lại một cảm hứng giúp thúc đẩy đam mê trong công việc và thúc đẩy bản thân tự phát triển.</p>
+</blockquote>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+      
+      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+    </footer>
+  </body>
+</html>
+

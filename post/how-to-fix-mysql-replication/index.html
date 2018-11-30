@@ -208,6 +208,11 @@ mysql-bin.000209    713297953
 &gt; xtrabackup --backup --slave-info --target-dir=/backup/data
 </code></pre>
 
+<p>Hoặc stream</p>
+
+<pre><code>&gt; innobackupex --slave-info --stream=tar ./ | nc 172.17.0.2 9999
+</code></pre>
+
 <p>Điểm khác biệt duy nhất là binlog và position thay vì được lưu trên <code>xtrabackup_binlog_info</code> thì sẽ được lưu trong <code>xtrabackup_slave_info</code>, ta chỉ cần thực hiện prepare-data, restore và point slave mới tới master với thông tin trong file <code>xtrabackup_slave_info</code>.</p>
 
 <h3 id="2-2-một-số-thông-tin-thực-tế">2.2 Một số thông tin thực tế</h3>
