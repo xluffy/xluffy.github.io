@@ -89,7 +89,7 @@
 
 <h2 id="1-chỉ-xài-alb">1. Chỉ xài ALB</h2>
 
-<p>Ưu điểm:</p>
+<p><strong>Ưu điểm</strong>:</p>
 
 <ul>
 <li>Chi phí rẻ, $20.</li>
@@ -97,7 +97,7 @@
 <li>Tận dụng infra của AWS để hỗ trợ multi-zone, high availability dễ dàng.</li>
 </ul>
 
-<p>Nhược điểm:</p>
+<p><strong>Nhược điểm</strong>:</p>
 
 <ul>
 <li>ALB chỉ hỗ trợ round robin algorithm.</li>
@@ -117,7 +117,7 @@
 
 <p>Một lựa chọn khác đó là thay vì sử dụng dịch vụ của AWS, ta có thể tự build LB và tự vận hành như các hệ thống on-premise. Đây là bài toán cũ mà bất cứ ai xây dựng hệ thống on-premise cũng đã từng gặp qua.</p>
 
-<p>Ưu điểm:</p>
+<p><strong>Ưu điểm</strong>:</p>
 
 <ul>
 <li>Hỗ trợ <a href="http://nginx.org/en/docs/http/load_balancing.html">nhiều thuật toán load balancer</a> như round-robin, round-robin weight, ip_hash (session persistence), least-connected.</li>
@@ -133,7 +133,7 @@
 <li>Hỗ trợ routing từ một dải IP vào một cụm server nào đó trong backend -&gt; sẽ rất hữu ích khi muốn debug/test trên production mà không ảnh hưởng tới user.</li>
 </ul>
 
-<p>Nhược điểm:</p>
+<p><strong>Nhược điểm</strong>:</p>
 
 <p>LB sẽ là single point of fail giữa user và server, sử dụng nginx làm LB ta phải đảm bảo được là dịch vụ LB sẽ luôn có khả năng dự phòng. Dự phòng ở đây cần đạt được ở 3 yêu cầu:</p>
 
