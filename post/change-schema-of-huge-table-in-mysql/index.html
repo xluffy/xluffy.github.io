@@ -99,6 +99,8 @@
 
 <p><strong>metadata lock</strong> được giới thiệu    ở phiên bản 5.5.3, khi một transaction được chạy, nó sẽ acquire một metadata lock trên tất cả các table nó sử dụng và sau đó release khi transaction đó hoàn thành. Điều này đảm bảo sẽ không có bất cứ một sự thay đổi cấu trúc bảng nào khác trong quá trình transaction đó thực hiện.</p>
 
+<p>Vậy ngoại trừ 2 bước có <strong>metadata lock</strong> thì các operation khác có làm tăng thời gian xử lý của database hay không <strong>về lý thuyết là KHÔNG ảnh hưởng với các read operation</strong>, nhưng các write operation sẽ bị <strong>double thời gian thực thi</strong>, do cần <strong>trigger</strong> data qua bảng mới để đảm bảo tính đúng đắn của dữ liệu.</p>
+
 <p><strong>Kết luận</strong>:</p>
 
 <ul>
