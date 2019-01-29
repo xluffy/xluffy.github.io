@@ -87,7 +87,8 @@
 
 <ul>
 <li>Sequential Read Speed ~ Up to 560 MB/sec.</li>
-<li>Sequential Write Speed ~ Up to 530 MB/sec.    - Random read (4KB, QD32) ~ Up to <strong>100,000 IOPS</strong>.</li>
+<li>Sequential Write Speed ~ Up to 530 MB/sec.</li>
+<li>Random read (4KB, QD32) ~ Up to <strong>100,000 IOPS</strong>.</li>
 <li>Random write (4KB, QD32) ~ Up to <strong>90,000 IOPS</strong>.</li>
 <li>Random read (4KB, QD1) ~ Up to <strong>11,000 IOPS</strong>.</li>
 <li>Random write (4KB, QD1) ~ Up to <strong>43,000 IOPS</strong>.</li>
@@ -124,20 +125,20 @@
 <p><strong>AWS</strong></p>
 
 <ul>
-<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">EBS</a>: Đây là loại đĩa thường thấy trên AWS, về bản chất nó là một dạng <strong>network disk</strong> (nhưng ko giống EFS), đặc điểm là <strong>persistent</strong> nhưng có giới hạn về tốc độ. EBS lại chia làm một số loại nhỏ, nhưng ở đây ta chỉ nói về <code>gp2</code> và <code>io1</code>:
+<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">EBS</a>: Đây là loại đĩa thường thấy trên AWS, về bản chất nó là một dạng <strong>network disk</strong> (nhưng ko giống EFS, loại network disk có thể mount đồng thời vào nhiều server cùng lúc), đặc điểm là <strong>persistent</strong> nhưng có giới hạn về tốc độ. EBS lại chia làm một số loại nhỏ, nhưng ở đây ta chỉ nói về <code>gp2</code> và <code>io1</code>:
 
 <ul>
 <li><code>gp2</code> là EBS giá rẻ, IOPS phụ thuộc vào kích thước của đĩa (muốn tăng IOPS phải resize disk), thường xài cho OS và các nhu cầu chung chung khác. Kích thước từ 1GB - 16TB, Max IOPS/volume là 16,000, max throughput/volume 250 MB/s, max IOPS/instance là 80,000, max throughput/instance 1,750 MB/s. Ngoài ra <code>gp2</code> có một khái niệm là IO credit và baseline performance, nói 1 cách dễ hiểu là chỉ xài đc 100% performance trong 1 khoảng thời gian. Ví dụ đĩa 4TB sẽ có IOPS là 12.288 và giá là ~ <strong>$406</strong> tại region us-east-1.</li>
-<li><code>io1</code> là loại EBS mà IOPS không phụ thuộc vào kích thước đĩa, có thể mua riêng IOPS. Thường xài khi cần IOPS ví dụ các ứng dụng database. Kích thước từ 4 GB - 16TB. Max IOPS/volume là 64,000, max throughput/volume 1,000 MB/s, max IOPS/instance là 80.000, max throughput/instance 1750 MB/s. Ví dụ với 4TB dữ liệu + 12,288 IOPS sẽ có throughput là 1000 MB/s, thì sẽ có giá là <strong>$1441</strong> tại region us-east-1 -&gt; một sự chênh lệnh rất lớn so với <code>gp2</code>. Và giả sử cần IOPS tầm 20,000 (1 ước tính chắc ăn và so với physical server) thì ta sẽ tốn gần <strong>$2000</strong>/tháng :|.</li>
+<li><code>io1</code> là loại EBS mà IOPS không phụ thuộc vào kích thước đĩa, có thể mua riêng IOPS. Thường xài khi cần nhiều IOPS ví dụ các ứng dụng database. Kích thước từ 4 GB - 16TB. Max IOPS/volume là 64,000, max throughput/volume 1,000 MB/s, max IOPS/instance là 80.000, max throughput/instance 1750 MB/s. Ví dụ với 4TB dữ liệu + 12,288 IOPS sẽ có throughput là 1000 MB/s, thì sẽ có giá là <strong>$1441</strong> tại region us-east-1 -&gt; một sự chênh lệnh rất lớn so với <code>gp2</code>. Và giả sử cần IOPS tầm 20,000 (1 ước tính chắc ăn và so với physical server) thì ta sẽ tốn gần <strong>$2000</strong>/tháng chỉ cho mỗi đĩa cứng :|.</li>
 </ul></li>
-<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html">Instance storage</a>: cung cấp temporary block-level storage. Storage sẽ được đặt trên local disk mà được physical attack vào host computer (đơn giản là 1 physical được chia làm nhiều EC2, thì instance storage là vùng storage lấy ra từ chính local disk đặt trên con physical đó và mount vào EC2 - khác với EBS là network disk, mount từ 1 physical khác). Đặc điểm chính là <strong>có tốc độ cao hơn</strong> nhưng dữ liệu <strong>không persistent</strong> (nghĩa là sẽ mất dữ liệu nếu instance bị stop hoặc terminate hoặc đĩa bị fail). Có 2 interface là SATA và NVMe tương tự như physical disk.</li>
+<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html">Instance storage</a>: cung cấp temporary block-level storage. Storage sẽ được đặt trên local disk mà được physical attach vào host computer (đơn giản là 1 physical được chia làm nhiều EC2, thì instance storage là vùng storage lấy ra từ chính local disk đặt trên con physical đó và mount vào EC2 - khác với EBS là network disk, mount từ 1 physical khác). Đặc điểm chính là <strong>có tốc độ cao hơn</strong> nhưng dữ liệu <strong>không persistent</strong> (nghĩa là sẽ mất dữ liệu nếu instance bị stop hoặc terminate hoặc đĩa bị fail). Có 2 interface là SATA và NVMe tương tự như physical disk.</li>
 </ul>
 
 <p><strong>GCP</strong> về cơ bản cũng tương tự như AWS, nhưng mình không làm nhiều GCP nên không có gì để nói thêm.</p>
 
 <ul>
-<li>Persistent Disk</li>
-<li>Local SSD</li>
+<li>Persistent Disk.</li>
+<li>Local SSD.</li>
 </ul>
 
 <p>Vậy tóm tắt lại 2 vấn đề chính:</p>
@@ -158,7 +159,7 @@
 
 <ul>
 <li>Nhanh vì nó là local disk -&gt; giải quyết chuyện vượt giới hạn của <code>io1</code>.</li>
-<li>Rẻ hơn EBS nhiều. -&gt; rẻ hơn <code>io1</code>. -&gt; giải quyết bài toán chi phí.</li>
+<li>Rẻ hơn EBS nhiều -&gt; rẻ hơn <code>io1</code> -&gt; giải quyết bài toán chi phí.</li>
 </ul></li>
 <li>Vì dữ liệu không an toàn và ta cần EBS snapshot nên sẽ dùng vài instance <strong>replication</strong> (chi tiết ở dưới).</li>
 </ul>
@@ -233,7 +234,7 @@ Compute: $ 1251.22
 3.2T	/mysqldata/mysql/data
 </code></pre>
 
-<p>=&gt; lưu ý đây là real-data chứ không phải generated data.</p>
+<p>=&gt; lưu ý đây là dữ liệu thật mà tác giả đang vận hành chứ không phải generated data để test.</p>
 
 <p>Với tỉ lệ nén là 2.42x cho table và 3.75x cho binary log, giúp giảm từ 8.6T -&gt; 3.2T sẽ vừa đủ trên i3.8xlarge instance.:</p>
 
