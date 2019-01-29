@@ -273,7 +273,7 @@ mysqldata/mysql/log   refcompressratio      3.75x
 <li>Các local storage thì không bền (not durable) nghĩa là nếu ta <strong>stop instance</strong> và <strong>start instance lại</strong> thì <strong>dữ liệu sẽ mất</strong>. TUY NHIÊN reboot dù vô tình hay cố ý (instance reboots intentionally or unintentionally) là ngoại lệ, bạn có thể reboot instance và local storage vẫn sẽ được giữ lại.</li>
 <li>Failover cho master bằng slave khi master chết có thể giải quyết bằng <a href="https://www.percona.com/blog/2016/09/02/mha-quickstart-guide">MHA</a> hoặc <a href="https://www.percona.com/blog/2016/03/08/orchestrator-mysql-replication-topology-manager">Orchestrator</a>.</li>
 <li>Có thể clone slave bằng cách dùng <code>xtrabackup</code> hoặc <code>zfs snapshot</code>, với <code>xtrabackup</code> có thể đọc một số bài viết khác về clone slave trên blog của mình.</li>
-<li>Nên xài <code>delayed replication</code> với độ trễ sync dữ liệu từ 30 phút - 60 phút để tránh human-error.</li>
+<li>Nên xài <a href="https://xluffy.github.io/post/delayed-replication-in-mysql"><strong>delayed replication</strong></a> với độ trễ sync dữ liệu từ 30 phút - 60 phút để tránh human-error.</li>
 </ul>
 
 <h2 id="3-tổng-kết">3. Tổng kết</h2>
