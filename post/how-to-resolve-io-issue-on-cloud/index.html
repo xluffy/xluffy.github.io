@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>How to resolve I/O issue on cloud | xluffy&#39;s page</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/categories/">~/categories</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://github.com/xluffy/til/issues">~/til</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="#">~/books</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">How to resolve I/O issue on cloud</span></h1>
+
+<h2 class="date">2019/01/28</h2>
+<p class="terms">
+  
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<p>Một trong các bài toán khiến mình khá đau đầu khi lên plan để chuyển một hệ thống từ physical server lên cloud đó là bài toán giới hạn I/O và chi phí cho database. Nó khiến mình mất khá nhiều thời gian và thắc mắc, bài này là bài lược dịch từ <a href="https://www.percona.com/blog/2018/08/20/using-aws-ec2-instance-store-vs-ebs-for-mysql-how-to-increase-performance-and-decrease-cost">một bài blog của Percona</a>, có nói chi tiết các cách giải quyết, các issues có thể gặp phải và cách giải quyết các issues đó. Mình dịch lại, hi vọng nếu ai đó gặp phải có thể tìm được cách giải quyết và dễ dàng migrate hệ thống lên cloud.</p>
+
+<h2 id="1-đặt-vấn-đề">1. Đặt vấn đề</h2>
+
+<p>Hệ thống sử dụng MySQL (hoặc PostgeSQL), sử dụng 1 siêu physical server với cấu hình và thông số về data tượng trưng như sau:</p>
+
+<ul>
+<li>Dell PowerEdge R720 (2-socket, 2U rack server).</li>
+<li>CPU Xeon E5-2660V4 (14 cores, 28 threads) 2.20 Ghz.</li>
+<li>16GB * 12 ~ 192 GB RAM.</li>
+<li>2 * 4TB Samsung SSD 860 Pro (consumer SSD) -&gt; RAID 1s.
+
+<ul>
+<li>Sequential Read Speed ~ Up to 560 MB/sec.</li>
+<li>Sequential Write Speed ~ Up to 530 MB/sec.    - Random read (4KB, QD32) ~ Up to <strong>100,000 IOPS</strong>.</li>
+<li>Random write (4KB, QD32) ~ Up to <strong>90,000 IOPS</strong>.</li>
+<li>Random read (4KB, QD1) ~ Up to <strong>11,000 IOPS</strong>.</li>
+<li>Random write (4KB, QD1) ~ Up to <strong>43,000 IOPS</strong>.</li>
+<li>Reliablility (MTBF) ~ 1.5 milion hours.</li>
+<li>&hellip;.</li>
+</ul></li>
+<li>Kích thước dữ liệu thô giả định là ~ 2 TB (chưa bao gồm binlog &hellip;).</li>
+</ul>
+
+<p>Đặc điểm của một server phục vụ database là cấu hình cái gì cũng sẽ cần mạnh:</p>
+
+<ul>
+<li>Cần memory lớn, dùng để cache (<code>innodb_buffer_pool_size</code>) dữ liệu đọc từ đĩa (giảm thời gian đọc đĩa), tuy nhiên dữ liệu sẽ luôn lớn hơn rất nhiều so với memory (2TB với gần 200GB RAM) nên không thể fit hết data trên memory được, memory to chỉ giúp <strong>giảm thiểu</strong> việc đọc đĩa.</li>
+<li>CPU mạnh, nhiều core giúp xử lý nhanh và đồng thời tốt.</li>
+<li>Đĩa càng nhanh càng tốt, vì data vẫn nằm chính trên đĩa, mà execute time ở đĩa thì rất chậm so với các bộ nhớ khác nên đó là lí do cần dùng SSD. Tuy nhiên nếu có điều kiện nên sử dụng các dòng SSD DataCenter hoặc các đĩa xài NVMe Interface (ở trên xài Consumer SSD), tham khảo thêm tại <a href="https://en.wikipedia.org/wiki/IOPS">wikipedia về IOPS</a> của các loại đĩa.</li>
+</ul>
+
+<p>Một số lưu ý khác trong quá trình setup:</p>
+
+<ul>
+<li>Không xài swap, do swapping đọc đĩa sẽ chậm.</li>
+<li>Tách biệt các vùng OS, data ra các đĩa/partition riêng. Ví dụ nên dùng 1 cặp đĩa nhỏ hơn để setup OS, cặp đĩa data nên để riêng để tránh bị ảnh hưởng IOPS khi OS đọc/ghi dữ liệu (log).</li>
+<li>Nếu có thể, nên tách riêng vùng lưu trữ binlog ra partition riêng (tương tự postgres khi tách WAL).</li>
+<li>Cân nhắc ZFS nếu có nhiều file nhỏ hoặc các filesystem khác phù hợp hơn.</li>
+<li>&hellip;</li>
+</ul>
+
+<p><strong>Vấn đề</strong>:</p>
+
+<p>Vấn đề chính là kích thước dữ liệu và IOPS của đĩa. Ở physical server như link wiki phía trên và trạng thái của đĩa Samsung SSD 860Pro thì IOPS rất lớn nên khi chuyển lên cloud thì cũng phải lựa chọn đĩa có cấu hình tương tự. Nói chung hầu hết các vấn đề chậm của database là do tốc độ của đĩa.</p>
+
+<p>Nói qua về một số loại đĩa trên AWS và GCP</p>
+
+<p><strong>AWS</strong></p>
+
+<ul>
+<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">EBS</a>: Đây là loại đĩa thường thấy trên AWS, về bản chất nó là một dạng <strong>network disk</strong> (nhưng ko giống EFS), đặc điểm là <strong>persistent</strong> nhưng có giới hạn về tốc độ. EBS lại chia làm một số loại nhỏ, nhưng ở đây ta chỉ nói về <code>gp2</code> và <code>io1</code>:
+
+<ul>
+<li><code>gp2</code> là EBS giá rẻ, IOPS phụ thuộc vào kích thước của đĩa (muốn tăng IOPS phải resize disk), thường xài cho OS và các nhu cầu chung chung khác. Kích thước từ 1GB - 16TB, Max IOPS/volume là 16,000, max throughput/volume 250 MB/s, max IOPS/instance là 80,000, max throughput/instance 1,750 MB/s. Ngoài ra <code>gp2</code> có một khái niệm là IO credit và baseline performance, nói 1 cách dễ hiểu là chỉ xài đc 100% performance trong 1 khoảng thời gian. Ví dụ đĩa 4TB sẽ có IOPS là 12.288 và giá là ~ <strong>$406</strong> tại region us-east-1.</li>
+<li><code>io1</code> là loại EBS mà IOPS không phụ thuộc vào kích thước đĩa, có thể mua riêng IOPS. Thường xài khi cần IOPS ví dụ các ứng dụng database. Kích thước từ 4 GB - 16TB. Max IOPS/volume là 64,000, max throughput/volume 1,000 MB/s, max IOPS/instance là 80.000, max throughput/instance 1750 MB/s. Ví dụ với 4TB dữ liệu + 12,288 IOPS sẽ có throughput là 1000 MB/s, thì sẽ có giá là <strong>$1441</strong> tại region us-east-1 -&gt; một sự chênh lệnh rất lớn so với <code>gp2</code>. Và giả sử cần IOPS tầm 20,000 (1 ước tính chắc ăn và so với physical server) thì ta sẽ tốn gần <strong>$2000</strong>/tháng :|.</li>
+</ul></li>
+<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html">Instance storage</a>: cung cấp temporary block-level storage. Storage sẽ được đặt trên local disk mà được physical attack vào host computer (đơn giản là 1 physical được chia làm nhiều EC2, thì instance storage là vùng storage lấy ra từ chính local disk đặt trên con physical đó và mount vào EC2 - khác với EBS là network disk, mount từ 1 physical khác). Đặc điểm chính là <strong>có tốc độ cao hơn</strong> nhưng dữ liệu <strong>không persistent</strong> (nghĩa là sẽ mất dữ liệu nếu instance bị stop hoặc terminate hoặc đĩa bị fail). Có 2 interface là SATA và NVMe tương tự như physical disk.</li>
+</ul>
+
+<p><strong>GCP</strong> về cơ bản cũng tương tự như AWS, nhưng mình không làm nhiều GCP nên không có gì để nói thêm.</p>
+
+<ul>
+<li>Persistent Disk</li>
+<li>Local SSD</li>
+</ul>
+
+<p>Vậy tóm tắt lại 2 vấn đề chính:</p>
+
+<ul>
+<li>Làm sao nếu cần IOPS vượt quá giới hạn của <code>io1</code> mà dữ liệu vẫn đảm bảo an toàn.</li>
+<li>Chi phí hợp lý (nếu $2000/month thì một năm sẽ tốn $24.000 chỉ cho mỗi một đĩa).</li>
+</ul>
+
+<h2 id="2-giải-pháp">2. Giải pháp</h2>
+
+<p>Phần này chủ yếu dịch từ percona (có lược bỏ 1 số phần đã nói ở trên), các issue đều tương tự phần trên, chỉ có một điểm khác biệt là data có kích thước là <strong>10TB+</strong>.</p>
+
+<p>Giải pháp có thể tóm gọn như sau:</p>
+
+<ul>
+<li>Dùng local disk (instance storage) NHƯNG lưu ý instance storage không <strong>persistence</strong> vì:
+
+<ul>
+<li>Nhanh vì nó là local disk -&gt; giải quyết chuyện vượt giới hạn của <code>io1</code>.</li>
+<li>Rẻ hơn EBS nhiều. -&gt; rẻ hơn <code>io1</code>. -&gt; giải quyết bài toán chi phí.</li>
+</ul></li>
+<li>Vì dữ liệu không an toàn và ta cần EBS snapshot nên sẽ dùng vài instance <strong>replication</strong> (chi tiết ở dưới).</li>
+</ul>
+
+<h3 id="2-1-so-sánh-chi-phí">2.1 So sánh chi phí</h3>
+
+<p>Sử dụng <a href="https://calculator.s3.amazonaws.com/index.html">công cụ tính chi phí của AWS</a>, cost ước tính là cost đăng ký 1 năm RIs và sử dụng đĩa với 14TB (lưu 10TB dữ liệu + binary log). Chi tiết như sau:</p>
+
+<p>r4.4xlarge, 122GB RAM, 16 vCPUs + EBS, 14TB volume</p>
+
+<pre><code>Amazon EC2 Service (US East (N. Virginia)) $ 1890.56 / month
+Compute: $ 490.56
+EBS Volumes: $1400.00
+</code></pre>
+
+<p>Local storage price estimate:
+i3.4xlarge, 122GB RAM, 16 vCPUs, 3800 GiB disk (2 x 1900 NVMe SSD)</p>
+
+<pre><code>Amazon EC2 Service (US East (N. Virginia)) $ 627.21 / month
+Compute: $625.61
+</code></pre>
+
+<p>i3.8xlarge, 244GB RAM, 32 vCPUs, 7600 GiB disk (4 x 1900 NVMe SSD)</p>
+
+<pre><code>Amazon EC2 Service (US East (N. Virginia)) $1252.82 / month
+Compute: $ 1251.22
+</code></pre>
+
+<p>Như trên ta thấy nếu sử dụng <strong>i3.8xlarge</strong> ta được:</p>
+
+<ul>
+<li>x2 RAM.</li>
+<li>x2 virtual CPUs</li>
+<li>Đĩa nhanh hơn.</li>
+<li>10 Gb network</li>
+</ul>
+
+<p>Nhưng vấn rẻ hơn 1.5 lần so với r4.4xlarge instance trên cùng.</p>
+
+<h3 id="2-2-how-to-migrate-from-ebs-to-local-storage">2.2 How to migrate from EBS to local storage</h3>
+
+<p>Ở đây ta có một vài vấn đề khác cần giải quyết:</p>
+
+<ul>
+<li>Total data size là 10TB và i3.8xlarge có 7600GB đĩa. Để giải quyết vấn đề này thì câu trả lời là <strong>compression</strong>.</li>
+<li>Local storage thì ephemeral, không thể chấp nhận chuyện mất dữ liệu -&gt; dùng replication để đồng bộ dữ liệu sang một slave khác (slave này cũng xài instance storage) -&gt; để scale read và tăng độ an toàn cho dữ liệu.</li>
+<li>Cần EBS snapshot để backup -&gt; dùng thêm 1 slave khác + EBS để persistence dữ liệu (nhưng xài EBS thì sẽ mắc) nên ta có thể dùng đĩa với IOPS tương đối và chỉ dùng slave này cho backup hoặc phục vụ một lượng nhỏ traffic (ví dụ analytic &hellip;). -&gt; có thể dùng EBS snapshot cho instance này.</li>
+</ul>
+
+<p>Về <strong>compression data</strong>, với i3.x8large thì chỉ cần 2x compression, cơ bản có 2 cách:</p>
+
+<p><strong><em>InnoDB compression</em></strong></p>
+
+<ul>
+<li>InnoDB row compresssion (<a href="https://dev.mysql.com/doc/refman/5.6/en/innodb-row-format-dynamic.html">row_format=compressed</a>) hoặc <a href="https://mariadb.com/kb/en/library/compression">InnoDB page compression</a>.</li>
+<li>Yêu cầu là filesystem phải hỗ trợ <a href="https://en.wikipedia.org/wiki/Sparse_file">sparse file</a> và <a href="https://stackoverflow.com/a/13982618">hole punching</a>, các filesystem hiện đại hiện này đều hỗ trợ như ext3, ext4 &hellip; hay NTFS. Hiểu một cách đơn giản thì nó hoạt động như cách mà ta cấp đĩa cứng cho máy ảo, init 10GB nhưng nếu thực sự chỉ dùng 2GB thì file image sẽ chỉ có kích thước 2GB -&gt; tối ưu việc lưu trữ. Bản chất đây là yêu cầu của compression chứ không phải của filesystem.</li>
+<li>Tuy nhiên InooDB compresstion có thể chậm hơn so với không compresstion và chỉ hỗ trợ compress <code>ibd</code> file còn các file binary log, frm &hellip; thì không hỗ trợ.</li>
+</ul>
+
+<p><strong><em>ZFS compression</em></strong></p>
+
+<ul>
+<li>Đây là compression trên level filesystem, ZFS compression sẽ compress tất cả các file bao gồm cả binary log, frm &hellip;</li>
+<li>Hữu ích nếu nếu dùng nhiều tablespace hoặc khi sử dụng <em>schema per customer</em>, <em>table per customer</em> &hellip;</li>
+</ul>
+
+<p>Một số thông tin về zfs compression như sau:</p>
+
+<pre><code>&gt; du -sh --apparent-size /mysqldata/mysql/data
+8.6T	/mysqldata/mysql/data
+&gt; du -sh /mysqldata/mysql/data
+3.2T	/mysqldata/mysql/data
+</code></pre>
+
+<p>=&gt; đây là real-data chứ không phải generated data</p>
+
+<p>Với tỉ lệ nén là 2.42x cho table và 3.75x cho binary log, giúp giảm từ 8.6T -&gt; 3.2T sẽ vừa đủ trên i3.8xlarge instance.:</p>
+
+<pre><code>&gt; zfs get all | grep -i compress
+...
+mysqldata/mysql/data  compressratio         2.42x                  -
+mysqldata/mysql/data  compression           gzip                   inherited from mysqldata/mysql
+mysqldata/mysql/data  refcompressratio      2.42x                  -
+mysqldata/mysql/log   compressratio         3.75x                  -
+mysqldata/mysql/log   compression           gzip                   inherited from mysqldata/mysql
+mysqldata/mysql/log   refcompressratio      3.75x    
+</code></pre>
+
+<p>=&gt; Tóm lại thì ZFS cung cấp một tỉ lệ nén khá tốt, giúp tiết kiệm một số tiền đáng kể. Tuy nhiên thì compression không miễn phí <a href="https://www.percona.com/blog/2018/02/16/why-zfs-affects-mysql-performance">ZFS scan sẽ chậm hơn ở một số workload</a>, sử dụng local NVMe storage để bù lại hiệu suất.</p>
+
+<p>Ngoài ra bạn có thể đọc thêm về một số performance testing dành cho ZFS trên linux ở bài viết <a href="https://www.percona.com/blog/2018/05/15/about-zfs-performance">About ZFS Performance</a></p>
+
+<p><strong><em>MyRock</em></strong></p>
+
+<p>Ngoài 2 cách trên để nén dữ liệu thì một lựa chọn khác là sử dụng <a href="http://myrocks.io">MyRocks storage engine</a>, đây là storage engine do Facebook phát triển nhằm giải quyết bài toán kích thước lưu trữ và hiệu năng ghi dữ liệu.</p>
+
+<p><strong>Replication &amp; local volumes</strong>: Như nói ở trên thì ta sẽ cần vài server replication để đảm bảo độ an toàn của dữ liệu, mô hình sẽ như sau:</p>
+
+<pre><code>master - local storage (AZ 1, i.e. 1a)
+-&gt; slave1 - local storage (AZ 2, i.e. 1b)
+-&gt; slave2 - ebs storage (AZ 3, i.e. 1c)
+   (other replication slaves if needed with local storage - optional)
+</code></pre>
+
+<p><img src="https://www.percona.com/blog/wp-content/uploads/2018/08/master-slave.png" alt="master-slave" /></p>
+
+<p>Một số lưu ý:</p>
+
+<ul>
+<li>Đặt các replication ở các availability zone khác nhau.</li>
+<li>Các local storage thì không bền (not durable) nghĩa là nếu ta <strong>stop instance</strong> và <strong>start instance lại</strong> thì <strong>dữ liệu sẽ mất</strong>. TUY NHIÊN reboot (vô tình hoặc cố ý) là ngoại lệ, bạn có thể reboot instance và local storage vẫn sẽ được giữ lại.</li>
+<li>Failover cho master bằng slave khi master chết có thể giải quyết bằng <a href="https://www.percona.com/blog/2016/09/02/mha-quickstart-guide">MHA</a> hoặc <a href="https://www.percona.com/blog/2016/03/08/orchestrator-mysql-replication-topology-manager">Orchestrator</a>.</li>
+<li>Có thể clone slave bằng cách dùng <code>xtrabackup</code> hoặc <code>zfs snapshot</code>, với <code>xtrabackup</code> có thể đọc một số bài viết khác về clone slave trên blog của mình.</li>
+</ul>
+
+<h2 id="3-tổng-kết">3. Tổng kết</h2>
+
+<ul>
+<li>Sử dụng <code>io1</code> cho IOPS tốt nhưng siêu mắc.</li>
+<li>Sử dụng local storage và i3 instance giúp tiết kiệm tiền nhưng phải aware các giải pháp về an toàn dữ liệu và độ tiện dụng, operation.</li>
+<li>Có thể sử dụng MyRock, nhưng đổi storage engine là một bigger task yêu cầu nhiều thời gian và kiểm thử.</li>
+<li>Có thể đổi qua sử dụng <a href="https://www.percona.com/blog/2018/07/17/when-should-i-use-amazon-aurora-and-when-should-i-use-rds-mysql">AWS Aurora</a> nhưng chi phí cũng sẽ rất mắc và cũng là một bigger task.</li>
+</ul>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+      
+      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+    </footer>
+  </body>
+</html>
+
