@@ -83,7 +83,7 @@
 <li>Dell PowerEdge R720 (2-socket, 2U rack server).</li>
 <li>CPU Xeon E5-2660V4 (14 cores, 28 threads) 2.20 Ghz.</li>
 <li>16GB * 12 ~ 192 GB RAM.</li>
-<li>2 * 4TB Samsung SSD 860 Pro (consumer SSD) -&gt; RAID 1s.
+<li>2 * 4TB Samsung SSD 860 Pro (consumer SSD) -&gt; RAID 1.
 
 <ul>
 <li>Sequential Read Speed ~ Up to 560 MB/sec.</li>
@@ -196,14 +196,14 @@ Compute: $ 1251.22
 <li>10 Gb network</li>
 </ul>
 
-<p>Nhưng vấn rẻ hơn 1.5 lần so với r4.4xlarge instance trên cùng.</p>
+<p>Nhưng vẫn rẻ hơn 1.5 lần so với r4.4xlarge instance trên cùng.</p>
 
 <h3 id="2-2-how-to-migrate-from-ebs-to-local-storage">2.2 How to migrate from EBS to local storage</h3>
 
 <p>Ở đây ta có một vài vấn đề khác cần giải quyết:</p>
 
 <ul>
-<li>Total data size là 10TB và i3.8xlarge có 7600GB đĩa. Để giải quyết vấn đề này thì câu trả lời là <strong>compression</strong>.</li>
+<li>Total data size là 10TB và i3.8xlarge có 7,600GB đĩa. Để giải quyết vấn đề này thì câu trả lời là <strong>compression</strong>.</li>
 <li>Local storage thì ephemeral, không thể chấp nhận chuyện mất dữ liệu -&gt; dùng replication để đồng bộ dữ liệu sang một slave khác (slave này cũng xài instance storage) -&gt; để scale read và tăng độ an toàn cho dữ liệu.</li>
 <li>Cần EBS snapshot để backup -&gt; dùng thêm 1 slave khác + EBS để persistence dữ liệu (nhưng xài EBS thì sẽ mắc) nên ta có thể dùng đĩa với IOPS tương đối và chỉ dùng slave này cho backup hoặc phục vụ một lượng nhỏ traffic (ví dụ analytic &hellip;). -&gt; có thể dùng EBS snapshot cho instance này.</li>
 </ul>
@@ -215,7 +215,7 @@ Compute: $ 1251.22
 <ul>
 <li>InnoDB row compresssion (<a href="https://dev.mysql.com/doc/refman/5.6/en/innodb-row-format-dynamic.html">row_format=compressed</a>) hoặc <a href="https://mariadb.com/kb/en/library/compression">InnoDB page compression</a>.</li>
 <li>Yêu cầu là filesystem phải hỗ trợ <a href="https://en.wikipedia.org/wiki/Sparse_file">sparse file</a> và <a href="https://stackoverflow.com/a/13982618">hole punching</a>, các filesystem hiện đại hiện này đều hỗ trợ như ext3, ext4 &hellip; hay NTFS. Hiểu một cách đơn giản thì nó hoạt động như cách mà ta cấp đĩa cứng cho máy ảo, init 10GB nhưng nếu thực sự chỉ dùng 2GB thì file image sẽ chỉ có kích thước 2GB -&gt; tối ưu việc lưu trữ. Bản chất đây là yêu cầu của compression chứ không phải của filesystem.</li>
-<li>Tuy nhiên InooDB compresstion có thể chậm hơn so với không compresstion và chỉ hỗ trợ compress <code>ibd</code> file còn các file binary log, frm &hellip; thì không hỗ trợ.</li>
+<li>Tuy nhiên InooDB compression có thể chậm hơn so với không compression và và nhược điểm là chỉ hỗ trợ compress <code>ibd</code> file còn các file binary log, frm &hellip; thì không hỗ trợ.</li>
 </ul>
 
 <p><strong><em>ZFS compression</em></strong></p>
@@ -233,7 +233,7 @@ Compute: $ 1251.22
 3.2T	/mysqldata/mysql/data
 </code></pre>
 
-<p>=&gt; đây là real-data chứ không phải generated data</p>
+<p>=&gt; lưu ý đây là real-data chứ không phải generated data.</p>
 
 <p>Với tỉ lệ nén là 2.42x cho table và 3.75x cho binary log, giúp giảm từ 8.6T -&gt; 3.2T sẽ vừa đủ trên i3.8xlarge instance.:</p>
 
@@ -247,9 +247,9 @@ mysqldata/mysql/log   compression           gzip                   inherited fro
 mysqldata/mysql/log   refcompressratio      3.75x    
 </code></pre>
 
-<p>=&gt; Tóm lại thì ZFS cung cấp một tỉ lệ nén khá tốt, giúp tiết kiệm một số tiền đáng kể. Tuy nhiên thì compression không miễn phí <a href="https://www.percona.com/blog/2018/02/16/why-zfs-affects-mysql-performance">ZFS scan sẽ chậm hơn ở một số workload</a>, sử dụng local NVMe storage để bù lại hiệu suất.</p>
+<p>=&gt; Tóm lại thì ZFS cung cấp một tỉ lệ nén khá tốt và do nén ở level filesystem nên có thể nén tất cả mọi thứ trên filesystem, giúp tiết kiệm một số tiền đáng kể. Tuy nhiên thì compression không miễn phí <a href="https://www.percona.com/blog/2018/02/16/why-zfs-affects-mysql-performance">ZFS scan sẽ chậm hơn ở một số workload</a>, sử dụng local NVMe storage để bù lại hiệu suất.</p>
 
-<p>Ngoài ra bạn có thể đọc thêm về một số performance testing dành cho ZFS trên linux ở bài viết <a href="https://www.percona.com/blog/2018/05/15/about-zfs-performance">About ZFS Performance</a></p>
+<p>Ngoài ra bạn có thể đọc thêm về một số performance testing dành cho ZFS trên linux ở bài viết <a href="https://www.percona.com/blog/2018/05/15/about-zfs-performance">About ZFS Performance</a>.</p>
 
 <p><strong><em>MyRock</em></strong></p>
 
@@ -259,7 +259,8 @@ mysqldata/mysql/log   refcompressratio      3.75x
 
 <pre><code>master - local storage (AZ 1, i.e. 1a)
 -&gt; slave1 - local storage (AZ 2, i.e. 1b)
--&gt; slave2 - ebs storage (AZ 3, i.e. 1c)
+-&gt; slave2 - local storage with delayed replication (AZ 3, i.e. 1b)
+-&gt; slave3 - ebs storage (AZ 3, i.e. 1c)
    (other replication slaves if needed with local storage - optional)
 </code></pre>
 
@@ -272,6 +273,7 @@ mysqldata/mysql/log   refcompressratio      3.75x
 <li>Các local storage thì không bền (not durable) nghĩa là nếu ta <strong>stop instance</strong> và <strong>start instance lại</strong> thì <strong>dữ liệu sẽ mất</strong>. TUY NHIÊN reboot dù vô tình hay cố ý (instance reboots intentionally or unintentionally) là ngoại lệ, bạn có thể reboot instance và local storage vẫn sẽ được giữ lại.</li>
 <li>Failover cho master bằng slave khi master chết có thể giải quyết bằng <a href="https://www.percona.com/blog/2016/09/02/mha-quickstart-guide">MHA</a> hoặc <a href="https://www.percona.com/blog/2016/03/08/orchestrator-mysql-replication-topology-manager">Orchestrator</a>.</li>
 <li>Có thể clone slave bằng cách dùng <code>xtrabackup</code> hoặc <code>zfs snapshot</code>, với <code>xtrabackup</code> có thể đọc một số bài viết khác về clone slave trên blog của mình.</li>
+<li>Nên xài <code>delayed replication</code> với độ trễ sync dữ liệu từ 30 phút - 60 phút để tránh human-error.</li>
 </ul>
 
 <h2 id="3-tổng-kết">3. Tổng kết</h2>
