@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Who owns my encrypt keys on cloud? | xluffy&#39;s page</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/categories/">~/categories</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://github.com/xluffy/til/issues">~/til</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="#">~/books</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">Who owns my encrypt keys on cloud?</span></h1>
+
+<h2 class="date">2019/02/26</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/security">security</a> <a href="/categories/aws">aws</a> 
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+<p>Một trong những câu hỏi thường gặp khi nói về mã hóa trên các dịch vụ cloud như AWS đó là:</p>
+
+<ul>
+<li><strong>Ai là người sở hữu encrypt key trên AWS?</strong></li>
+<li><strong>AWS có thể truy cập vào encrypt key của tôi hay không?</strong></li>
+</ul>
+
+<p>Đây là một câu hỏi quan trọng mà các tổ chức lớn muốn dịch chuyển hệ thống của mình từ on-premise lên Cloud đặt ra. Các nhà cung cấp dịch vụ cloud tất nhiên không muốn nói nhiều về vấn đề này.</p>
+
+<p>Trả lời được câu hỏi này, ta sẽ giải đáp được câu hỏi liệu các nhà cung cấp dịch vụ cloud có thể truy cập các dữ liệu đã mã hóa của tổ chức trên hạ tầng cloud hay không?</p>
+
+<p>AWS cung cấp 2 dịch vụ để quản lý encrypt key đó là:</p>
+
+<ul>
+<li>AWS Cloud HSM</li>
+<li>AWS Key Management Service (KMS)</li>
+</ul>
+
+<p>Để trả lời cho câu hỏi ai sở hữu encrypt-key trên AWS, nó tùy thuộc vào dịch vụ mà bạn sử dụng.</p>
+
+<p>Giải thích chút xíu về <strong>HSM</strong> (physical hardware security module)<a href="http://antoanthongtin.vn/Detail.aspx?CatID=e53f32e5-eec0-40c0-9cd9-e4c88a27161e&amp;NewsID=be1076b2-ee64-4852-a65f-cc4841c6da00">[1]</a>:</p>
+
+<ul>
+<li>Là thiết bị phần cứng được thiết kế đặc biệt chuyên dụng cho tính năng security.</li>
+<li>Là thiết bị có thể sinh cặp khóa bất đối xứng và bảo vệ khóa bí mật trong nó.</li>
+<li>Kháng được đầy đủ các hình thức tấn công vật lí như:
+
+<ul>
+<li>Tấn công trực tiếp đến phần cứng để đọc, dịch ngược các hàm trong chip điện tử để tìm hiểu thuật toán.</li>
+<li>Tấn công bằng dung môi hóa học, chất khắc axit, biến màu (một kỹ thuật tương tự khắc axit nhưng dựa vào sự khác nhau trong tốc độ khắc axit) nhằm bóc tách lớp vỏ đóng gói bên ngoài, làm lộ khác biệt về vật chất nhằm xác định đâu là bit 0/1 trong bộ nhớ ROM.</li>
+<li>Tấn công dùng kính hiển vi hạt điện tử quét và quang học để phân tích quang học và dịch ngược. Nhằm làm lộ ra các khu vực đang hoạt động &hellip;.</li>
+<li>Tấn công đặt trạm thử, đặt các kim dò thử vào các dây dẫn bất kỳ trên chip điện tử đã lột vỏ để tạo ra một kênh truyền mới, nhằm truyền dữ liệu ra bên ngoài. Dữ liệu trao đổi giữa CPU và các bộ nhớ có thể bị thu chặn và khôi phục đầy đủ (mã thực thi chương trình hoặc dữ liệu chương trình, bao gồm cả khóa bí mật).</li>
+<li>Tấn công sử dụng chùm hạt ion tập trung để bắn các hạt ion nhằm thực hiện các thay đổi trong vi mạch. Các ngắt mạch của các vi mạch có thể được nối lại hay các tín hiệu ngầm bên trong có thể được truyền ra các dây dẫn bên ngoài.</li>
+</ul></li>
+<li>Tuân theo các tiêu chuẩn nghiêm ngặt như FIPS 140-2.</li>
+</ul>
+
+<p>=&gt; Tóm lại thì HSM có thể nghĩ nó tương tự như một USB chứa key, nhưng chống được các tấn công vật lý nhằm bảo về dữ liệu nó chứa đựng.</p>
+
+<p>Quay trở lại với dịch vụ CloudHSM của AWS, bản chất cũng là HSM bình thường nhưng được cung cấp bởi AWS. Nó được <strong>đặt ở một AWS region</strong> nhưng <strong>chỉ bạn mới có quyền truy cập vào key server</strong>. Amazon tuyên bố rõ ràng  là với dịch vụ CloudHSM thì <strong>chỉ duy nhất bạn mới có quyền truy cập key</strong>. Tất nhiên Amazon có physical access vào HSM vì nó được đặt ở DataCenter của họ, nhưng ta có thể phần nào tin vào tuyên bố của AWS.</p>
+
+<p>CloudHSM là dịch vụ cung cấp phần cứng đạt chuẩn FIPS 140-2 cấp độ 3, dễ dàng quản lí, mở rộng, tương thích với các dịch vụ khác của AWS và tương thích với các HSM trên thị trường cũng như các API tiêu chuẩn của ngành  (thư viện PKCS#11, Java Cryptography Extensions (JCE) và Microsoft CryptoNG (CNG)).</p>
+
+<p>Với AWS KMS, dịch vụ quản lý key được back bởi Amazon hardware security module. Nghĩa là <strong>Amazon sẽ tạo ra một key, và key này sẽ chỉ được duy nhất bạn sử dụng</strong>, key này được bảo vệ (encrypt) bởi HSM của Amazon. Khi bạn tạo một key trên KMS, nó gọi là CMK (Customer Master Key), CMK là một cấu trúc dữ liệu gồm:</p>
+
+<ul>
+<li>Symmetric key.</li>
+<li>Medata về symmetric key đó.</li>
+</ul>
+
+<p>Quay trở lại câu hỏi &ldquo;Ai là chủ sở hữu của CMK?&rdquo;, do CMK được bảo vệ bởi Amazon HSM nên <strong>bạn và Amazon sẽ chia sẻ quyền sở hữu key này và cả hai đều có thể có quyền access vào raw key</strong>.</p>
+
+<p>AWS KMS giới thiệu một tính năng đó là &ldquo;Bring Your Own Key&rdquo;, điều này cũng không thay đổi việc Amazon có chung quyền sở hữu key với bạn, điểm khác biệt là key sẽ được tạo ra bên ngoài hệ thống AWS, nhưng khi upload lên KMS, nó vẫn được bảo vệ bởi Amazon HSM nên Amazon chia sẻ quyền sở hữu key.</p>
+
+<p><strong>Tóm tắt lại thì:</strong></p>
+
+<ul>
+<li>với AWS CloudHSM, cung cấp dịch vụ mà encrypt-key chỉ duy nhất bạn có quyền truy cập.</li>
+<li>Với AWS KMS, cung cấp dịch vụ mà encrypt-key được truy cập bởi cả bạn và Amazon.</li>
+</ul>
+
+<p>Và nó cũng tương tự với bất cứ dịch vụ cloud nào chứ không chỉ riêng AWS.</p>
+
+<p><strong>Vậy tại sao chuyện này lại quan trọng?</strong></p>
+
+<p>Ở nhiều quốc gia, các cơ quan thực thi pháp luật và cơ quan an ninh quốc gia có thẩm quyền buộc các nhà cung cấp dịch vụ cloud phải trao đổi thông tin/dữ liệu liên quan đến khách hàng. Ở US thì điều trên là sự thật, các cơ quan thực thi pháp luật hoặc cơ quan an ninh quốc gia có thể request các dịch vụ cloud để truy cập các thông tin của khách hàng mà cấm các dịch vụ cloud được thông báo tới khách hàng. Và Amazon, theo lẽ tự nhiên phải tuân theo luật của quốc gia mà họ cung cấp dịch vụ. Điều đó nghĩa là encrypt-key của bạn trên AWS KMS có thể bị trao đổi với các cơ quan pháp luật mà bạn không biết. Bạn có thể không thích chuyện này (và hệ thống pháp luật của đất nước bạn) nhưng đó mới là thực tế.</p>
+
+<p>Từ những giải thích trên, bạn sẽ thấy việc lưu trữ an toàn trên các dịch vụ cloud thật không dễ dàng.</p>
+
+<ul>
+<li>Nếu không mã hóa (filesystem encrypt, tương tự FileVault hoặc LUKS), việc nhà cung cấp dịch vụ truy cập dữ liệu của bạn là khá dễ dàng. Chỉ có thể tin vào sự uy tín của nhà cung cấp.</li>
+<li>Nếu mã hóa, nhưng lại lưu chính chìa khóa để giải mã trên dịch vụ của nhà cung cấp đó thì cũng không khác lắm với việc không mã hóa, dù việc access-key có thể phức tạp, rắc rối hơn. Tuy nhiên nếu bị compromise ở level account hoặc toàn bộ system thì vấn đề mất dữ liệu chỉ còn là thời gian.</li>
+<li>Nếu mã hóa, nhưng lưu chìa khóa ở nơi khác thì &hellip; quy trình phức tạp, phát sinh nhiều hệ thống, quản lý kho khăn &hellip;</li>
+</ul>
+
+<p>=&gt; Tóm lại các giải pháp security nên implement ở mindset của người vận hành, phát triển hệ thống.</p>
+
+<p>Lược dịch từ bài viết <a href="https://info.townsendsecurity.com/who-owns-my-encryption-key-in-the-amazon-aws-cloud">Who owns my encryption key in the Amazon AWS cloud?</a> có bổ sung, tham khảo thêm các tài liệu trên internet.</p>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+      
+      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+    </footer>
+  </body>
+</html>
+

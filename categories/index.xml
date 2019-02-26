@@ -6,9 +6,19 @@
     <description>Recent content in Categories on xluffy&#39;s page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Tue, 26 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Aws</title>
+      <link>https://xluffy.github.io/categories/aws/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/categories/aws/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Cloud</title>
@@ -85,7 +95,7 @@
     <item>
       <title>Security</title>
       <link>https://xluffy.github.io/categories/security/</link>
-      <pubDate>Mon, 18 Jun 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/categories/security/</guid>
       <description></description>

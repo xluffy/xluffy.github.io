@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Aws on xluffy&#39;s page</title>
+    <link>https://xluffy.github.io/categories/aws/</link>
+    <description>Recent content in Aws on xluffy&#39;s page</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 26 Feb 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://xluffy.github.io/categories/aws/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Who owns my encrypt keys on cloud?</title>
+      <link>https://xluffy.github.io/post/who-owns-my-encrypt-keys-on-cloud/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/who-owns-my-encrypt-keys-on-cloud/</guid>
+      <description>Một trong những câu hỏi thường gặp khi nói về mã hóa trên các dịch vụ cloud như AWS đó là:
+ Ai là người sở hữu encrypt key trên AWS? AWS có thể truy cập vào encrypt key của tôi hay không?  Đây là một câu hỏi quan trọng mà các tổ chức lớn muốn dịch chuyển hệ thống của mình từ on-premise lên Cloud đặt ra. Các nhà cung cấp dịch vụ cloud tất nhiên không muốn nói nhiều về vấn đề này.</description>
+    </item>
+    
+  </channel>
+</rss>
