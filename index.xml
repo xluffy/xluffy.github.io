@@ -6,10 +6,20 @@
     <description>Recent content on xluffy&#39;s page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>VPC architecture</title>
+      <link>https://xluffy.github.io/post/vpc-architecture/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/vpc-architecture/</guid>
+      <description>Thiết kế này đặt toàn bộ hệ thống trong một region và không có một kết nối cross-region nào. Sẽ có 2 VPC đó là:
+ Production VPC Management VPC  Chúng được kết nối với nhau thông qua VPC Peering. Và lớp mạng được chọn lựa để tránh đụng độ với các lớp mạng ở VPC khác (khi có nhu cầu peering giữa các region, AWS đã hỗ trợ peering giữa các region, trước đây phải tạo kết nối VPN, tham khảo thêm về AWS Inter-Region Latency) hoặc đụng độ với các lớp mạng nội bộ ở cty.</description>
+    </item>
     
     <item>
       <title>Who owns my encrypt keys on cloud?</title>
