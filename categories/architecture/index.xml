@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Aws on xluffy&#39;s page</title>
-    <link>https://xluffy.github.io/categories/aws/</link>
-    <description>Recent content in Aws on xluffy&#39;s page</description>
+    <title>Architecture on xluffy&#39;s page</title>
+    <link>https://xluffy.github.io/categories/architecture/</link>
+    <description>Recent content in Architecture on xluffy&#39;s page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://xluffy.github.io/categories/aws/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xluffy.github.io/categories/architecture/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,16 +19,6 @@
       <guid>https://xluffy.github.io/post/vpc-architecture/</guid>
       <description>Thiết kế này đặt toàn bộ hệ thống trong một region và không có một kết nối cross-region nào. Sẽ có 2 VPC đó là:
  Production VPC Management VPC  Chúng được kết nối với nhau thông qua VPC Peering. Và lớp mạng được chọn lựa để tránh đụng độ với các lớp mạng ở VPC khác (khi có nhu cầu peering giữa các region, AWS đã hỗ trợ peering giữa các region, trước đây phải tạo kết nối VPN, tham khảo thêm về AWS Inter-Region Latency) hoặc đụng độ với các lớp mạng nội bộ ở cty.</description>
-    </item>
-    
-    <item>
-      <title>Who owns my encrypt keys on cloud?</title>
-      <link>https://xluffy.github.io/post/who-owns-my-encrypt-keys-on-cloud/</link>
-      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://xluffy.github.io/post/who-owns-my-encrypt-keys-on-cloud/</guid>
-      <description>Một trong những câu hỏi thường gặp khi nói về mã hóa trên các dịch vụ cloud như AWS đó là:
- Ai là người sở hữu encrypt key trên AWS? AWS có thể truy cập vào encrypt key của tôi hay không?  Đây là một câu hỏi cực kỳ quan trọng mà các tổ chức lớn muốn dịch chuyển hệ thống của mình từ on-premise lên Cloud đặt ra và cần câu trả lời.</description>
     </item>
     
   </channel>

@@ -93,20 +93,20 @@
   </url>
   
   <url>
-    <loc>https://xluffy.github.io/categories/aws/</loc>
-    <lastmod>2019-02-26T00:00:00+00:00</lastmod>
+    <loc>https://xluffy.github.io/categories/architecture/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://xluffy.github.io/categories/aws-vpc-network-architecture/</loc>
+    <loc>https://xluffy.github.io/categories/aws/</loc>
     <lastmod>2019-03-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://xluffy.github.io/categories/</loc>
-    <lastmod>2019-02-26T00:00:00+00:00</lastmod>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -131,6 +131,12 @@
   <url>
     <loc>https://xluffy.github.io/categories/mysql/</loc>
     <lastmod>2019-01-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://xluffy.github.io/categories/network/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -172,6 +178,12 @@
   
   <url>
     <loc>https://xluffy.github.io/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://xluffy.github.io/categories/vpc/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -6,26 +6,26 @@
     <description>Recent content in Categories on xluffy&#39;s page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Aws</title>
-      <link>https://xluffy.github.io/categories/aws/</link>
-      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      <title>Architecture</title>
+      <link>https://xluffy.github.io/categories/architecture/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://xluffy.github.io/categories/aws/</guid>
+      <guid>https://xluffy.github.io/categories/architecture/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Aws, vpc, network, architecture</title>
-      <link>https://xluffy.github.io/categories/aws-vpc-network-architecture/</link>
+      <title>Aws</title>
+      <link>https://xluffy.github.io/categories/aws/</link>
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://xluffy.github.io/categories/aws-vpc-network-architecture/</guid>
+      <guid>https://xluffy.github.io/categories/aws/</guid>
       <description></description>
     </item>
     
@@ -62,6 +62,15 @@
       <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/categories/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Network</title>
+      <link>https://xluffy.github.io/categories/network/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/categories/network/</guid>
       <description></description>
     </item>
     
@@ -107,6 +116,15 @@
       <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/categories/security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vpc</title>
+      <link>https://xluffy.github.io/categories/vpc/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/categories/vpc/</guid>
       <description></description>
     </item>
     
