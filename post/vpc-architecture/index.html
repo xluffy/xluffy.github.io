@@ -96,9 +96,37 @@
 </ul></li>
 </ul>
 
+<p>Về NAT gateway, ta có thể thiết kế theo 2 trường phái:</p>
+
+<ul>
+<li>Chỉ sử dụng một NAT gateway cho tất cả các private subnet (bản thân NAT gateway đã có sẵn tính failover tương tự như ELB).</li>
+<li>Mỗi cặp subnet ở mỗi AZ sẽ có một NAT gateway riêng, ta có 3 AZs thì sẽ có 3 NAT gateway tương ứng.</li>
+</ul>
+
+<p>Ưu nhược điểm của 2 trường phái này dựa vào cách tính chi phí của AWS với NAT gateway:</p>
+
+<ul>
+<li>Chi phí dựa trên giờ sử dụng.</li>
+<li>Chi phí dựa trên data processing mà NAT gateway xử lý.</li>
+<li>Một trường hợp đặc biệt nữa là nếu EC2 route ra internet mà qua một NAT gateway khác AZ sẽ bị tính phí.</li>
+</ul>
+
+<p>Nên nếu có nhu cầu gửi traffic ra internet nhiều từ EC2 nằm trong private subnet (via NAT gateway) thì nên sử dụng nhiều NAT gateway tương ứng với từng AZ, còn nếu gửi ít thì có nhiều NAT gateway quá sẽ tốn kém cho chi phí giờ sử dụng <a href="https://github.com/xluffy/til/issues/132">[1]</a>.</p>
+
+<p>Ngoài ra, nếu EC2 giao tiếp với các dịch vụ của AWS nhiều (ví dụ các tính năng upload/download dữ liệu trên S3) thì có thể cân nhắc sử dụng VPC Endpoint. Bản thân EC2 khi kết nối tới S3 sẽ là một kết nối internet như cách kết nối tới các dịch vụ khác bên ngoài hệ thống AWS. Chuyện này vừa tăng latency + chi phí về data transfer. Khi sử dụng VPC endpoint thì từ EC2 -&gt; S3 sẽ là kết nối thông qua private address (đi nội bộ) giúp giảm chi phí và giảm latency kết nối.</p>
+
 <p>Với VPC dành cho management sẽ đặt các dịch vụ dùng cho quản trị hệ thống như các hệ thống CI/CD, monitoring, logging, bastion, VPN … Thông qua kết nối VPC peering, ta có thể route request từ VPC này tới Production VPC. Ta cũng có thể tổ chức VPC management tương tự với 3 layer như Production VPC nếu muốn. Với VPC này, ta có thể cho phép DevOps engineer có thể kết nối thông qua VPN hoặc whitelist là static IP của công ty (như một jump box).</p>
 
-<p>Mỗi layer sẽ có một security group hoạt động như một network firewall để cho phép/chặn các kết nối không cần thiết. Các máy chủ nằm trong Prod VPC chỉ có thể truy cập SSH được từ management VPC (mở port 22 từ VPC này) và người quản trị buộc phải truy cập vào management VPC trước khi muốn truy cập vào hệ thống production (ssh hoặc quay VPN).</p>
+<p><del>Mỗi layer sẽ có một security group hoạt động như một network firewall để cho phép/chặn các kết nối không cần thiết.</del></p>
+
+<p>Theo tài liệu của <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Security.html">AWS về Security trong VPC</a> thì:</p>
+
+<ul>
+<li>Security Group: hoạt động như một host-firewall gắn với một EC instance để control traffic In/Out tại instance level.</li>
+<li>Network ACL: hoạt động như một network-firewall, gắn với subnets, controll traffic In/Out tại subnet level.</li>
+</ul>
+
+<p>Các máy chủ nằm trong Prod VPC chỉ có thể truy cập SSH được từ management VPC (mở port 22 từ VPC này) và người quản trị buộc phải truy cập vào management VPC trước khi muốn truy cập vào hệ thống production (ssh hoặc quay VPN).</p>
 
 <p>Trong Prod VPC:</p>
 
