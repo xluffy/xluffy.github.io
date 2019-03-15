@@ -139,10 +139,18 @@
 <p>Có thể thiết kế các security group như sau:</p>
 
 <ul>
-<li><code>sg_prod_&lt;project&gt;_mgnt</code>: Gắn vào tất cả các layer, server bên prod VPC, mở port 22 từ mgnt VPC.</li>
-<li><code>sg_prod_&lt;project&gt;_lb</code>: Gắn vào các dịch vụ nằm ở tầng public, mở port <sup>80</sup>&frasl;<sub>443</sub>.</li>
-<li><code>sg_prod_&lt;project&gt;_app</code>: Gắn vào dịch vụ nằm ở tầng ứng dụng, subnet private, mở port 80.</li>
-<li><code>sg_prod_&lt;project&gt;_data</code>: Gắn vào các dịch vụ nằm ở tầng data, persistence store subnet, mở các port theo dịch vụ như ở trên.</li>
+<li><code>sg_prod_&lt;project&gt;_mgnt</code>: Gắn vào tất cả các EC2 instance bên prod VPC, mở port 22 từ mgnt VPC.</li>
+<li><code>sg_prod_&lt;project&gt;_lb</code>: Gắn vào các EC2 instance nằm ở tầng public, mở port <sup>80</sup>&frasl;<sub>443</sub>.</li>
+<li><code>sg_prod_&lt;project&gt;_app</code>: Gắn vào EC2 instance nằm ở tầng ứng dụng, subnet private, mở port 80.</li>
+<li><code>sg_prod_&lt;project&gt;_data</code>: Gắn vào các  EC2 instance nằm ở tầng data, persistence store subnet, mở các port theo dịch vụ như ở trên.</li>
+</ul>
+
+<p>Với Network ACL sẽ thiết kế như sau:</p>
+
+<ul>
+<li><code>nacl_prod_&lt;project&gt;_public</code>: Cho phép nhận inbound traffic từ bất kỳ đâu.</li>
+<li><code>nacl_prod_&lt;project&gt;_app</code>: Chỉ nhận traffic inbound từ duy nhất public subnet</li>
+<li><code>nacl_prod_&lt;project&gt;_data</code>: Chỉ nhận traffic inboud từ duy nhất app subnet (không nhận traffic từ public subnet)</li>
 </ul>
 
 <p><strong>BONUS 1</strong>: Việc thiết kế hệ thống … thực ra phụ thuộc vào ứng dụng đang phát triển, yêu cầu về security, tốc độ phát triển … Có một phiên bản đơn giản hơn của architecture trên đó là bỏ đi Management VPC và kết nối Peering. Thay vào đó ta sẽ đặt ssh-bastion, vpn service ở public layer, các dịch vụ devops khác có thể đặt trong các subnet tương ứng như các dịch vụ phục vụ cho user. Có những công ty làm về cổng thanh toán, ví điện tử, các cty có đội ngũ security riêng (ISO team) thì yêu cầu về security có thể cao hơn, họ kiểm soát cả các kết nối outbound (ra đâu, ra từ port nào, network interface nào, địa chỉ nguồn/đích ra sao), điều đó là dễ hiểu nhưng đồng thời sẽ có nhiều issue liên quan tới việc mở thiếu cổng, debug khó hơn, thời gian deploy lâu hơn &hellip;</p>
