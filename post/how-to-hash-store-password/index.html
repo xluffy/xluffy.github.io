@@ -124,7 +124,7 @@
 
 <p>Ta đã biết, hash algorithm là one-way-function, tức là không thể suy ngược trực tiếp ra password nếu có hash_value (khác với mã hóa, có thể giải mã thông qua chìa-khóa).</p>
 
-<p>Tuy nhiên vẫn có cách để từ hash_value có thể suy gián tiếp ra được password ví dụ brute-force attach, dictionary attach -&gt; điểm chung là ta cần <strong>thử</strong> và <strong>đoán</strong> password nhiều lần cho tới khi đúng cái cần tìm.</p>
+<p>Tuy nhiên vẫn có cách để từ hash_value có thể suy gián tiếp ra được password ví dụ brute-force attack, dictionary attack -&gt; điểm chung là ta cần <strong>thử</strong> và <strong>đoán</strong> password nhiều lần cho tới khi đúng cái cần tìm.</p>
 
 <p>Một cách khác đó là ta có thể <strong>tính toán trước</strong> giá trị hash của tất cả các trường hợp và của tất cả các thuật toán -&gt; cách này khó, tốn thời gian, nhưng bây giờ với tốc độ tính toán của máy tính, ta vẫn có thể làm được. Bảng lưu trữ password + hash_value của password gọi là <strong><a href="http://project-rainbowcrack.com/table.htm">Rainbow Table</a></strong>, có thể tự tạo hoặc tải một số bản miễn phí hoặc trả tiền để mua. Từ bây giờ nếu ta có hash_value ta có thể mapping để suy ra được password.</p>
 
