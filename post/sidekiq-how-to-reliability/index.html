@@ -48,9 +48,24 @@
   </nav>
 </header>
 
+    
+    
+      
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-K4LWNXV');</script>
+      
+    
   </head>
 
   <body>
+    
+      
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4LWNXV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      
+    
     <br/>
 
 <div class="article-meta">
@@ -224,8 +239,8 @@
 <ul>
 <li>Fetch và xóa last-item (tail) từ queue cũ và cùng thời điểm đó thêm item đó đầu một queue khác -&gt; gọi là <em>processing_queue</em> (head).</li>
 <li>Atomically return nghĩa là hoạt động như transaction trong database, 1 là thành công thì commit (xóa từ queue cũ và thêm vào queue mới), 2 là fail thì rollback, trả job về lại queue cũ.</li>
-<li>Dùng lệnh <code>LREM</code> theo thứ tự để xóa item trong <em>processing_queue</em> một khi item đó đã được xử lý xong</li>
-</ul>
+
+<li><p>Dùng lệnh <code>LREM</code> theo thứ tự để xóa item trong <em>processing_queue</em> một khi item đó đã được xử lý xong</p>
 
 <pre><code>127.0.0.1:6379&gt; LPUSH sidekiq a b c
 (integer) 3
@@ -236,7 +251,8 @@
 2) &quot;b&quot;
 127.0.0.1:6379&gt; LRANGE sidekiq_current_processing 0 -1
 1) &quot;a&quot;
-</code></pre>
+</code></pre></li>
+</ul>
 
 <p>Với Sidekiq Pro, để đảm bảo tính tin cậy thì thay vì dùng <code>fetch</code> ta có hàm <code>super_fetch</code> sử dụng <code>RPOPLPUSH</code> như cách ở trên.</p>
 
