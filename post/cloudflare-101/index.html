@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cloudflare 101 | xluffy&#39;s page</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/categories/">~/categories</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://github.com/xluffy/til/issues">~/til</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="#">~/books</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+    
+    
+      
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-K4LWNXV');</script>
+      
+    
+  </head>
+
+  <body>
+    
+      
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4LWNXV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      
+    
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">Cloudflare 101</span></h1>
+
+<h2 class="date">2019/07/11</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/security">security</a> <a href="/categories/cdn">cdn</a> 
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<h2 id="1-ddos-101">1. DDoS 101</h2>
+
+<p>Về DDoS dù mục đích cuối cùng là làm cho dịch vụ của bạn không thể cung cấp tới người dùng nhưng nó có thể được chia thành 3 nhóm:</p>
+
+<ul>
+<li><strong>Application Layer Attacks</strong>: mục tiêu là khiến ứng dụng phải xử lý một lượng lớn các request <em>có vẻ hợp lệ</em>, làm cạn kiệt tài nguyên của ứng dụng, khiến ứng dụng không thể phục vụ các user hợp lệ khác. Ví dụ trong ứng dụng TMĐT, một API đọc database trả về một danh sách chi tiết của các sản phẩm thuộc một nhóm ngành. Attacker có thể viết một tools để crawl hết dữ liệu của từng ngành hàng, khiến server không đủ tài nguyên để phục vụ. Việc cản lọc request thuộc nhóm này không dễ vì nó sẽ khá giống với request của user thông thường và có thể cản lọc nhầm những user hợp lệ.</li>
+<li><strong>Protocol Attacks</strong>: tương tự application layer attack nhưng nhắm vào layer 3 và layer 4 trong mô hình OSI. Ví dụ điển hình là SYN Flood, lợi dụng việc bắt-tay-3-bước trong giao thức TCP, attacker sẽ gửi một một gói SYN để thiết lập kết nối TCP, server sẽ trả về một gói SYN-ACK và chờ đợi một gói ACK để kết thúc quá trình bắt tay. Nhưng sau đó attacker sẽ không bao giờ trả về ACK, khiến server phải tiêu tốn tài nguyên cho việc chờ đợi phản hồi.</li>
+<li><strong>Volumetric Attacks</strong>: Hai loại trên đều nhắm tới việc ứng dụng, hệ điều hành phải tiêu tốn tài nguyên xử lý. Riêng volumetric attack nhắm tới băng thông của hệ thống victim. Ví dụ khách hàng chỉ có khả năng thuê một đường truyền có băng thông 100Mpbs, attacker sẽ tìm cách flood một lượng lớn traffic lớn hơn 100Mbps, khiến con đường tới server của victim bị nghẽn (tương tự đường 2 làn, nhưng có tới 10 làn xe cùng vào). Ví dụ <a href="https://blog.cloudflare.com/memcrashed-major-amplification-attacks-from-port-11211">Memcrashed</a>, lợi dụng các memcached server mở UDP port ra ngoài public, attacker gửi một gói tin với <code>source_ip</code>được giả mạo thành <code>source_ip</code> của victim tới các server memcached này. Một request gửi đi chỉ với 15 bytes nhưng memcached trả về 134KB dữ liệu, và khuếch đại lên thì Cloudflare ghi nhận peak tới <strong>260Gbps</strong> UDP traffic, đủ là nghẽn network của bất cứ hệ thống nào.</li>
+</ul>
+
+<p>Để chống lại một cuộc tấn công DDoS thì tùy vào loại attack. Tuy nhiên đứng ở góc độ làm sản phẩm thì luôn cố gắng phục vụ request kể cả bất hợp lệ thay vì <strong>block</strong> request vì nếu block nhầm user hợp lệ cũng coi như từ chối phục vụ dịch vụ cho khách hàng, giúp kẻ tấn công đạt được mục đích. Tất nhiên cũng phải đánh đổi giữa việc bảo vệ phần lớn user hay cản lọc nhầm các user hợp lệ.</p>
+
+<p>Một số phương pháp được đề xuất để giảm thiểu cản lọc DDoS attack như sau:</p>
+
+<ul>
+<li><strong>Black Hole Routing</strong>: tương tự như <code>&amp;&gt; /dev/null</code> đẩy toàn bộ traffic cả hợp lệ lẫn không hợp lệ vào hố đen.</li>
+<li><strong>Rate limit request</strong>: giới hạn số lượng request mà server chấp nhận xử lý trong một khung thời gian. Hữu ích khi chống crawler hoặc brute-force login.</li>
+<li><strong>WAF (Web Application Firewall)</strong>: bảo vệ server, ứng dụng bởi các lỗ hổng thông thường như SQL injection, XSS&hellip;</li>
+<li><strong>Anycast Network Diffusion</strong>: mình thấy không có một giải thích nào dễ hiểu hơn từ anh <a href="https://github.com/lebinh">lebinh</a>, bạn có thể đọc thêm nó ở đây <a href="https://discuss.grokking.org/t/dung-trang-tinh-d-ngan-ch-n-ddos/271/5">https://discuss.grokking.org/t/dung-trang-tinh-d-ngan-ch-n-ddos/271/5</a>.</li>
+</ul>
+
+<h2 id="2-rate-limit">2. Rate Limit</h2>
+
+<p>Cloudflare cung cấp một tính năng cho phép control và block các traffic đáng ngờ. Tính năng này giúp <strong>tự động</strong> bảo vệ website của bạn khỏi:</p>
+
+<ul>
+<li>DDoS attack.</li>
+<li>brute-force login.</li>
+<li>….</li>
+</ul>
+
+<p>Câu hỏi đặt ra là tại sao tui phải trả tiền Cloudflare để xài tính năng này? Có giải pháp nào thay thế miễn phí, đơn giản hay không?</p>
+
+<p>Tính năng limit request/minute hoặc block request không có gì mới. Ta có thể giải quyết bằng các giải pháp sau:</p>
+
+<ul>
+<li>Limit request ở tầng application, ví dụ <a href="https://github.com/kickstarter/rack-attack">rack-attack</a>.</li>
+<li><a href="https://nginx.org/en/docs/http/ngx_http_limit_req_module.html">ngx_http_limit_req_module</a>, block ip, limit request dựa trên ngưỡng và thời gian.</li>
+<li>nginx + lua + redis, tương tự như trên, nhưng ta có thể tận dụng expire/ttl của redis để ban/block một IP và sau đó unban IP đó theo expire của một key trong redis. Một ưu điểm khác là ta có thể query dữ liệu trong redis để report.</li>
+<li>Host-based firewall như iptables/ufw -&gt; block/limit request ở các layer thấp hơn application layer:
+
+<ul>
+<li>Ưu điểm là block ở các layer thấp như transport layer trở xuống, request sẽ chưa kịp tới application layer, giảm tải cho web server.</li>
+<li>Với limit request, ta sẽ cần load thêm một số module hỗ trợ iptable -&gt; firewall stateful -&gt; <a href="https://making.pusher.com/per-ip-rate-limiting-with-iptables">thanks-for-pusher</a>.</li>
+<li>Nhược điểm là không tự động cập nhật danh sách IP mới bị ban/block/limit. Để giải quyết việc cập nhật tự động có thể <a href="https://vnhacker.blogspot.com/2009/12/giam-sat-ninh-mang-hay-la-lam-nao-e.html">build một hệ thống offline để phân tích và update lại vào hệ thống firewall</a>.</li>
+</ul></li>
+<li>Network-based firewall: các firewall nằm ngoài host như hardware firewall hoặc security group của AWS (nhưng về lý thuyết nó không được xếp vào network-based firewall). Cũng tương tự host-based firewall là việc cập nhật danh sách IP sẽ khó khăn. Và với security group của AWS thì không thể limit request (chỉ có chặn).</li>
+</ul>
+
+<p><strong>Nhược điểm</strong> của tất cả các phương pháp trên là:</p>
+
+<ul>
+<li>Request của attacker <strong>đã tới hệ thống</strong> của bạn, nếu xài network-base firewall thì request đã vào tới router/hardware-firewall, nếu xài host-based firewall (iptables) thì request đã tới server (OS đã phải handle), nếu bạn limit ở tầng application thì web server (nginx hoặc Apache) đã phải xử lý và nếu bạn xài một thư viện như <a href="https://github.com/kickstarter/rack-attack">rack-attach</a> thì Rails phải handle thêm việc giới hạn request.</li>
+<li>Thêm thiết bị, software để xử lý vấn đề (sẽ không phù hợp với hệ thống nhỏ).</li>
+</ul>
+
+<p>Vậy nếu xài rate-limit của Cloudflare thì có lợi gì?</p>
+
+<ul>
+<li>Tưởng tượng Cloudflare sẽ như một reverse proxy mọi request trước khi đi tới origin server của bạn đều sẽ đi qua Cloudflare.</li>
+<li>Băng thông của Cloudflare là 30Tbps, gấp 15 lần cuộc tấn công DDoS lớn nhất từng được ghi nhận (chắc là memcrashed), với con nhà nghèo, bạn chỉ thuê được băng thông 100Mbps. Cloudflare hoạt động như BOT (trạm thu phí) giữa quốc lộ và đường làng, giúp bóp nhỏ / cản lọc bớt traffic trước khi tới server của bạn, không làm overload network của bạn. (thông thường nếu bạn host server ở DC, khi gặp một cuộc tấn công volumetric attacks, bạn có thể nhờ DC tăng băng thông để chống chọi hoặc nhờ Firewall/Router của DC cản lọc bớt traffic trước khi vào server của bạn, tương tự như Cloudflare).</li>
+<li>Dễ cấu hình ngưỡng, URL và có report để xem.</li>
+<li>Thông minh, tự động nhận biết các request không hợp lệ, có thể expire sau một khoảng thời gian (tương tự lua+redis), cho phép user tự bypass bằng cách pass <em>challenge</em> hoặc <em>js challenge</em> thay vì block ngay.</li>
+</ul>
+
+<p><img src="https://www.cloudflare.com/resources/images/slt3lc6tev37/49gHcPDvyg0AcS4sy6qWao/e890866ea6582fb7a63f30e0ed34bdb9/rate-limiting-rules.png" alt="rate-limit" /></p>
+
+<p>Nói tóm lại thì Cloudflare với chi phí tầm 20$/tháng là một lựa chọn không tồi để chống DDoS, tất nhiên bạn phải hiểu vấn đề của mình là gì và đánh giá các lựa chọn.</p>
+
+<p>Bài tiếp theo mình sẽ nói về 2 sự cố gần đây của Cloudflare với dịch vụ Proxy (bạn phải bật proxy mới dùng được các tính năng như rate-limit hoặc WAF của Cloudflare) và phân tích cách giải quyết với 2 sự cố trên.</p>
+
+<h2 id="3-ref">3. Ref</h2>
+
+<ul>
+<li><a href="https://www.cloudflare.com/rate-limiting">https://www.cloudflare.com/rate-limiting</a></li>
+<li><a href="https://www.cloudflare.com/learning/ddos/what-is-a-ddos-attacks">https://www.cloudflare.com/learning/ddos/what-is-a-ddos-attacks</a></li>
+</ul>
+
+<p></p>
+
+</main>
+<section>
+  <hr>
+<script src="https://utteranc.es/client.js"
+        repo="xluffy/xluffy.github.io"
+        issue-term="url"
+        label="comments"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</section>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+      
+      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+    </footer>
+  </body>
+</html>
+
