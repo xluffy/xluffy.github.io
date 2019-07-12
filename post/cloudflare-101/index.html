@@ -95,18 +95,18 @@
 <ul>
 <li><strong>Application Layer Attacks</strong>: mục tiêu là khiến ứng dụng phải xử lý một lượng lớn các request <em>có vẻ hợp lệ</em>, làm cạn kiệt tài nguyên của ứng dụng, khiến ứng dụng không thể phục vụ các user hợp lệ khác. Ví dụ trong ứng dụng TMĐT, một API đọc database trả về một danh sách chi tiết của các sản phẩm thuộc một nhóm ngành. Attacker có thể viết một tools để crawl hết dữ liệu của từng ngành hàng, khiến server không đủ tài nguyên để phục vụ. Việc cản lọc request thuộc nhóm này không dễ vì nó sẽ khá giống với request của user thông thường và có thể cản lọc nhầm những user hợp lệ.</li>
 <li><strong>Protocol Attacks</strong>: tương tự application layer attack nhưng nhắm vào layer 3 và layer 4 trong mô hình OSI. Ví dụ điển hình là SYN Flood, lợi dụng việc bắt-tay-3-bước trong giao thức TCP, attacker sẽ gửi một một gói SYN để thiết lập kết nối TCP, server sẽ trả về một gói SYN-ACK và chờ đợi một gói ACK để kết thúc quá trình bắt tay. Nhưng sau đó attacker sẽ không bao giờ trả về ACK, khiến server phải tiêu tốn tài nguyên cho việc chờ đợi phản hồi.</li>
-<li><strong>Volumetric Attacks</strong>: Hai loại trên đều nhắm tới ứng dụng, hệ điều hành phải tiêu tốn tài nguyên xử lý. Riêng volumetric attack nhắm tới băng thông của hệ thống victim. Ví dụ khách hàng chỉ có khả năng thuê một đường truyền có băng thông 100Mbps, attacker sẽ tìm cách flood một lượng lớn traffic lớn hơn 100Mbps, khiến con đường tới server của victim bị nghẽn (tương tự đường 2 làn, nhưng có tới 10 làn xe cùng vào một lúc sẽ gây ngẽn và những xe cần đi thật sẽ không thể di chuyển). Ví dụ <a href="https://blog.cloudflare.com/memcrashed-major-amplification-attacks-from-port-11211">Memcrashed</a>, lợi dụng các memcached server mở UDP port ra ngoài public, attacker gửi một gói tin với <code>source_ip</code> được giả mạo thành <code>source_ip</code> của victim tới các server memcached zoombie này. Một request gửi đi chỉ với 15 bytes nhưng memcached trả về 134KB dữ liệu, và khuếch đại lên thì Cloudflare ghi nhận peak tới <strong>260Gbps</strong> UDP traffic, đủ là nghẽn network của bất cứ hệ thống nào.</li>
+<li><strong>Volumetric Attacks</strong>: Hai loại trên đều nhắm tới việc bắt ứng dụng, hệ điều hành phải tiêu tốn tài nguyên xử lý. Riêng volumetric attack nhắm tới băng thông của hệ thống victim. Ví dụ khách hàng chỉ có khả năng thuê một đường truyền có băng thông 100Mbps, attacker sẽ tìm cách flood một lượng lớn traffic lớn hơn 100Mbps, khiến con đường tới server của victim bị nghẽn (tương tự đường 2 làn, nhưng có tới 10 làn xe cùng vào một lúc sẽ gây ngẽn và những xe cần đi thật sẽ không thể di chuyển). Ví dụ <a href="https://blog.cloudflare.com/memcrashed-major-amplification-attacks-from-port-11211">Memcrashed</a>, lợi dụng các memcached server mở UDP port ra ngoài public, attacker gửi một gói tin với <code>source_ip</code> được giả mạo thành <code>source_ip</code> của victim tới các server memcached zoombie này. Một request gửi đi chỉ với 15 bytes nhưng memcached trả về 134KB dữ liệu, và khuếch đại lên thì Cloudflare ghi nhận peak tới <strong>260Gbps</strong> UDP traffic, đủ là nghẽn network của bất cứ hệ thống nào.</li>
 </ul>
 
 <p>Để chống lại một cuộc tấn công DDoS thì tùy vào loại attack. Tuy nhiên đứng ở góc độ làm sản phẩm thì luôn cố gắng phục vụ tất cả các request kể cả bất hợp lệ thay vì <strong>block</strong> request vì nếu block nhầm user hợp lệ cũng coi như từ chối phục vụ dịch vụ cho khách hàng -&gt; giúp kẻ tấn công đạt được mục đích là ứng dụng của chúng ta không thể cung cấp dịch vụ tới khách hàng. Tất nhiên ta cũng phải đánh đổi giữa việc bảo vệ phần lớn user hay cản lọc nhầm các user hợp lệ để đưa ra quyết định đúng đắn.</p>
 
-<p>Một số phương pháp được đề xuất để giảm thiểu cản lọc DDoS attack như sau:</p>
+<p>Một số phương pháp được đề xuất để giảm thiểu hoặc cản lọc DDoS attack như sau:</p>
 
 <ul>
 <li><strong>Black Hole Routing</strong>: tương tự như <code>&amp;&gt; /dev/null</code> đẩy toàn bộ traffic cả hợp lệ lẫn không hợp lệ vào hố đen.</li>
 <li><strong>Rate limit request</strong>: giới hạn số lượng request mà server chấp nhận xử lý trong một khung thời gian. Hữu ích khi chống crawler hoặc brute-force login.</li>
 <li><strong>WAF (Web Application Firewall)</strong>: bảo vệ server, ứng dụng bởi các lỗ hổng thông thường như SQL injection, XSS&hellip;</li>
-<li><strong>Anycast Network Diffusion</strong>: một giải thích dễ hiểu hơn từ anh <a href="https://github.com/lebinh">lebinh</a>, bạn có thể đọc thêm nó ở đây <a href="https://discuss.grokking.org/t/dung-trang-tinh-d-ngan-ch-n-ddos/271/5">https://discuss.grokking.org/t/dung-trang-tinh-d-ngan-ch-n-ddos/271/5</a>.</li>
+<li><strong>Anycast Network Diffusion</strong>: một giải thích khá là dễ hiểu từ anh <a href="https://github.com/lebinh">lebinh</a>, bạn có thể đọc thêm nó ở đây <a href="https://discuss.grokking.org/t/dung-trang-tinh-d-ngan-ch-n-ddos/271/5">https://discuss.grokking.org/t/dung-trang-tinh-d-ngan-ch-n-ddos/271/5</a>.</li>
 </ul>
 
 <h2 id="2-rate-limit">2. Rate Limit</h2>
@@ -141,14 +141,14 @@
 
 <ul>
 <li>Request của attacker <strong>đã tới hệ thống</strong> của bạn, nếu xài network-base firewall thì request đã vào tới router/hardware-firewall, nếu xài host-based firewall (iptables) thì request đã tới server (OS đã phải handle), nếu bạn limit ở tầng application thì web server (nginx hoặc Apache) đã phải xử lý (tuy nhiên nếu xài nginx như một proxy thì cũng không tốn thêm bao nhiêu resource) và nếu bạn xài một thư viện như <a href="https://github.com/kickstarter/rack-attack">rack-attach</a> thì Rails phải handle thêm việc giới hạn request.</li>
-<li>Thêm thiết bị, software để xử lý vấn đề (sẽ không phù hợp với hệ thống nhỏ).</li>
+<li>Thêm thiết bị, máy tính, software để xử lý vấn đề (sẽ không phù hợp với hệ thống nhỏ).</li>
 </ul>
 
 <p>Vậy nếu xài rate-limit của Cloudflare thì có lợi gì?</p>
 
 <ul>
-<li>Tưởng tượng Cloudflare sẽ như một reverse proxy mọi request trước khi đi tới origin server của bạn đều sẽ đi qua Cloudflare.</li>
-<li>Băng thông của Cloudflare là <strong>30Tbps</strong>, gấp <strong>15 lần</strong> cuộc tấn công DDoS lớn nhất từng được ghi nhận (chắc là memcrashed), với con nhà nghèo, bạn chỉ thuê được băng thông 100Mbps. Cloudflare hoạt động như BOT (trạm thu phí) giữa quốc lộ và đường làng, giúp bóp nhỏ / cản lọc bớt traffic trước khi tới server của bạn, không làm overload network của bạn. (thông thường nếu bạn host server ở DC, khi gặp một cuộc tấn công volumetric attacks, bạn có thể nhờ DC tăng băng thông để chống chọi hoặc nhờ Firewall/Router của DC cản lọc bớt traffic trước khi vào server của bạn, tương tự như Cloudflare).</li>
+<li>Cloudflare sẽ hoạt động như một reverse proxy, mọi request trước khi đi tới origin server của bạn đều sẽ đi qua Cloudflare.</li>
+<li>Băng thông của Cloudflare là <strong>30Tbps</strong>, gấp <strong>15 lần</strong> cuộc tấn công DDoS lớn nhất từng được ghi nhận (chắc là memcrashed), với sổ hộ nghèo, bạn chỉ thuê được băng thông 100Mbps. Cloudflare sẽ hoạt động như BOT (trạm thu phí) giữa quốc lộ và đường làng, giúp bóp nhỏ / cản lọc bớt traffic trước khi tới server của bạn, không làm overload network của bạn (thông thường nếu bạn host server ở DC, khi gặp một cuộc tấn công volumetric attacks, bạn cũng có thể nhờ DC tăng băng thông để chống chọi hoặc nhờ Firewall/Router của DC cản lọc bớt traffic trước khi vào server của bạn, tương tự như Cloudflare).</li>
 <li>Dễ cấu hình ngưỡng, URL và có report để xem.</li>
 <li>Thông minh, tự động nhận biết các request không hợp lệ, có thể expire sau một khoảng thời gian (tương tự lua+redis), cho phép user tự bypass bằng cách pass <em>challenge</em> hoặc <em>js challenge</em> thay vì block ngay.</li>
 </ul>
@@ -184,8 +184,8 @@
 <p>Một ví dụ quen thuộc của reverse proxy đó là bạn xài nginx upstream trước các backend server. Lợi điểm của việc dùng reverse proxy đó là:</p>
 
 <ul>
-<li><strong>Load balacing</strong> -&gt; chia request từ client tới nhiều backend server với các thuật toán khác nhau. Giúp điều tiết lượng request tới backend server.</li>
-<li><strong>Protection from attack</strong> -&gt; mọi request từ client sẽ phải đi qua reverse proxy, bạn có thể apply các rule trên reverse proxy để cản lọc request trước khi tới backend server (tương tự như rate-limit ở trên). Bản chất của proxy là nhận và pass request đi nên các xử lý trên proxy là khá nhẹ nhàng.</li>
+<li><strong>Load balancing</strong> -&gt; chia request từ client tới nhiều backend server với các thuật toán khác nhau. Giúp điều tiết lượng request tới backend server.</li>
+<li><strong>Protection from attack</strong> -&gt; mọi request từ client sẽ phải đi qua reverse proxy, bạn có thể apply các rule trên reverse proxy để cản lọc request trước khi tới backend server (tương tự như rate-limit/WAF ở trên). Bản chất của proxy là nhận và pass request đi nên các xử lý trên proxy là khá nhẹ nhàng.</li>
 <li><strong>Global Server Load Balancing</strong> -&gt; tương tự như load balacing nhưng ở cấp độ global, reverse proxy sẽ nhận biết được là backend server nào gần với client và chuyển hướng request của client tới backend server gần nhất để giảm latency, load time.</li>
 <li><strong>Caching</strong> -&gt; request của client vẫn phải tới infra của site, tuy nhiên việc caching sẽ nằm ở infra của site (khác với caching ở forward proxy nằm ở network của client), mục đích cũng tương tự là giảm response time.</li>
 <li><strong>SSL encryption</strong> -&gt; đẩy phần encrypt/decrypt ra reverse proxy, kết nối từ reverse proxy tới backend server là HTTP.</li>
@@ -195,7 +195,7 @@
 
 <p><img src="https://blog.cloudflare.com/content/images/ddos-illustrations-2.png" alt="cloudflare-reverse-proxy" /></p>
 
-<p>Ví dụ website của bạn có địa chỉ IP là <a href="1.2.3.4">1.2.3.4</a>, khi bật tính năng proxy, domain website của bạn sẽ được phân giải IP thành một địa chỉ IP thuộc lớp mạng của Cloudflare, ví dụ <a href="104.20.148.78">104.20.148.78</a>, và user sẽ không biết origin server của bạn. Với attacker, mọi request cũng sẽ đi qua hệ thống của Cloudflare trước khi tới hệ thống mạng của bạn.</p>
+<p>Ví dụ website của bạn có địa chỉ IP là <a href="1.2.3.4">1.2.3.4</a>, khi bật tính năng proxy, domain website của bạn sẽ được phân giải IP thành một địa chỉ IP thuộc lớp mạng của Cloudflare như <a href="104.20.148.78">104.20.148.78</a>, và user/attacker sẽ không biết được địa chỉ origin server của bạn.</p>
 
 <h3 id="3-2-ssl-tls">3.2 SSL/TLS</h3>
 
@@ -335,7 +335,7 @@ cf-ray: 4f50c44b398ad1e7-HKG
 
 <p>Trông có vẻ họ có 3 server phía sau Cloudflare và host trên Linode, ngoài ra họ cũng mở cổng 22 và 8080 trên các node.</p>
 
-<p>Một ví dụ khác là Medium, bạn có thể xem kết quả search từ Censys từ file <a href="https://github.com/xluffy/assets/blob/master/medium.txt">medium.txt</a>. Một điểm thú vị ở đây là mình nhìn thấy có 17 node EC2 từ dịch vụ AWS public ra ngoài Internet, không rõ mục đích của họ khi thiết kế Infra như vậy là có dụng ý gì.</p>
+<p>Một ví dụ khác là Medium, bạn có thể xem kết quả search từ Censys từ file <a href="https://raw.githubusercontent.com/xluffy/assets/master/medium.txt">medium.txt</a>. Một điểm thú vị ở đây là mình nhìn thấy có 17 node EC2 từ dịch vụ AWS public ra ngoài Internet, không rõ mục đích của họ khi thiết kế Infra như vậy là có dụng ý gì, mình đoán là họ đang xài Global Load Balancing của Cloudflare thay vì ALB của AWS, nhưng khó hiểu là các EC2 này đều nằm ở 1 AS và cùng một region là Ashburn, Virginia 🤔.</p>
 
 <pre><code class="language-bash">&gt; grep '.amazonaws' medium.txt
  52.1.147.205 (ec2-52-1-147-205.compute-1.amazonaws.com)
@@ -442,7 +442,7 @@ server {
 
 <h2 id="5-end">5. End</h2>
 
-<p>Yeah, quá nhiều câu hỏi, quá nhiều chữ rồi, vậy nếu lỡ Cloudflare tạch proxy thì phải làm sao? Thật ra toy cũng đíu biết ae ạ 🖕🏽🖕🏽🖕🏽, nằm im chờ Cloudflare sống dậy thôi.</p>
+<p>Yeah, quá nhiều câu hỏi, quá nhiều chữ rồi, vậy nếu lỡ Cloudflare tạch proxy thì phải làm sao? Thật ra toy cũng đíu biết ae ạ 🖕🏽🖕🏽🖕🏽, lên Twitter xem dân tình chửi nhau và nằm chờ Cloudflare sống dậy thôi.</p>
 
 <p><img src="https://raw.githubusercontent.com/xluffy/assets/master/notlikethis.png" alt="notlikethis" /></p>
 
