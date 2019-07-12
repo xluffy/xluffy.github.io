@@ -438,6 +438,8 @@ server {
 }
 </code></pre>
 
+<p>Ngoài các giải pháp trên, Cloudflare cung cấp một dịch vụ gọi là <a href="https://www.cloudflare.com/products/argo-tunnel">Argo tunnel</a>, hiểu một cách đơn giản thì argo-tunnel sẽ tạo một encrypted-tunnel giữa origin server tới Cloudflare data-center gần nhất (kèm theo smart routing), mọi kết nối từ client được Cloudflare pass qua origin server sẽ đi qua tunnel này, tất cả các request còn lại sẽ bị block.</p>
+
 <h2 id="5-ref">5. Ref</h2>
 
 <ul>
