@@ -318,7 +318,7 @@ cf-ray: 4f50c44b398ad1e7-HKG
 
 <h4 id="3-4-1-ssl-certificate">3.4.1 SSL certificate</h4>
 
-<p>Mỗi Domain Valiadtion SSL certificate mà bạn mua sẽ valid với một domain name. Ý tưởng là bạn cần scan toàn bộ internet để tìm một địa chỉ IP nào đó trên cổng 443 có SSL certificate match với domain-name mà bạn đang tìm kiếm.</p>
+<p>Mỗi Domain Validation SSL certificate mà bạn mua sẽ valid với một domain name. Ý tưởng là bạn cần scan toàn bộ internet để tìm một địa chỉ IP nào đó trên cổng 443 có SSL certificate match với domain-name mà bạn đang tìm kiếm.</p>
 
 <p><a href="https://censys.io/">Censys</a> là một dịch vụ cho phép query các dữ liệu kiểu như vậy. Miễn phí 10 query cho un-login user và 200 query/tháng cho free user.</p>
 
@@ -428,7 +428,7 @@ sudo iptables -A INPUT -j REJECT
 <pre><code class="language-bash">map $remote_addr $bad_ip {
   default 1;
   cloudflare_ip_v4 0;
-  cloudflare_ip_v3 0;
+  cloudflare_ip_v6 0;
 }
 
 server {
