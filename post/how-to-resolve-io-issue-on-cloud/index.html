@@ -140,27 +140,49 @@
 <p><strong>AWS</strong></p>
 
 <ul>
-<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">EBS</a>: Đây là loại đĩa thường thấy trên AWS, về bản chất nó là một dạng <strong>network disk</strong> (nhưng ko giống EFS, loại network disk có thể mount đồng thời vào nhiều server cùng lúc), đặc điểm là <strong>persistent</strong> nhưng có giới hạn về tốc độ. EBS lại chia làm một số loại nhỏ, nhưng ở đây ta chỉ nói về <code>gp2</code> và <code>io1</code>:
+<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">EBS</a>: Đây là loại đĩa thường thấy trên AWS, về bản chất nó là một dạng <strong>network disk</strong> (nhưng ko giống EFS, loại network disk có thể mount đồng thời vào nhiều server cùng lúc, EBS chỉ mount vào 1 instance tại 1 thời điểm), đặc điểm là <strong>persistent</strong> nhưng có giới hạn về tốc độ. EBS lại chia làm một số loại nhỏ, nhưng ở đây ta chỉ nói về <code>gp2</code> và <code>io1</code>:
 
 <ul>
-<li><code>gp2</code> là EBS giá rẻ, IOPS phụ thuộc vào kích thước của đĩa (muốn tăng IOPS phải resize disk), thường xài cho OS và các nhu cầu chung chung khác. Kích thước từ 1GB - 16TB, Max IOPS/volume là 16,000, max throughput/volume 250 MB/s, max IOPS/instance là 80,000, max throughput/instance 1,750 MB/s. Ngoài ra <code>gp2</code> có một khái niệm là IO credit và baseline performance, nói 1 cách dễ hiểu là chỉ xài đc 100% performance trong 1 khoảng thời gian. Ví dụ đĩa 4TB sẽ có IOPS là 12.288 và giá là ~ <strong>$406</strong> tại region us-east-1.</li>
-<li><code>io1</code> là loại EBS mà IOPS không phụ thuộc vào kích thước đĩa, có thể mua riêng IOPS. Thường xài khi cần nhiều IOPS ví dụ các ứng dụng database. Kích thước từ 4 GB - 16TB. Max IOPS/volume là 64,000, max throughput/volume 1,000 MB/s, max IOPS/instance là 80.000, max throughput/instance 1750 MB/s. Ví dụ với 4TB dữ liệu + 12,288 IOPS sẽ có throughput là 1000 MB/s, thì sẽ có giá là <strong>$1441</strong> tại region us-east-1 -&gt; một sự chênh lệnh rất lớn so với <code>gp2</code>. Và giả sử cần IOPS tầm 20,000 (1 ước tính chắc ăn và so với physical server) thì ta sẽ tốn gần <strong>$2000</strong>/tháng chỉ cho mỗi đĩa cứng :|.</li>
+<li><code>gp2</code> là EBS giá rẻ, IOPS phụ thuộc vào kích thước của đĩa (muốn tăng IOPS phải resize disk), thường xài cho OS và các nhu cầu chung chung khác. Kích thước từ 1GB - 16TB, Max IOPS/volume là 16,000, max throughput/volume 250 MB/s, max IOPS/instance là 80,000, max throughput/instance 1,750 MB/s. Ngoài ra <code>gp2</code> có một khái niệm là IO credit và baseline performance, nói 1 cách dễ hiểu là chỉ xài đc 100% performance trong 1 khoảng thời gian và credit có được phụ thuộc vào thời gian sử dụng. Ví dụ đĩa 4TB sẽ có IOPS là 12.288 và giá là ~ <strong>$406</strong> tại region us-east-1.</li>
+<li><code>io1</code> là loại EBS mà IOPS không phụ thuộc vào kích thước đĩa, có thể mua riêng IOPS. Thường xài khi cần nhiều IOPS ví dụ các ứng dụng database. Kích thước từ 4 GB - 16TB. Max IOPS/volume là 64,000, max throughput/volume 1,000 MB/s, max IOPS/instance là 80.000, max throughput/instance 1750 MB/s. Ví dụ với 4TB dữ liệu + 12,288 IOPS sẽ có throughput là 1000 MB/s, thì sẽ có giá là <strong>$1441</strong> tại region us-east-1 -&gt; một sự chênh lệnh rất lớn so với <code>gp2</code>. Và giả sử cần IOPS tầm 20,000 (1 ước tính chắc ăn và so với physical server) thì ta sẽ tốn gần <strong>$2000</strong>/tháng chỉ cho mỗi đĩa cứng 😑.</li>
 </ul></li>
-<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html">Instance storage</a>: cung cấp temporary block-level storage. Storage sẽ được đặt trên local disk mà được physical attach vào host computer (đơn giản là 1 physical được chia làm nhiều EC2, thì instance storage là vùng storage lấy ra từ chính local disk đặt trên con physical đó và mount vào EC2 - khác với EBS là network disk, mount từ 1 physical khác). Đặc điểm chính là <strong>có tốc độ cao hơn</strong> nhưng dữ liệu <strong>không persistent</strong> (nghĩa là sẽ mất dữ liệu nếu instance bị stop hoặc terminate hoặc đĩa bị fail). Có 2 interface là SATA và NVMe tương tự như physical disk.</li>
+<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html">Instance storage</a>: cung cấp temporary block-level storage. Storage sẽ được đặt trên local disk mà được physical attach vào host computer (đơn giản là 1 physical được chia làm nhiều EC2, thì instance storage là vùng storage lấy ra từ chính local disk đặt trên con physical đó và mount vào EC2 - khác với EBS là network disk, mount từ 1 physical khác và instance storage thì không thể deattach/attach vào instance khác). Đặc điểm chính là <strong>có tốc độ cao hơn</strong> nhưng dữ liệu <strong>không persistent</strong> (nghĩa là sẽ mất dữ liệu nếu instance bị stop hoặc terminate hoặc đĩa bị fail). Có 2 interface là SATA và NVMe tương tự như physical disk.</li>
 </ul>
 
-<p><strong>GCP</strong> về cơ bản cũng tương tự như AWS, nhưng mình không làm nhiều GCP nên không có gì để nói thêm.</p>
+<p><strong>GCP</strong> về cơ bản cũng tương tự như AWS.</p>
 
 <ul>
-<li>Persistent Disk.</li>
-<li>Local SSD.</li>
+<li>Persistent Disk, tương tự EBS.</li>
+<li>Local SSD, tương tự Instance storage.</li>
+</ul>
+
+<p>Nói thêm về dữ liệu trên Instance Storage/LocalSSD:</p>
+
+<ul>
+<li>Dữ liệu của instance storage/LocalSSD chỉ persistent trong vòng đời liên kết với instance chứa nó, Nếu reboot (vô hình hoặc cố ý) thì dữ liệu sẽ không bị mất.</li>
+<li>Dữ liệu sẽ bị mất trong các trường hợp sau:
+
+<ul>
+<li>Ổ đĩa bên dưới bị lỗi.</li>
+<li>Instance stop.</li>
+<li>Instance bị terminate.</li>
+</ul></li>
+<li>Với AWS, sẽ không có một cách chính thống nào để change instance type mà giữ lại được dữ liệu trên instance storage.</li>
+</ul>
+
+<p>Nếu bạn phải làm việc với instance storage/LocalSSD thì <strong>bắt buộc</strong> phải đọc kỹ các link phía dưới nếu không muốn bị mất sạch dữ liệu.</p>
+
+<ul>
+<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#instance-store-lifetime">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#instance-store-lifetime</a></li>
+<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-resize.html#resize-instance-store-backed-instance">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-resize.html#resize-instance-store-backed-instance</a></li>
+<li><a href="https://cloud.google.com/compute/docs/disks/local-ssd#data_persistence">https://cloud.google.com/compute/docs/disks/local-ssd#data_persistence</a></li>
 </ul>
 
 <p>Vậy tóm tắt lại 2 vấn đề chính:</p>
 
 <ul>
 <li>Làm sao nếu cần IOPS vượt quá giới hạn của <code>io1</code> mà dữ liệu vẫn đảm bảo an toàn.</li>
-<li>Chi phí hợp lý (nếu $ 2.000/month thì một năm sẽ tốn $24.000 chỉ cho mỗi một đĩa).</li>
+<li>Chi phí hợp lý (nếu <code>$2.000/month</code> thì một năm sẽ tốn $24.000 chỉ cho mỗi một đĩa).</li>
 </ul>
 
 <h2 id="2-giải-pháp">2. Giải pháp</h2>
