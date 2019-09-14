@@ -151,11 +151,41 @@
 <li>Băng thông của Cloudflare là <strong>30Tbps</strong>, gấp <strong>15 lần</strong> cuộc tấn công DDoS lớn nhất từng được ghi nhận (chắc là memcrashed), với sổ hộ nghèo, bạn chỉ thuê được băng thông 100Mbps. Cloudflare sẽ hoạt động như BOT (trạm thu phí) giữa quốc lộ và đường làng, giúp bóp nhỏ / cản lọc bớt traffic trước khi tới server của bạn, không làm overload network của bạn (thông thường nếu bạn host server ở DC, khi gặp một cuộc tấn công volumetric attacks, bạn cũng có thể nhờ DC tăng băng thông để chống chọi hoặc nhờ Firewall/Router của DC cản lọc bớt traffic trước khi vào server của bạn, tương tự như Cloudflare).</li>
 <li>Dễ cấu hình ngưỡng, URL và có report để xem.</li>
 <li>Thông minh, tự động nhận biết các request không hợp lệ, có thể expire sau một khoảng thời gian (tương tự lua+redis), cho phép user tự bypass bằng cách pass <em>challenge</em> hoặc <em>js challenge</em> thay vì block ngay.</li>
+<li><strong>Nhược điểm</strong> là phải trả tiền cho tính năng này và Cloudflare offer số lượng rule khá thấp (Pro là 10 rule, Business 15 rule và Enterprise rule), nên cần nhiều rule limit thì Cloudflare là một lựa chọn khá đắt đỏ.s</li>
 </ul>
 
 <p><img src="https://www.cloudflare.com/resources/images/slt3lc6tev37/49gHcPDvyg0AcS4sy6qWao/e890866ea6582fb7a63f30e0ed34bdb9/rate-limiting-rules.png" alt="rate-limit" /></p>
 
-<p>Nói tóm lại thì Cloudflare với chi phí tầm 20$/tháng là một lựa chọn không tồi để chống DDoS, tất nhiên bạn phải hiểu vấn đề của mình là gì và đánh giá các lựa chọn.</p>
+<p>Nói tóm lại thì Cloudflare với chi phí tầm 20$/tháng là một lựa chọn không tồi để chống/giảm DDoS, tất nhiên bạn phải hiểu vấn đề của mình là gì và đánh giá các lựa chọn để đưa ra quyết định phù hợp.</p>
+
+<p>Nếu bạn xài terraform thì nó sẽ như sau:</p>
+
+<pre><code class="language-tcl">resource &quot;cloudflare_rate_limit&quot; &quot;rl_login&quot; {
+  zone = &quot;${var.domain}&quot;
+
+  threshold = 20
+  period = 60
+  
+  match {
+    request {
+      url_pattern = &quot;${var.domain}/login&quot;
+      schemes = [&quot;HTTP&quot;, &quot;HTTPS&quot;]
+      methods = [&quot;POST&quot;]
+    }
+    response {
+      statuses = [401, 403]
+      origin_traffic = true
+    }
+  }
+  
+  action {
+    mode = &quot;ban&quot;
+    timeout = 3600
+  }
+  disabled = false
+  description = &quot;Block IPs exceeding 20 request per minutes (20 in 60) for 1 hour to login pattern.&quot;
+}
+</code></pre>
 
 <h2 id="3-proxy">3. Proxy</h2>
 
