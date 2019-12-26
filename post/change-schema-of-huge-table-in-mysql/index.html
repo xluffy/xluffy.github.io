@@ -90,7 +90,9 @@
 
 <h2 id="1-giới-thiệu">1. Giới thiệu</h2>
 
-<p><code>ALTER TABLE</code> cho phép ta có thể thay đổi cấu trúc của một bảng đã tồn tại. Ví dụ ta có thể thêm/xóa cột, tạo hoặc xóa index trên bảng, thay đổi kiểu dữ liệu của một cột hoặc đổi tên cột/bảng/storage engine. Khi thay đổi cấu trúc của bảng, nếu có một connection khác sử dụng bảng đó, một <strong>metadata lock</strong> sẽ được bật lên và truy vấn SQL đó sẽ phải <strong>chờ</strong> cho tới khi lock được release. Điều này cũng sẽ đúng với các non-transactional table (ví dụ các table MyISAM).</p>
+<p>DDL (Data Definition Language) bao gồm các câu truy vấn SQL dùng để định nghĩa database schema. DDL cho phép thêm/sửa/xoá cấu trúc logic, cái mà sẽ chứa dữ liệu như databases, tables, keys, views. Nói chung DDL thao tác trên <em>metadata</em>. Ví dụ các truy như CREATE, ALTER, DROP &hellip;</p>
+
+<p><code>ALTER TABLE</code> cho phép ta có thể thay đổi cấu trúc của một bảng đã tồn tại. Ví dụ ta có thể thêm/xóa cột, tạo hoặc xóa index trên bảng, thay đổi kiểu dữ liệu của một cột hoặc đổi tên cột/bảng/storage engine. Khi thay đổi cấu trúc của bảng, sẽ aquire một lock gọi là <strong>metadata lock</strong>, nếu có một connection khác sử dụng bảng đó, nó sẽ phải <strong>chờ</strong> cho tới khi lock được release.</p>
 
 <p>Nếu bảng có ít dữ liệu, lock sẽ nhanh chóng được release và ứng dụng sẽ chỉ chậm trong một khoảng thời gian ngắn, sự ảnh hưởng là rất nhỏ. Nhưng với các bảng có hàng triệu, chục triệu record dữ liệu, việc thay đổi cấu trúc bảng sẽ rất tốn thời gian và việc lock bảng tới vài tiếng là một việc không thể chấp nhận được (bảng sẽ bị lock cho tới khi thay đổi xong cấu trúc).</p>
 
@@ -101,18 +103,57 @@
 <ul>
 <li>Tạo bảng mới với cấu trúc tương tự bảng cũ <code>_new_table_name</code>.</li>
 <li><code>ALTER TABLE</code> bảng mới được tạo ra như yêu cầu -&gt; do bảng mới rỗng nên việc này sẽ rất nhanh.</li>
-<li>Tạo 3 trigger trên bảng cũ dạng <code>AFTER DELETE ON</code>, <code>AFTER UPDATE ON</code>, <code>AFTER INSERT ON</code> để trigger khi có dữ liệu mới trên bảng cũ thì cập nhật vào bảng mới. -&gt; <strong>metadata lock</strong></li>
-<li>Copy dữ liệu từ bảng cũ qua bảng mới</li>
+<li>Tạo 3 trigger trên bảng cũ dạng <code>AFTER DELETE ON</code>, <code>AFTER UPDATE ON</code>, <code>AFTER INSERT ON</code> để trigger khi có dữ liệu mới trên bảng cũ thì cập nhật vào bảng mới. -&gt; <strong>metadata lock</strong>. Việc add thêm trigger cũng thay đổi cấu trúc của bảng, nên aquire metadata lock.</li>
+<li>Copy dữ liệu từ bảng cũ qua bảng mới theo chunk.</li>
 <li>Sau khi copy xong, swap bảng gốc thành bảng cũ và bảng mới thành bảng gốc, xóa các trigger -&gt; <strong>metadata lock</strong></li>
-<li>Cập nhật ràng buộc khóa ngoại (FK) nếu có trên các bảng con</li>
+<li>Cập nhật ràng buộc khóa ngoại (FK) nếu có trên các bảng con.</li>
 <li>Drop bảng cũ.</li>
 </ul>
 
-<p>Như ta thấy ở trên thì bước 3 và 5 là 2 bước quan trọng vì có metadata lock, có nghĩa là bản chất các truy vấn khác trong thời gian thực hiện hai bước này vẫn sẽ phải <strong>chờ</strong>.</p>
+<p>Như ta thấy ở trên thì bước 3 và 5 là 2 bước quan trọng vì có <strong>metadata lock</strong>, có nghĩa là bản chất các truy vấn khác trong thời gian thực hiện hai bước này vẫn sẽ phải <strong>chờ</strong>.</p>
 
 <p>Bước 6, cập nhật ràng buộc khóa ngoại cũng sẽ cần lưu ý và lên kế hoạch cẩn thận để tránh mất tính đúng đắn của dữ liệu. Cần đọc kĩ tài liệu phần <code>--alter-foreign-keys-method</code> nếu có các bảng có khóa ngoại ràng buộc.</p>
 
-<p><strong>metadata lock</strong> được giới thiệu    ở phiên bản 5.5.3, khi một transaction được chạy, nó sẽ acquire một metadata lock trên tất cả các table nó sử dụng và sau đó release khi transaction đó hoàn thành. Điều này đảm bảo sẽ không có bất cứ một sự thay đổi cấu trúc bảng nào khác trong quá trình transaction đó thực hiện.</p>
+<p><strong>metadata lock</strong> được giới thiệu ở phiên bản 5.5.3, khi một transaction được chạy, nó sẽ acquire một metadata lock trên tất cả các table nó sử dụng và sau đó release khi transaction đó hoàn thành. Điều này đảm bảo sẽ không có bất cứ một sự thay đổi cấu trúc bảng nào khác trong quá trình transaction đó thực hiện.</p>
+
+<p>Ví dụ:</p>
+
+<p>Connection1: Tạo table, start một transaction và insert một dòng dữ liệu.</p>
+
+<pre><code>mysql&gt; CREATE TABLE t (a INT) ENGINE =InnoDB;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql&gt; START TRANSACTION;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql&gt; INSERT INTO t SET a=1;
+Query OK, 1 row affected (0.01 sec)
+
+</code></pre>
+
+<p>Connection2: Thay đổi cấu trúc của bảng bằng cách add thêm một column:</p>
+
+<pre><code>mysql&gt; DESC t;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| a     | int(11) | YES  |     | NULL    |       |
++-------+---------+------+-----+---------+-------+
+
+mysql&gt; ALTER TABLE t ADD COLUMN b INT;
+</code></pre>
+
+<p>Lúc này, connection2 sẽ bị block, bây giờ quay trở lại connection1, commit transaction này.</p>
+
+<pre><code>mysql&gt; COMMIT;
+Query OK, 0 rows affected (0.00 sec)
+</code></pre>
+
+<p>Và check connection 2 sẽ thấy</p>
+
+<pre><code>Query OK, 0 rows affected (6.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+</code></pre>
 
 <p>Vậy ngoại trừ 2 bước có <strong>metadata lock</strong> thì các operation khác có làm tăng thời gian xử lý của database hay không <strong>về lý thuyết là KHÔNG ảnh hưởng với các read operation</strong>, nhưng các write operation sẽ bị <strong>double thời gian thực thi</strong>, do cần <strong>trigger</strong> data qua bảng mới để đảm bảo tính đúng đắn của dữ liệu.</p>
 

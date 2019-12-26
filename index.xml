@@ -166,7 +166,8 @@ SSL (Secure Sockets Layer), đây là tên được đặt bởi những ngườ
       <pubDate>Thu, 19 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/change-schema-of-huge-table-in-mysql/</guid>
-      <description>1. Giới thiệu ALTER TABLE cho phép ta có thể thay đổi cấu trúc của một bảng đã tồn tại. Ví dụ ta có thể thêm/xóa cột, tạo hoặc xóa index trên bảng, thay đổi kiểu dữ liệu của một cột hoặc đổi tên cột/bảng/storage engine. Khi thay đổi cấu trúc của bảng, nếu có một connection khác sử dụng bảng đó, một metadata lock sẽ được bật lên và truy vấn SQL đó sẽ phải chờ cho tới khi lock được release.</description>
+      <description>1. Giới thiệu DDL (Data Definition Language) bao gồm các câu truy vấn SQL dùng để định nghĩa database schema. DDL cho phép thêm/sửa/xoá cấu trúc logic, cái mà sẽ chứa dữ liệu như databases, tables, keys, views. Nói chung DDL thao tác trên metadata. Ví dụ các truy như CREATE, ALTER, DROP &amp;hellip;
+ALTER TABLE cho phép ta có thể thay đổi cấu trúc của một bảng đã tồn tại.</description>
     </item>
     
     <item>
