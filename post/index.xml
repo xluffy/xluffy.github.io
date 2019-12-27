@@ -6,10 +6,20 @@
     <description>Recent content in Posts on xluffy&#39;s page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 27 Dec 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Change schema of huge table in MySQL</title>
+      <link>https://xluffy.github.io/post/change-schema-of-huge-table-in-mysql/</link>
+      <pubDate>Fri, 27 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/change-schema-of-huge-table-in-mysql/</guid>
+      <description>Bài này được update lại gần như toàn bộ sau khi mình join team research-database của Grokking. Lý do chính là mình phát hiện có nhiều điểm không chính xác ở nội dung cũ.
+ 1. Theo dòng lịch sử Thay đổi schema của một bảng dữ liệu trong MySQL là một nhu cầu thường xuyên và hết sức cơ bản khi phát triển hệ thống. Tuy nhiên bất kỳ ai hiểu biết về MySQL đều biết rằng công việc này thực sự rất đau đớn vì nó có thể làm drop traffic production, tăng thời gian xử lý ở tầng database, đem lại trải nghiệm không tốt cho người dùng, trong một số trường hợp hệ thống sẽ bị downtime cho tới khi việc thay đổi schema hoàn thành.</description>
+    </item>
     
     <item>
       <title>Cloudflare 101</title>
@@ -158,15 +168,6 @@ SSL (Secure Sockets Layer), đây là tên được đặt bởi những ngườ
       
       <guid>https://xluffy.github.io/post/delayed-replication-in-mysql/</guid>
       <description>Trong bài Giới thiệu về MySQL Replication mình có giới thiệu một chức năng của hệ thống Replication đó là realtime backup. Nếu server master gặp sự cố như hư hỏng ổ cứng mà không thể phục hồi dữ liệu từ ổ cứng thì các bản backup offline định kì sẽ có độ trễ dữ liệu. Ví dụ nếu ta chỉ chạy offline backup dữ liệu 2 lần/ngày thì dữ liệu trong trường hợp xấu nhất sẽ bị mất trong vòng 12 tiếng.</description>
-    </item>
-    
-    <item>
-      <title>Change schema of huge table in MySQL</title>
-      <link>https://xluffy.github.io/post/change-schema-of-huge-table-in-mysql/</link>
-      <pubDate>Thu, 19 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://xluffy.github.io/post/change-schema-of-huge-table-in-mysql/</guid>
-      <description>1. Theo dòng lịch sử Thay đổi schema của một bảng dữ liệu trong MySQL là một nhu cầu thường xuyên và hết sức cơ bản khi phát triển hệ thống. Tuy nhiên bất kỳ ai hiểu biết về MySQL đều biết rằng công việc này thực sự rất đau đớn vì nó có thể làm drop traffic production, tăng thời gian xử lý ở tầng database, đem lại trải nghiệm không tốt cho người dùng, trong một số trường hợp hệ thống sẽ bị downtime cho tới khi việc thay đổi schema hoàn thành.</description>
     </item>
     
     <item>

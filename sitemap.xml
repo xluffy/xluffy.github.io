@@ -4,19 +4,36 @@
   
   <url>
     <loc>https://xluffy.github.io/categories/</loc>
-    <lastmod>2019-07-11T00:00:00+00:00</lastmod>
+    <lastmod>2019-12-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://xluffy.github.io/post/change-schema-of-huge-table-in-mysql/</loc>
+    <lastmod>2019-12-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xluffy.github.io/post/</loc>
+    <lastmod>2019-12-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://xluffy.github.io/categories/mysql/</loc>
+    <lastmod>2019-12-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://xluffy.github.io/</loc>
+    <lastmod>2019-12-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://xluffy.github.io/post/cloudflare-101/</loc>
     <lastmod>2019-07-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://xluffy.github.io/post/</loc>
-    <lastmod>2019-07-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -27,12 +44,6 @@
   
   <url>
     <loc>https://xluffy.github.io/categories/security/</loc>
-    <lastmod>2019-07-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://xluffy.github.io/</loc>
     <lastmod>2019-07-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -78,12 +89,6 @@
   
   <url>
     <loc>https://xluffy.github.io/categories/cloud/</loc>
-    <lastmod>2019-01-28T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://xluffy.github.io/categories/mysql/</loc>
     <lastmod>2019-01-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -171,11 +176,6 @@
   <url>
     <loc>https://xluffy.github.io/post/delayed-replication-in-mysql/</loc>
     <lastmod>2018-04-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://xluffy.github.io/post/change-schema-of-huge-table-in-mysql/</loc>
-    <lastmod>2018-04-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
