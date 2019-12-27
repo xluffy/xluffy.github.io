@@ -183,19 +183,27 @@
 <p><strong>Clustered index</strong> vs <strong>non-clustered index:</strong></p>
 
 <ul>
-<li>Ý tưởng của clustered indexes là lưu trữ <strong>toàn bộ một bảng dữ liệu</strong> vào một cấu trúc B-tree, hay nói cách khác một bảng có clustered indexes thì bản thân bảng đó chính là một cây index được sắp xếp theo <strong>trường được đánh index</strong>, bình thường là PK .</li>
-<li>Các <strong>nodex lá</strong> của clustered indexes <strong>chứa khóa là các trường được đánh index</strong> và đồng thời chứa tất cả các trường còn lại của bảng. Nên việc truy suất dữ liệu thông qua clustered index sẽ rất nhanh bởi vì <strong>row data</strong> sẽ nằm trên cùng một page với <strong>khóa của index</strong></li>
-<li>Clustered index không yêu cầu phải unique, tuy nhiên nếu trường được đánh clustered index không unique thì khóa cũng được thêm vào một giá trị random để đảm bảo các node index vẫn unique.</li>
-<li>Trên MySQL, với InnoDB storage engine, khóa chính sẽ được mặc định sử dụng làm clustered index. Nếu một bảng không có khóa chính thì MySQL sẽ chọn một index unique với tất cả các giá trị khác NULL làm clustered index. Nếu không có cả khóa chính và unique index, MySQL sẽ tự sinh ra một clustered index ẩn tên là <code>GEN_CLUST_INDEX</code>.</li>
-<li>Khi một bảng đã có clustered index thì tất cả các index khác sẽ được gọi là non-clustered index hoặc secondary-index. Non-clustered index sẽ có một cấu trúc tách biệt với dữ liệu của bảng (có thể xem như một bảng riêng).</li>
-<li>Điểm khác biệt giữa clustered-index và non-clustered-index là node lá của non-clustered-index không chứa dữ liệu, hay nói cách khác là tất cả các node của non-clustered-index sẽ chứa khóa là trường được đánh index và một con trỏ, trỏ tới vùng dữ liệu chứa giá trị khóa, trong trường hợp này là trỏ ngược sang clustered-index. Ví dụ nếu PK là trường <code>id</code> thì clustered-index chính là <code>id</code>, nếu ta đánh index trên một trường khác ví dụ là <code>name</code> thì index này sẽ là non-clustered-index, ở dạng <code>id, name</code></li>
-<li>Điều này dẫn tới sự khác biệt khi truy vấn dữ liệu với điều kiện là clustered-index hay non-clustered-index:
+<li><p>Ý tưởng của clustered indexes là lưu trữ <strong>toàn bộ một bảng dữ liệu</strong> vào một cấu trúc B-tree, hay nói cách khác một bảng có clustered indexes thì bản thân bảng đó chính là một cây index được sắp xếp theo <strong>trường được đánh index</strong>, bình thường là PK .</p></li>
+
+<li><p>Các <strong>nodex lá</strong> của clustered indexes <strong>chứa khóa là các trường được đánh index</strong> và đồng thời chứa tất cả các trường còn lại của bảng. Nên việc truy suất dữ liệu thông qua clustered index sẽ rất nhanh bởi vì <strong>row data</strong> sẽ nằm trên cùng một page với <strong>khóa của index</strong></p></li>
+
+<li><p>Clustered index không yêu cầu phải unique, tuy nhiên nếu trường được đánh clustered index không unique thì khóa cũng được thêm vào một giá trị random để đảm bảo các node index vẫn unique.</p></li>
+
+<li><p>Trên MySQL, với InnoDB storage engine, khóa chính sẽ được mặc định sử dụng làm clustered index. Nếu một bảng không có khóa chính thì MySQL sẽ chọn một index unique với tất cả các giá trị khác NULL làm clustered index. Nếu không có cả khóa chính và unique index, MySQL sẽ tự sinh ra một clustered index ẩn tên là <code>GEN_CLUST_INDEX</code>.</p></li>
+
+<li><p>Khi một bảng đã có clustered index thì tất cả các index khác sẽ được gọi là non-clustered index hoặc secondary-index. Non-clustered index sẽ có một cấu trúc tách biệt với dữ liệu của bảng (có thể xem như một bảng riêng).</p></li>
+
+<li><p>Điểm khác biệt giữa clustered-index và non-clustered-index là node lá của non-clustered-index không chứa dữ liệu, hay nói cách khác là tất cả các node của non-clustered-index sẽ chứa khóa là trường được đánh index và một con trỏ, trỏ tới vùng dữ liệu chứa giá trị khóa, trong trường hợp này là trỏ ngược sang clustered-index. Ví dụ nếu PK là trường <code>id</code> thì clustered-index chính là <code>id</code>, nếu ta đánh index trên một trường khác ví dụ là <code>name</code> thì index này sẽ là non-clustered-index, ở dạng <code>id, name</code></p></li>
+
+<li><p>Điều này dẫn tới sự khác biệt khi truy vấn dữ liệu với điều kiện là clustered-index hay non-clustered-index:</p>
 
 <ul>
 <li>Với clustered-index, khi tìm đến node lá, bản thân node lá đã chứa sẵn dữ liệu cần truy vấn nên tới đây coi như kết thúc truy vấn.</li>
 <li>Với non-clustered-index, khi tìm đến node lá phù hợp với điều kiện tìm kiếm, node lá sẽ chỉ chứa một con trỏ, trỏ tới clustered-index. Nên sẽ cần look-up thêm một lần nữa sang clustered-index để lấy các trường dữ liệu cần tìm.</li>
 </ul></li>
 </ul>
+
+<p><em>Minh họa clustered-index và non-clustered-index (nguồn: <a href="https://use-the-index-luke.com">https://use-the-index-luke.com</a>)</em></p>
 
 <p><img src="https://use-the-index-luke.com/static/fig05_03_secondary_index_on_clustered_index.x1.Q21aCRSZ.png" alt="clustered-index" /></p>
 
