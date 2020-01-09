@@ -96,7 +96,7 @@
 
 <p>Lấy ví dụ là ứng dụng Rails, cách quản lý config hiện tại được mô tả như sau:</p>
 
-<p>Sử dụng gem <a href="https://github.com/laserlemon/figaro">Figaro</a> để quản lý config: Ví dụ khi sử dụng Pusher (một 3rd service để push notificaiton in-app về cho mobile) như sau:</p>
+<p>Sử dụng gem <a href="https://github.com/laserlemon/figaro">Figaro</a> để quản lý config: Ví dụ khi sử dụng Pusher (một 3rd service để push notification in-app về cho mobile) như sau:</p>
 
 <pre><code class="language-yaml"># config/application.yml
 defaults: &amp;defaults
@@ -126,7 +126,7 @@ Pusher.secret = ENV['PUSHER_SECRET']
 Pusher.cluster = ENV['PUSHER_CLUSTER']
 </code></pre>
 
-<p>Ta sẽ lưu thông tin cấu hình là một cặp key/value vào một tập tin <code>yaml</code> và load cấu hình thông qua initializers. Một initializer đơn giản là một tập tin Ruby được đặt tại <code>config/initializers</code>. Initializers thường được dùng để lưu cấu hình mà muốn load sau khi framework và tất cả các gem được load.</p>
+<p>Ta sẽ lưu thông tin cấu hình là một cặp key/value vào một tập tin <code>yaml</code> và load cấu hình thông qua initializers. Một initializer đơn giản là một tập tin Ruby được đặt tại <code>config/initializers</code>. Initializers thường được dùng để <strong>lưu cấu hình mà muốn load sau cùng</strong>, khi framework và tất cả các gem (thư viện trong ruby) được load.</p>
 
 <p>Về cơ bản, vậy là xong. Tuy nhiên nếu ta muốn ràng buộc chặt chẽ hơn, yêu cầu là các thông tin cấu hình bắt buộc phải tồn tại, nếu thiếu sẽ không cho khởi tạo ứng dụng. Figaro hỗ trợ 2 phương thức là proactively và lazily.</p>
 
@@ -189,7 +189,7 @@ Pusher.cluster = Figaro.env.PUSHER_CLUSTER!
 
 <p>Viết dài dài cho vui chứ thực ra không có nhiều sự khác biệt lắm giữa hai thư viện này, <strong>dùng cái nào cũng được.</strong></p>
 
-<p>Lưu và tải config khi ứng dụng khởi tạo thì như vậy nhưng quản lý cấu hình và deployment thì cần thêm <strong>các yêu cầu</strong> như sau:</p>
+<p>Lưu và tải config khi ứng dụng khởi tạo thì như vậy, nhưng quản lý cấu hình và deployment thì cần thêm <strong>các yêu cầu</strong> như sau:</p>
 
 <ul>
 <li>Giá trị cấu hình trên môi trường <code>production</code> <strong>KHÔNG</strong> chia sẻ cho developer.</li>
@@ -320,6 +320,13 @@ Pusher.secret = &quot;bX5kuRUuVJlP1AD&quot;
 </ul>
 
 <p>Với cách cuối, có thể dùng một secret_key (mã hoá bất đối xứng) để mã hoá và validate trước khi push lên github nhưng lại mất đi tính năng quản lý version (vim và git diff) nên cơ bản cũng không xài được.</p>
+
+<p>Đại khái bạn sẽ muốn quản lý version của config như vầy:</p>
+
+<pre><code class="language-diff">- PUSHER_KEY: &quot;7381a978f7dd7f9a1117&quot;
++ PUSHER_KEY: &quot;7381a9sjd7dd7f9a1117&quot;
+  PUSHER_SECRET: &quot;abdc3b896a0ffb85d373&quot;
+</code></pre>
 
 <h3 id="2-what-next">2. What next?</h3>
 
