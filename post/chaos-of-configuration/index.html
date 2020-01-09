@@ -193,7 +193,7 @@ Pusher.cluster = Figaro.env.PUSHER_CLUSTER!
 
 <ul>
 <li>Giá trị cấu hình trên môi trường <code>production</code> <strong>KHÔNG</strong> chia sẻ cho developer.</li>
-<li>Giá trị cấu hình phải khác biệt giữa các môi trường, ví dụ <code>PUSHER_SECRET_KEY</code> phải khác biệt giữa development và production. Bảo vệ key của môi trường production an toàn nhất có thể. Cho phép apply các rule khác nhau nên từng cấu hình (ví dụ key của development chỉ dùng để test nên limit notification &hellip;).</li>
+<li>Giá trị cấu hình phải khác biệt giữa các môi trường, ví dụ <code>PUSHER_SECRET_KEY</code> phải khác biệt giữa development và production. Bảo vệ key của môi trường production an toàn nhất có thể. Cho phép apply các rule khác nhau lên từng cấu hình (ví dụ key của development chỉ dùng để test nên limit notification &hellip;).</li>
 <li>Cần có một cách tiện lợi để chia sẻ tập tin cấu hình ở development khi có một người mới join team nhưng không được commit vào git.</li>
 <li>Cần có một cách để quản lý version của cấu hình trên production. Dễ dàng thêm mới, delivery lên production.</li>
 </ul>
