@@ -6,10 +6,37 @@
     <description>Recent content in Categories on xluffy&#39;s page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 27 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jan 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>configuration</title>
+      <link>https://xluffy.github.io/categories/configuration/</link>
+      <pubDate>Mon, 06 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/categories/configuration/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>deployment</title>
+      <link>https://xluffy.github.io/categories/deployment/</link>
+      <pubDate>Mon, 06 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/categories/deployment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rails</title>
+      <link>https://xluffy.github.io/categories/rails/</link>
+      <pubDate>Mon, 06 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/categories/rails/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>mysql</title>
@@ -80,15 +107,6 @@
       <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/categories/cloud/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>rails</title>
-      <link>https://xluffy.github.io/categories/rails/</link>
-      <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://xluffy.github.io/categories/rails/</guid>
       <description></description>
     </item>
     

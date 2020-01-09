@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>configuration on xluffy&#39;s page</title>
+    <link>https://xluffy.github.io/categories/configuration/</link>
+    <description>Recent content in configuration on xluffy&#39;s page</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 06 Jan 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://xluffy.github.io/categories/configuration/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Chaos of configuration</title>
+      <link>https://xluffy.github.io/post/chaos-of-configuration/</link>
+      <pubDate>Mon, 06 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/chaos-of-configuration/</guid>
+      <description>Một trong các vấn đề cơ bản khi deployment và đảm bảo security cho ứng dụng đó là làm sao để quản lý config một cách tiện lợi, an toàn, dễ cập nhật.
+Tuân theo một method là 12factor ta coi như việc dùng biến môi trường để lưu config là chuyện hiển nhiên không cần phải giải thích.
+1. What the fuck are u doing now? Lấy ví dụ là ứng dụng Rails, cách quản lý config hiện tại được mô tả như sau:</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -4,7 +4,42 @@
   
   <url>
     <loc>https://xluffy.github.io/categories/</loc>
-    <lastmod>2019-12-27T00:00:00+00:00</lastmod>
+    <lastmod>2020-01-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://xluffy.github.io/post/chaos-of-configuration/</loc>
+    <lastmod>2020-01-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xluffy.github.io/post/</loc>
+    <lastmod>2020-01-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://xluffy.github.io/categories/configuration/</loc>
+    <lastmod>2020-01-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://xluffy.github.io/categories/deployment/</loc>
+    <lastmod>2020-01-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://xluffy.github.io/categories/rails/</loc>
+    <lastmod>2020-01-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://xluffy.github.io/</loc>
+    <lastmod>2020-01-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -14,19 +49,7 @@
   </url>
   
   <url>
-    <loc>https://xluffy.github.io/post/</loc>
-    <lastmod>2019-12-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://xluffy.github.io/categories/mysql/</loc>
-    <lastmod>2019-12-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://xluffy.github.io/</loc>
     <lastmod>2019-12-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -101,12 +124,6 @@
   <url>
     <loc>https://xluffy.github.io/post/build-simple-bg-job-with-rabbitmq/</loc>
     <lastmod>2018-08-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://xluffy.github.io/categories/rails/</loc>
-    <lastmod>2018-08-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

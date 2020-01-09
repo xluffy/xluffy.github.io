@@ -256,7 +256,52 @@ CALL generate_data(100000);
 
 <p>Trên một session khác, truy vấn dữ liệu hoặc chèn thêm dữ liệu, expect là session này sẽ bị block cho tới khi việc thay đổi schema hoàn thành:</p>
 
-<pre><code class="language-mysql">INSERT INTO `users` (`name`) VALUES (&quot;Jamalllllllllll&quot;); SELECT * FROM users LIMIT 1;
+<pre><code class="language-mysql">INSERT INTO `users` (`name`) VALUES (&quot;Quang&quot;); SELECT * FROM users LIMIT 1;
+</code></pre>
+
+<p>Kết quả:</p>
+
+<pre><code>&gt; DESC users;
++-------+------------------+------+-----+---------+----------------+
+| Field | Type             | Null | Key | Default | Extra          |
++-------+------------------+------+-----+---------+----------------+
+| id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(255)     | NO   |     | NULL    |                |
++-------+------------------+------+-----+---------+----------------+
+&gt; SELECT COUNT(*) FROM users;
++----------+
+| COUNT(*) |
++----------+
+|  3000104 |
++----------+
+1 row in set (0.42 sec)
+
+mysql&gt; ALTER TABLE users DROP INDEX idx_users_name;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql&gt; ALTER TABLE users ADD INDEX idx_users_name(name);
+Query OK, 0 rows affected, 2 warnings (14.19 sec)
+Records: 0  Duplicates: 0  Warnings: 2
+</code></pre>
+
+<p>Tiếp theo ta sẽ thử UPDATE PK để xem kết quả về thời gian sẽ khác biệt như thế nào.</p>
+
+<pre><code class="language-mysql">mysql&gt; ALTER TABLE users ADD COLUMN phone_no VARCHAR(20);
+Query OK, 3000104 rows affected (10.18 sec)
+Records: 3000104  Duplicates: 0  Warnings: 0
+
+mysql&gt; UPDATE users SET phone_no = FLOOR(rand()*10000000000);
+Query OK, 3000104 rows affected (46.12 sec)
+Rows matched: 3000104  Changed: 3000104  Warnings: 0
+
+# Remove duplicate phone_no
+#
+mysql&gt; SELECT DISTINCT(phone_no), COUNT(phone_no) AS c FROM users GROUP BY phone_no HAVING c &gt;=2;
+
+mysql&gt; DELETE t1 FROM users AS t1 INNER JOIN users AS t2 WHERE t1.id &lt; t2.id AND t1.phone_no = t2.phone_no;
+
+mysql&gt; ALTER TABLE users MODIFY id int(10) unsigned NOT NULL, DROP PRIMARY KEY, ADD PRIMARY KEY (phone_no);
 </code></pre>
 
 <p>Mặc dù việc tạo secondary-index đã nhanh hơn, nhưng nó vẫn phụ thuộc vào kích thước của bảng dữ liệu và với các trường hợp ngoài index, vấn không có giải pháp tránh downtime. <strong>Đây là lý do mà các giải pháp thứ 3 ra đời từ percona, github hoặc facebook</strong>.</p>
