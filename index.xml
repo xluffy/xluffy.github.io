@@ -221,14 +221,5 @@ Khi mới bắt đầu với Docker bạn có thể bị nhầm lẫn giữa m�
       <description>1. Giới thiệu Right tool for right job. Trước tiên phải hiểu là MySQL Replication không phải là giải pháp giải quyết mọi bài toán về quá tải hệ thống cơ sở dữ liệu. Để mở rộng một hệ thống ta có hai phương pháp mở rộng là scale up và scale out. Bắt đầu với 1 máy chủ thì hai phương pháp trên được diễn giải như sau:</description>
     </item>
     
-    <item>
-      <title></title>
-      <link>https://xluffy.github.io/post/cor/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://xluffy.github.io/post/cor/</guid>
-      <description>title: Copy on write technical date: &#39;2020-01-13&#39; categories: - os - c slug: copy-on-write-tech draft: true   Bài này là một trong các chuỗi chủ đề mình nghiên cứu khi join team research-database của Grokking. Bắt đầu từ việc đọc về cách redis sử dụng bộ nhớ mình nhận ra rất nhiều kiến thức đã từng học qua ở ĐH về hệ điều hành, cấp phát bộ nhớ &amp;hellip;</description>
-    </item>
-    
   </channel>
 </rss>
