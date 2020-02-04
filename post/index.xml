@@ -6,10 +6,21 @@
     <description>Recent content in Posts on xluffy&#39;s page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 06 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 04 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Null in SQL</title>
+      <link>https://xluffy.github.io/post/null-in-sql/</link>
+      <pubDate>Tue, 04 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/null-in-sql/</guid>
+      <description>Lược dịch + thêm ví dụ từ https://mitchum.blog
+ 1. NULL CREATE TABLE `t` ( `a` varchar(10) DEFAULT NULL, `b` varchar(10) DEFAULT NULL ) ENGINE=InnoDB DEFAULT CHARSET=latin1;  INSERT INTO t(a) VALUES (&#39;1&#39;); INSERT INTO t(b) VALUES (&#39;2&#39;); INSERT INTO t VALUES ();  Câu hỏi là nếu có 2 truy vấn như sau thì nên sử dụng truy vấn nào?
+SELECT * FROM t WHERE b = NULL;  và</description>
+    </item>
     
     <item>
       <title>Chaos of configuration</title>
@@ -208,6 +219,15 @@ Khi mới bắt đầu với Docker bạn có thể bị nhầm lẫn giữa m�
       
       <guid>https://xluffy.github.io/post/intro-mysql-replication/</guid>
       <description>1. Giới thiệu Right tool for right job. Trước tiên phải hiểu là MySQL Replication không phải là giải pháp giải quyết mọi bài toán về quá tải hệ thống cơ sở dữ liệu. Để mở rộng một hệ thống ta có hai phương pháp mở rộng là scale up và scale out. Bắt đầu với 1 máy chủ thì hai phương pháp trên được diễn giải như sau:</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://xluffy.github.io/post/cor/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/cor/</guid>
+      <description>title: Copy on write technical date: &#39;2020-01-13&#39; categories: - os - c slug: copy-on-write-tech draft: true   Bài này là một trong các chuỗi chủ đề mình nghiên cứu khi join team research-database của Grokking. Bắt đầu từ việc đọc về cách redis sử dụng bộ nhớ mình nhận ra rất nhiều kiến thức đã từng học qua ở ĐH về hệ điều hành, cấp phát bộ nhớ &amp;hellip;</description>
     </item>
     
   </channel>

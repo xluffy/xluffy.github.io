@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Null in SQL | xluffy&#39;s page</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/categories/">~/categories</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://github.com/xluffy/til/issues">~/til</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="#">~/books</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+    
+    
+      
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-K4LWNXV');</script>
+      
+    
+  </head>
+
+  <body>
+    
+      
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4LWNXV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      
+    
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">Null in SQL</span></h1>
+
+<h2 class="date">2020/02/04</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/sql">sql</a> 
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<blockquote>
+<p>Lược dịch + thêm ví dụ từ <a href="https://mitchum.blog">https://mitchum.blog</a></p>
+</blockquote>
+
+<h3 id="1-null">1. NULL</h3>
+
+<pre><code class="language-sql">CREATE TABLE `t` (
+  `a` varchar(10) DEFAULT NULL,
+  `b` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+</code></pre>
+
+<pre><code class="language-sql">INSERT INTO t(a) VALUES ('1');
+INSERT INTO t(b) VALUES ('2');
+INSERT INTO t VALUES ();
+</code></pre>
+
+<p>Câu hỏi là nếu có 2 truy vấn như sau thì nên sử dụng truy vấn nào?</p>
+
+<pre><code class="language-sql">SELECT * FROM t WHERE b = NULL;
+</code></pre>
+
+<p>và</p>
+
+<pre><code class="language-sql">SELECT * FROM t WHERE b IS NULL;
+</code></pre>
+
+<p>Câu trả lời cuối cùng là nên dùng <code>IS</code>, sách mô tả như sau:</p>
+
+<blockquote>
+<p><strong>In SQL, NULL represents the concept of &ldquo;unknown&rdquo;</strong></p>
+</blockquote>
+
+<p>So sánh sự khác biệt giữa NULL và empty value, dữ liệu thể hiện như sau:</p>
+
+<pre><code class="language-sql">INSERT INTO t VALUES ('', '');
+</code></pre>
+
+<pre><code class="language-sql">SELECT * FROM t;'
++------+------+
+| a    | b    |
++------+------+
+| 1    | NULL |
+| NULL | 2    |
+| NULL | NULL |
+|      |      |
++------+------+
+4 rows in set (0.00 sec)
+</code></pre>
+
+<h3 id="3-unknown">3. Unknown?</h3>
+
+<p>Biểu thức <code>WHERE 1 = 1</code> trả về giá trị là <code>true</code>, truy vấn sẽ trả về toàn bộ dữ liệu của bảng.</p>
+
+<pre><code class="language-sql">SELECT * FROM t WHERE 1 = 1;
+</code></pre>
+
+<p>Biểu thức <code>WHERE 1 = 0</code> trả về giá trị là <code>false</code>, nghĩa là truy vấn sẽ không trả về bất kỳ dữ liệu nào.</p>
+
+<pre><code class="language-sql">SELECT * FROM t WHERE 1 = 0;
+</code></pre>
+
+<p>Còn nếu có biểu thức <code>WHERE 1 = NULL</code> thì do không biết kết quả của phép so sánh là gì, nên truy vấn cũng không trả về bất cứ dữ liệu gì.</p>
+
+<pre><code class="language-sql">SELECT * FROM t WHERE 1 = NULL;
+</code></pre>
+
+<p>Còn nếu điều kiện là <code>NULL</code> thì cũng không trả về bất cứ dữ liệu gì.</p>
+
+<pre><code class="language-sql">SELECT * FROM t WHERE NULL;
+</code></pre>
+
+<p>Túm lại thì:</p>
+
+<ul>
+<li>Biểu thức sau <code>WHERE</code> mà <code>true</code> thì trả về dữ liệu.</li>
+<li>Biểu thức sau <code>WHERE</code> mà <code>false</code> thì không trả về dữ liệu.</li>
+<li>Hoặc trả về <code>NULL</code> hoặc <code>unknown</code> thì cũng không trả về dữ liệu.</li>
+</ul>
+
+<p>Câu hỏi tiếp theo là database xử lý <strong>2 trường hợp <code>false</code> và <code>NULL</code></strong> như nhau thì tại sao phải quan tâm? Tiếp theo thử thêm điều kiện <code>NOT()</code>.</p>
+
+<pre><code class="language-sql">SELECT * FROM t WHERE NOT(1 = 0);
+SELECT * FROM t WHERE NOT(1 = 1);
+</code></pre>
+
+<ul>
+<li><code>NOT(false) = true</code>, trả về dữ liệu.</li>
+<li><code>NOT(true) = false</code>, không trả về dữ liệu.</li>
+</ul>
+
+<p>Nhưng nếu <code>WHERE NOT(1 = NULL)</code> thì database không trả về <code>true</code>, cũng không trả về <code>false</code> mà trả về một <code>NULL</code> khác ?? 🥺 ?? (<em>đại khái là NULL khác khác với cái NULL trước mặc dù đều là NULL =)))))))))</em>)</p>
+
+<p>Túm lại thì 2 truy vấn sau trả về <strong>kết quả giống y chang nhau</strong>, dù điều kiện <strong>đối lập nhau</strong>.</p>
+
+<pre><code class="language-sql">SELECT * FROM t WHERE 1 = NULL;
+</code></pre>
+
+<pre><code class="language-sql">SELECT * FROM t WHERE NOT(1 = NULL);
+</code></pre>
+
+<h3 id="3-null-and-not-in">3. NULL and NOT IN</h3>
+
+<p>Có điều kiện với <code>IN</code> là <code>WHERE 1 IN (1, 2, 3, 4, NULL)</code>, kết quả của biểu thức là <code>true</code> vì số 1 có tồn tại trong danh sách =&gt; trả về dữ liệu của bảng.</p>
+
+<pre><code class="language-sql">SELECT * FROM t WHERE 1 IN (1, 2, 3, 4, NULL);
+</code></pre>
+
+<p>Nếu điều kiện <code>WHERE 1 NOT IN (1, 2, 3, 4, NULL)</code>, kết quả của biểu thức sẽ là <code>false</code> như bình thường vì số 1 có tồn tại trong danh sách.</p>
+
+<pre><code class="language-sql">SELECT * FROM t WHERE 1 NOT IN (1, 2, 3, 4, NULL);
+</code></pre>
+
+<p><strong>Nhưng vấn đề</strong> là nếu với điều kiện <code>5 NOT IN (1, 2, 3, 4, NULL)</code> cũng sẽ không trả về dữ liệu của bảng, dù số 5 <strong>không tồn tại trong danh sách</strong>.</p>
+
+<pre><code class="language-sql">SELECT * FROM t WHERE 5 NOT IN (1, 2, 3, 4 NULL);
+</code></pre>
+
+<p>Postgres wiki cũng có nói tới trường hợp tương tự, họ khuyến cáo là không nên sử dụng <code>NOT IN</code> hoặc bất kỳ truy vấn nào kết hợp của <code>NOT</code> và <code>IN</code> ví dụ <code>NOT (x IN (SELECT ...))</code>.</p>
+
+<p>Ngoài ra <a href="https://winand.at">Markus Winand</a> có một danh sách cách chủ đề chuyên sâu liên quan đến NULL trong SQL có thể tham khảo ở <a href="https://modern-sql.com/concept/null">https://modern-sql.com/concept/null</a> hoặc <a href="https://modern-sql.com/concept/three-valued-logic">https://modern-sql.com/concept/three-valued-logic</a>.</p>
+
+<h3 id="4-ref">4. Ref:</h3>
+
+<ul>
+<li><a href="https://mitchum.blog/null-values-in-sql-queries">https://mitchum.blog/null-values-in-sql-queries</a></li>
+<li><a href="https://wiki.postgresql.org/wiki/Don%27t_Do_This#Don.27t_use_NOT_IN">https://wiki.postgresql.org/wiki/Don%27t_Do_This#Don.27t_use_NOT_IN</a></li>
+<li><a href="https://www.cybertec-postgresql.com/en/a-postgresql-story-about-null-is-null-null-and-not-null">https://www.cybertec-postgresql.com/en/a-postgresql-story-about-null-is-null-null-and-not-null</a></li>
+<li><a href="https://modern-sql.com/feature/is-distinct-from">https://modern-sql.com/feature/is-distinct-from</a></li>
+</ul>
+
+</main>
+<section>
+  <hr>
+<script src="https://utteranc.es/client.js"
+        repo="xluffy/xluffy.github.io"
+        issue-term="url"
+        label="comments"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</section>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+      
+      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+    </footer>
+  </body>
+</html>
+

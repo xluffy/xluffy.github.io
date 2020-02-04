@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Sql on xluffy&#39;s page</title>
+    <title>sql on xluffy&#39;s page</title>
     <link>https://xluffy.github.io/categories/sql/</link>
-    <description>Recent content in Sql on xluffy&#39;s page</description>
+    <description>Recent content in sql on xluffy&#39;s page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 18 May 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 04 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/categories/sql/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>How joins work</title>
-      <link>https://xluffy.github.io/post/how-joins-work/</link>
-      <pubDate>Fri, 18 May 2018 00:00:00 +0000</pubDate>
+      <title>Null in SQL</title>
+      <link>https://xluffy.github.io/post/null-in-sql/</link>
+      <pubDate>Tue, 04 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://xluffy.github.io/post/how-joins-work/</guid>
-      <description>Truy vấn JOIN là một trong các truy vấn rất thường được sử dụng và mạnh mẽ trong hệ CSQL quan hệ. Tuy nhiên thường thì ta chỉ quan tâm tới các phép toán JOIN chứ ít khi quan tâm SQL engine xử lý như thê nào trên các phép JOIN đó.
-Bài này giải thích một số thuật toán thường gặp mà database sử dụng để tính toán bao gồm các thuật toán như: nested loop, hash, and merge joins.</description>
+      <guid>https://xluffy.github.io/post/null-in-sql/</guid>
+      <description>Lược dịch + thêm ví dụ từ https://mitchum.blog
+ 1. NULL CREATE TABLE `t` ( `a` varchar(10) DEFAULT NULL, `b` varchar(10) DEFAULT NULL ) ENGINE=InnoDB DEFAULT CHARSET=latin1;  INSERT INTO t(a) VALUES (&#39;1&#39;); INSERT INTO t(b) VALUES (&#39;2&#39;); INSERT INTO t VALUES ();  Câu hỏi là nếu có 2 truy vấn như sau thì nên sử dụng truy vấn nào?
+SELECT * FROM t WHERE b = NULL;  và</description>
     </item>
     
   </channel>

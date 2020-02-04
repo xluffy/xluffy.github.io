@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> | xluffy&#39;s page</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/categories/">~/categories</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://github.com/xluffy/til/issues">~/til</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="#">~/books</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+    
+    
+      
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-K4LWNXV');</script>
+      
+    
+  </head>
+
+  <body>
+    
+      
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4LWNXV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      
+    
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title"></span></h1>
+
+
+<p class="terms">
+  
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<pre><code>title: Copy on write technical
+date: '2020-01-13'
+categories:
+  - os
+  - c
+slug: copy-on-write-tech
+draft: true
+</code></pre>
+
+<blockquote>
+<p>Bài này là một trong các chuỗi chủ đề mình nghiên cứu khi join team research-database của <a href="https://www.grokking.org/">Grokking</a>. Bắt đầu từ việc đọc về cách redis sử dụng bộ nhớ mình nhận ra rất nhiều kiến thức đã từng học qua ở ĐH về hệ điều hành, cấp phát bộ nhớ &hellip;</p>
+
+<p>Disclaimer</p>
+</blockquote>
+
+<h2 id="1-memory-layout-of-a-process"><strong>1. Memory Layout of a Process</strong></h2>
+
+<p>Memory được cấp phát cho mỗi process là một tập hợp của nhiều phần mà thường được gọi là <em>segments</em>. Bao gồm các <em>segments</em> sau:</p>
+
+<ul>
+<li><p><em>Text segment</em> chứa <strong>machine-language instructions</strong> (instructions được dịch là hướng dẫn, lệnh, trong các sách tiếng Việt được dịch là chỉ lệnh hoặc chỉ thị, instructions set được dịch là tập lệnh CPU), đây có thể xem là phiên bản encode của chương trình ra ngôn ngữ máy (lệnh của CPU), giúp CPU có thể hiểu được và thực thi. Text segment được đặt ở chế độ <strong>read-only</strong> để tránh một process có thể vô tình sửa đổi chính các instruction của nó thông qua một bad pointer value. Nhiều process có thể chạy cùng một chương trình bằng cách cùng chia sẻ (<strong>sharable</strong>) một bản copy của chương trình trong bộ nhớ (sẽ nói ở system call <code>fork()</code> sau.</p></li>
+
+<li><p>Initialized data segment (kí hiệu <em>.data</em>) chứa các biến toàn cục và biến kiểu tĩnh (global variable, static variable) được khởi tạo tường minh khi chạy chương trình.</p>
+
+<ul>
+<li><p>Kích thước của segment này phụ thuộc vào <strong>kích thước</strong> của các giá trị biến toàn cục và biến kiểu tĩnh trong source code và <strong>KHÔNG THỂ THAY ĐỔI</strong> tại runtime.</p></li>
+
+<li><p>Giá trị của các biến này được đọc từ file thực thi khi chương trình được load vào bộ nhớ. <strong>Giá trị</strong> của các biến ở vùng segment này thì <strong>có thể thay đổi</strong> được tại runtime.</p></li>
+
+<li><pre><code class="language-c">int val = 3;
+char string[] = &quot;Hello World&quot;;
+</code></pre>
+
+<ul>
+<li>Uninitialized data segment (BSS segment, kí hiệu <em>.bss</em>) cũng chứa các biến toàn cục và biến kiểu tĩnh nhưng khởi tạo không tường minh. Khi chương trình được thực thi, các biến trong segment này sẽ được khởi tạo với giá trị bằng 0. Ví dụ:</li>
+</ul>
+
+<pre><code class="language-c">int i;
+static int si;
+</code></pre></li>
+</ul></li>
+
+<li><p>Stack chứa các stack frame, một stack frame được cấp phát khi có lời gọi hàm (call function). Một frame sẽ chứa các biến cục bộ (local variable), đối số, giá trị trả về của function (arguments, return value).</p></li>
+
+<li><p>Heap segment lưu trữ các vùng nhớ được <strong>cấp phát động</strong> tại runtime bởi các hàm như <code>malloc(), realloc(), free()</code></p></li>
+</ul>
+
+<p>Một ví dụ về ứng dụng của <strong>cấp phát bộ nhớ động</strong> như sau:</p>
+
+<p>Bài toán yêu cầu người dùng nhập vào <strong>n số nguyên</strong>, tìm <strong>giá trị lớn nhất</strong> trong các số vừa nhập vào. Cách thường thấy là ta khai báo một mảng và dùng vòng lặp để tìm số nguyên lớn nhất. Vấn đề là nếu khai báo một mảng có kích thước cố định, nhưng giá trị nhập vào nhỏ hơn kích thước của mảng sẽ dẫn tới lãng phí tài nguyên. Ví dụ khai báo một mảng có 1_000 phần tử kiểu dữ liệu int, tốn 4 bytes * 1_000 để lưu trữ mảng, nhưng nếu chỉ nhập 10 phần tử nghĩa là đã lãng phí 4056 bytes.</p>
+
+<p>Cấp phát tĩnh một mảng có kích thước bằng 10.</p>
+
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+  int arr[10];
+  int n;
+
+  printf(&quot;Please input n: &quot;);
+  scanf(&quot;%d&quot;, &amp;n);
+
+  if (n &gt; 10) {
+    printf(&quot;Just input n &lt; 10. Please try again&quot;);
+    return 0;
+  }
+
+  // input value for array
+  for (int i = 0; i &lt; n; i++) {
+    printf(&quot;Input value of index %d: &quot;, i);
+    scanf(&quot;%d&quot;, &amp;arr[i]);
+  }
+
+  int max = arr[0];
+  for (int j = 1; j &lt; n; j++) {
+    if (max &lt; arr[j]) {
+      max = arr[j];
+    }
+  }
+
+  printf(&quot;Max is: %d&quot;, max);
+  return 0;
+}
+</code></pre>
+
+<p>Cấp phát động một mảng có kích thước dựa trên giá trị user nhập vào.</p>
+
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(void) {
+  int* arr = NULL;
+  int n;
+
+  printf(&quot;Please input n: &quot;);
+  scanf(&quot;%d&quot;, &amp;n);
+
+  arr = (int *)malloc(n * sizeof(int));
+
+  // input value for array
+  for (int i = 0; i &lt; n; i++) {
+    printf(&quot;Input value of index %d: &quot;, i);
+    scanf(&quot;%d&quot;, &amp;arr[i]);
+  }
+
+  int max = arr[0];
+  for (int j = 1; j &lt; n; j++) {
+    if (max &lt; arr[j]) {
+      max = arr[j];
+    }
+  }
+
+  printf(&quot;Max is: %d&quot;, max);
+
+  free(arr);
+  return 0;
+}
+</code></pre>
+
+<p>Tới đây có 1 thứ khá thú vị, xem thử đoạn code sau:</p>
+
+<pre><code class="language-c">#define SIZE 10
+
+int main(void) {
+  int init_wsize = 10; 
+  
+  // or get another value input from user via scanf
+  int un_init_wsize;
+  printf(&quot;Please input wsize value: &quot;);
+  scanf(&quot;%d&quot;, %un_init_wsize)
+  
+  int array[SIZE]; // it's ok
+  int warray[init_wsize]; // not allow until C99
+  int wwarray[un_init_wsize]; // not allow intil C99
+}
+</code></pre>
+
+<ul>
+<li>Ở ví dụ trên, khai báo 3 mảng khác nhau, nhưng chỉ có trường hợp đầu tiên được chấp nhận.</li>
+<li>2 trường hợp sau, nếu sử dụng các trình biên dịch chưa hỗ trợ C99 đều sẽ báo lỗi.</li>
+<li>2 biến <code>init_wsize</code> và <code>un_init_wsize</code> được gọi là <a href="https://en.wikipedia.org/wiki/Variable-length_array"><strong>variable-length array</strong></a> hay <strong>variable-sized</strong>, <strong>runtime-sized</strong>, là các biến mà giá trị có thể thay đổi tại runtime, trong khi SIZE là hằng, bất biến tại runtime. Không được hỗ trợ cho tới C99.</li>
+</ul>
+
+<p>Ví dụ về memory layout của một chương trình viết bằng C:</p>
+
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+// initialize variables in uninitialized segment
+int un_init_var;
+static int st_un_init_var;
+
+// initialize variables in initialized segment
+int data_init_var = 1;
+static int st_data_init_var = 2;
+
+// constant
+const int c = 3;
+
+// dynamically allocate global variable
+int* global_heap_var;
+
+int main(void) {
+  int local_var;
+  int local_init_var = 4;
+
+  static int st_local_var;
+
+  // dynamically allocate local variable size = 1 * 4 bytes
+  int* local_heap_var = (int *)malloc(1);
+
+  // dynamically allocate global variable
+  global_heap_var = (int *)malloc(1);
+}
+</code></pre>
+
+<p>Hằng <code>c</code> nằm trong vùng <code>.rodata</code>:</p>
+
+<pre><code class="language-bash">&gt; objdump -t memory_layout.o  | grep '.rodata'
+0000000000000700 l    d  .rodata        0000000000000000              .rodata
+0000000000000700 g     O .rodata        0000000000000004              _IO_stdin_used
+0000000000000704 g     O .rodata        0000000000000004              c
+</code></pre>
+
+<p>Các biến kiểu tĩnh và biến toàn cục nằm trong data segment:</p>
+
+<pre><code>&gt; objdump -t memory_layout.o  | grep '\.data'
+0000000000201000 l    d  .data  0000000000000000              .data
+0000000000201014 l     O .data  0000000000000004              st_data_init_var
+0000000000201000  w      .data  0000000000000000              data_start
+0000000000201010 g     O .data  0000000000000004              data_init_var
+0000000000201018 g       .data  0000000000000000              _edata
+0000000000201000 g       .data  0000000000000000              __data_start
+0000000000201008 g     O .data  0000000000000000              .hidden __dso_handle
+0000000000201018 g     O .data  0000000000000000              .hidden __TMC_END__
+</code></pre>
+
+<p>Các biến kiểu tĩnh, toàn cục nhưng không được khởi tạo kèm giá trị:</p>
+
+<pre><code class="language-bash">&gt; objdump -t memory_layout.o  | grep '\.bss'
+0000000000201018 l    d  .bss   0000000000000000              .bss
+0000000000201018 l     O .bss   0000000000000001              completed.7697
+000000000020101c l     O .bss   0000000000000004              st_un_init_var
+0000000000201020 l     O .bss   0000000000000004              st_local_var.2771
+0000000000201028 g     O .bss   0000000000000008              global_heap_var
+0000000000201038 g       .bss   0000000000000000              _end
+0000000000201018 g       .bss   0000000000000000              __bss_start
+0000000000201030 g     O .bss   0000000000000004              un_init_var
+</code></pre>
+
+<p>Lưu ý là lệnh <code>objdump</code> và lệnh <code>size</code> nên chạy trên Linux, chạy trên macos sẽ ra kết quả khác.</p>
+
+<h2 id="2-overview-of-fork-exit-wait-and-execve"><strong>2. Overview of fork(), exit(), wait(), and execve()</strong></h2>
+
+<ul>
+<li><code>fork()</code> là một system call, cho phép một tiến trình (parrent process) tạo một tiến trình mới (child process). Tiến trình mới sẽ là <strong>bản sao</strong> (duplicate) của tiến trình cha và giống gần như tất cả với tiến trình cha bao gồm stack, data, heap và text segment. Tuy nhiên <strong>tiến trình cha và tiến trình con sẽ có không gian bộ nhớ khác nhau, chúng chỉ có nội dung giống nhau và bất kỳ hoạt động nào của tiến trình này sẽ không ảnh hưởng tới tiến trình kia</strong>.</li>
+<li><code>exit(status)</code> là một system call dùng để kết thúc một tiến trình, trả tất cả các resource (memory, open file descriptor &hellip;) về cho kernel, kernel sẽ dùng các resource này để cấp phát cho các tiến trình tới sau. Đối số <code>status</code> là một số nguyên dùng để xác định trạng thái kết thúc của tiến trình, bằng cách sử dụng <code>wait()</code> tiến trình cha có thể lấy được giá trị <code>status</code> này của tiến trình con.</li>
+<li><code>wait(&amp;status)</code> có hai chức năng. Một, nếu tiến trình con của một tiến trình vẫn chưa bị chấm dứt sau khi gọi <code>exit()</code>, <code>wait()</code> sẽ tạm dừng tiến trình cha cho tới khi tiến trình con kết thúc. Hai, trạng thái chấm dứt được trả về bởi tiến trình con sẽ là đối số của <code>wait()</code>.</li>
+<li><code>execve(pathname, argv, envp)</code> là một system call dùng để load một chương trình mới (đường dẫn, đối số, môi trường) vào bộ nhớ của một tiến trình. Chương trình đang tồn tại trong bộ nhớ (text segment) sẽ bị loại bỏ và tất cả các segment khác như stack, data, heap sẽ được tạo mới để cho chương trình mới có thể chạy.</li>
+</ul>
+
+<h3 id="2-1-creating-a-new-process-fork">2.1. Creating a New Process: fork()</h3>
+
+<p>Trong nhiều ứng dụng, tạo đa tiến trình (multiple processes) là một cách hữu ích để phân chia nhiệm vụ. Ví dụ một network server có thể lắng nghe nhiều incoming request và tạo ra nhiều tiến trình con để có thể xử lý đống thời riêng rẽ từng request.</p>
+
+<p>Sau khi <code>fork()</code>, tiến trình con sẽ <strong>chia sẻ</strong> text segment với tiến trình cha nhưng sẽ có <strong>stack, data, heap segment riêng</strong>, được copy từ tiến trình cha (nghĩa là tại thời điểm fork, giá trị trong các segment này giữa tiến trình cha và tiến trình con là như nhau, nhưng sau đó tuỳ vào cách chương trình chạy, các giá trị trong các segment này sẽ thay đổi độc lập và không ảnh hưởng tới tiến trình khác).</p>
+
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/wait.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(void) {
+  pid_t child; // Child pid, returned by fork system call.
+  int cstatus; // Exit status of child process.
+  pid_t c; // Pid of child, to be returned by wait system call.
+
+  child = fork();
+
+  if (child == 0) {
+    // In child process
+    sleep(2);
+    printf(&quot;Child: PID of child is %ld\n&quot;, (long) getpid());
+    printf(&quot;Child: PPID of child is %ld\n&quot;, (long) getppid());
+    exit(EXIT_SUCCESS);
+  } else {
+    // In parent process
+    if (child == -1) {
+      printf(&quot;Fork failed.\n&quot;);
+      exit(EXIT_FAILURE);
+    } else {
+      c = wait(&amp;cstatus);
+      printf(&quot;Parent: Child %ld exited with status is %d\n&quot;, (long) c, cstatus);
+    }
+  }
+  return 0;
+}
+</code></pre>
+
+<p>Biên dịch và chạy thử chương trình:</p>
+
+<pre><code class="language-bash">&gt; gcc -o t_fork_wait.o t_fork_wait.c
+&gt; ./t_fork_wait.o
+Child: PID of child is 15459
+Child: PPID of child is 15458
+Parent: Child 15459 exited with status is 0
+</code></pre>
+
+<p>Giờ thử thêm mộ trường hợp đó là trước hàm <code>exit(EXIT_SUCCESS)</code> ta sẽ <code>sleep(15)</code>, và từ một cửa sổ terminal khác, gửi signal 15 tới <code>child process id (PID)</code> và xem thử kết quả:</p>
+
+<pre><code class="language-bash">&gt; kill -15 15467
+
+./t_fork_wait.o
+Child: PID of child is 15467
+Child: PPID of child is 15466
+Parent: Child 15467 exited with status is 15
+</code></pre>
+
+<h3 id="2-2-file-sharing-between-parent-and-child"><strong>2.2 File Sharing Between Parent and Child</strong></h3>
+
+<p>Khi <code>fork()</code> được thực thi, tiến trình con sẽ nhận bản copy tất cả các file descriptors từ tiến trình cha, nghĩa là tiến trình con và tiến trình cha sẽ refer tới cùng các <strong>open file descriptors</strong>. Open file descriptors bao gồm offset của tập tin đang được mở (đọc tới đâu, ghi tới đâu <code>read(), write(), lseek()</code>),  open file status flag (tập tin có thể đọc, ghi &hellip;). Kết quả là thuộc tính của một tập tin đang mở sẽ chia sẻ giữa tiến trình con và tiến trình cha.</p>
+
+<p>Chia sẻ thuộc tính của tập tin giữa tiến trình cha và tiến trình con khá lá hữu ích. Ví dụ nếu tiến trình cha và tiến trình con chùng ghi vào một tập tin, chia sẻ offset sẽ đảm bảo hai tiến trình không <strong>ghi đè</strong> lên nhau.</p>
+
+<h3 id="2-3-memory-semantics-of-fork"><strong>2.3 Memory Semantics of fork()</strong></h3>
+
+<p>Lý thuyết là sau khi <code>fork()</code> được gọi, tiến trình con sẽ được tạo ra với các segment được copy từ tiến trình cha nhưng có không gian địa chỉ <strong>riêng biệt</strong>. Tuy nhiên trong thực tế, nếu copy tất cả các virutal memory page của tiến trình cha vào tiến trình con sẽ <strong>lãng phí</strong> vì một vài lý do, một trong số đó là sau khi <code>fork()</code> thì thường sẽ ngay tức thì gọi <code>exec()</code> để load text segment của chương trình mới và khởi tạo lại data, heap, stack segment. Hầu hết các hệ điều hành dựa trên Unix hiện đại, bao gồm cả Linux sử dụng <strong>hai kỹ thuật</strong> sau để tránh việc copy lãng phí.</p>
+
+<ul>
+<li>Kernel sẽ đánh dấu text segment của mỗi tiến trình là read-only, nghĩa là tiến trình sẽ không thể tự ý sửa mã nguồn của chính nó. Tiến trình cha và tiến trình con sẽ <strong>chia sẻ chung text segment</strong>. <code>fork()</code> sẽ tạo một text segment cho tiến trình con bằng cách tạo một page-teble entries mới và refer tới cùng physical memory page frame với tiến trình cha.</li>
+<li>Với data, heap, stack segment của tiến trình cha, kernel áp dụng một kỹ thuật đặc biệt gọi là <strong>copy-on-write</strong>. Ban đầu, kernel sẽ thiết lập một danh sách các page-table entries cho các segment trên, refer tới cùng physical memory page như các page-table entries của tiến trình cha, các page table này sẽ được đánh dấu là read-only. Sau khi <code>fork()</code>, kernel sẽ đặt một trap, bắt mọi cố gắng sửa đổi các page trên từ tiến trình cha hoặc tiến trình con. Nếu phát hiện có một tiến trình cố gắng thay đổi giá trị của các page trên, nó sẽ tạo ra một bản copy của các page mà sắp được sửa đổi. Page được copy mới này sẽ được gán cho tiến trình đang muốn sửa đổi và page-table entries cũng sẽ được điều chỉnh lại để trỏ tới copy page. Kể từ thời điểm này thì tiến trình cha và tiến trình con sẽ sửa đổi các page độc lập, không ảnh hưởng tới nhau.</li>
+</ul>
+
+<h2 id="3-copy-on-write-vs-redis">3. Copy on write vs redis</h2>
+
+<p>Ở đây giả định rằng bạn đã biết redis là gì, sẽ tóm lại một số phần cần thiết:</p>
+
+<p>Redis report 2 giá trị là <code>used_memory</code> hoặc <code>used_memory_human</code> là tổng số byte được cấp phát cho redis bao gồm:</p>
+
+<ul>
+<li><strong>User-defined data</strong>: lượng memory được cấp cấp phát cho redis, dùng để lưu trữ data.</li>
+<li><strong>Internal overhead</strong>: lượng memory nội tại redis sử dụng.</li>
+</ul>
+
+<p><code>used_memory_rss</code> là giá trị thể hiện lượng memory cấp phát cho redis được nhìn từ OS. Ngoài hai phần tương tự <code>user_memory</code>, nó còn gồm phần memory tiêu tốn bởi <code>memory fragmentation</code>. Memory fragmentation gây ra bởi sự thiếu hiệu quả trong việc cấp phát/thu hồi bộ nhớ vật lý bởi hệ điều hành.</p>
+
+<h4 id="maxmemory">Maxmemory</h4>
+
+<p>Trong redis, ta có thể cấu hình giá trị <code>maxmemory</code>, chỉ định lượng memory tối đa mà redis có thể sử dụng cho data set. Ví dụ:</p>
+
+<pre><code>maxmemory 100mb
+</code></pre>
+
+<p>Khi đạt tới lượng memory giới hạn, redis sẽ xử lý tuỳ vào <strong>policy</strong>, ta sẽ chỉ nói tới 2 loại là:</p>
+
+<ul>
+<li><strong>noeviction</strong>: giá trị mặc định của redis, khi memory đạt giới hạn và client yêu cầu nhiều bộ nhớ hơn bộ nhớ còn lại sẽ trả về lỗi (hầu hết là WRITE command, nhưng DEL thì được chấp nhận trong một số trường hợp).</li>
+<li><strong>allkeys-lru</strong>: evict key, bằng các dùng thuật toán LRU để lấy lại không gian bộ nhớ lưu trữ cho data mới.</li>
+</ul>
+
+<p>Câu hỏi đặt ra là có thể cấp phát tối đa bao nhiêu memory cho redis để lưu trữ dữ liệu???</p>
+
+<p>Một số kiến thức khác:</p>
+
+<ul>
+<li>Redis chạy single-thread.</li>
+<li>Redis hỗ trợ 2 cơ chế persistence dữ liệu xuống đĩa cứng là
+
+<ul>
+<li>RDB sẽ thực hiện point-in-time snapshots toàn bộ dataset theo chu kỳ được cấu hình trước.</li>
+<li>AOF thì lưu xuống đĩa log của mọi hành vi ghi dữ liệu, khi server start lại thì sẽ relay lại log này để tái tạo lại dataset (tương tự WAL hoặc binlog).</li>
+</ul></li>
+</ul>
+
+<h2 id="4-ref">4. Ref</h2>
+
+<ul>
+<li>Linux Programming Interface</li>
+<li><a href="https://medium.com/nataraj-raghavendra/fork-vs-thread-38e09ec099e2">https://medium.com/nataraj-raghavendra/fork-vs-thread-38e09ec099e2</a></li>
+<li><a href="http://patshaughnessy.net/2012/1/18/seeing-double-how-ruby-shares-string-values">http://patshaughnessy.net/2012/1/18/seeing-double-how-ruby-shares-string-values</a></li>
+</ul>
+
+</main>
+<section>
+  <hr>
+<script src="https://utteranc.es/client.js"
+        repo="xluffy/xluffy.github.io"
+        issue-term="url"
+        label="comments"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</section>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+      
+      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+    </footer>
+  </body>
+</html>
+
