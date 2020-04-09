@@ -178,32 +178,41 @@
 <li>Có 2 static IP (cần gọi lên tổng đài yêu cầu thiết lập) và chi phí là hơn 2tr/tháng.</li>
 </ul>
 
+<blockquote>
+<p>Một số nhà mạng không cho phép chuyển modem của họ sang chế độ bridge, ví dụ Viettel với gói cước dưới 60Mpbs là họ không cho.</p>
+
+<p>Nhà mạng không cho chuyển sang bridge lí do chính là để họ có <strong>toàn quyền điều khiển trên modem</strong>, giúp họ giảm chi phí đi lại, chi phí kỹ thuật tới kiểm tra. Khi có toàn quyền điều khiển trên modem họ có thể dễ dàng update firmware, cập nhật cấu hình, vá lỗi &hellip; mà không mất công tới nhà của khách hàng.</p>
+
+<p>Việc này rất nguy hiểm, nên cần phải có router riêng để tự chủ động control hệ thống mạng.</p>
+</blockquote>
+
 <h2 id="2-router">2. Router</h2>
 
 <p>Router chính là một phần quan trọng của hệ thống, gánh toàn bộ kết nối ra ngoài internet. Nên đầu tư một Router tốt, yêu cầu tối thiểu gồm:</p>
 
 <ul>
 <li>Do phải handle toàn bộ kết nối, cấp DHCP cho toàn bộ mạng &hellip; nên cần có cấu hình về CPU, RAM tốt 1 chút, nhiều core thì càng tốt.</li>
-<li>Tối thiểu 2 cổng WAN để dual-wan.</li>
-<li>Hơn 4 cổng LAN kết nối tới các AP mà không cần thêm switch.</li>
-<li>Cổng kết nối đạt 1Gbps.</li>
+<li>Tối thiểu 2 cổng WAN để dual-wan, tốc độ tối thiểu là <strong>1Gbps</strong>.</li>
+<li>Hơn 4 cổng LAN kết nối tới các AP mà không cần thêm switch, cổng LAN cũng cần tốc độ là <strong>1Gbps</strong>.</li>
 <li>Tính năng firewall cơ bản, QoS.</li>
 <li>Có một số tính năng nâng cao có thể có như VPN, Proxy.</li>
 </ul>
+
+<p>Yêu cầu ở tốc độ của các c<strong>ổng tối thiểu 1Gbps là cực kỳ quan trọng</strong>, vì nếu băng thông chỉ đạt 100Mbps thì không thể sử dụng các gói cước có băng thông trên 100Mpbs.</p>
 
 <p>Mình không có nhiều kinh nghiệm với các dòng router ngoài Draytek và Mikrotik nên chỉ đánh giá 2 dòng router này. Riêng về Cisco cũng là một lựa chọn tốt, tuy nhiên chi phí cao nên không cân nhắc.</p>
 
 <p>Draytek 3220 (giá khoảng gần 9tr):</p>
 
 <ul>
-<li>WAN: 4 x 10/100/1000Mbps, RJ45</li>
-<li>LAN: 1 x 10/100/1000Mbps</li>
+<li>WAN: 4 x 10/100/<strong>1000Mbps</strong>, RJ45</li>
+<li>LAN: 1 x 10/100/<strong>1000Mbps</strong></li>
 <li>DMZ: 1 x 10/100/1000Mbps</li>
 <li>NAT Session: 80.000</li>
 <li>NAT Throughput: 900Mbps (WAN mode Static)</li>
 </ul>
 
-<p>Ưu điểm của Draytek là đơn giản, dễ cấu hình, rất phù hợp cho những ai không muốn tìm hiểu quá nhiều, ngoài ra thì anphat.vn có chế độ hỗ trợ khá tốt, nên có thể nhờ họ hướng dẫn hoặc xem tài liệu cấu hình của họ.</p>
+<p>Ưu điểm của Draytek là đơn giản, dễ cấu hình, rất phù hợp cho những ai không muốn tìm hiểu quá nhiều, ngoài ra thì anphat.com.vn có chế độ hỗ trợ khá tốt, nên có thể nhờ họ hướng dẫn hoặc xem tài liệu cấu hình của họ.</p>
 
 <p>Nhược điểm là chỉ có 1 cổng LAN, nghĩa là ta cần thêm switch nếu cần kết nối nhiều AP, tất nhiên có switch thì có thể chia VLAN cho từng team, tăng độ bảo mật cho từng nhóm user. Tuy nhiên chi phí sẽ tăng thêm (Draytek VigorSwitch P1090 8 port có giá khoảng 3.4tr).</p>
 
@@ -212,8 +221,8 @@
 <p>Router Mikrotik:</p>
 
 <ul>
-<li>RB3011UiAS-RM (5tr3), CPU 2 core, 1 GB RAM, 10 port 10/100/1000 Mbps.</li>
-<li>CCR1009-7G-1C-1S+ (~ 10tr), với CPU TLR4-00980CH-10CE-A3b, 9 core, 2 GB RAM, 7 port 10/100/1000 Mbps, 1 SFP+ và 1 SFP combo.</li>
+<li>RB3011UiAS-RM (5tr3), CPU 2 core, 1 GB RAM, <strong>10 port 10/100/1000 Mbps</strong>.</li>
+<li>CCR1009-7G-1C-1S+ (~ 10tr), với CPU TLR4-00980CH-10CE-A3b, 9 core, 2 GB RAM, <strong>7 port 10/100/1000 Mbps</strong>, 1 SFP+ và 1 SFP combo.</li>
 </ul>
 
 <p>RB3011UiAS là router core cũ đáp ứng đủ nhu cầu nhưng do văn phòng chuyển nên mình muốn nâng cấp luôn router core để nếu có nhu cầu mở rộng không cần đổi thiết bị. Tiếc là 2 module SFP lại không tận dụng được.</p>
