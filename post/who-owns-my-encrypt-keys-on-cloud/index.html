@@ -86,6 +86,10 @@
 
 
 <main>
+<blockquote>
+<p>Gần đây phải đọc lại về các dịch vụ mã hoá này, mình chợt nhận ra trong bài này có vài điểm chưa chính xác về cách hoạt động và tính năng. Cụ thể hơn có thể đọc bài [](), tuy nhiên về cơ bản ý tưởng &ldquo;Ai là người sở hữu?&rdquo; cũng như &ldquo;Mô hình chia sẻ trách nhiệm&rdquo; vẫn có ý nghĩa.</p>
+</blockquote>
+
 <p>Một trong những câu hỏi thường gặp khi nói về mã hóa trên các dịch vụ cloud như AWS đó là:</p>
 
 <ul>
@@ -134,8 +138,8 @@
 <p>Với AWS KMS, dịch vụ quản lý key được back bởi Amazon hardware security module. Nghĩa là <strong>Amazon sẽ tạo ra một key, và key này sẽ chỉ được duy nhất bạn sử dụng</strong>, key này được bảo vệ (encrypt) bởi HSM của Amazon. Khi bạn tạo một key trên KMS, nó gọi là CMK (Customer Master Key), CMK là một cấu trúc dữ liệu gồm:</p>
 
 <ul>
-<li>Symmetric key.</li>
-<li>Metadata về symmetric key đó.</li>
+<li><del>Symmetric key.</del></li>
+<li><del>Metadata về symmetric key đó.</del></li>
 </ul>
 
 <p>Quay trở lại câu hỏi &ldquo;Ai là chủ sở hữu của CMK?&rdquo;, do CMK được bảo vệ bởi Amazon HSM nên <strong>bạn và Amazon sẽ chia sẻ quyền sở hữu key này và cả hai đều có thể có quyền access vào raw key</strong>.</p>

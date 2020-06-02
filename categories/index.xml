@@ -6,10 +6,28 @@
     <description>Recent content in Categories on xluffy&#39;s page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 04 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 22 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>blacklist</title>
+      <link>https://xluffy.github.io/categories/blacklist/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/categories/blacklist/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dns</title>
+      <link>https://xluffy.github.io/categories/dns/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/categories/dns/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>sql</title>

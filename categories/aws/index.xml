@@ -27,8 +27,8 @@
       <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/who-owns-my-encrypt-keys-on-cloud/</guid>
-      <description>Một trong những câu hỏi thường gặp khi nói về mã hóa trên các dịch vụ cloud như AWS đó là:
- Ai là người sở hữu encrypt key trên AWS? AWS có thể truy cập vào encrypt key của tôi hay không?  Đây là một câu hỏi cực kỳ quan trọng mà các tổ chức lớn muốn dịch chuyển hệ thống của mình từ on-premise lên Cloud đặt ra và cần câu trả lời.</description>
+      <description>Gần đây phải đọc lại về các dịch vụ mã hoá này, mình chợt nhận ra trong bài này có vài điểm chưa chính xác về cách hoạt động và tính năng. Cụ thể hơn có thể đọc bài [](), tuy nhiên về cơ bản ý tưởng &amp;ldquo;Ai là người sở hữu?&amp;rdquo; cũng như &amp;ldquo;Mô hình chia sẻ trách nhiệm&amp;rdquo; vẫn có ý nghĩa.
+ Một trong những câu hỏi thường gặp khi nói về mã hóa trên các dịch vụ cloud như AWS đó là:</description>
     </item>
     
   </channel>

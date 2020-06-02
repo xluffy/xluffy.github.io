@@ -6,10 +6,20 @@
     <description>Recent content on xluffy&#39;s page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 04 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 22 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How to check a IP is in a blacklist</title>
+      <link>https://xluffy.github.io/post/how-to-check-a-ip-is-in-a-blacklist/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/how-to-check-a-ip-is-in-a-blacklist/</guid>
+      <description>Một đồng nghiệp trong công ti giới thiệu cho mình blcheck, tool này dùng để check một IP có nằm trong mail blacklist hay không bằng cách check qua một danh sách các tổ chức. Về cơ bản nó tương tự mxtoolbox nhưng nó là command-line tool.
+./blcheck 1.2.3.4 ---------------------------------------------------------- Results for 1.2.3.4 Tested: 3 Passed: 3 Invalid: 0 Blacklisted: 0 ----------------------------------------------------------  Sẵn tò mò nên thử đọc code và xem cách nó hoạt động như thế nào, phương pháp rất đơn giản là xoá code và đọc từng phần và chạy thử.</description>
+    </item>
     
     <item>
       <title>Null in SQL</title>
@@ -69,8 +79,8 @@ Tuân theo một method là 12factor ta coi như việc dùng biến môi trư�
       <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/who-owns-my-encrypt-keys-on-cloud/</guid>
-      <description>Một trong những câu hỏi thường gặp khi nói về mã hóa trên các dịch vụ cloud như AWS đó là:
- Ai là người sở hữu encrypt key trên AWS? AWS có thể truy cập vào encrypt key của tôi hay không?  Đây là một câu hỏi cực kỳ quan trọng mà các tổ chức lớn muốn dịch chuyển hệ thống của mình từ on-premise lên Cloud đặt ra và cần câu trả lời.</description>
+      <description>Gần đây phải đọc lại về các dịch vụ mã hoá này, mình chợt nhận ra trong bài này có vài điểm chưa chính xác về cách hoạt động và tính năng. Cụ thể hơn có thể đọc bài [](), tuy nhiên về cơ bản ý tưởng &amp;ldquo;Ai là người sở hữu?&amp;rdquo; cũng như &amp;ldquo;Mô hình chia sẻ trách nhiệm&amp;rdquo; vẫn có ý nghĩa.
+ Một trong những câu hỏi thường gặp khi nói về mã hóa trên các dịch vụ cloud như AWS đó là:</description>
     </item>
     
     <item>

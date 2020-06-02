@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>blacklist on xluffy&#39;s page</title>
+    <link>https://xluffy.github.io/categories/blacklist/</link>
+    <description>Recent content in blacklist on xluffy&#39;s page</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 22 May 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://xluffy.github.io/categories/blacklist/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How to check a IP is in a blacklist</title>
+      <link>https://xluffy.github.io/post/how-to-check-a-ip-is-in-a-blacklist/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/how-to-check-a-ip-is-in-a-blacklist/</guid>
+      <description>Một đồng nghiệp trong công ti giới thiệu cho mình blcheck, tool này dùng để check một IP có nằm trong mail blacklist hay không bằng cách check qua một danh sách các tổ chức. Về cơ bản nó tương tự mxtoolbox nhưng nó là command-line tool.
+./blcheck 1.2.3.4 ---------------------------------------------------------- Results for 1.2.3.4 Tested: 3 Passed: 3 Invalid: 0 Blacklisted: 0 ----------------------------------------------------------  Sẵn tò mò nên thử đọc code và xem cách nó hoạt động như thế nào, phương pháp rất đơn giản là xoá code và đọc từng phần và chạy thử.</description>
+    </item>
+    
+  </channel>
+</rss>
