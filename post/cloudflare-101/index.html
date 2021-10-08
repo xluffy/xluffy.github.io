@@ -389,13 +389,13 @@ expect-ct: max-age<span style="color:#f92672">=</span>604800, report-uri<span st
 server: cloudflare
 cf-ray: 4f50c44b398ad1e7-HKG
 </code></pre></div><p>Một số header dùng để xác định như <code>cf-ray</code>, <code>__cfduid</code> hoặc check IP phân giải có thuộc lớp mạng của Cloudflare hay không:</p>
-<pre tabindex="0"><code>&gt; dig +short medium.com
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; dig +short medium.com
 104.16.121.127
 104.16.124.127
 104.16.122.127
 104.16.120.127
 104.16.123.127
-</code></pre><h4 id="341-ssl-certificate">3.4.1 SSL certificate</h4>
+</code></pre></div><h4 id="341-ssl-certificate">3.4.1 SSL certificate</h4>
 <p>Mỗi Domain Validation SSL certificate mà bạn mua sẽ valid với một domain name. Ý tưởng là bạn cần scan toàn bộ internet để tìm một địa chỉ IP nào đó trên cổng 443 có SSL certificate match với domain-name mà bạn đang tìm kiếm.</p>
 <p><a href="https://censys.io/">Censys</a> là một dịch vụ cho phép query các dữ liệu kiểu như vậy. Miễn phí 10 query cho un-login user và 200 query/tháng cho free user.</p>
 <p>Ví dụ với site <a href="https://viblo.asia">https://viblo.asia</a>, domain của họ phân giải thành địa chỉ của Cloudflare</p>

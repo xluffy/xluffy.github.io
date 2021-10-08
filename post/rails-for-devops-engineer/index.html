@@ -203,191 +203,191 @@
 <li><code>last</code> giống <code>first</code>, chỉ khác là sắp xếp tăng dần.</li>
 </ul>
 <p>Theo thứ tự active record và sql sẽ như sau:</p>
-<pre tabindex="0"><code>User.take
-User.take(20)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>take
+<span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>take(<span style="color:#ae81ff">20</span>)
 
-SELECT * FROM users LIMIT 1;
-SELECT * FROM users LIMIT 20;
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>;
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">20</span>;
 
-User.first
-User.first(2)
+<span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>first
+<span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>first(<span style="color:#ae81ff">2</span>)
 
-SELECT * FROM users ORDER BY id ASC LIMIT 1
-SELECT * FROM users ORDER BY id ASC LIMIT 2
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> id <span style="color:#66d9ef">ASC</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> id <span style="color:#66d9ef">ASC</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">2</span>
 
-User.last
+<span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>last
 
-SELECT * FROM users ORDER BY id DESC LIMIT 1
-</code></pre><h3 id="13-find_by-và-wheretake">1.3 <code>find_by</code> và <code>where().take</code></h3>
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> id <span style="color:#66d9ef">DESC</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>
+</code></pre></div><h3 id="13-find_by-và-wheretake">1.3 <code>find_by</code> và <code>where().take</code></h3>
 <ul>
 <li><code>find_by</code> trả về một record match với điều kiện.</li>
 <li><code>where</code> trả về record theo điều kiện.</li>
 </ul>
 <p>Ví dụ 2 query sau sẽ như nhau:</p>
-<pre tabindex="0"><code>User.find_by name: 'Quang'
-User.where(name: 'Quang').take
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>find_by name: <span style="color:#e6db74">&#39;Quang&#39;</span>
+<span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(name: <span style="color:#e6db74">&#39;Quang&#39;</span>)<span style="color:#f92672">.</span>take
 
-SELECT * FROM users WHERE name = 'Quang' LIMIT 1;
-</code></pre><h3 id="14-unscope-và-only">1.4 <code>unscope</code> và <code>only</code></h3>
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Quang&#39;</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>;
+</code></pre></div><h3 id="14-unscope-và-only">1.4 <code>unscope</code> và <code>only</code></h3>
 <p><code>unscope</code> dùng để xóa một số <strong>điều kiện</strong> cụ thể nào đó, <code>only</code> thì ngược lại, chỉ định các <strong>điều kiện</strong> sẽ được giữ lại, ví dụ:</p>
-<pre tabindex="0"><code>User.where(&quot;email LIKE '%@gmail%'&quot;).order(:id)
-SELECT  `users`.* FROM `users` WHERE (email LIKE '%@gmail%') ORDER BY `users`.`id` ASC;
-</code></pre><p>Nhưng giờ mình muốn xóa điều kiện sắp xếp theo <code>id</code> thì dùng method <code>unscope</code> như sau:</p>
-<pre tabindex="0"><code>User.where(&quot;email LIKE '%@gmail%'&quot;).order(:id).unscope(:order)
-SELECT  `users`.* FROM `users` WHERE (email LIKE '%@gmail%');
-</code></pre><h2 id="2-some-active-record-tips">2. Some Active-Record tips</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">&#34;email LIKE &#39;%@gmail%&#39;&#34;</span>)<span style="color:#f92672">.</span>order(<span style="color:#e6db74">:id</span>)
+<span style="color:#66d9ef">SELECT</span>  <span style="color:#e6db74">`users`</span><span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">`users`</span> <span style="color:#66d9ef">WHERE</span> (email <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%@gmail%&#39;</span>) <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">`users`</span><span style="color:#f92672">.</span>`id<span style="color:#e6db74">` ASC;
+</span></code></pre></div><p>Nhưng giờ mình muốn xóa điều kiện sắp xếp theo <code>id</code> thì dùng method <code>unscope</code> như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">&#34;email LIKE &#39;%@gmail%&#39;&#34;</span>)<span style="color:#f92672">.</span>order(<span style="color:#e6db74">:id</span>)<span style="color:#f92672">.</span>unscope(<span style="color:#e6db74">:order</span>)
+<span style="color:#66d9ef">SELECT</span>  <span style="color:#e6db74">`users`</span><span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">`users`</span> <span style="color:#66d9ef">WHERE</span> (email <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%@gmail%&#39;</span>);
+</code></pre></div><h2 id="2-some-active-record-tips">2. Some Active-Record tips</h2>
 <h3 id="21-include-và-n--1-query">2.1. <code>include</code> và n + 1 query</h3>
 <p>Giả sử ta có model User như sau:</p>
-<pre tabindex="0"><code>class User
-  has_many :posts
-end
-</code></pre><p>=&gt; một user có thể có nhiều post</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">User</span>
+  has_many <span style="color:#e6db74">:posts</span>
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p>=&gt; một user có thể có nhiều post</p>
 <p>Với cách query thông thường trong active-record</p>
-<pre tabindex="0"><code>users = User.all
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">users <span style="color:#f92672">=</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>all
 
-users.each do |user|
-  user.posts
-end
-</code></pre><p>Đoạn trên sẽ generate ra n + 1 query như sau:</p>
-<pre tabindex="0"><code>SELECT users.* FROM users;
+users<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>user<span style="color:#f92672">|</span>
+  user<span style="color:#f92672">.</span>posts
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p>Đoạn trên sẽ generate ra n + 1 query như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">SELECT</span> users<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> users;
 
-SELECT posts.* FROM posts WHERE posts.user_id = 1;
-SELECT posts.* FROM posts WHERE posts.user_id = 2;
-SELECT posts.* FROM posts WHERE posts.user_id = 3;
-SELECT posts.* FROM posts WHERE posts.user_id = 4;
-...
-SELECT posts.* FROM posts WHERE posts.user_id = n;
-</code></pre><p>=&gt; nếu có bao nhiêu user thì generate ra bằng đó + 1 user nên gọi là n + 1</p>
+<span style="color:#66d9ef">SELECT</span> posts<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> posts <span style="color:#66d9ef">WHERE</span> posts<span style="color:#f92672">.</span>user_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+<span style="color:#66d9ef">SELECT</span> posts<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> posts <span style="color:#66d9ef">WHERE</span> posts<span style="color:#f92672">.</span>user_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+<span style="color:#66d9ef">SELECT</span> posts<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> posts <span style="color:#66d9ef">WHERE</span> posts<span style="color:#f92672">.</span>user_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+<span style="color:#66d9ef">SELECT</span> posts<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> posts <span style="color:#66d9ef">WHERE</span> posts<span style="color:#f92672">.</span>user_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+<span style="color:#f92672">...</span>
+<span style="color:#66d9ef">SELECT</span> posts<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> posts <span style="color:#66d9ef">WHERE</span> posts<span style="color:#f92672">.</span>user_id <span style="color:#f92672">=</span> n;
+</code></pre></div><p>=&gt; nếu có bao nhiêu user thì generate ra bằng đó + 1 user nên gọi là n + 1</p>
 <p>Nếu ta dùng <code>includes</code> thì sẽ chỉ generate ra 2 query, 1 là load tất cả users và 1 là load tất cả các posts liên quan đến các users đó.</p>
-<pre tabindex="0"><code>users = User.includes(:posts)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">users <span style="color:#f92672">=</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>includes(<span style="color:#e6db74">:posts</span>)
 
-users.each do |user|
-  user.posts
-end
-</code></pre><pre tabindex="0"><code>SELECT users.* FROM users;
+users<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>user<span style="color:#f92672">|</span>
+  user<span style="color:#f92672">.</span>posts
+<span style="color:#66d9ef">end</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">SELECT</span> users<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> users;
 
-SELECT posts.* FROM posts WHERE posts.user_id IN (1, 2, 3, 4 ... n);
-</code></pre><p>Ngoài <code>include</code> cũng có thể sử dụng <code>preload</code> hoặc <code>eager_load</code> để tránh n + 1 query</p>
+<span style="color:#66d9ef">SELECT</span> posts<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> posts <span style="color:#66d9ef">WHERE</span> posts<span style="color:#f92672">.</span>user_id <span style="color:#66d9ef">IN</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span> <span style="color:#f92672">...</span> n);
+</code></pre></div><p>Ngoài <code>include</code> cũng có thể sử dụng <code>preload</code> hoặc <code>eager_load</code> để tránh n + 1 query</p>
 <h3 id="22-find_each-khi-load-một-lượng-lớn-record">2.2. <code>find_each</code> khi load một lượng lớn record</h3>
 <p>Tương tự như việc dùng <code>LIMIT</code> trong SQL</p>
-<pre tabindex="0"><code>User.all.each do |user|
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>all<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>user<span style="color:#f92672">|</span>
   puts users
-end
+<span style="color:#66d9ef">end</span>
 
-# SQL generate
+<span style="color:#75715e"># SQL generate</span>
 
-SELECT users.* FROM users;
-</code></pre><p>Thay vì load tất cả các user thì ta có thể LIMIT lượng user hiển thị ra bằng cách dùng <code>find_each</code> như sau:</p>
-<pre tabindex="0"><code>User.all.find_each(batch_size: 100) do |u|
+<span style="color:#66d9ef">SELECT</span> users<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> users;
+</code></pre></div><p>Thay vì load tất cả các user thì ta có thể LIMIT lượng user hiển thị ra bằng cách dùng <code>find_each</code> như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>all<span style="color:#f92672">.</span>find_each(<span style="color:#e6db74">batch_size</span>: <span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>u<span style="color:#f92672">|</span>
   puts u
-end
+<span style="color:#66d9ef">end</span>
 
-# SQL query
+<span style="color:#75715e"># SQL query</span>
 
-SELECT users.* FROM users ORDER BY users.id ASC LIMIT 100;
-SELECT users.* FROM users WHERE users.id &gt; 100 ORDER BY users.id ASC LIMIT 100;
-SELECT users.* FROM users WHERE users.id &gt; 200 ORDER BY users.id ASC LIMIT 100;
-...
-</code></pre><p>Chú ý là các query sau sẽ có thêm điều kiện <code>users.id &gt; batch_size</code></p>
+<span style="color:#66d9ef">SELECT</span> users<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> users<span style="color:#f92672">.</span>id <span style="color:#66d9ef">ASC</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">100</span>;
+<span style="color:#66d9ef">SELECT</span> users<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> users<span style="color:#f92672">.</span>id <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">100</span> <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> users<span style="color:#f92672">.</span>id <span style="color:#66d9ef">ASC</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">100</span>;
+<span style="color:#66d9ef">SELECT</span> users<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> users<span style="color:#f92672">.</span>id <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">200</span> <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> users<span style="color:#f92672">.</span>id <span style="color:#66d9ef">ASC</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">100</span>;
+<span style="color:#f92672">...</span>
+</code></pre></div><p>Chú ý là các query sau sẽ có thêm điều kiện <code>users.id &gt; batch_size</code></p>
 <h3 id="23-chỉ-lấy-field-cần-với-pluck-hoặc-select">2.3. Chỉ lấy field cần với <code>pluck</code> hoặc <code>select</code></h3>
 <p>Tương tự trong SQL, không phải lúc nào ta cũng cần tất cả thuộc tính của model, thay vì:</p>
-<pre tabindex="0"><code>SELECT * FROM users;
-</code></pre><p>Ta chỉ lấy các thuộc tính cần thiết bằng câu query:</p>
-<pre tabindex="0"><code>SELECT email FROM users;
-</code></pre><p>Trong active-record thì thay vì dùng</p>
-<pre tabindex="0"><code>user_emails = User.where(status: &quot;active&quot;).map(&amp;:email)
-# SELECT * FROM users;
-</code></pre><p>Ta sẽ chỉ lấy thuộc tính email của user như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users;
+</code></pre></div><p>Ta chỉ lấy các thuộc tính cần thiết bằng câu query:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> email <span style="color:#66d9ef">FROM</span> users;
+</code></pre></div><p>Trong active-record thì thay vì dùng</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">user_emails <span style="color:#f92672">=</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">status</span>: <span style="color:#e6db74">&#34;active&#34;</span>)<span style="color:#f92672">.</span>map(<span style="color:#f92672">&amp;</span><span style="color:#e6db74">:email</span>)
+<span style="color:#75715e"># SELECT * FROM users;</span>
+</code></pre></div><p>Ta sẽ chỉ lấy thuộc tính email của user như sau:</p>
 <pre tabindex="0"><code>user_emails = User.where(status: &quot;active&quot;).pluck(:email)
 # SELECT users.email FROM users;
 </code></pre><p>Hoặc xài <code>select</code></p>
-<pre tabindex="0"><code>User.select(:name)
-or
-User.select(&quot;name&quot;)
-</code></pre><h3 id="24-kiểm-tra-sự-tồn-tại-của-dữ-liệu-với-exist-thay-vì-present">2.4. Kiểm tra sự tồn tại của dữ liệu với <code>exist?</code> thay vì <code>present?</code></h3>
-<pre tabindex="0"><code>if User.where(email: &quot;a@bc.d&quot;).present?
-  puts &quot;There is a user with email address a@bc.d&quot;
-else
-  puts &quot;There is no user with email address a@bc.d&quot;
-end
-</code></pre><p>Câu query SQL sẽ generate thành:</p>
-<pre tabindex="0"><code>SELECT * FROM users WHERE email = 'a@bc.d';
-</code></pre><p>Câu query trên sẽ lãng phí bởi ví ta không cần load hết thuộc tính của user để kiểm tra user với email đó có tồn tại hay không. Thay vào đó có thể dùng như sau:</p>
-<pre tabindex="0"><code>if User.where(email: &quot;a@bc.d&quot;).exist?
-  puts &quot;There is a user with email address a@bc.d&quot;
-else
-  puts &quot;There is no user with email address a@bc.d&quot;
-end
-</code></pre><p>Query SQL sẽ thành:</p>
-<pre tabindex="0"><code>SELECT 1 FROM users WHERE email = 'a@bc.d' LIMIT 1;
-</code></pre><p>Kết quả chỉ trả về 1 record và không bao gồm bất kỳ thuộc tính nào.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>select(<span style="color:#e6db74">:name</span>)
+<span style="color:#f92672">or</span>
+<span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>select(<span style="color:#e6db74">&#34;name&#34;</span>)
+</code></pre></div><h3 id="24-kiểm-tra-sự-tồn-tại-của-dữ-liệu-với-exist-thay-vì-present">2.4. Kiểm tra sự tồn tại của dữ liệu với <code>exist?</code> thay vì <code>present?</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">if</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">email</span>: <span style="color:#e6db74">&#34;a@bc.d&#34;</span>)<span style="color:#f92672">.</span>present?
+  puts <span style="color:#e6db74">&#34;There is a user with email address a@bc.d&#34;</span>
+<span style="color:#66d9ef">else</span>
+  puts <span style="color:#e6db74">&#34;There is no user with email address a@bc.d&#34;</span>
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p>Câu query SQL sẽ generate thành:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> email <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;a@bc.d&#39;</span>;
+</code></pre></div><p>Câu query trên sẽ lãng phí bởi ví ta không cần load hết thuộc tính của user để kiểm tra user với email đó có tồn tại hay không. Thay vào đó có thể dùng như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">if</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">email</span>: <span style="color:#e6db74">&#34;a@bc.d&#34;</span>)<span style="color:#f92672">.</span>exist?
+  puts <span style="color:#e6db74">&#34;There is a user with email address a@bc.d&#34;</span>
+<span style="color:#66d9ef">else</span>
+  puts <span style="color:#e6db74">&#34;There is no user with email address a@bc.d&#34;</span>
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p>Query SQL sẽ thành:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> email <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;a@bc.d&#39;</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>;
+</code></pre></div><p>Kết quả chỉ trả về 1 record và không bao gồm bất kỳ thuộc tính nào.</p>
 <h3 id="25-bulk">2.5 Bulk</h3>
 <p>Ví dụ ta phải INSERT/UPDATE/DELETE một lượng lớn dữ liệu, thì bulk INSERT/UPDATE/DELETE sẽ nhanh hơn là thao tác với từng record dữ liệu.</p>
 <p>Ví dụ với tạo dữ liệu:</p>
-<pre tabindex="0"><code>new_users = [
-  {name: &quot;A&quot;, email: &quot;a@bc.d&quot;},
-  {name: &quot;B&quot;, email: &quot;b@bc.d&quot;},
-  {name: &quot;C&quot;, email: &quot;c@bc.d&quot; },
-  ...
-  {name: &quot;Z&quot;, email: &quot;z@bc.d&quot; },
-]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">new_users <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>
+  {name: <span style="color:#e6db74">&#34;A&#34;</span>, <span style="color:#e6db74">email</span>: <span style="color:#e6db74">&#34;a@bc.d&#34;</span>},
+  {name: <span style="color:#e6db74">&#34;B&#34;</span>, <span style="color:#e6db74">email</span>: <span style="color:#e6db74">&#34;b@bc.d&#34;</span>},
+  {name: <span style="color:#e6db74">&#34;C&#34;</span>, <span style="color:#e6db74">email</span>: <span style="color:#e6db74">&#34;c@bc.d&#34;</span> },
+  <span style="color:#f92672">...</span>
+  {name: <span style="color:#e6db74">&#34;Z&#34;</span>, <span style="color:#e6db74">email</span>: <span style="color:#e6db74">&#34;z@bc.d&#34;</span> },
+<span style="color:#f92672">]</span>
 
-new_users.each do |u|
-  User.create(u)
-end
+new_users<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>u<span style="color:#f92672">|</span>
+  <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>create(u)
+<span style="color:#66d9ef">end</span>
 
------------------------------------------
-INSERT INTO users VALUES (&quot;A&quot;, &quot;a@bc.d&quot;);
-INSERT INTO users VALUES (&quot;B&quot;, &quot;b@bc.d&quot;);
-INSERT INTO users VALUES (&quot;C&quot;, &quot;c@bc.d&quot;);
-...
-INSERT INTO users VALUES (&quot;Z&quot;, &quot;z@bc.d&quot;);
-</code></pre><p>Ta có thể bulk INSERT bằng cách:</p>
-<pre tabindex="0"><code>User.create(new_users)
+<span style="color:#f92672">-----------------------------------------</span>
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> users <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#34;A&#34;</span>, <span style="color:#e6db74">&#34;a@bc.d&#34;</span>);
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> users <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#34;B&#34;</span>, <span style="color:#e6db74">&#34;b@bc.d&#34;</span>);
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> users <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#34;C&#34;</span>, <span style="color:#e6db74">&#34;c@bc.d&#34;</span>);
+<span style="color:#f92672">...</span>
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> users <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#34;Z&#34;</span>, <span style="color:#e6db74">&#34;z@bc.d&#34;</span>);
+</code></pre></div><p>Ta có thể bulk INSERT bằng cách:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>create(new_users)
 
--------------------------------------------------------------------------------------------
-INSERT INTO users VALUES (&quot;A&quot;, &quot;a@bc.d&quot;), (&quot;B&quot;, &quot;b@bc.d&quot;), (&quot;C&quot;, &quot;c@bc.d&quot;), (&quot;Z&quot;, &quot;z@bc.d&quot;);
-</code></pre><p>Ví dụ với cập nhật dữ liệu:</p>
-<pre tabindex="0"><code>update_users = User.where(user_status: nil)
+<span style="color:#f92672">-------------------------------------------------------------------------------------------</span>
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> users <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#34;A&#34;</span>, <span style="color:#e6db74">&#34;a@bc.d&#34;</span>), (<span style="color:#e6db74">&#34;B&#34;</span>, <span style="color:#e6db74">&#34;b@bc.d&#34;</span>), (<span style="color:#e6db74">&#34;C&#34;</span>, <span style="color:#e6db74">&#34;c@bc.d&#34;</span>), (<span style="color:#e6db74">&#34;Z&#34;</span>, <span style="color:#e6db74">&#34;z@bc.d&#34;</span>);
+</code></pre></div><p>Ví dụ với cập nhật dữ liệu:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">update_users <span style="color:#f92672">=</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">user_status</span>: <span style="color:#66d9ef">nil</span>)
 
-update_users.each do |u|
-  u.updute(user_status: &quot;new_user&quot;)
-end
+update_users<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>u<span style="color:#f92672">|</span>
+  u<span style="color:#f92672">.</span>updute(<span style="color:#e6db74">user_status</span>: <span style="color:#e6db74">&#34;new_user&#34;</span>)
+<span style="color:#66d9ef">end</span>
 
-</code></pre><p>Ta có thể bulk UPDATE bằng cách:</p>
-<pre tabindex="0"><code>update_users = User.where(user_status: nil)
-update_users.update_all(user_status: &quot;new_user&quot;)
-</code></pre><p>Ví dụ với xóa dữ liệu:</p>
-<pre tabindex="0"><code>banned_users = User.where(user_status: &quot;banned&quot;)
+</code></pre></div><p>Ta có thể bulk UPDATE bằng cách:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">update_users <span style="color:#f92672">=</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">user_status</span>: <span style="color:#66d9ef">nil</span>)
+update_users<span style="color:#f92672">.</span>update_all(<span style="color:#e6db74">user_status</span>: <span style="color:#e6db74">&#34;new_user&#34;</span>)
+</code></pre></div><p>Ví dụ với xóa dữ liệu:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">banned_users <span style="color:#f92672">=</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">user_status</span>: <span style="color:#e6db74">&#34;banned&#34;</span>)
 
-banned_users.each do |u|
-  u.destroy
-end
+banned_users<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>u<span style="color:#f92672">|</span>
+  u<span style="color:#f92672">.</span>destroy
+<span style="color:#66d9ef">end</span>
 
--------------------------------------------------------
-SELECT * FROM users WHERE users.user_status = &quot;banned&quot;;
-DELETE FROM users WHERE id = 1;
-DELETE FROM users WHERE id = 2;
-DELETE FROM users WHERE id = 3;
-DELETE FROM users WHERE id = 4;
-</code></pre><p>=&gt; Lấy tất cả các user cần DELETE sau đó sinh ra n query DELETE từng user dựa trên id của user. Thay vì vậy ta có thể xài bulk DELETE như sau</p>
-<pre tabindex="0"><code>banned_users = User.where(user_status: &quot;banned&quot;)
-banned_users.delete_all
+<span style="color:#f92672">-------------------------------------------------------</span>
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> users<span style="color:#f92672">.</span>user_status <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;banned&#34;</span>;
+<span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+<span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+<span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+<span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</code></pre></div><p>=&gt; Lấy tất cả các user cần DELETE sau đó sinh ra n query DELETE từng user dựa trên id của user. Thay vì vậy ta có thể xài bulk DELETE như sau</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">banned_users <span style="color:#f92672">=</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">user_status</span>: <span style="color:#e6db74">&#34;banned&#34;</span>)
+banned_users<span style="color:#f92672">.</span>delete_all
 
------------------------------------------------------
-DELETE FROM users WHERE users.user_status = &quot;banned&quot;;
-</code></pre><h3 id="26-map-vs-select">2.6. Map vs Select</h3>
+<span style="color:#f92672">-----------------------------------------------------</span>
+<span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> users<span style="color:#f92672">.</span>user_status <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;banned&#34;</span>;
+</code></pre></div><h3 id="26-map-vs-select">2.6. Map vs Select</h3>
 <p>Kết quả trả về của <code>map</code> sẽ là một mảng bằng mảng đầu vào, kết quả của <code>map</code> là mảng chứa kết quả của từng phần tử đối chiếu với điều kiện trong block.</p>
 <p><code>select</code> chỉ trả về các kết quả thỏa mãn với điều kiện trong block, <code>select</code> có thể xem như <code>map</code> + <code>compact</code></p>
-<pre tabindex="0"><code>&gt; an_array = [0, 1, 2, 3, 4, 5]
-&gt; m_array = an_array.map { |e| e if e.even? }
-=&gt; [0, nil, 2, nil, 4, nil]
-&gt; m_array.compact
-=&gt; [0, 2, 4]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#f92672">&gt;</span> an_array <span style="color:#f92672">=</span> <span style="color:#f92672">[</span><span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span><span style="color:#f92672">]</span>
+<span style="color:#f92672">&gt;</span> m_array <span style="color:#f92672">=</span> an_array<span style="color:#f92672">.</span>map { <span style="color:#f92672">|</span>e<span style="color:#f92672">|</span> e <span style="color:#66d9ef">if</span> e<span style="color:#f92672">.</span>even? }
+<span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span><span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">nil</span>, <span style="color:#ae81ff">2</span>, <span style="color:#66d9ef">nil</span>, <span style="color:#ae81ff">4</span>, <span style="color:#66d9ef">nil</span><span style="color:#f92672">]</span>
+<span style="color:#f92672">&gt;</span> m_array<span style="color:#f92672">.</span>compact
+<span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span><span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span><span style="color:#f92672">]</span>
 
-&gt; s_array = an_array.select { |e| e if e.even? }
-=&gt; [0, 2, 4]
-</code></pre><h2 id="3-other">3. Other</h2>
+<span style="color:#f92672">&gt;</span> s_array <span style="color:#f92672">=</span> an_array<span style="color:#f92672">.</span>select { <span style="color:#f92672">|</span>e<span style="color:#f92672">|</span> e <span style="color:#66d9ef">if</span> e<span style="color:#f92672">.</span>even? }
+<span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span><span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span><span style="color:#f92672">]</span>
+</code></pre></div><h2 id="3-other">3. Other</h2>
 <h3 id="31-">3.1. <code>||=</code></h3>
 <p>Ví dụ <code>x ||= y</code> có nghĩa là <code>x || x = y</code>. Nếu <code>x = nil</code> hoặc <code>x = false</code> gán <code>x = y</code></p>
 <h2 id="4-ref">4. Ref</h2>

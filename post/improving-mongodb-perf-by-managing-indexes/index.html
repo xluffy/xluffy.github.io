@@ -195,43 +195,43 @@
 <p>Đây là <a href="https://github.com/xluffy/assets/blob/master/users.bson.gz">MongoDB users dataset</a> bạn có thể tải về chơi thử.</p>
 <h2 id="1-sơ-sơ-về-index">1. Sơ sơ về index</h2>
 <p>Index trong Mongo cũng tương tự các cơ sở dữ liệu quan hệ, ví dụ ta có một index được định nghĩa như sau:</p>
-<pre tabindex="0"><code>db.users.createIndex({
-  user_status: 1
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">users</span>.<span style="color:#a6e22e">createIndex</span>({
+  <span style="color:#a6e22e">user_status</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>
 }, {
-  background: true,
-  name: 'idx_users_by_user_status'
+  <span style="color:#a6e22e">background</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;idx_users_by_user_status&#39;</span>
 });
-</code></pre><p>Câu trên sẽ nói với database build một index dựa trên giá trị của field <code>user_status</code> của collection <code>users</code>.</p>
+</code></pre></div><p>Câu trên sẽ nói với database build một index dựa trên giá trị của field <code>user_status</code> của collection <code>users</code>.</p>
 <p>Ngoài ra nó có thêm một tùy chọn là <code>backgroud: true</code> để build index ở dạng backgroud, thông thường đánh index sẽ block tất cả các operation khác, và với các collection có kích thước lớn thì việc đánh index sẽ tốn tới vài giờ để hoàn thành và trong thời gian này database sẽ không thể response, đánh index <code>background</code> để tránh tính trạng block các operation khác [nhưng không hẳn đời lúc nào cũng như mơ].</p>
 <p>Lưu ý là nên chạy query đánh index trong <code>tmux</code> để tránh rớt kết nối và để kiểm tra process của index ta có thể truy vấn:</p>
-<pre tabindex="0"><code>db.currentOp(
-  { &quot;msg&quot;: /Index Build/ }
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">currentOp</span>(
+  { <span style="color:#e6db74">&#34;msg&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/Index Build/</span> }
 );
 
-&quot;msg&quot; : &quot;Index Build (background) Index Build (background): 3305028/574961784 0%&quot;
-</code></pre><p>Ok, tiếp tục với index phía trên, nó sẽ có tác dụng với các truy vấn tìm kiếm với điều kiện là field <code>user_status</code>, ví dụ như sau:</p>
-<pre tabindex="0"><code>db.users.find({
-  &quot;user_status&quot;: &quot;new_user&quot;
+<span style="color:#e6db74">&#34;msg&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Index Build (background) Index Build (background): 3305028/574961784 0%&#34;</span>
+</code></pre></div><p>Ok, tiếp tục với index phía trên, nó sẽ có tác dụng với các truy vấn tìm kiếm với điều kiện là field <code>user_status</code>, ví dụ như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">users</span>.<span style="color:#a6e22e">find</span>({
+  <span style="color:#e6db74">&#34;user_status&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;new_user&#34;</span>
 });
-</code></pre><p>Không có gì phải bàn cãi thêm, truy vấn trên sử dụng index <code>idx_users_by_user_status</code> và trả về kết quả với tốc độ của một vị thần gió. 😤</p>
+</code></pre></div><p>Không có gì phải bàn cãi thêm, truy vấn trên sử dụng index <code>idx_users_by_user_status</code> và trả về kết quả với tốc độ của một vị thần gió. 😤</p>
 <p>Giờ giả sử, ta có một truy vấn lấy ra tất cả các user <code>confirmed</code> NHƯNG trong một tháng của năm 2013 như sau:</p>
-<pre tabindex="0"><code>var start = ISODate(&quot;2013-04-01T00:00:00Z&quot;);
-var end = ISODate(&quot;2013-04-30T23:59:59Z&quot;);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">start</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ISODate</span>(<span style="color:#e6db74">&#34;2013-04-01T00:00:00Z&#34;</span>);
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">end</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ISODate</span>(<span style="color:#e6db74">&#34;2013-04-30T23:59:59Z&#34;</span>);
 
-db.users.find({
-	&quot;user_status&quot;: &quot;confirmed&quot;,
-	&quot;created_at&quot;: { $gte: start, $lte: end}
+<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">users</span>.<span style="color:#a6e22e">find</span>({
+	<span style="color:#e6db74">&#34;user_status&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;confirmed&#34;</span>,
+	<span style="color:#e6db74">&#34;created_at&#34;</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">$gte</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">start</span>, <span style="color:#a6e22e">$lte</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">end</span>}
 });
-</code></pre><p>Tương tự như trên, lấy ra danh sách các <code>confirmed</code> khá nhanh chóng do sử dụng index như câu truy vấn trên cùng, tuy nhiên trong danh sách trả ra <code>confirmed</code> ta cần lọc thêm một lần nữa để lấy ra các user đăng kí trong tháng đó, và do <code>created_at</code> không được đánh index nên có bao nhiêu <code>confirmed</code> thì ta cần quét toàn bộ từng đấy.</p>
+</code></pre></div><p>Tương tự như trên, lấy ra danh sách các <code>confirmed</code> khá nhanh chóng do sử dụng index như câu truy vấn trên cùng, tuy nhiên trong danh sách trả ra <code>confirmed</code> ta cần lọc thêm một lần nữa để lấy ra các user đăng kí trong tháng đó, và do <code>created_at</code> không được đánh index nên có bao nhiêu <code>confirmed</code> thì ta cần quét toàn bộ từng đấy.</p>
 <p>Để giải quyết truy vấn trên, ta cần đánh index trên 2 field, gọi là <strong>compound index</strong> như sau:</p>
-<pre tabindex="0"><code>db.users.createIndex({
-  user_status: 1,
-  created_at: 1 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">users</span>.<span style="color:#a6e22e">createIndex</span>({
+  <span style="color:#a6e22e">user_status</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>,
+  <span style="color:#a6e22e">created_at</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span> 
 }, {
-  background: true, 
-  name: 'idx_users_by_user_status_and_created_at' 
+  <span style="color:#a6e22e">background</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, 
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;idx_users_by_user_status_and_created_at&#39;</span> 
 });
-</code></pre><p>Ok, trong có vẻ ngon rồi, truy vấn của chúng ta đã nhanh hơn rồi. Nhưng thử nghĩ xem, chúng ta có thể làm tốt hơn hay không nhỉ?</p>
+</code></pre></div><p>Ok, trong có vẻ ngon rồi, truy vấn của chúng ta đã nhanh hơn rồi. Nhưng thử nghĩ xem, chúng ta có thể làm tốt hơn hay không nhỉ?</p>
 <p>Giả sử bạn có 20 triệu register user (hoặc bạn có thể tưởng tượng bạn có 1 tỷ register user và bạn giàu hơn Mark Zuckerberg 🙂 cũng được) <code>user_status</code> có các giá trị sau:</p>
 <ul>
 <li>new_user</li>
@@ -241,14 +241,14 @@ db.users.find({
 </ul>
 <p>Nếu không có index trên <code>user_status</code>, bạn cần quét hết 20 triệu docs này, đánh index trên <code>user_status</code> con số giảm từ 20 triệu -&gt; 5 triệu (1/4).</p>
 <p>Giờ giả sử, start-úp mặt của bạn ra đời năm 2015, đến bây giờ là 3 năm, giả sử user đăng kí đồng đều giữa các ngày (thực tế thì đéo phải như vậy đâu  😅). Bạn index lại như sau:</p>
-<pre tabindex="0"><code>db.users.createIndex({
-  created_at: 1,
-  user_status: 1
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">users</span>.<span style="color:#a6e22e">createIndex</span>({
+  <span style="color:#a6e22e">created_at</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>,
+  <span style="color:#a6e22e">user_status</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>
 }, {
-  background: true,
-  name: 'idx_users_by_created_at_user_status'
+  <span style="color:#a6e22e">background</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;idx_users_by_created_at_user_status&#39;</span>
 });
-</code></pre><p>Giờ với câu truy vấn trên, ta được một danh sách các user đăng ký trong vòng 1 tháng, là cỡ hơn 500 ngàn user (1 ngày có ~ 18 ngàn user đăng ký), sau đó lọc theo điều kiện <code>new_user</code> ta chỉ cần quét trong tập 500k user này so với 5 triệu như cách đánh index ban đầu.</p>
+</code></pre></div><p>Giờ với câu truy vấn trên, ta được một danh sách các user đăng ký trong vòng 1 tháng, là cỡ hơn 500 ngàn user (1 ngày có ~ 18 ngàn user đăng ký), sau đó lọc theo điều kiện <code>new_user</code> ta chỉ cần quét trong tập 500k user này so với 5 triệu như cách đánh index ban đầu.</p>
 <p>Chốt lại, với <strong>compound index</strong> nên đánh index field có giá trị uniqe nhiều hơn trước. Ở trên thì đánh <code>created_at</code> trước vì các giá trị trong field này hầu hết đều khác nhau (trong khi <code>user_status</code> chỉ có 4 giá trị), nên sẽ giảm được vùng tìm kiếm của truy vấn nhiều hơn.</p>
 <h2 id="2-how-to-improve">2. How to improve</h2>
 <p>Xong xuôi việc đánh index, bây giờ làm cách nào để ta có thể chắc chắn rằng database sẽ sử dụng index một cách hiệu quả? Index cũng như dữ liệu, được lưu trữ trên đĩa cứng, và để index có thể được sử dụng hiệu quả thì tốt nhất là nó nên được đặt trên RAM. Trong Mongo, RAM thì thường được sử dụng để giữ các dữ liệu và index thường xuyên truy vấn (WiredTiger internal cache) tránh phải đọc đĩa thường xuyên. Recommend là 50% physical memory, ví dụ server có 32GB thì d internal cache là 15GB.</p>
@@ -259,23 +259,23 @@ db.users.find({
 nếu phần ghi chiếm tới 80-95% thì việc đánh đổi cũng đáng kể.</li>
 </ul>
 <p>Bạn có thể kiểm tra kích thước tổng thể của index trên cơ sở dữ liệu như sau:</p>
-<pre tabindex="0"><code>db.runCommand({ dbStats: 1, scale: 1 });
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">runCommand</span>({ <span style="color:#a6e22e">dbStats</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">scale</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span> });
 {
-    &quot;db&quot; : &quot;test&quot;,
-    &quot;collections&quot; : 2,
-    &quot;objects&quot; : 2000000,
-    &quot;avgObjSize&quot; : 96.120665,
-    &quot;dataSize&quot; : 192241330,
-    &quot;storageSize&quot; : 374370304,
-    &quot;numExtents&quot; : 0,
-    &quot;indexes&quot; : 6,
-    &quot;indexSize&quot; : 53964800,
-    &quot;ok&quot; : 1
+    <span style="color:#e6db74">&#34;db&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;test&#34;</span>,
+    <span style="color:#e6db74">&#34;collections&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>,
+    <span style="color:#e6db74">&#34;objects&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2000000</span>,
+    <span style="color:#e6db74">&#34;avgObjSize&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">96.120665</span>,
+    <span style="color:#e6db74">&#34;dataSize&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">192241330</span>,
+    <span style="color:#e6db74">&#34;storageSize&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">374370304</span>,
+    <span style="color:#e6db74">&#34;numExtents&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+    <span style="color:#e6db74">&#34;indexes&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">6</span>,
+    <span style="color:#e6db74">&#34;indexSize&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">53964800</span>,
+    <span style="color:#e6db74">&#34;ok&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>
 }
-</code></pre><p>Cụ thể hơn (dữ liệu này ăn cắp trên production)</p>
-<pre tabindex="0"><code>db.stats().indexSize
-86508650496
-</code></pre><p>=&gt; kích thước của tất cả các index trên CSDL là 86GB, có nghĩa là index không thể fit hết trên memory, nên khi nào cần sử dụng tới index, nếu index đó không có sẵn trên memory thì cần đọc index đó từ đĩa lên.</p>
+</code></pre></div><p>Cụ thể hơn (dữ liệu này ăn cắp trên production)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">stats</span>().<span style="color:#a6e22e">indexSize</span>
+<span style="color:#ae81ff">86508650496</span>
+</code></pre></div><p>=&gt; kích thước của tất cả các index trên CSDL là 86GB, có nghĩa là index không thể fit hết trên memory, nên khi nào cần sử dụng tới index, nếu index đó không có sẵn trên memory thì cần đọc index đó từ đĩa lên.</p>
 <p>Nói chung, xác định bao nhiêu memory là cần thiết không dễ, bạn có thể trả lời vài câu hỏi sau để tự xác định và điều chỉnh memory cho hợp lý:</p>
 <ul>
 <li>Độ lớn data của bạn là bao nhiêu?</li>
@@ -285,66 +285,66 @@ nếu phần ghi chiếm tới 80-95% thì việc đánh đổi cũng đáng k�
 </ul>
 <p>Vậy chiến lược để giữ index có kích thước nhỏ là như thế nào?</p>
 <h3 id="21-xóa-các-index-không-sử-dụng">2.1 Xóa các index không sử dụng</h3>
-<pre tabindex="0"><code>db.users.aggregate([ { $indexStats: {} } ]);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">users</span>.<span style="color:#a6e22e">aggregate</span>([ { <span style="color:#a6e22e">$indexStats</span><span style="color:#f92672">:</span> {} } ]);
 [{
-	&quot;name&quot;: &quot;idx_users_by_created_at_user_status&quot;,
-	&quot;key&quot;: {
-		&quot;created_at&quot;: 1,
-		&quot;user_status&quot;: 1
+	<span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;idx_users_by_created_at_user_status&#34;</span>,
+	<span style="color:#e6db74">&#34;key&#34;</span><span style="color:#f92672">:</span> {
+		<span style="color:#e6db74">&#34;created_at&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>,
+		<span style="color:#e6db74">&#34;user_status&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>
 	},
-	&quot;host&quot;: &quot;6b1b716ae456:27017&quot;,
-	&quot;accesses&quot;: {
-		&quot;ops&quot;: NumberLong(456550227),
-		&quot;since&quot;: ISODate(&quot;2018-05-31T15:31:09.020Z&quot;)
+	<span style="color:#e6db74">&#34;host&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;6b1b716ae456:27017&#34;</span>,
+	<span style="color:#e6db74">&#34;accesses&#34;</span><span style="color:#f92672">:</span> {
+		<span style="color:#e6db74">&#34;ops&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">NumberLong</span>(<span style="color:#ae81ff">456550227</span>),
+		<span style="color:#e6db74">&#34;since&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">ISODate</span>(<span style="color:#e6db74">&#34;2018-05-31T15:31:09.020Z&#34;</span>)
 	}
 } {
-	&quot;name&quot;: &quot;idx_users_by_user_status&quot;,
-	&quot;key&quot;: {
-		&quot;user_status&quot;: 1
+	<span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;idx_users_by_user_status&#34;</span>,
+	<span style="color:#e6db74">&#34;key&#34;</span><span style="color:#f92672">:</span> {
+		<span style="color:#e6db74">&#34;user_status&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>
 	},
-	&quot;host&quot;: &quot;6b1b716ae456:27017&quot;,
-	&quot;accesses&quot;: {
-		&quot;ops&quot;: NumberLong(277641131),
-		&quot;since&quot;: ISODate(&quot;2018-05-31T15:05:39.148Z&quot;)
+	<span style="color:#e6db74">&#34;host&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;6b1b716ae456:27017&#34;</span>,
+	<span style="color:#e6db74">&#34;accesses&#34;</span><span style="color:#f92672">:</span> {
+		<span style="color:#e6db74">&#34;ops&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">NumberLong</span>(<span style="color:#ae81ff">277641131</span>),
+		<span style="color:#e6db74">&#34;since&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">ISODate</span>(<span style="color:#e6db74">&#34;2018-05-31T15:05:39.148Z&#34;</span>)
 	}
 } {
-	&quot;name&quot;: &quot;_id_&quot;,
-	&quot;key&quot;: {
-		&quot;_id&quot;: 1
+	<span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;_id_&#34;</span>,
+	<span style="color:#e6db74">&#34;key&#34;</span><span style="color:#f92672">:</span> {
+		<span style="color:#e6db74">&#34;_id&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>
 	},
-	&quot;host&quot;: &quot;6b1b716ae456:27017&quot;,
-	&quot;accesses&quot;: {
-		&quot;ops&quot;: NumberLong(0),
-		&quot;since&quot;: ISODate(&quot;2018-05-31T15:03:12.197Z&quot;)
+	<span style="color:#e6db74">&#34;host&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;6b1b716ae456:27017&#34;</span>,
+	<span style="color:#e6db74">&#34;accesses&#34;</span><span style="color:#f92672">:</span> {
+		<span style="color:#e6db74">&#34;ops&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">NumberLong</span>(<span style="color:#ae81ff">0</span>),
+		<span style="color:#e6db74">&#34;since&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">ISODate</span>(<span style="color:#e6db74">&#34;2018-05-31T15:03:12.197Z&#34;</span>)
 	}
 }]
-</code></pre><p>Ở ví dụ trên, ta có 3 index, ở giá trị <code>accesses</code>, ta thấy 2 index đầu tiên được sử dụng rất nhiều lần, trong khi đó index thứ 3 không hề được sử dụng. Con số bao nhiêu là hợp lí để loại bỏ một index tùy thuộc vào số lượng truy vấn và nghiệp vụ của chính bạn, bạn có thể tự cân nhắc, đo lường và loại bỏ nếu không cần thiết.</p>
+</code></pre></div><p>Ở ví dụ trên, ta có 3 index, ở giá trị <code>accesses</code>, ta thấy 2 index đầu tiên được sử dụng rất nhiều lần, trong khi đó index thứ 3 không hề được sử dụng. Con số bao nhiêu là hợp lí để loại bỏ một index tùy thuộc vào số lượng truy vấn và nghiệp vụ của chính bạn, bạn có thể tự cân nhắc, đo lường và loại bỏ nếu không cần thiết.</p>
 <p>Cần lưu ý, <code>ops</code> có thể bị reset, con số hiện tại thể hiện số lần được sử dụng kể từ <code>since</code> -&gt; thời gian mongod được restart.</p>
 <h3 id="22-loại-bỏ-các-index-dư-thừa">2.2 Loại bỏ các index dư thừa</h3>
-<pre tabindex="0"><code>db.users.aggregate([ { $indexStats: {} } ])
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">users</span>.<span style="color:#a6e22e">aggregate</span>([ { <span style="color:#a6e22e">$indexStats</span><span style="color:#f92672">:</span> {} } ])
 [{
-	&quot;name&quot;: &quot;idx_users_by_user_status_created_at&quot;,
-	&quot;key&quot;: {
-		&quot;user_status&quot;: 1,
-		&quot;created_at&quot;: 1
+	<span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;idx_users_by_user_status_created_at&#34;</span>,
+	<span style="color:#e6db74">&#34;key&#34;</span><span style="color:#f92672">:</span> {
+		<span style="color:#e6db74">&#34;user_status&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>,
+		<span style="color:#e6db74">&#34;created_at&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>
 	},
-	&quot;host&quot;: &quot;6b1b716ae456:27017&quot;,
-	&quot;accesses&quot;: {
-		&quot;ops&quot;: NumberLong(456550227),
-		&quot;since&quot;: ISODate(&quot;2018-05-31T15:31:09.020Z&quot;)
+	<span style="color:#e6db74">&#34;host&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;6b1b716ae456:27017&#34;</span>,
+	<span style="color:#e6db74">&#34;accesses&#34;</span><span style="color:#f92672">:</span> {
+		<span style="color:#e6db74">&#34;ops&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">NumberLong</span>(<span style="color:#ae81ff">456550227</span>),
+		<span style="color:#e6db74">&#34;since&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">ISODate</span>(<span style="color:#e6db74">&#34;2018-05-31T15:31:09.020Z&#34;</span>)
 	}
 } {
-	&quot;name&quot;: &quot;idx_users_by_user_status&quot;,
-	&quot;key&quot;: {
-		&quot;user_status&quot;: 1
+	<span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;idx_users_by_user_status&#34;</span>,
+	<span style="color:#e6db74">&#34;key&#34;</span><span style="color:#f92672">:</span> {
+		<span style="color:#e6db74">&#34;user_status&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>
 	},
-	&quot;host&quot;: &quot;6b1b716ae456:27017&quot;,
-	&quot;accesses&quot;: {
-		&quot;ops&quot;: NumberLong(277641131),
-		&quot;since&quot;: ISODate(&quot;2018-05-31T15:05:39.148Z&quot;)
+	<span style="color:#e6db74">&#34;host&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;6b1b716ae456:27017&#34;</span>,
+	<span style="color:#e6db74">&#34;accesses&#34;</span><span style="color:#f92672">:</span> {
+		<span style="color:#e6db74">&#34;ops&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">NumberLong</span>(<span style="color:#ae81ff">277641131</span>),
+		<span style="color:#e6db74">&#34;since&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">ISODate</span>(<span style="color:#e6db74">&#34;2018-05-31T15:05:39.148Z&#34;</span>)
 	}
 }]
-</code></pre><p>Ở ví dụ trên, cả 2 index đều được sử dụng. Tuy nhiên index đầu tiên có thể làm cho index thứ 2 trở lên dư thừa, vì các truy vấn chỉ trên điều kiện <code>user_status</code> có thể sử dụng index đầu tiên mà không có vấn đề gì.</p>
+</code></pre></div><p>Ở ví dụ trên, cả 2 index đều được sử dụng. Tuy nhiên index đầu tiên có thể làm cho index thứ 2 trở lên dư thừa, vì các truy vấn chỉ trên điều kiện <code>user_status</code> có thể sử dụng index đầu tiên mà không có vấn đề gì.</p>
 <h3 id="23-sử-dụng-sparse-index">2.3 Sử dụng sparse index</h3>
 <p>Đây là kiểu đánh index trên điều kiện, ví dụ ta có 20 triệu user, nhưng nếu ta chỉ thường truy vấn <code>user_status</code> là <code>new_user</code> thì ta có thể đánh index riêng với tập <code>new_user</code> thôi -&gt; giả sử số lượng <code>new_user</code> là 40% trên tổng số user -&gt; index của chúng ta sẽ giảm xuống tới 60% kích thước.</p>
 <h3 id="24-giảm-bớt-kích-thước-của-collection">2.4 Giảm bớt kích thước của collection</h3>

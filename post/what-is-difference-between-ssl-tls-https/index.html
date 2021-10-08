@@ -199,8 +199,8 @@
 <p>Vậy, cuối cùng tại sao phải biết mấy cái này làm gì? :trollface:</p>
 <p><img src="https://raw.githubusercontent.com/xluffy/assets/master/but-why-meme.jpg" alt="but-why"></p>
 <p>Nếu bạn có cấu hình SSL trên webserver như nginx, bạn sẽ thấy một đoạn kiểu như thế này:</p>
-<pre tabindex="0"><code>ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-</code></pre><p>Điều này nghĩa là webserver của bạn sẽ chỉ hỗ trợ các phiên bản TLS như trên, còn các phiên bản khác (SSL) sẽ không được hỗ trợ. Tại sao lại như vậy? Nếu bạn biết <a href="https://security.googleblog.com/2014/10/this-poodle-bites-exploiting-ssl-30.html">POODLE</a>, một vulnerability trên SSLv3 được khám phá bởi Google thì bạn sẽ biết rằng SSLv2 và SSLv3 không còn an toàn nữa, đó là lí do bạn chỉ nên hỗ trợ TLS các version mới. Đó là tất cả kiến thức bạn cần biết.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#66d9ef">ssl_protocols</span> <span style="color:#e6db74">TLSv1</span> <span style="color:#e6db74">TLSv1.1</span> <span style="color:#e6db74">TLSv1.2</span>;
+</code></pre></div><p>Điều này nghĩa là webserver của bạn sẽ chỉ hỗ trợ các phiên bản TLS như trên, còn các phiên bản khác (SSL) sẽ không được hỗ trợ. Tại sao lại như vậy? Nếu bạn biết <a href="https://security.googleblog.com/2014/10/this-poodle-bites-exploiting-ssl-30.html">POODLE</a>, một vulnerability trên SSLv3 được khám phá bởi Google thì bạn sẽ biết rằng SSLv2 và SSLv3 không còn an toàn nữa, đó là lí do bạn chỉ nên hỗ trợ TLS các version mới. Đó là tất cả kiến thức bạn cần biết.</p>
 
     </div>
     
