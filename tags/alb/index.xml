@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>alb on /dev/cc</title>
+    
+    
+    
+    <link>https://xluffy.github.io/tags/alb/</link>
+    <description>Recent content in alb on /dev/cc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>hàng nhà trồng theo giấy phép CC BY-NC 4.0</copyright>
+    <lastBuildDate>Fri, 30 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://xluffy.github.io/tags/alb/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ALB vs nginx</title>
+      <link>https://xluffy.github.io/post/alb-vs-nginx/</link>
+      <pubDate>Fri, 30 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/alb-vs-nginx/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Nhân một người bạn hỏi về vấn đề này, mình take note lại vì đã được hỏi 2 lần :sosad:
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>

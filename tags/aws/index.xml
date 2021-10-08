@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>aws on /dev/cc</title>
+    
+    
+    
+    <link>https://xluffy.github.io/tags/aws/</link>
+    <description>Recent content in aws on /dev/cc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>hàng nhà trồng theo giấy phép CC BY-NC 4.0</copyright>
+    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://xluffy.github.io/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>VPC architecture</title>
+      <link>https://xluffy.github.io/post/vpc-architecture/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/vpc-architecture/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Thiết kế này đặt toàn bộ hệ thống trong một region và không có một kết nối cross-region nào.
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title>Who owns my encrypt keys on cloud?</title>
+      <link>https://xluffy.github.io/post/who-owns-my-encrypt-keys-on-cloud/</link>
+      <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/who-owns-my-encrypt-keys-on-cloud/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Gần đây phải đọc lại về các dịch vụ mã hoá này, mình chợt nhận ra trong bài này có vài điểm chưa chính xác về cách hoạt động và tính năng.
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>

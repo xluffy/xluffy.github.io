@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>password on /dev/cc</title>
+    
+    
+    
+    <link>https://xluffy.github.io/tags/password/</link>
+    <description>Recent content in password on /dev/cc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>hàng nhà trồng theo giấy phép CC BY-NC 4.0</copyright>
+    <lastBuildDate>Mon, 18 Jun 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://xluffy.github.io/tags/password/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Băm và lưu password đúng cách</title>
+      <link>https://xluffy.github.io/post/how-to-hash-store-password/</link>
+      <pubDate>Mon, 18 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/how-to-hash-store-password/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Sau khi đọc bài viết băm mật khẩu đúng cách của anh thaidn, mình nhớ lại lúc mình mới ra trường, cũng đã từng nghĩ về vấn đề này (lúc đó mình khá thích môn Bảo Mật Thông Tin ở trường) nhưng chưa bao giờ hiểu tường tận.
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>

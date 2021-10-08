@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>percona on /dev/cc</title>
+    
+    
+    
+    <link>https://xluffy.github.io/tags/percona/</link>
+    <description>Recent content in percona on /dev/cc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>hàng nhà trồng theo giấy phép CC BY-NC 4.0</copyright>
+    <lastBuildDate>Fri, 27 Dec 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://xluffy.github.io/tags/percona/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Change schema of huge table in MySQL</title>
+      <link>https://xluffy.github.io/post/change-schema-of-huge-table-in-mysql/</link>
+      <pubDate>Fri, 27 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/change-schema-of-huge-table-in-mysql/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Bài này được update lại gần như toàn bộ sau khi mình join team research-database của Grokking.
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>

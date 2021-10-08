@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cloudflare on /dev/cc</title>
+    
+    
+    
+    <link>https://xluffy.github.io/tags/cloudflare/</link>
+    <description>Recent content in cloudflare on /dev/cc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>hàng nhà trồng theo giấy phép CC BY-NC 4.0</copyright>
+    <lastBuildDate>Thu, 11 Jul 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://xluffy.github.io/tags/cloudflare/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Cloudflare 101</title>
+      <link>https://xluffy.github.io/post/cloudflare-101/</link>
+      <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/cloudflare-101/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          1. DDoS 101 Về DDoS dù mục đích cuối cùng là làm cho dịch vụ của bạn không thể cung cấp tới người dùng nhưng nó có thể được chia thành 3 nhóm:
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>

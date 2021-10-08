@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>index on /dev/cc</title>
+    
+    
+    
+    <link>https://xluffy.github.io/tags/index/</link>
+    <description>Recent content in index on /dev/cc</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>hàng nhà trồng theo giấy phép CC BY-NC 4.0</copyright>
+    <lastBuildDate>Wed, 30 May 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://xluffy.github.io/tags/index/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Improving MongoDB performance by managing indexes</title>
+      <link>https://xluffy.github.io/post/improving-mongodb-perf-by-managing-indexes/</link>
+      <pubDate>Wed, 30 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/improving-mongodb-perf-by-managing-indexes/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Ai cũng biết đánh index giúp tăng tốc các truy vấn tìm kiếm, tìm kiếm trong cây index (B-Tree) sẽ nhanh hơn scan trong toàn bộ bảng.
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>
