@@ -1,92 +1,181 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cloudflare 101 | xluffy&#39;s page</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
     
-    <header>
+      <title>
+        Cloudflare 101 ::
+        /dev/clgt
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="1. DDoS 101 Về DDoS dù mục đích cuối cùng là làm cho dịch vụ của bạn không thể cung cấp tới người dùng nhưng nó có thể được chia thành 3 nhóm:"
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://xluffy.github.io/post/cloudflare-101/" />
 
+
+
+
+
+<link rel="stylesheet" href="https://xluffy.github.io/assets/style.css" />
+
+<link rel="stylesheet" href="https://xluffy.github.io/style.css" />
+
+
+<link
+  rel="apple-touch-icon-precomposed"
+  sizes="144x144"
+  href="https://xluffy.github.io/img/apple-touch-icon-144-precomposed.png"
+/>
+<link rel="shortcut icon" href="https://xluffy.github.io/img/favicon.png" />
+
+
+<link href="https://xluffy.github.io/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Cloudflare 101"/>
+<meta name="twitter:description" content="1. DDoS 101 Về DDoS dù mục đích cuối cùng là làm cho dịch vụ của bạn không thể cung cấp tới người dùng nhưng nó có thể được chia thành 3 nhóm:"/>
+
+
+
+<meta property="og:title" content="Cloudflare 101" />
+<meta property="og:description" content="1. DDoS 101 Về DDoS dù mục đích cuối cùng là làm cho dịch vụ của bạn không thể cung cấp tới người dùng nhưng nó có thể được chia thành 3 nhóm:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xluffy.github.io/post/cloudflare-101/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-07-11T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-07-11T00:00:00+00:00" /><meta property="og:site_name" content="/dev/clgt" />
+
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <nav>
-    <ul>
-      
-      
-      <li class="pull-left ">
-        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/categories/">~/categories</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="https://github.com/xluffy/til/issues">~/til</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/about">~/about</a>
-      </li>
-      
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
+</svg>
+</span>
+    <span class="logo__text"
+      >/dev/clgt</span
+    >
+    <span class="logo__cursor"></span>
+  
+</a>
 
+    <span class="header__right">
       
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
       
-      <li class="pull-right">
-        <a href="/index.xml">~/subscribe</a>
-      </li>
+        
+          <li><a href="/about">about</a></li>
+        
       
+        
+          <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+        
+      
+    
+  </ul>
 
-    </ul>
-  </nav>
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about</a></li>
+      
+    
+      
+        <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg
+  class="theme-toggler"
+  width="24"
+  height="24"
+  viewBox="0 0 48 48"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+
+      </span>
+    </span>
+  </span>
 </header>
 
-    
-    
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">Cloudflare 101</h1>
+    <div class="post-meta">
       
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-K4LWNXV');</script>
+        <span class="post-date">
+          2019-07-11
+        </span>
+
+        
+          
+        
       
-    
-  </head>
 
-  <body>
-    
       
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4LWNXV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
       
+    </div>
+
     
-    <br/>
 
-<div class="article-meta">
-<h1><span class="title">Cloudflare 101</span></h1>
+    
 
-<h2 class="date">2019/07/11</h2>
-<p class="terms">
-  
-  
-  Categories: <a href="/categories/security">security</a> <a href="/categories/cdn">cdn</a> 
-  
-  
-  
-  
-</p>
-</div>
-
-
-
-<main>
-<h2 id="1-ddos-101">1. DDoS 101</h2>
+    <div class="post-content">
+      
+      <h2 id="1-ddos-101">1. DDoS 101</h2>
 <p>Về DDoS dù mục đích cuối cùng là làm cho dịch vụ của bạn không thể cung cấp tới người dùng nhưng nó có thể được chia thành 3 nhóm:</p>
 <ul>
 <li><strong>Application Layer Attacks</strong>: mục tiêu là khiến ứng dụng phải xử lý một lượng lớn các request <em>có vẻ hợp lệ</em>, làm cạn kiệt tài nguyên của ứng dụng, khiến ứng dụng không thể phục vụ các user hợp lệ khác. Ví dụ trong ứng dụng TMĐT, một API đọc database trả về một danh sách chi tiết của các sản phẩm thuộc một nhóm ngành. Attacker có thể viết một tools để crawl hết dữ liệu của từng ngành hàng, khiến server không đủ tài nguyên để phục vụ. Việc cản lọc request thuộc nhóm này không dễ vì nó sẽ khá giống với request của user thông thường và có thể cản lọc nhầm những user hợp lệ.</li>
@@ -139,7 +228,7 @@
 <p><img src="https://www.cloudflare.com/resources/images/slt3lc6tev37/49gHcPDvyg0AcS4sy6qWao/e890866ea6582fb7a63f30e0ed34bdb9/rate-limiting-rules.png" alt="rate-limit"></p>
 <p>Nói tóm lại thì Cloudflare với chi phí tầm 20$/tháng là một lựa chọn không tồi để chống/giảm DDoS, tất nhiên bạn phải hiểu vấn đề của mình là gì và đánh giá các lựa chọn để đưa ra quyết định phù hợp.</p>
 <p>Nếu bạn xài terraform thì nó sẽ như sau:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;cloudflare_rate_limit&#34; &#34;rl_login&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;cloudflare_rate_limit&#34; &#34;rl_login&#34;</span> {
   zone <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;${var.domain}&#34;</span>
 
   threshold <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
@@ -178,14 +267,14 @@
 <p>Để xài được tính năng như <strong>rate-limit</strong> thì bạn phải cho phép request của user đi qua hệ thống Cloudflare trước khi tới server của bạn, đó chính là Proxy trong Cloudflare.</p>
 <p>Proxy có thể được chia làm 2 loại, khác nhau ở vị trí đặt và mục đích sử dụng:</p>
 <p><strong>Forward Proxy</strong>:</p>
-<pre><code class="language-asciiarmor" data-lang="asciiarmor">{clientA, clientB, clientC} ——&gt; forward proxy (F) ——&gt; Internet (I) ——&gt; {origin-serverA, origin-serverB}
+<pre tabindex="0"><code class="language-asciiarmor" data-lang="asciiarmor">{clientA, clientB, clientC} ——&gt; forward proxy (F) ——&gt; Internet (I) ——&gt; {origin-serverA, origin-serverB}
 </code></pre><ul>
 <li>Với người dùng, dùng forward proxy giúp họ bypass được các giới hạn truy cập website. Nó hơi giống với VPN, forward proxy sẽ thay người dùng gửi request tới website bạn muốn truy cập thay vì kết nối trực tiếp.</li>
 <li>Với người quản trị hệ thống, họ có thể đặt một forward proxy trong mạng nội bộ của họ và <strong>ép</strong> tất cả các client phải đi qua forward proxy này trước khi kết nối ra Internet. Việc này đem lại 2 lợi ích, thứ nhất đó là caching các dữ liệu mà người dùng thường xuyên truy cập và thứ hai là có thể cản lọc, chặn truy cập một số website, ứng dụng (ví dụ chặn không có user trong mạng nội bộ truy cập Facebook.com).</li>
 <li>Ẩn danh, tương tự như VPN.</li>
 </ul>
 <p><strong>Reverse proxy</strong></p>
-<pre><code class="language-asciiarmor" data-lang="asciiarmor">{clientA, clientB, clientC} ——&gt; Internet (I) ——&gt; reverse proxy (R)——&gt; {origin-serverA, origin-serverB}
+<pre tabindex="0"><code class="language-asciiarmor" data-lang="asciiarmor">{clientA, clientB, clientC} ——&gt; Internet (I) ——&gt; reverse proxy (R)——&gt; {origin-serverA, origin-serverB}
 </code></pre><p>Một ví dụ quen thuộc của reverse proxy đó là bạn xài nginx upstream trước các backend server. Lợi điểm của việc dùng reverse proxy đó là:</p>
 <ul>
 <li><strong>Load balancing</strong> -&gt; chia request từ client tới nhiều backend server với các thuật toán khác nhau. Giúp điều tiết lượng request tới backend server.</li>
@@ -256,7 +345,7 @@
 <p>Mục tiêu của việc xài Cloudflare proxy là để ẩn IP của origin server và không cho kẻ tấn công biết được origin server, tránh trường hợp bị attack trực tiếp vào server thay vì đi qua bộ lọc của Cloudflare (hoặc crawler bypass bộ lọc). Thế nên khi Cloudflare gặp sự cố, bạn tắt Proxy đi nghĩa là đã tạo ra một lỗ hổng để attacker tấn công trực tiếp vào hệ thống, lúc này việc có Cloudflare cũng không còn mấy tác dụng.</p>
 <p>Đứng ở góc độ attacker, nếu site đã xài Cloudflare proxy thì có cách nào để biết được IP của orgin server hay không?</p>
 <p>Việc xác định một site có sử dụng dịch vụ Cloudflare cũng khá dễ dàng, ta có thể:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; curl -I https://medium.com
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; curl -I https://medium.com
 HTTP/2 <span style="color:#ae81ff">200</span>
 date: Fri, <span style="color:#ae81ff">12</span> Jul <span style="color:#ae81ff">2019</span> 05:55:11 GMT
 content-type: text/html; charset<span style="color:#f92672">=</span>utf-8
@@ -282,7 +371,7 @@ expect-ct: max-age<span style="color:#f92672">=</span>604800, report-uri<span st
 server: cloudflare
 cf-ray: 4f50c44b398ad1e7-HKG
 </code></pre></div><p>Một số header dùng để xác định như <code>cf-ray</code>, <code>__cfduid</code> hoặc check IP phân giải có thuộc lớp mạng của Cloudflare hay không:</p>
-<pre><code>&gt; dig +short medium.com
+<pre tabindex="0"><code>&gt; dig +short medium.com
 104.16.121.127
 104.16.124.127
 104.16.122.127
@@ -292,14 +381,14 @@ cf-ray: 4f50c44b398ad1e7-HKG
 <p>Mỗi Domain Validation SSL certificate mà bạn mua sẽ valid với một domain name. Ý tưởng là bạn cần scan toàn bộ internet để tìm một địa chỉ IP nào đó trên cổng 443 có SSL certificate match với domain-name mà bạn đang tìm kiếm.</p>
 <p><a href="https://censys.io/">Censys</a> là một dịch vụ cho phép query các dữ liệu kiểu như vậy. Miễn phí 10 query cho un-login user và 200 query/tháng cho free user.</p>
 <p>Ví dụ với site <a href="https://viblo.asia">https://viblo.asia</a>, domain của họ phân giải thành địa chỉ của Cloudflare</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; dig +short viblo.asia
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; dig +short viblo.asia
 104.27.188.151
 104.27.189.151
 </code></pre></div><p>Tuy nhiên khi query trên Censys <code>(443.https.tls.certificate.parsed.names: viblo.asia OR 443.https.tls.certificate.parsed.subject.common_name: viblo.asia)</code> thì kết quả là:</p>
 <p><img src="https://raw.githubusercontent.com/xluffy/assets/master/censys_viblo.png" alt="censys_viblo"></p>
 <p>Trông có vẻ họ có 3 server phía sau Cloudflare và host trên Linode, ngoài ra họ cũng mở cổng 22 và 8080 trên các node.</p>
 <p>Một ví dụ khác là Medium, bạn có thể xem kết quả search từ Censys từ file <a href="https://raw.githubusercontent.com/xluffy/assets/master/medium.txt">medium.txt</a>. Một điểm thú vị ở đây là mình nhìn thấy có 17 node EC2 từ dịch vụ AWS public ra ngoài Internet, không rõ mục đích của họ khi thiết kế Infra như vậy là có dụng ý gì, mình đoán là họ đang xài Global Load Balancing của Cloudflare thay vì ALB của AWS, nhưng khó hiểu là các EC2 này đều nằm ở 1 AS và cùng một region là Ashburn, Virginia 🤔.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; grep <span style="color:#e6db74">&#39;.amazonaws&#39;</span> medium.txt
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; grep <span style="color:#e6db74">&#39;.amazonaws&#39;</span> medium.txt
  52.1.147.205 <span style="color:#f92672">(</span>ec2-52-1-147-205.compute-1.amazonaws.com<span style="color:#f92672">)</span>
  52.6.3.192 <span style="color:#f92672">(</span>ec2-52-6-3-192.compute-1.amazonaws.com<span style="color:#f92672">)</span>
  54.167.232.247 <span style="color:#f92672">(</span>ec2-54-167-232-247.compute-1.amazonaws.com<span style="color:#f92672">)</span>
@@ -328,9 +417,9 @@ cf-ray: 4f50c44b398ad1e7-HKG
 </ul>
 <h4 id="343-http-header-hoặc-content">3.4.3 HTTP header hoặc Content</h4>
 <p>Ví dụ search với <strong>title</strong> của Medium bằng Censys.</p>
-<pre><code>443.https.get.title: &quot;Medium – a place to read and write big ideas and important stories&quot;
+<pre tabindex="0"><code>443.https.get.title: &quot;Medium – a place to read and write big ideas and important stories&quot;
 </code></pre><p>Hoặc các content unique trên website như Google Analytics tracking code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">googleAnalyticsTrackingCode<span style="color:#e6db74">&#34;:&#34;</span>UA-24232453-2<span style="color:#e6db74">&#34;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">googleAnalyticsTrackingCode<span style="color:#e6db74">&#34;:&#34;</span>UA-24232453-2<span style="color:#e6db74">&#34;
 </span></code></pre></div><p>Công cụ như <a href="https://www.shodan.io">https://www.shodan.io</a> cho phép search các thông tin như vậy tuy nhiên nó yêu cầu bạn phải trả phí để truy cập các dữ liệu trên.</p>
 <h2 id="4-prevention">4. Prevention</h2>
 <p>Câu hỏi bây giờ là làm thế nào để ẩn danh IP origin server bởi các công cụ tìm kiếm hoặc historical DNS record? Và cách cấu hình Cloudflare để chống lại các tấn công vào origin server là như thế nào?</p>
@@ -342,7 +431,7 @@ cf-ray: 4f50c44b398ad1e7-HKG
 <li>Whitelist các request từ hệ thống Cloudflare (<a href="https://www.cloudflare.com/ips-v4">IPv4</a> và <a href="https://www.cloudflare.com/ips-v6">IPv6</a>) và các IP từ hệ thống của bạn (nếu có nhu cầu testing), phần còn lại nên block.</li>
 </ul>
 <p>Có thể block ở tầng firewall như security group hoặc transport layer (iptables) hoặc block ở nginx của site, ví dụ với iptables.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -I INPUT <span style="color:#ae81ff">1</span> -i lo -j ACCEPT
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -I INPUT <span style="color:#ae81ff">1</span> -i lo -j ACCEPT
 sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
 sudo iptables -A INPUT -p tcp -s 103.21.244.0/22 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
@@ -364,7 +453,7 @@ sudo iptables -A INPUT -p tcp -s 199.27.128.0/21 --dport <span style="color:#ae8
 sudo iptables -A INPUT -p tcp --dport <span style="color:#ae81ff">22</span> -j ACCEPT
 sudo iptables -A INPUT -j REJECT
 </code></pre></div><p>Với nginx có thể block như sau:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">map $remote_addr $bad_ip <span style="color:#f92672">{</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">map $remote_addr $bad_ip <span style="color:#f92672">{</span>
   default 1;
   cloudflare_ip_v4 0;
   cloudflare_ip_v6 0;
@@ -390,52 +479,64 @@ server <span style="color:#f92672">{</span>
 <li><a href="https://citadelo.com/en/blog/cloudflare-how-to-do-it-right-and-do-not-reveal-your-real-ip/">https://citadelo.com/en/blog/cloudflare-how-to-do-it-right-and-do-not-reveal-your-real-ip/</a></li>
 </ul>
 
-</main>
-<section>
-  <hr>
-<script src="https://utteranc.es/client.js"
-        repo="xluffy/xluffy.github.io"
-        issue-term="url"
-        label="comments"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</section>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h"
+              >...</span
+            >
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://xluffy.github.io/post/change-schema-of-huge-table-in-mysql/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">Change schema of huge table in MySQL</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://xluffy.github.io/post/vpc-architecture/">
+                  <span class="button__text">VPC architecture</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
 
-    <footer>
+    
       
-<script>
-(function() {
-  function center_el(tagName) {
-    var tags = document.getElementsByTagName(tagName), i, tag;
-    for (i = 0; i < tags.length; i++) {
-      tag = tags[i];
-      var parent = tag.parentElement;
-      
-      if (parent.childNodes.length === 1) {
         
-        if (parent.nodeName === 'A') {
-          parent = parent.parentElement;
-          if (parent.childNodes.length != 1) continue;
-        }
-        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
-      }
-    }
-  }
-  var tagNames = ['img', 'embed', 'object'];
-  for (var i = 0; i < tagNames.length; i++) {
-    center_el(tagNames[i]);
-  }
-})();
-</script>
 
       
-      <hr/>
-      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+    
+  </div>
+
+      </div>
+
       
-      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
-    </footer>
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">hàng nhà trồng theo giấy phép CC BY-NC 4.0</div>
+      
+  </div>
+</footer>
+
+<script src="https://xluffy.github.io/assets/main.js"></script>
+<script src="https://xluffy.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
   </body>
 </html>
-

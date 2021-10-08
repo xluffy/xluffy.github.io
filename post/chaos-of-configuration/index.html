@@ -1,213 +1,270 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Chaos of configuration | xluffy&#39;s page</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
     
-    <header>
+      <title>
+        Chaos of configuration ::
+        /dev/clgt
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="Một trong các vấn đề cơ bản khi deployment và đảm bảo security cho ứng dụng đó là làm sao để quản lý config một cách tiện lợi, an toàn, dễ cập nhật."
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://xluffy.github.io/post/chaos-of-configuration/" />
 
+
+
+
+
+<link rel="stylesheet" href="https://xluffy.github.io/assets/style.css" />
+
+<link rel="stylesheet" href="https://xluffy.github.io/style.css" />
+
+
+<link
+  rel="apple-touch-icon-precomposed"
+  sizes="144x144"
+  href="https://xluffy.github.io/img/apple-touch-icon-144-precomposed.png"
+/>
+<link rel="shortcut icon" href="https://xluffy.github.io/img/favicon.png" />
+
+
+<link href="https://xluffy.github.io/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Chaos of configuration"/>
+<meta name="twitter:description" content="Một trong các vấn đề cơ bản khi deployment và đảm bảo security cho ứng dụng đó là làm sao để quản lý config một cách tiện lợi, an toàn, dễ cập nhật."/>
+
+
+
+<meta property="og:title" content="Chaos of configuration" />
+<meta property="og:description" content="Một trong các vấn đề cơ bản khi deployment và đảm bảo security cho ứng dụng đó là làm sao để quản lý config một cách tiện lợi, an toàn, dễ cập nhật." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xluffy.github.io/post/chaos-of-configuration/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-01-06T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-01-06T00:00:00+00:00" /><meta property="og:site_name" content="/dev/clgt" />
+
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <nav>
-    <ul>
-      
-      
-      <li class="pull-left ">
-        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/categories/">~/categories</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="https://github.com/xluffy/til/issues">~/til</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/about">~/about</a>
-      </li>
-      
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
+</svg>
+</span>
+    <span class="logo__text"
+      >/dev/clgt</span
+    >
+    <span class="logo__cursor"></span>
+  
+</a>
 
+    <span class="header__right">
       
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
       
-      <li class="pull-right">
-        <a href="/index.xml">~/subscribe</a>
-      </li>
+        
+          <li><a href="/about">about</a></li>
+        
       
+        
+          <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+        
+      
+    
+  </ul>
 
-    </ul>
-  </nav>
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about</a></li>
+      
+    
+      
+        <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg
+  class="theme-toggler"
+  width="24"
+  height="24"
+  viewBox="0 0 48 48"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+
+      </span>
+    </span>
+  </span>
 </header>
 
-    
-    
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">Chaos of configuration</h1>
+    <div class="post-meta">
       
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-K4LWNXV');</script>
+        <span class="post-date">
+          2020-01-06
+        </span>
+
+        
+          
+        
       
-    
-  </head>
 
-  <body>
-    
       
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4LWNXV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
       
+    </div>
+
     
-    <br/>
 
-<div class="article-meta">
-<h1><span class="title">Chaos of configuration</span></h1>
+    
 
-<h2 class="date">2020/01/06</h2>
-<p class="terms">
-  
-  
-  Categories: <a href="/categories/rails">rails</a> <a href="/categories/configuration">configuration</a> <a href="/categories/deployment">deployment</a> 
-  
-  
-  
-  
-</p>
-</div>
-
-
-
-<main>
-
-
-<p>Một trong các vấn đề cơ bản khi deployment và đảm bảo security cho ứng dụng đó là làm sao để quản lý config một cách tiện lợi, an toàn, dễ cập nhật.</p>
-
+    <div class="post-content">
+      
+      <p>Một trong các vấn đề cơ bản khi deployment và đảm bảo security cho ứng dụng đó là làm sao để quản lý config một cách tiện lợi, an toàn, dễ cập nhật.</p>
 <p>Tuân theo một method là <a href="https://12factor.net/config">12factor</a> ta coi như việc dùng <strong>biến môi trường</strong> để lưu config là <strong>chuyện hiển nhiên</strong> không cần phải giải thích.</p>
-
 <h3 id="1-what-the-fuck-are-u-doing-now">1. What the fuck are u doing now?</h3>
-
 <p>Lấy ví dụ là ứng dụng Rails, cách quản lý config hiện tại được mô tả như sau:</p>
-
 <p>Sử dụng gem <a href="https://github.com/laserlemon/figaro">Figaro</a> để quản lý config: Ví dụ khi sử dụng Pusher (một 3rd service để push notification in-app về cho mobile) như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># config/application.yml</span>
+<span style="color:#f92672">defaults</span>: <span style="color:#75715e">&amp;defaults</span>
+  <span style="color:#f92672">PUSHER_APP_ID</span>: <span style="color:#e6db74">&#34;2954&#34;</span>
+  <span style="color:#f92672">PUSHER_KEY</span>: <span style="color:#e6db74">&#34;7381a978f7dd7f9a1117&#34;</span>
+  <span style="color:#f92672">PUSHER_SECRET</span>: <span style="color:#e6db74">&#34;abdc3b896a0ffb85d373&#34;</span>
+  <span style="color:#f92672">PUSHER_CLUSTER</span>: <span style="color:#e6db74">&#34;mt1&#34;</span>
 
-<pre><code class="language-yaml"># config/application.yml
-defaults: &amp;defaults
-  PUSHER_APP_ID: &quot;2954&quot;
-  PUSHER_KEY: &quot;7381a978f7dd7f9a1117&quot;
-  PUSHER_SECRET: &quot;abdc3b896a0ffb85d373&quot;
-  PUSHER_CLUSTER: &quot;mt1&quot;
+<span style="color:#f92672">development</span>:
+  <span style="color:#f92672">&lt;</span>: <span style="color:#75715e">*defaults</span>
 
-development:
-  &lt;: *defaults
+<span style="color:#f92672">production</span>:
+  <span style="color:#f92672">&lt;</span>: <span style="color:#75715e">*defaults</span>
+  <span style="color:#f92672">PUSHER_APP_ID</span>: <span style="color:#e6db74">&#34;1234&#34;</span>
+  <span style="color:#f92672">PUSHER_KEY</span>: <span style="color:#e6db74">&#34;7381a978f7dd7f9a1117&#34;</span>
+  <span style="color:#f92672">PUSHER_SECRET</span>: <span style="color:#e6db74">&#34;abdc3b896a0ffb85d373&#34;</span>
+  <span style="color:#f92672">PUSHER_CLUSTER</span>: <span style="color:#e6db74">&#34;mt1&#34;</span>
+</code></pre></div><p>Config pusher trong initializer như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rubY" data-lang="rubY"><span style="color:#75715e"># initializers/pusher.rb</span>
 
-production:
-  &lt;: *defaults
-  PUSHER_APP_ID: &quot;1234&quot;
-  PUSHER_KEY: &quot;7381a978f7dd7f9a1117&quot;
-  PUSHER_SECRET: &quot;abdc3b896a0ffb85d373&quot;
-  PUSHER_CLUSTER: &quot;mt1&quot;
-</code></pre>
-
-<p>Config pusher trong initializer như sau:</p>
-
-<pre><code class="language-rubY"># initializers/pusher.rb
-
-Pusher.app_id = ENV['PUSHER_APP_ID']
-Pusher.key = ENV['PUSHER_KEY']
-Pusher.secret = ENV['PUSHER_SECRET']
-Pusher.cluster = ENV['PUSHER_CLUSTER']
-</code></pre>
-
-<p>Ta sẽ lưu thông tin cấu hình là một cặp key/value vào một tập tin <code>yaml</code> và load cấu hình thông qua initializers. Một initializer đơn giản là một tập tin Ruby được đặt tại <code>config/initializers</code>. Initializers thường được dùng để <strong>lưu cấu hình mà muốn load sau cùng</strong>, khi framework và tất cả các gem (thư viện trong ruby) được load.</p>
-
+<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>app_id <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;PUSHER_APP_ID&#39;</span><span style="color:#f92672">]</span>
+<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>key <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;PUSHER_KEY&#39;</span><span style="color:#f92672">]</span>
+<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>secret <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;PUSHER_SECRET&#39;</span><span style="color:#f92672">]</span>
+<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>cluster <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;PUSHER_CLUSTER&#39;</span><span style="color:#f92672">]</span>
+</code></pre></div><p>Ta sẽ lưu thông tin cấu hình là một cặp key/value vào một tập tin <code>yaml</code> và load cấu hình thông qua initializers. Một initializer đơn giản là một tập tin Ruby được đặt tại <code>config/initializers</code>. Initializers thường được dùng để <strong>lưu cấu hình mà muốn load sau cùng</strong>, khi framework và tất cả các gem (thư viện trong ruby) được load.</p>
 <p>Về cơ bản, vậy là xong. Tuy nhiên nếu ta muốn ràng buộc chặt chẽ hơn, yêu cầu là các thông tin cấu hình bắt buộc phải tồn tại, nếu thiếu sẽ không cho khởi tạo ứng dụng. Figaro hỗ trợ 2 phương thức là proactively và lazily.</p>
-
 <p>Proactively nghĩa là ứng dụng sẽ raise một exception nếu có bất cứ giá trị config nào ràng buộc nhưng không được thiết lập <strong>ngay khi ứng dụng khởi tạo</strong> (initialization).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># config/initializers/figaro.rb</span>
 
-<pre><code class="language-ruby"># config/initializers/figaro.rb
+<span style="color:#66d9ef">Figaro</span><span style="color:#f92672">.</span>require_keys(<span style="color:#e6db74">&#34;PUSHER_APP_ID&#34;</span>, <span style="color:#e6db74">&#34;PUSHER_KEY&#34;</span>, <span style="color:#e6db74">&#34;PUSHER_SECRET&#34;</span>, <span style="color:#e6db74">&#34;PUSHER_CLUSTER&#34;</span>)
+</code></pre></div><p>Trong khi lazily không raise exception khi khởi tạo, nên dẫn tới các lỗi không mong đợi trong runtime (khi nào cần dùng mới kiểm tra và nếu thiếu sẽ raise exception).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># config/initializers/pusher.rb</span>
 
-Figaro.require_keys(&quot;PUSHER_APP_ID&quot;, &quot;PUSHER_KEY&quot;, &quot;PUSHER_SECRET&quot;, &quot;PUSHER_CLUSTER&quot;)
-</code></pre>
-
-<p>Trong khi lazily không raise exception khi khởi tạo, nên dẫn tới các lỗi không mong đợi trong runtime (khi nào cần dùng mới kiểm tra và nếu thiếu sẽ raise exception).</p>
-
-<pre><code class="language-ruby"># config/initializers/pusher.rb
-
-Pusher.app_id = Figaro.env.PUSHER_APP_ID!
-Pusher.key    = Figaro.env.PUSHER_KEY!
-Pusher.secret = Figaro.env.PUSHER_SECRET!
-Pusher.cluster = Figaro.env.PUSHER_CLUSTER!
-</code></pre>
-
-<p>Ngoài Figaro, có một số gem khác tương tự, ví dụ <a href="https://github.com/bkeepers/dotenv">dotenv</a>. Về cơ bản, cách tiếp cận giữa Figaro và <a href="https://github.com/bkeepers/dotenv">dotenv</a> là như nhau, cùng được phát triển tại một thời điểm và giải quyết các vấn đề tương tự nhau:</p>
-
+<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>app_id <span style="color:#f92672">=</span> <span style="color:#66d9ef">Figaro</span><span style="color:#f92672">.</span>env<span style="color:#f92672">.</span>PUSHER_APP_ID!
+<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>key    <span style="color:#f92672">=</span> <span style="color:#66d9ef">Figaro</span><span style="color:#f92672">.</span>env<span style="color:#f92672">.</span>PUSHER_KEY!
+<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>secret <span style="color:#f92672">=</span> <span style="color:#66d9ef">Figaro</span><span style="color:#f92672">.</span>env<span style="color:#f92672">.</span>PUSHER_SECRET!
+<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>cluster <span style="color:#f92672">=</span> <span style="color:#66d9ef">Figaro</span><span style="color:#f92672">.</span>env<span style="color:#f92672">.</span>PUSHER_CLUSTER!
+</code></pre></div><p>Ngoài Figaro, có một số gem khác tương tự, ví dụ <a href="https://github.com/bkeepers/dotenv">dotenv</a>. Về cơ bản, cách tiếp cận giữa Figaro và <a href="https://github.com/bkeepers/dotenv">dotenv</a> là như nhau, cùng được phát triển tại một thời điểm và giải quyết các vấn đề tương tự nhau:</p>
 <p><strong>Tương đồng:</strong></p>
-
 <ul>
 <li>Hỗ trợ tốt cho các ứng dụng Ruby.</li>
 <li>Phổ biến và vẫn còn được bảo trì code tốt.</li>
 <li>Đều lấy cảm hứng từ concept Twelve-Factor App.</li>
 <li>Đều lưu giá trị config trong biến môi trường <code>ENV</code>.</li>
 </ul>
-
 <p><strong>Khác biệt:</strong></p>
-
 <ul>
 <li>Tập tin config:
-
 <ul>
 <li>Figaro lưu tất cả các biến config của các môi trường trong cùng một tập tin.</li>
 <li>Dotenv hỗ trợ tách biến config của các môi trường ra các tập tin riêng biệt (<code>.env.local</code>, <code>.env.development</code>, <code>.env</code>).</li>
-</ul></li>
+</ul>
+</li>
 <li>Định dạng tập tin cấu hình
-
 <ul>
 <li>Figaro sử dụng <code>yaml</code> với một cặp key/value.</li>
 <li>Dotenv là một tập hợp các giá trị <code>KEY=VALUE</code>.</li>
-</ul></li>
+</ul>
+</li>
 <li>Security vs. Convenience
-
 <ul>
 <li>Figaro quy ước là không bao giờ commit tập tin cấu hình.</li>
 <li>Dotenv khuyến khích commit cấu hình của môi trường development.</li>
-</ul></li>
+</ul>
+</li>
 <li>Framework Focus
-
 <ul>
 <li>Figaro tập trung vào ứng dụng Rails.</li>
 <li>Dotenv có thể sử dụng cho các ứng dụng Ruby.</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>Viết dài dài cho vui chứ thực ra không có nhiều sự khác biệt lắm giữa hai thư viện này, <strong>dùng cái nào cũng được.</strong></p>
-
 <p>Lưu và tải config khi ứng dụng khởi tạo thì như vậy, nhưng quản lý cấu hình và deployment thì cần thêm <strong>các yêu cầu</strong> như sau:</p>
-
 <ul>
 <li>Giá trị cấu hình trên môi trường <code>production</code> <strong>KHÔNG</strong> chia sẻ cho developer.</li>
 <li>Giá trị cấu hình phải khác biệt giữa các môi trường, ví dụ <code>PUSHER_SECRET_KEY</code> phải khác biệt giữa development và production. Bảo vệ key của môi trường production an toàn nhất có thể. Cho phép apply các rule khác nhau lên từng cấu hình (ví dụ key của development chỉ dùng để test nên limit notification &hellip;).</li>
 <li>Cần có một cách tiện lợi để chia sẻ tập tin cấu hình ở development khi có một người mới join team nhưng không được commit vào git.</li>
 <li>Cần có một cách để quản lý version của cấu hình trên production. Dễ dàng thêm mới, delivery lên production.</li>
 </ul>
-
 <p><strong>Nguyên tắc số 1:</strong>  Quản lý tất cả cấu hình qua biến môi trường (<code>ENV</code>), thông qua thư viện, không <strong>hard-code</strong> bất cứ chỗ nào trong ứng dụng. Nghĩa là không chơi như vầy:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># initializers/pusher.rb</span>
 
-<pre><code class="language-ruby"># initializers/pusher.rb
-
-Pusher.secret = &quot;bX5kuRUuVJlP1AD&quot;
-</code></pre>
-
-<p><strong>Nguyên tắc số 2:</strong> Không commit bất kỳ tập tin cấu hình nào vào git, không lưu trữ các credentials info vào git. Nghĩa là không được tồn tại các tập tin như sau:</p>
-
-<pre><code class="language-bash">&gt; tree config/
+<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>secret <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bX5kuRUuVJlP1AD&#34;</span>
+</code></pre></div><p><strong>Nguyên tắc số 2:</strong> Không commit bất kỳ tập tin cấu hình nào vào git, không lưu trữ các credentials info vào git. Nghĩa là không được tồn tại các tập tin như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; tree config/
 ├── config
 │   ├── application.yml
 │   ├── database.yml
@@ -216,11 +273,8 @@ Pusher.secret = &quot;bX5kuRUuVJlP1AD&quot;
 │   ├── redis.yml
 │   ├── secrets.yml
 │   └── sidekiq.yml
-</code></pre>
-
-<p><strong>Nguyên tắc số 3:</strong>  Để đảm bảo consistensy của giá trị cấu hình giữa các môi trường (có ở production mà thiếu ở development) và để dễ dàng cho developer mới khi tham gia dự án, commit vào git một tập tin example của từng tập tin cấu hình. Ví dụ:</p>
-
-<pre><code>&gt; tree config/
+</code></pre></div><p><strong>Nguyên tắc số 3:</strong>  Để đảm bảo consistensy của giá trị cấu hình giữa các môi trường (có ở production mà thiếu ở development) và để dễ dàng cho developer mới khi tham gia dự án, commit vào git một tập tin example của từng tập tin cấu hình. Ví dụ:</p>
+<pre tabindex="0"><code>&gt; tree config/
 ├── config
 │   ├── application.example.yml
 │   ├── database.example.yml
@@ -229,169 +283,164 @@ Pusher.secret = &quot;bX5kuRUuVJlP1AD&quot;
 │   ├── redis.example.yml
 │   ├── secrets.example.yml
 │   └── sidekiq.example.yml
-</code></pre>
-
-<p>Lưu ý:</p>
-
+</code></pre><p>Lưu ý:</p>
 <ul>
 <li>Giữ nguyên extention là <code>yaml</code> để sử dụng highlight syntax của editor (không nên dùng <code>application.yml.example</code>).</li>
 <li>Khi cần sử dụng thêm một biến môi trường mới NÊN thêm vào file example và commit lên git, trên production cũng tra cứu ngược vào tập tin example để đảm bảo không thiếu/dư thừa bất kỳ giá trị nào.</li>
 </ul>
-
 <p>=&gt; Tuy nhiên tập tin example chỉ giải quyết được các credentials info mà developer có thể tự tạo (như database, redis &hellip;) chứ credentials info từ 3rd service thì vẫn cần phải chia sẻ thủ công (người cũ gửi cho người mới).</p>
-
 <p><strong>Nguyên tắc số 4:</strong> Quản lý credentials độc lập cho từng môi trường &lt;=&gt; pick các service cho phép generate, phân quyền và giới hạn độc lập trên từng credential. Ví dụ:</p>
-
 <ul>
 <li>Tạo thông tin pusher cho cùng một ứng dụng nhưng 2 môi trường development (coding + debug) và production.</li>
 <li>Giới hạn số push notification cho môi trường development (vì debug không cần nhiều, tránh bug/lộ secret_key dẫn tới tốn chi phí).</li>
 <li>Cho phép truy cập web admin của development key, hỗ trợ debugging.</li>
 </ul>
-
 <p>Tách độc lập cho từng môi trường, từng ứng dụng giúp dễ dàng revoker khi thông tin bị lộ ra ngoài, hoặc nếu lộ, giảm thiểu ảnh hưởng chung đến toàn bộ ứng dụng.</p>
-
 <p>Cũng cần lưu ý là một số dịch vụ như IAM AWS, secret_key chỉ hiện thị đúng một lần lúc tạo, sau này sẽ không thể xem lại được nữa, nên nếu quên secret_key thì chỉ có cách tạo secret_key khác.</p>
-
 <p><strong>Vấn đề là lưu thông tin cấu hình trên production ở đâu để:</strong></p>
-
 <ul>
 <li>Lỡ tay xoá mất hoặc server có sự cố mất thông tin cấu hình.</li>
 <li>Dễ dàng sync khi deployment.</li>
 <li>Có mã hoá nhưng phải quản lý được version tương tự như quản lý code với git.</li>
 </ul>
-
 <p>Ví dụ về một <strong>quy trình deployment</strong> thủ công như sau:</p>
-
 <ul>
-<li>Cấu trúc thư mục của node deployment như sau:</li>
+<li>
+<p>Cấu trúc thư mục của node deployment như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; tree /fk
+/fk
+└── predeploy
+    └── fk-service-hs
+        ├── current -&gt; releases/20200104193548
+        ├── fk-service-hs_master <span style="color:#75715e"># git-repo_branch</span>
+        ├── override-latest/config
+        └── releases/20200104193548
+</code></pre></div></li>
+<li>
+<p>Với predeploy là nơi code sẽ được chuẩn bị để deployment.</p>
+</li>
+<li>
+<p><code>override-latest/config</code> là thông tin cấu hình của production, lưu trữ các tập tin cần <em>chép đè</em> sử dụng cho production.</p>
+</li>
+<li>
+<p><code>fk-service-hs_master</code> thư mục chứa source code lấy từ github về.</p>
+</li>
+<li>
+<p><code>current</code> là symbol link tới <code>releases/20200104193548</code> đây cũng chính là code chạy production. <code>current = fk-service-hs_master + override-latest/* </code>.</p>
+</li>
+<li>
+<p>Ví dụ ta cần dùng một tập thông tin khác cho Pusher trên production, ta sẽ override lại toàn bộ tập tin <code>application.yml</code>, tương tự với các tập tin <code>yaml</code> khác.</p>
+</li>
+<li>
+<p>Cuối cùng chỉ cần sync <code>current</code>, <code>releases/20200104193548</code> tới các node production là xong.</p>
+</li>
+<li>
+<p>Ý tưởng là của <a href="https://github.com/capistrano/capistrano">capistrano</a>.</p>
+</li>
 </ul>
-
-<pre><code class="language-bash">  &gt; tree /fk
-  /fk
-  └── predeploy
-      └── fk-service-hs
-          ├── current -&gt; releases/20200104193548
-          ├── fk-service-hs_master # git-repo_branch
-          ├── override-latest/config
-          └── releases/20200104193548
-</code></pre>
-
-<ul>
-<li><p>Với predeploy là nơi code sẽ được chuẩn bị để deployment.</p></li>
-
-<li><p><code>override-latest/config</code> là thông tin cấu hình của production, lưu trữ các tập tin cần <em>chép đè</em> sử dụng cho production.</p></li>
-
-<li><p><code>fk-service-hs_master</code> thư mục chứa source code lấy từ github về.</p></li>
-
-<li><p><code>current</code> là symbol link tới <code>releases/20200104193548</code> đây cũng chính là code chạy production. <code>current = fk-service-hs_master + override-latest/*</code>.</p></li>
-
-<li><p>Ví dụ ta cần dùng một tập thông tin khác cho Pusher trên production, ta sẽ override lại toàn bộ tập tin <code>application.yml</code>, tương tự với các tập tin <code>yaml</code> khác.</p></li>
-
-<li><p>Cuối cùng chỉ cần sync <code>current</code>, <code>releases/20200104193548</code> tới các node production là xong.</p></li>
-
-<li><p>Ý tưởng là của <a href="https://github.com/capistrano/capistrano">capistrano</a>.</p></li>
-</ul>
-
 <p>Như ta thấy, thông tin cấu hình trên production có thể lưu trữ ở 3 nơi:</p>
-
 <ul>
-<li>Trên node deployment, lưu ở <code>override-latest/config</code>. Mỗi lần cần update gì thì ssh vào node này cập nhật.
-
-<ul>
+<li>Trên node deployment, lưu ở <code>override-latest/config</code>. Mỗi lần cần update gì thì ssh vào node này cập nhật.</li>
 <li>Hơi mất công khi cần update đều cần ssh vào server.</li>
 <li>Chỉ lưu trên server production, nên ai vào production mới xem được nên không nhất thiết phải mã hoá.</li>
 <li>Không quản lý được version, nhưng không cần backup vì lưu trên nhiều node.</li>
-</ul></li>
 <li>Lưu ở một bên thứ 3 như S3 bucket.
-
 <ul>
 <li>Khi deployment, nếu cần cập nhật thông tin cấu hình thì cho phép tick để chọn sync mới cấu hình từ từ S3 bucket -&gt; <code>override-latest/config</code>. Node deployment phải có quyền access vào S3 bucket.</li>
 <li>Multi-version (tính năng của S3) nhưng không có commit log.</li>
 <li>Có sẵn mã hoá từ KMS (tính năng của S3).</li>
 <li>Có thể lưu local + git sau đó sync qua <code>aws s3 sync</code> nhưng hơi mất công vì vừa phải commit vừa sync. (<code>git add . &amp;&amp; git ci -m'Update pusher infos' &amp;&amp; aws s3 sync . s3://fk-service-hs/ --profile lazy-ops</code>).</li>
-</ul></li>
+</ul>
+</li>
 <li>Cuối cùng là lưu thẳng vào github, đây là cách khoẻ nhất.
-
 <ul>
 <li>Quản lý được version, commit log, dễ dàng update tương tự code (commit, push, PR, review).</li>
 <li>Native với deployment vì chỉ cần cấp thêm quyền vào một repo khác, dễ dàng sync mới về node deployment.</li>
 <li>Không mã hoá 🤨🤨🤨. (mọi thứ đều ổn cho tới chỗ này).</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>Với cách cuối, có thể dùng một secret_key (mã hoá bất đối xứng) để mã hoá và validate trước khi push lên github nhưng lại mất đi tính năng quản lý version (vim và git diff) nên cơ bản cũng không xài được.</p>
-
 <p>Đại khái bạn sẽ muốn quản lý version của config như vầy:</p>
-
-<pre><code class="language-diff">- PUSHER_KEY: &quot;7381a978f7dd7f9a1117&quot;
-+ PUSHER_KEY: &quot;7381a9sjd7dd7f9a1117&quot;
-  PUSHER_SECRET: &quot;abdc3b896a0ffb85d373&quot;
-</code></pre>
-
-<h3 id="2-what-next">2. What next?</h3>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#f92672">- PUSHER_KEY: &#34;7381a978f7dd7f9a1117&#34;
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+ PUSHER_KEY: &#34;7381a9sjd7dd7f9a1117&#34;
+</span><span style="color:#a6e22e"></span>  PUSHER_SECRET: &#34;abdc3b896a0ffb85d373&#34;
+</code></pre></div><h3 id="2-what-next">2. What next?</h3>
 <p>Có bạn sẽ hỏi sao không xài <a href="https://www.vaultproject.io">Vault</a>? Về cơ bản cũng gặp các vấn đề trên, chỉ khác là lưu vào file thì giờ thêm con server nữa, lưu trữ biến môi trường dùng cho cấu hình trên con server Vault. Nhà thì bao việc, thêm con server nữa, lại phải HA con server này, gắn monitoring các kiểu, nghĩ thôi cũng đã hết ngày.</p>
-
 <blockquote>
 <p>Tuân theo một method là <a href="https://12factor.net/config">12factor</a> ta coi như việc dùng <del><strong>biến môi trường</strong></del> để lưu config là <del><strong>chuyện hiển nhiên</strong> không cần phải giải thích</del>.</p>
 </blockquote>
-
 <p>Có rất <a href="https://github.com/thekompanee/chamber/wiki/Problems-with-Environment-Variables">nhiều vấn đề</a> nếu sử dụng <strong>biến môi trường</strong> để quản lý config và đặc biệt nếu sử dụng <code>dotenv</code>, lưu trữ trong một tập tin plain text. Ví dụ:</p>
-
 <ul>
-<li><p>Chỉ hỗ trợ <code>string</code>, kiểu dữ liệu quá đơn giản cho các nhu cầu phức tạp (cả figaro và dotenv đều gặp vấn đề).</p></li>
-
-<li><p>Tổ chức config, chia sẻ config giữa các namespace (<code>yaml</code> hỗ trợ nên figaro có thể tổ chức ra nhiều file, nhiều namespace, share giữa các namespace, dotenv không hỗ trợ).</p></li>
-
-<li><p>&hellip;</p></li>
+<li>
+<p>Chỉ hỗ trợ <code>string</code>, kiểu dữ liệu quá đơn giản cho các nhu cầu phức tạp (cả figaro và dotenv đều gặp vấn đề).</p>
+</li>
+<li>
+<p>Tổ chức config, chia sẻ config giữa các namespace (<code>yaml</code> hỗ trợ nên figaro có thể tổ chức ra nhiều file, nhiều namespace, share giữa các namespace, dotenv không hỗ trợ).</p>
+</li>
+<li>
+<p>&hellip;</p>
+</li>
 </ul>
 
-</main>
-<section>
-  <hr>
-<script src="https://utteranc.es/client.js"
-        repo="xluffy/xluffy.github.io"
-        issue-term="url"
-        label="comments"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</section>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h"
+              >...</span
+            >
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://xluffy.github.io/post/null-in-sql/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">Null in SQL</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://xluffy.github.io/post/change-schema-of-huge-table-in-mysql/">
+                  <span class="button__text">Change schema of huge table in MySQL</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
 
-    <footer>
+    
       
-<script>
-(function() {
-  function center_el(tagName) {
-    var tags = document.getElementsByTagName(tagName), i, tag;
-    for (i = 0; i < tags.length; i++) {
-      tag = tags[i];
-      var parent = tag.parentElement;
-      
-      if (parent.childNodes.length === 1) {
         
-        if (parent.nodeName === 'A') {
-          parent = parent.parentElement;
-          if (parent.childNodes.length != 1) continue;
-        }
-        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
-      }
-    }
-  }
-  var tagNames = ['img', 'embed', 'object'];
-  for (var i = 0; i < tagNames.length; i++) {
-    center_el(tagNames[i]);
-  }
-})();
-</script>
 
       
-      <hr/>
-      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+    
+  </div>
+
+      </div>
+
       
-      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
-    </footer>
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">hàng nhà trồng theo giấy phép CC BY-NC 4.0</div>
+      
+  </div>
+</footer>
+
+<script src="https://xluffy.github.io/assets/main.js"></script>
+<script src="https://xluffy.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
   </body>
 </html>
-

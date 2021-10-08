@@ -1,11 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>security on xluffy&#39;s page</title>
+    <title>security on /dev/clgt</title>
+    
+    
+    
     <link>https://xluffy.github.io/categories/security/</link>
-    <description>Recent content in security on xluffy&#39;s page</description>
+    <description>Recent content in security on /dev/clgt</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <copyright>hàng nhà trồng theo giấy phép CC BY-NC 4.0</copyright>
     <lastBuildDate>Thu, 11 Jul 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/categories/security/index.xml" rel="self" type="application/rss+xml" />
@@ -17,8 +21,18 @@
       <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/cloudflare-101/</guid>
-      <description>1. DDoS 101 Về DDoS dù mục đích cuối cùng là làm cho dịch vụ của bạn không thể cung cấp tới người dùng nhưng nó có thể được chia thành 3 nhóm:
- Application Layer Attacks: mục tiêu là khiến ứng dụng phải xử lý một lượng lớn các request có vẻ hợp lệ, làm cạn kiệt tài nguyên của ứng dụng, khiến ứng dụng không thể phục vụ các user hợp lệ khác.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          1. DDoS 101 Về DDoS dù mục đích cuối cùng là làm cho dịch vụ của bạn không thể cung cấp tới người dùng nhưng nó có thể được chia thành 3 nhóm:
+          
+        
+        </description>
     </item>
     
     <item>
@@ -27,8 +41,18 @@
       <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/who-owns-my-encrypt-keys-on-cloud/</guid>
-      <description>Gần đây phải đọc lại về các dịch vụ mã hoá này, mình chợt nhận ra trong bài này có vài điểm chưa chính xác về cách hoạt động và tính năng. Cụ thể hơn có thể đọc bài [](), tuy nhiên về cơ bản ý tưởng &amp;ldquo;Ai là người sở hữu?&amp;rdquo; cũng như &amp;ldquo;Mô hình chia sẻ trách nhiệm&amp;rdquo; vẫn có ý nghĩa.
- Một trong những câu hỏi thường gặp khi nói về mã hóa trên các dịch vụ cloud như AWS đó là:</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Gần đây phải đọc lại về các dịch vụ mã hoá này, mình chợt nhận ra trong bài này có vài điểm chưa chính xác về cách hoạt động và tính năng.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -37,8 +61,18 @@
       <pubDate>Mon, 18 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/how-to-hash-store-password/</guid>
-      <description>Sau khi đọc bài viết băm mật khẩu đúng cách của anh thaidn, mình nhớ lại lúc mình mới ra trường, cũng đã từng nghĩ về vấn đề này (lúc đó mình khá thích môn Bảo Mật Thông Tin ở trường) nhưng chưa bao giờ hiểu tường tận. Chỉ biết là không nên:
- Lưu password ở dạng plain-text. Hash với một thuật toán hash mạnh, không nên xài MD5, SHA-1 &amp;hellip; Hash với salt.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Sau khi đọc bài viết băm mật khẩu đúng cách của anh thaidn, mình nhớ lại lúc mình mới ra trường, cũng đã từng nghĩ về vấn đề này (lúc đó mình khá thích môn Bảo Mật Thông Tin ở trường) nhưng chưa bao giờ hiểu tường tận.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -47,8 +81,18 @@
       <pubDate>Sat, 16 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/what-is-difference-between-ssl-tls-https/</guid>
-      <description>Chắc ai cũng đã nghe qua về HTTPs (HTTP secure), SSL và TLS, nhưng có bao giờ bạn thắc mắc tụi này khác nhau như thế nào chưa? Và liệu có phải 3 thuật ngữ đó đều chỉ một thứ hay không?
-SSL (Secure Sockets Layer), đây là tên được đặt bởi những người phát minh ra giao thức này phiên bản đầu tiên, công ty Netspace (công ty này sau đó đã được AOL mua lại).</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Chắc ai cũng đã nghe qua về HTTPs (HTTP secure), SSL và TLS, nhưng có bao giờ bạn thắc mắc tụi này khác nhau như thế nào chưa?
+          
+        
+        </description>
     </item>
     
   </channel>

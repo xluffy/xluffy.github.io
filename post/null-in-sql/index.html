@@ -1,217 +1,247 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Null in SQL | xluffy&#39;s page</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
     
-    <header>
+      <title>
+        Null in SQL ::
+        /dev/clgt
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="Lược dịch &#43; thêm ví dụ từ https://mitchum."
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://xluffy.github.io/post/null-in-sql/" />
 
+
+
+
+
+<link rel="stylesheet" href="https://xluffy.github.io/assets/style.css" />
+
+<link rel="stylesheet" href="https://xluffy.github.io/style.css" />
+
+
+<link
+  rel="apple-touch-icon-precomposed"
+  sizes="144x144"
+  href="https://xluffy.github.io/img/apple-touch-icon-144-precomposed.png"
+/>
+<link rel="shortcut icon" href="https://xluffy.github.io/img/favicon.png" />
+
+
+<link href="https://xluffy.github.io/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Null in SQL"/>
+<meta name="twitter:description" content="Lược dịch &#43; thêm ví dụ từ https://mitchum."/>
+
+
+
+<meta property="og:title" content="Null in SQL" />
+<meta property="og:description" content="Lược dịch &#43; thêm ví dụ từ https://mitchum." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xluffy.github.io/post/null-in-sql/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-02-04T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-02-04T00:00:00+00:00" /><meta property="og:site_name" content="/dev/clgt" />
+
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <nav>
-    <ul>
-      
-      
-      <li class="pull-left ">
-        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/categories/">~/categories</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="https://github.com/xluffy/til/issues">~/til</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/about">~/about</a>
-      </li>
-      
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
+</svg>
+</span>
+    <span class="logo__text"
+      >/dev/clgt</span
+    >
+    <span class="logo__cursor"></span>
+  
+</a>
 
+    <span class="header__right">
       
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
       
-      <li class="pull-right">
-        <a href="/index.xml">~/subscribe</a>
-      </li>
+        
+          <li><a href="/about">about</a></li>
+        
       
+        
+          <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+        
+      
+    
+  </ul>
 
-    </ul>
-  </nav>
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about</a></li>
+      
+    
+      
+        <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg
+  class="theme-toggler"
+  width="24"
+  height="24"
+  viewBox="0 0 48 48"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+
+      </span>
+    </span>
+  </span>
 </header>
 
-    
-    
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">Null in SQL</h1>
+    <div class="post-meta">
       
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-K4LWNXV');</script>
+        <span class="post-date">
+          2020-02-04
+        </span>
+
+        
+          
+        
       
-    
-  </head>
 
-  <body>
-    
       
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4LWNXV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
       
+    </div>
+
     
-    <br/>
 
-<div class="article-meta">
-<h1><span class="title">Null in SQL</span></h1>
+    
 
-<h2 class="date">2020/02/04</h2>
-<p class="terms">
-  
-  
-  Categories: <a href="/categories/sql">sql</a> 
-  
-  
-  
-  
-</p>
-</div>
-
-
-
-<main>
-
-
-<blockquote>
+    <div class="post-content">
+      
+      <blockquote>
 <p>Lược dịch + thêm ví dụ từ <a href="https://mitchum.blog">https://mitchum.blog</a></p>
 </blockquote>
-
 <h3 id="1-null">1. NULL</h3>
-
-<pre><code class="language-sql">CREATE TABLE `t` (
-  `a` varchar(10) DEFAULT NULL,
-  `b` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-</code></pre>
-
-<pre><code class="language-sql">INSERT INTO t(a) VALUES ('1');
-INSERT INTO t(b) VALUES ('2');
-INSERT INTO t VALUES ();
-</code></pre>
-
-<p>Câu hỏi là nếu có 2 truy vấn như sau thì nên sử dụng truy vấn nào?</p>
-
-<pre><code class="language-sql">SELECT * FROM t WHERE b = NULL;
-</code></pre>
-
-<p>và</p>
-
-<pre><code class="language-sql">SELECT * FROM t WHERE b IS NULL;
-</code></pre>
-
-<p>Câu trả lời cuối cùng là nên dùng <code>IS</code>, sách mô tả như sau:</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#f92672">`</span>t<span style="color:#f92672">`</span> (
+  <span style="color:#f92672">`</span>a<span style="color:#f92672">`</span> varchar(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">DEFAULT</span> <span style="color:#66d9ef">NULL</span>,
+  <span style="color:#f92672">`</span>b<span style="color:#f92672">`</span> varchar(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">DEFAULT</span> <span style="color:#66d9ef">NULL</span>
+) ENGINE<span style="color:#f92672">=</span>InnoDB <span style="color:#66d9ef">DEFAULT</span> CHARSET<span style="color:#f92672">=</span>latin1;
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> t(a) <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;1&#39;</span>);
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> t(b) <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;2&#39;</span>);
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> t <span style="color:#66d9ef">VALUES</span> ();
+</code></pre></div><p>Câu hỏi là nếu có 2 truy vấn như sau thì nên sử dụng truy vấn nào?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> t <span style="color:#66d9ef">WHERE</span> b <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>;
+</code></pre></div><p>và</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> t <span style="color:#66d9ef">WHERE</span> b <span style="color:#66d9ef">IS</span> <span style="color:#66d9ef">NULL</span>;
+</code></pre></div><p>Câu trả lời cuối cùng là nên dùng <code>IS</code>, sách mô tả như sau:</p>
 <blockquote>
 <p><strong>In SQL, NULL represents the concept of &ldquo;unknown&rdquo;</strong></p>
 </blockquote>
-
 <p>So sánh sự khác biệt giữa NULL và empty value, dữ liệu thể hiện như sau:</p>
-
-<pre><code class="language-sql">INSERT INTO t VALUES ('', '');
-</code></pre>
-
-<pre><code class="language-sql">SELECT * FROM t;'
-+------+------+
-| a    | b    |
-+------+------+
-| 1    | NULL |
-| NULL | 2    |
-| NULL | NULL |
-|      |      |
-+------+------+
-4 rows in set (0.00 sec)
-</code></pre>
-
-<h3 id="3-unknown">3. Unknown?</h3>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> t <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>);
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> t;<span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">+------+------+
+</span><span style="color:#e6db74">| a    | b    |
+</span><span style="color:#e6db74">+------+------+
+</span><span style="color:#e6db74">| 1    | NULL |
+</span><span style="color:#e6db74">| NULL | 2    |
+</span><span style="color:#e6db74">| NULL | NULL |
+</span><span style="color:#e6db74">|      |      |
+</span><span style="color:#e6db74">+------+------+
+</span><span style="color:#e6db74">4 rows in set (0.00 sec)
+</span></code></pre></div><h3 id="3-unknown">3. Unknown?</h3>
 <p>Biểu thức <code>WHERE 1 = 1</code> trả về giá trị là <code>true</code>, truy vấn sẽ trả về toàn bộ dữ liệu của bảng.</p>
-
-<pre><code class="language-sql">SELECT * FROM t WHERE 1 = 1;
-</code></pre>
-
-<p>Biểu thức <code>WHERE 1 = 0</code> trả về giá trị là <code>false</code>, nghĩa là truy vấn sẽ không trả về bất kỳ dữ liệu nào.</p>
-
-<pre><code class="language-sql">SELECT * FROM t WHERE 1 = 0;
-</code></pre>
-
-<p>Còn nếu có biểu thức <code>WHERE 1 = NULL</code> thì do không biết kết quả của phép so sánh là gì, nên truy vấn cũng không trả về bất cứ dữ liệu gì.</p>
-
-<pre><code class="language-sql">SELECT * FROM t WHERE 1 = NULL;
-</code></pre>
-
-<p>Còn nếu điều kiện là <code>NULL</code> thì cũng không trả về bất cứ dữ liệu gì.</p>
-
-<pre><code class="language-sql">SELECT * FROM t WHERE NULL;
-</code></pre>
-
-<p>Túm lại thì:</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> t <span style="color:#66d9ef">WHERE</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</code></pre></div><p>Biểu thức <code>WHERE 1 = 0</code> trả về giá trị là <code>false</code>, nghĩa là truy vấn sẽ không trả về bất kỳ dữ liệu nào.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> t <span style="color:#66d9ef">WHERE</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</code></pre></div><p>Còn nếu có biểu thức <code>WHERE 1 = NULL</code> thì do không biết kết quả của phép so sánh là gì, nên truy vấn cũng không trả về bất cứ dữ liệu gì.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> t <span style="color:#66d9ef">WHERE</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>;
+</code></pre></div><p>Còn nếu điều kiện là <code>NULL</code> thì cũng không trả về bất cứ dữ liệu gì.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> t <span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">NULL</span>;
+</code></pre></div><p>Túm lại thì:</p>
 <ul>
 <li>Biểu thức sau <code>WHERE</code> mà <code>true</code> thì trả về dữ liệu.</li>
 <li>Biểu thức sau <code>WHERE</code> mà <code>false</code> thì không trả về dữ liệu.</li>
 <li>Hoặc trả về <code>NULL</code> hoặc <code>unknown</code> thì cũng không trả về dữ liệu.</li>
 </ul>
-
 <p>Câu hỏi tiếp theo là database xử lý <strong>2 trường hợp <code>false</code> và <code>NULL</code></strong> như nhau thì tại sao phải quan tâm? Tiếp theo thử thêm điều kiện <code>NOT()</code>.</p>
-
-<pre><code class="language-sql">SELECT * FROM t WHERE NOT(1 = 0);
-SELECT * FROM t WHERE NOT(1 = 1);
-</code></pre>
-
-<ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> t <span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">NOT</span>(<span style="color:#ae81ff">1</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>);
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> t <span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">NOT</span>(<span style="color:#ae81ff">1</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>);
+</code></pre></div><ul>
 <li><code>NOT(false) = true</code>, trả về dữ liệu.</li>
 <li><code>NOT(true) = false</code>, không trả về dữ liệu.</li>
 </ul>
-
 <p>Nhưng nếu <code>WHERE NOT(1 = NULL)</code> thì database không trả về <code>true</code>, cũng không trả về <code>false</code> mà trả về một <code>NULL</code> khác ?? 🥺 ?? (<em>đại khái là một NULL khác, khác với cái NULL trước mặc dù đều là NULL =)))))))))</em>)</p>
-
 <p>Túm lại thì 2 truy vấn sau trả về <strong>kết quả giống y chang nhau</strong>, dù điều kiện <strong>đối lập nhau</strong>.</p>
-
-<pre><code class="language-sql">SELECT * FROM t WHERE 1 = NULL;
-</code></pre>
-
-<pre><code class="language-sql">SELECT * FROM t WHERE NOT(1 = NULL);
-</code></pre>
-
-<h3 id="3-null-and-not-in">3. NULL and NOT IN</h3>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> t <span style="color:#66d9ef">WHERE</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>;
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> t <span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">NOT</span>(<span style="color:#ae81ff">1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>);
+</code></pre></div><h3 id="3-null-and-not-in">3. NULL and NOT IN</h3>
 <p>Có điều kiện với <code>IN</code> là <code>WHERE 1 IN (1, 2, 3, 4, NULL)</code>, kết quả của biểu thức là <code>true</code> vì số 1 có tồn tại trong danh sách =&gt; trả về dữ liệu của bảng.</p>
-
-<pre><code class="language-sql">SELECT * FROM t WHERE 1 IN (1, 2, 3, 4, NULL);
-</code></pre>
-
-<p>Nếu điều kiện <code>WHERE 1 NOT IN (1, 2, 3, 4, NULL)</code>, kết quả của biểu thức sẽ là <code>false</code> như bình thường vì số 1 có tồn tại trong danh sách.</p>
-
-<pre><code class="language-sql">SELECT * FROM t WHERE 1 NOT IN (1, 2, 3, 4, NULL);
-</code></pre>
-
-<p><strong>Nhưng vấn đề</strong> là nếu với điều kiện <code>5 NOT IN (1, 2, 3, 4, NULL)</code> cũng sẽ không trả về dữ liệu của bảng, dù số 5 <strong>không tồn tại trong danh sách</strong>.</p>
-
-<pre><code class="language-sql">SELECT * FROM t WHERE 5 NOT IN (1, 2, 3, 4 NULL);
-</code></pre>
-
-<p>Postgres wiki cũng có nói tới trường hợp tương tự, họ khuyến cáo là không nên sử dụng <code>NOT IN</code> hoặc bất kỳ truy vấn nào kết hợp của <code>NOT</code> và <code>IN</code> ví dụ <code>NOT (x IN (SELECT ...))</code>.</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> t <span style="color:#66d9ef">WHERE</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">IN</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#66d9ef">NULL</span>);
+</code></pre></div><p>Nếu điều kiện <code>WHERE 1 NOT IN (1, 2, 3, 4, NULL)</code>, kết quả của biểu thức sẽ là <code>false</code> như bình thường vì số 1 có tồn tại trong danh sách.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> t <span style="color:#66d9ef">WHERE</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">IN</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#66d9ef">NULL</span>);
+</code></pre></div><p><strong>Nhưng vấn đề</strong> là nếu với điều kiện <code> 5 NOT IN (1, 2, 3, 4, NULL)</code> cũng sẽ không trả về dữ liệu của bảng, dù số 5 <strong>không tồn tại trong danh sách</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> t <span style="color:#66d9ef">WHERE</span> <span style="color:#ae81ff">5</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">IN</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span> <span style="color:#66d9ef">NULL</span>);
+</code></pre></div><p>Postgres wiki cũng có nói tới trường hợp tương tự, họ khuyến cáo là không nên sử dụng <code>NOT IN</code> hoặc bất kỳ truy vấn nào kết hợp của <code>NOT</code> và <code>IN</code> ví dụ <code>NOT (x IN (SELECT ...))</code>.</p>
 <p>Ngoài ra <a href="https://winand.at">Markus Winand</a> có một danh sách cách chủ đề chuyên sâu liên quan đến NULL trong SQL có thể tham khảo ở <a href="https://modern-sql.com/concept/null">https://modern-sql.com/concept/null</a> hoặc <a href="https://modern-sql.com/concept/three-valued-logic">https://modern-sql.com/concept/three-valued-logic</a>.</p>
-
 <h3 id="4-ref">4. Ref</h3>
-
 <ul>
 <li><a href="https://mitchum.blog/null-values-in-sql-queries">https://mitchum.blog/null-values-in-sql-queries</a></li>
 <li><a href="https://wiki.postgresql.org/wiki/Don%27t_Do_This#Don.27t_use_NOT_IN">https://wiki.postgresql.org/wiki/Don%27t_Do_This#Don.27t_use_NOT_IN</a></li>
@@ -219,52 +249,64 @@ SELECT * FROM t WHERE NOT(1 = 1);
 <li><a href="https://modern-sql.com/feature/is-distinct-from">https://modern-sql.com/feature/is-distinct-from</a></li>
 </ul>
 
-</main>
-<section>
-  <hr>
-<script src="https://utteranc.es/client.js"
-        repo="xluffy/xluffy.github.io"
-        issue-term="url"
-        label="comments"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</section>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h"
+              >...</span
+            >
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://xluffy.github.io/post/how-to-check-a-ip-is-in-a-blacklist/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">How to check a IP is in a blacklist</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://xluffy.github.io/post/chaos-of-configuration/">
+                  <span class="button__text">Chaos of configuration</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
 
-    <footer>
+    
       
-<script>
-(function() {
-  function center_el(tagName) {
-    var tags = document.getElementsByTagName(tagName), i, tag;
-    for (i = 0; i < tags.length; i++) {
-      tag = tags[i];
-      var parent = tag.parentElement;
-      
-      if (parent.childNodes.length === 1) {
         
-        if (parent.nodeName === 'A') {
-          parent = parent.parentElement;
-          if (parent.childNodes.length != 1) continue;
-        }
-        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
-      }
-    }
-  }
-  var tagNames = ['img', 'embed', 'object'];
-  for (var i = 0; i < tagNames.length; i++) {
-    center_el(tagNames[i]);
-  }
-})();
-</script>
 
       
-      <hr/>
-      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+    
+  </div>
+
+      </div>
+
       
-      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
-    </footer>
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">hàng nhà trồng theo giấy phép CC BY-NC 4.0</div>
+      
+  </div>
+</footer>
+
+<script src="https://xluffy.github.io/assets/main.js"></script>
+<script src="https://xluffy.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
   </body>
 </html>
-

@@ -1,11 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>aws on xluffy&#39;s page</title>
+    <title>aws on /dev/clgt</title>
+    
+    
+    
     <link>https://xluffy.github.io/categories/aws/</link>
-    <description>Recent content in aws on xluffy&#39;s page</description>
+    <description>Recent content in aws on /dev/clgt</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <copyright>hàng nhà trồng theo giấy phép CC BY-NC 4.0</copyright>
     <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/categories/aws/index.xml" rel="self" type="application/rss+xml" />
@@ -17,8 +21,18 @@
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/vpc-architecture/</guid>
-      <description>Thiết kế này đặt toàn bộ hệ thống trong một region và không có một kết nối cross-region nào. Sẽ có 2 VPC đó là:
- Production VPC Management VPC  Chúng được kết nối với nhau thông qua VPC Peering. Và lớp mạng được chọn lựa để tránh đụng độ với các lớp mạng ở VPC khác (khi có nhu cầu peering giữa các region, AWS đã hỗ trợ peering giữa các region, trước đây phải tạo kết nối VPN, tham khảo thêm về AWS Inter-Region Latency) hoặc đụng độ với các lớp mạng nội bộ ở cty.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Thiết kế này đặt toàn bộ hệ thống trong một region và không có một kết nối cross-region nào.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -27,8 +41,18 @@
       <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/who-owns-my-encrypt-keys-on-cloud/</guid>
-      <description>Gần đây phải đọc lại về các dịch vụ mã hoá này, mình chợt nhận ra trong bài này có vài điểm chưa chính xác về cách hoạt động và tính năng. Cụ thể hơn có thể đọc bài [](), tuy nhiên về cơ bản ý tưởng &amp;ldquo;Ai là người sở hữu?&amp;rdquo; cũng như &amp;ldquo;Mô hình chia sẻ trách nhiệm&amp;rdquo; vẫn có ý nghĩa.
- Một trong những câu hỏi thường gặp khi nói về mã hóa trên các dịch vụ cloud như AWS đó là:</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Gần đây phải đọc lại về các dịch vụ mã hoá này, mình chợt nhận ra trong bài này có vài điểm chưa chính xác về cách hoạt động và tính năng.
+          
+        
+        </description>
     </item>
     
   </channel>

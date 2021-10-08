@@ -1,430 +1,449 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Build simple backgroud job with RabbitMQ | xluffy&#39;s page</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
     
-    <header>
+      <title>
+        Build simple backgroud job with RabbitMQ ::
+        /dev/clgt
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="Ở trong một bài viết trước mình đã có tìm hiểu về Sidekiq - backgroud job, hiểu cách implement để đảm bảo tính tin cậy."
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://xluffy.github.io/post/build-simple-bg-job-with-rabbitmq/" />
 
+
+
+
+
+<link rel="stylesheet" href="https://xluffy.github.io/assets/style.css" />
+
+<link rel="stylesheet" href="https://xluffy.github.io/style.css" />
+
+
+<link
+  rel="apple-touch-icon-precomposed"
+  sizes="144x144"
+  href="https://xluffy.github.io/img/apple-touch-icon-144-precomposed.png"
+/>
+<link rel="shortcut icon" href="https://xluffy.github.io/img/favicon.png" />
+
+
+<link href="https://xluffy.github.io/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Build simple backgroud job with RabbitMQ"/>
+<meta name="twitter:description" content="Ở trong một bài viết trước mình đã có tìm hiểu về Sidekiq - backgroud job, hiểu cách implement để đảm bảo tính tin cậy."/>
+
+
+
+<meta property="og:title" content="Build simple backgroud job with RabbitMQ" />
+<meta property="og:description" content="Ở trong một bài viết trước mình đã có tìm hiểu về Sidekiq - backgroud job, hiểu cách implement để đảm bảo tính tin cậy." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xluffy.github.io/post/build-simple-bg-job-with-rabbitmq/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-08-27T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-08-27T00:00:00+00:00" /><meta property="og:site_name" content="/dev/clgt" />
+
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <nav>
-    <ul>
-      
-      
-      <li class="pull-left ">
-        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/categories/">~/categories</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="https://github.com/xluffy/til/issues">~/til</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/about">~/about</a>
-      </li>
-      
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
+</svg>
+</span>
+    <span class="logo__text"
+      >/dev/clgt</span
+    >
+    <span class="logo__cursor"></span>
+  
+</a>
 
+    <span class="header__right">
       
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
       
-      <li class="pull-right">
-        <a href="/index.xml">~/subscribe</a>
-      </li>
+        
+          <li><a href="/about">about</a></li>
+        
       
+        
+          <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+        
+      
+    
+  </ul>
 
-    </ul>
-  </nav>
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about</a></li>
+      
+    
+      
+        <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg
+  class="theme-toggler"
+  width="24"
+  height="24"
+  viewBox="0 0 48 48"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+
+      </span>
+    </span>
+  </span>
 </header>
 
-    
-    
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">Build simple backgroud job with RabbitMQ</h1>
+    <div class="post-meta">
       
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-K4LWNXV');</script>
+        <span class="post-date">
+          2018-08-27
+        </span>
+
+        
+          
+        
       
-    
-  </head>
 
-  <body>
-    
       
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4LWNXV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
       
+    </div>
+
     
-    <br/>
 
-<div class="article-meta">
-<h1><span class="title">Build simple backgroud job with RabbitMQ</span></h1>
+    
 
-<h2 class="date">2018/08/27</h2>
-<p class="terms">
-  
-  
-  Categories: <a href="/categories/rails">rails</a> 
-  
-  
-  
-  
-</p>
-</div>
-
-
-
-<main>
-
-
-<p>Ở trong một <a href="https://xluffy.github.io/post/sidekiq-how-to-reliability">bài viết trước</a> mình đã có tìm hiểu về Sidekiq - backgroud job, hiểu cách implement để đảm bảo tính tin cậy. Hôm nay nhân một người bạn có hỏi về một framework khác sử dụng RabbitMQ để làm queue, thấy khá thú vị nên dành chút thời gian đọc quá.</p>
-
+    <div class="post-content">
+      
+      <p>Ở trong một <a href="https://xluffy.github.io/post/sidekiq-how-to-reliability">bài viết trước</a> mình đã có tìm hiểu về Sidekiq - backgroud job, hiểu cách implement để đảm bảo tính tin cậy. Hôm nay nhân một người bạn có hỏi về một framework khác sử dụng RabbitMQ để làm queue, thấy khá thú vị nên dành chút thời gian đọc quá.</p>
 <p>Ý tưởng là sẽ viết một <code>sender.rb</code> để đóng gói các task thành dạng message và gửi vào queue. Một <code>worker.rb</code> chạy ở chế độ backgroud sẽ pop task từ queue ra và xử lý. Ta có thể chạy nhiều worker để tăng tốc xử lý các task nếu cần. Nói chung ý tưởng tương tự bài trước, không có gì quá đặc biệt.</p>
-
 <p>Ở đây mình sẽ dùng gem <a href="http://rubybunny.info">bunny</a> để kết nối tới server RabbitMQ, đây là một gem khá phổ biến, có thể dùng cho cả producer và consumer.</p>
-
 <h2 id="1-sender">1. Sender</h2>
-
 <p>Đầu tiên ta sẽ cần require thư viện vào để xài</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e">#!/usr/bin/env ruby</span>
 
-<pre><code>#!/usr/bin/env ruby
+require <span style="color:#e6db74">&#39;bunny&#39;</span>
+</code></pre></div><p>Sau đó tạo connect tới RabbitMQ server, ở đây mình xài mặc định bằng việc kết nối với <a href="127.0.0.1:5672">127.0.0.1:5672</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># create connection</span>
+co <span style="color:#f92672">=</span> <span style="color:#66d9ef">Bunny</span><span style="color:#f92672">.</span>new
+co<span style="color:#f92672">.</span>start
+</code></pre></div><p>Và tạo một channel</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># create queue</span>
+ch <span style="color:#f92672">=</span> co<span style="color:#f92672">.</span>create_channel
+</code></pre></div><p>Để có thể gửi, ta sẽ cần khai báo một queue và sau đó publish message vào queue</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">q <span style="color:#f92672">=</span> ch<span style="color:#f92672">.</span>queue(<span style="color:#e6db74">&#39;hello&#39;</span>)
 
-require 'bunny'
-</code></pre>
+msg <span style="color:#f92672">=</span> <span style="color:#66d9ef">ARGV</span><span style="color:#f92672">.</span>empty? ? <span style="color:#e6db74">&#39;Hello World!&#39;</span> : <span style="color:#66d9ef">ARGV</span><span style="color:#f92672">.</span>join(<span style="color:#e6db74">&#39; &#39;</span>)
+q<span style="color:#f92672">.</span>publish(msg, <span style="color:#e6db74">persistent</span>: <span style="color:#66d9ef">true</span>)
 
-<p>Sau đó tạo connect tới RabbitMQ server, ở đây mình xài mặc định bằng việc kết nối với <a href="127.0.0.1:5672">127.0.0.1:5672</a></p>
-
-<pre><code># create connection
-co = Bunny.new
-co.start
-</code></pre>
-
-<p>Và tạo một channel</p>
-
-<pre><code># create queue
-ch = co.create_channel
-</code></pre>
-
-<p>Để có thể gửi, ta sẽ cần khai báo một queue và sau đó publish message vào queue</p>
-
-<pre><code>q = ch.queue('hello')
-
-msg = ARGV.empty? ? 'Hello World!' : ARGV.join(' ')
-q.publish(msg, persistent: true)
-
-puts&quot; [x] Sent #{msg}&quot;
-</code></pre>
-
-<p>Bình thường ta sẽ cần queue các task cần xử lý tốn thời gian như resize image hoặc render pdf, nhưng ở đây để đơn giản ta sẽ dùng method <code>Kernel#sleep</code> để fake busy task. Thời gian sleep sẽ phụ thuộc vào số dấu chấm <code>.</code> của message truyền vào. Ví dụ nếu truyền vào <code>Hello...</code> nghĩa là sẽ sleep 3 giây (giả sử là mất 3 giây để xử lý).</p>
-
+puts<span style="color:#e6db74">&#34; [x] Sent </span><span style="color:#e6db74">#{</span>msg<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</code></pre></div><p>Bình thường ta sẽ cần queue các task cần xử lý tốn thời gian như resize image hoặc render pdf, nhưng ở đây để đơn giản ta sẽ dùng method <code>Kernel#sleep</code> để fake busy task. Thời gian sleep sẽ phụ thuộc vào số dấu chấm <code>.</code> của message truyền vào. Ví dụ nếu truyền vào <code>Hello...</code> nghĩa là sẽ sleep 3 giây (giả sử là mất 3 giây để xử lý).</p>
 <p>Cuối cùng ta có <code>sender.rb</code> như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e">#!/usr/bin/env ruby</span>
 
-<pre><code>#!/usr/bin/env ruby
+require <span style="color:#e6db74">&#39;bunny&#39;</span>
 
-require 'bunny'
+<span style="color:#75715e"># create connection</span>
+co <span style="color:#f92672">=</span> <span style="color:#66d9ef">Bunny</span><span style="color:#f92672">.</span>new
+co<span style="color:#f92672">.</span>start
 
-# create connection
-co = Bunny.new
-co.start
+<span style="color:#75715e"># create queue</span>
+ch <span style="color:#f92672">=</span> co<span style="color:#f92672">.</span>create_channel
+q <span style="color:#f92672">=</span> ch<span style="color:#f92672">.</span>queue(<span style="color:#e6db74">&#39;hello&#39;</span>)
 
-# create queue
-ch = co.create_channel
-q = ch.queue('hello')
+msg <span style="color:#f92672">=</span> <span style="color:#66d9ef">ARGV</span><span style="color:#f92672">.</span>empty? ? <span style="color:#e6db74">&#39;Hello World!&#39;</span> : <span style="color:#66d9ef">ARGV</span><span style="color:#f92672">.</span>join(<span style="color:#e6db74">&#39; &#39;</span>)
+q<span style="color:#f92672">.</span>publish(msg, <span style="color:#e6db74">persistent</span>: <span style="color:#66d9ef">true</span>)
 
-msg = ARGV.empty? ? 'Hello World!' : ARGV.join(' ')
-q.publish(msg, persistent: true)
-
-puts&quot; [x] Sent #{msg}&quot;
-</code></pre>
-
-<ul>
+puts<span style="color:#e6db74">&#34; [x] Sent </span><span style="color:#e6db74">#{</span>msg<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</code></pre></div><ul>
 <li>Có nhiều loại exchange, nhưng ở đây ta dùng default exchange -&gt; phần này sẽ được nói ở khúc sau.</li>
 <li>Ngoài ra khi <code>publish</code> mesasge, ta gán thêm metadata <code>persistent</code> để nói với RabbitMQ là sẽ persist message này xuống đĩa. Nhưng lưu ý là vẫn không đảm bảo 100% không mất message, lý do là RabbitMQ vẫn cần một khoảng thời gian nhỏ để chấp nhận message và có thể chưa lưu kịp xuống đĩa do RabbitMQ không sử dụng <code>fsync(2)</code> với mọi message. Cơ chế persistent này không đủ mạnh nhưng đủ cho các task queue đơn giản.</li>
 </ul>
-
 <h2 id="2-worker">2. Worker</h2>
-
 <p>Tương tự với producer, ta sẽ mở connect và channel và khai báo một queue để sử dụng, queue phải giống với producer ở phía trên. Lí do cần khai báo queue là có thể consumer sẽ start trước producer và ta cần đảm bảo là queue đã tồn tại trước khi consumer bắt đầu pop message.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e">#!/usr/bin/env ruby</span>
 
-<pre><code>#!/usr/bin/env ruby
+require <span style="color:#e6db74">&#39;bunny&#39;</span>
 
-require 'bunny'
+co <span style="color:#f92672">=</span> <span style="color:#66d9ef">Bunny</span><span style="color:#f92672">.</span>new
+co<span style="color:#f92672">.</span>start
 
-co = Bunny.new
-co.start
+ch <span style="color:#f92672">=</span> co<span style="color:#f92672">.</span>create_channel
+q <span style="color:#f92672">=</span> ch<span style="color:#f92672">.</span>queue(<span style="color:#e6db74">&#39;hello&#39;</span>)
 
-ch = co.create_channel
-q = ch.queue('hello')
-
-begin
-  puts ' [*] Waiting for messages. To exit press CTRL+C'
-  q.subscribe(block: true) do |_delivery_info, _properties, body|
-    wait = body.count('.').to_i
+<span style="color:#66d9ef">begin</span>
+  puts <span style="color:#e6db74">&#39; [*] Waiting for messages. To exit press CTRL+C&#39;</span>
+  q<span style="color:#f92672">.</span>subscribe(<span style="color:#e6db74">block</span>: <span style="color:#66d9ef">true</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>_delivery_info, _properties, body<span style="color:#f92672">|</span>
+    wait <span style="color:#f92672">=</span> body<span style="color:#f92672">.</span>count(<span style="color:#e6db74">&#39;.&#39;</span>)<span style="color:#f92672">.</span>to_i
     sleep wait
-    puts &quot; [x] Receive #{body} after #{wait} seconds&quot;
-  end
-rescue Interrupt =&gt; _
-  co.close
-  exit(0)
-end
-</code></pre>
-
-<p>Ở đây ta sẽ dùng <code>block:true</code>, nó tương tự như ở bài trước mình nói về blocking-queue, để trong trường hợp queue rỗng thread sẽ bị block và không trả về con trỏ trên terminal.</p>
-
+    puts <span style="color:#e6db74">&#34; [x] Receive </span><span style="color:#e6db74">#{</span>body<span style="color:#e6db74">}</span><span style="color:#e6db74"> after </span><span style="color:#e6db74">#{</span>wait<span style="color:#e6db74">}</span><span style="color:#e6db74"> seconds&#34;</span>
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">rescue</span> <span style="color:#66d9ef">Interrupt</span> <span style="color:#f92672">=&gt;</span> _
+  co<span style="color:#f92672">.</span>close
+  exit(<span style="color:#ae81ff">0</span>)
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p>Ở đây ta sẽ dùng <code>block:true</code>, nó tương tự như ở bài trước mình nói về blocking-queue, để trong trường hợp queue rỗng thread sẽ bị block và không trả về con trỏ trên terminal.</p>
 <p>Một lợi điểm của task-queue đó là ta có thể start nhiều <code>worker.rb</code> để scale, RabbitMQ sẽ gửi tuần tự round-robin message tới từng worker.</p>
-
 <p>Tuy nhiên, một task được xử lý bởi worker có thể mất một khoảng thời gian khá dài. Chuyện gì xảy ra nếu một worker bị crash giữa chừng trong khi xử lý message. Với đoạn code trên, sau khi RabbitMQ gửi message tới worker, nó sẽ ngay lập tức gán nhán cho message đó là delete và nếu worker crash thì ta mất hết số message chưa kịp xử lý.</p>
-
 <p>RabbitMQ hỗ trợ một cơ chế gọi là <em>message acknowledgment</em>, một tín hiệu <code>ack</code> sẽ được gửi ngược lại RabbitMQ từ consumer để thông báo là message đã được nhận, được xử lý và RabbitMQ có thể xóa nó đi.</p>
-
 <p>Nếu consumer chết (channel bị close, connection bị close hoặc TCP connection rớt kết nối), RabbitMQ sẽ hiểu là message chưa được xử lý thành công và nó sẽ requeue lại message đó, một consumer khác có thể pop message đó ra và xử lý bình thường.</p>
-
 <p>Ta sẽ cần sửa lại phần subcribe phía trên với <code>manual_ack</code>:</p>
-
-<pre><code>q.subscribe(manunal_ack: true,  block: true) do |_delivery_info, _properties, body|
-  wait = body.count('.').to_i
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">q<span style="color:#f92672">.</span>subscribe(<span style="color:#e6db74">manunal_ack</span>: <span style="color:#66d9ef">true</span>,  <span style="color:#e6db74">block</span>: <span style="color:#66d9ef">true</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>_delivery_info, _properties, body<span style="color:#f92672">|</span>
+  wait <span style="color:#f92672">=</span> body<span style="color:#f92672">.</span>count(<span style="color:#e6db74">&#39;.&#39;</span>)<span style="color:#f92672">.</span>to_i
   sleep wait
-  puts &quot; [x] Receive #{body} after #{wait} seconds&quot;
-  ch.ack(delivery_info.delivery_tag)
-end
-</code></pre>
-
-<p>Ta đã giải quyết được vấn đề là nếu consumer bị crash mà task cần xử lý vẫn không bị mất. Nhưng task vẫn sẽ bị mất nếu RabbitMQ bị crash. Ta cần giải quyết tiếp 2 vấn đề đó là:</p>
-
+  puts <span style="color:#e6db74">&#34; [x] Receive </span><span style="color:#e6db74">#{</span>body<span style="color:#e6db74">}</span><span style="color:#e6db74"> after </span><span style="color:#e6db74">#{</span>wait<span style="color:#e6db74">}</span><span style="color:#e6db74"> seconds&#34;</span>
+  ch<span style="color:#f92672">.</span>ack(delivery_info<span style="color:#f92672">.</span>delivery_tag)
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p>Ta đã giải quyết được vấn đề là nếu consumer bị crash mà task cần xử lý vẫn không bị mất. Nhưng task vẫn sẽ bị mất nếu RabbitMQ bị crash. Ta cần giải quyết tiếp 2 vấn đề đó là:</p>
 <ul>
 <li>Queue phải durable.</li>
 <li>Message cũng phải durable.</li>
 </ul>
-
 <p>Với queue, ở mỗi đầu producer và consumer cần khai báo <code>channel.queue('hello', durable: true)</code>.</p>
-
 <p>Còn với message, như ở trên <code>sender.rb</code> ta sẽ dùng thuộc tính <code>persistent</code> để đảm bảo một phần là message sẽ được lưu xuống đĩa.</p>
-
 <p>Một vấn đề tiếp theo đối với việc xử lý round-robin trong worker đó là các worker có thể sẽ không hoạt động đồng đều. Ví dụ ta có những task với số thứ tự lẻ là các heavy task cần nhiều thời gian xử lý và các task với số thứ tự chẵn là các task nhẹ nhàng hơn. Vấn đề là sẽ có worker xui xẻo nhận toàn các heavy task và lúc nào cũng busy, nhưng sẽ có những worker lại rất nhàn dỗi. Lí do là RabbitMQ không biết được số lượng <em>unacknowledged messages</em> của consumer nên nó cứ gửi message tuần tự tới consumer.</p>
-
 <p>Để giải quyết vấn đề này, ta sẽ dùng method <code>prefetch(1)</code> để nói với RabbitMQ rằng không gửi hơn 1 message tới worker tại một thời điểm, hoặc không gửi message cho tới khi worker gửi lại tín hiệu ACK đã hoàn thành message trước đó. Thay vào đó RabbitMQ sẽ kiếm các worker nào đang nhàn rỗi và gửi message tới nó.</p>
-
 <p>Cuối cùng <code>sender.rb</code> sẽ như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e">#!/usr/bin/env ruby</span>
 
-<pre><code>#!/usr/bin/env ruby
+require <span style="color:#e6db74">&#39;bunny&#39;</span>
 
-require 'bunny'
+<span style="color:#75715e"># create connection</span>
+co <span style="color:#f92672">=</span> <span style="color:#66d9ef">Bunny</span><span style="color:#f92672">.</span>new
+co<span style="color:#f92672">.</span>start
 
-# create connection
-co = Bunny.new
-co.start
+<span style="color:#75715e"># create queue</span>
+ch <span style="color:#f92672">=</span> co<span style="color:#f92672">.</span>create_channel
+q <span style="color:#f92672">=</span> ch<span style="color:#f92672">.</span>queue(<span style="color:#e6db74">&#39;hello&#39;</span>, <span style="color:#e6db74">durable</span>: <span style="color:#66d9ef">true</span>)
 
-# create queue
-ch = co.create_channel
-q = ch.queue('hello', durable: true)
+msg <span style="color:#f92672">=</span> <span style="color:#66d9ef">ARGV</span><span style="color:#f92672">.</span>empty? ? <span style="color:#e6db74">&#39;Hello World!&#39;</span> : <span style="color:#66d9ef">ARGV</span><span style="color:#f92672">.</span>join(<span style="color:#e6db74">&#39; &#39;</span>)
+q<span style="color:#f92672">.</span>publish(msg, <span style="color:#e6db74">persistent</span>: <span style="color:#66d9ef">true</span>)
 
-msg = ARGV.empty? ? 'Hello World!' : ARGV.join(' ')
-q.publish(msg, persistent: true)
+puts<span style="color:#e6db74">&#34; [x] Sent </span><span style="color:#e6db74">#{</span>msg<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
 
-puts&quot; [x] Sent #{msg}&quot;
+co<span style="color:#f92672">.</span>close
+</code></pre></div><p>Và <code>worker.rb</code> sẽ như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e">#!/usr/bin/env ruby</span>
 
-co.close
-</code></pre>
+require <span style="color:#e6db74">&#39;bunny&#39;</span>
 
-<p>Và <code>worker.rb</code> sẽ như sau:</p>
+co <span style="color:#f92672">=</span> <span style="color:#66d9ef">Bunny</span><span style="color:#f92672">.</span>new
+co<span style="color:#f92672">.</span>start
 
-<pre><code>#!/usr/bin/env ruby
+ch <span style="color:#f92672">=</span> co<span style="color:#f92672">.</span>create_channel
+q <span style="color:#f92672">=</span> ch<span style="color:#f92672">.</span>queue(<span style="color:#e6db74">&#39;hello&#39;</span>, <span style="color:#e6db74">durable</span>: <span style="color:#66d9ef">true</span>)
 
-require 'bunny'
+ch<span style="color:#f92672">.</span>prefetch(<span style="color:#ae81ff">1</span>)
+puts <span style="color:#e6db74">&#39; [*] Waiting for messages. To exit press CTRL+C&#39;</span>
 
-co = Bunny.new
-co.start
-
-ch = co.create_channel
-q = ch.queue('hello', durable: true)
-
-ch.prefetch(1)
-puts ' [*] Waiting for messages. To exit press CTRL+C'
-
-begin
-  q.subscribe(manual_ack: true, block: true) do |_delivery_info, _properties, body|
-    wait = body.count('.').to_i
+<span style="color:#66d9ef">begin</span>
+  q<span style="color:#f92672">.</span>subscribe(<span style="color:#e6db74">manual_ack</span>: <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">block</span>: <span style="color:#66d9ef">true</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>_delivery_info, _properties, body<span style="color:#f92672">|</span>
+    wait <span style="color:#f92672">=</span> body<span style="color:#f92672">.</span>count(<span style="color:#e6db74">&#39;.&#39;</span>)<span style="color:#f92672">.</span>to_i
     sleep wait
-    puts &quot; [x] Receive #{body} after #{wait} seconds&quot;
-    ch.ack(_delivery_info.delivery_tag)
-  end
-rescue Interrupt =&gt; _
-  co.close
-  exit(0)
-end
-</code></pre>
-
-<h2 id="3-sneakers">3. Sneakers</h2>
-
+    puts <span style="color:#e6db74">&#34; [x] Receive </span><span style="color:#e6db74">#{</span>body<span style="color:#e6db74">}</span><span style="color:#e6db74"> after </span><span style="color:#e6db74">#{</span>wait<span style="color:#e6db74">}</span><span style="color:#e6db74"> seconds&#34;</span>
+    ch<span style="color:#f92672">.</span>ack(_delivery_info<span style="color:#f92672">.</span>delivery_tag)
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">rescue</span> <span style="color:#66d9ef">Interrupt</span> <span style="color:#f92672">=&gt;</span> _
+  co<span style="color:#f92672">.</span>close
+  exit(<span style="color:#ae81ff">0</span>)
+<span style="color:#66d9ef">end</span>
+</code></pre></div><h2 id="3-sneakers">3. Sneakers</h2>
 <p>Một người bạn giới thiệu cho mình về <a href="https://github.com/jondot/sneakers">sneakers</a> mình có đọc qua một xíu thì thấy bản chất cũng không khác gì cách sidekiq implement như ở bài trước mình có nói ngoại trừ việc dùng RabbitMQ làm queue. Thực ra cuối cùng để đảm bảo tính tin cậy thì vẫn phải cover đủ 3 layer dù có dùng cái gì đi chăng nữa:</p>
-
 <ul>
 <li>Client để enqueue và queue phải đảm bảo handle việc network fail bằng 1 giải pháp như local queue như ở bài trước mình trao đổi.</li>
 <li>Phải đảm bảo queue RabbitMQ phải luôn sống, với RabbitMQ thì mô hình HA có cluster tuy nhiên như ở phía trên thì việc <code>persistent</code> của rabbitmq vẫn không đảm bảo 100% không mất message =&gt; nói chung mình thấy redis cũng vậy nhưng redis thì đơn giản, dễ hiểu hơn.</li>
 <li>Worker sneakers để đảm bảo tính tin cậy có thể dùng <code>ack</code> như trong ví dụ phía trên, bản chất cũng tương tự cách dùng redis với <code>rpoplpush</code> để implement reliable queue =&gt; tuy nhiên là sidekiq tính phí phần này.</li>
 </ul>
-
 <p>Một số lý do khác khiến tác giả viết sneakers thay vì dùng sidekiq như vấn đề về performance (xử lý đc 1000 req/s với ack + persisted so với 600 req/s của sidekiq), support all core thì tùy nhiều yếu tố để đánh đổi.</p>
-
 <h2 id="4-exchange-type">4. Exchange type</h2>
-
 <p>Nói thêm một chút xíu là message khi được gửi từ <code>sender.rb</code> hay producer sẽ không được gửi trực tiếp vào queue giống các message broker khác, thay vào đó nó sẽ được gửi tới <strong>exchange</strong> trước, sau đó sẽ được route tới queue tương ứng =&gt; routing chính là một trong các ưu điểm của RabbitMQ với các mesage broker khác. Hoạt động như hình phía dưới sau:</p>
-
-<p><img src="https://github.com/ruby-amqp/amqp/raw/master/docs/diagrams/001_hello_world_example_routing.png" alt="routing" /></p>
-
+<p><img src="https://github.com/ruby-amqp/amqp/raw/master/docs/diagrams/001_hello_world_example_routing.png" alt="routing"></p>
 <p>Trong RabbitMQ cũng có nhiều loại exchange khác nhau như:</p>
-
 <ul>
 <li>Direct</li>
 <li>Fanout</li>
 <li>Topic</li>
 <li>Headers</li>
 </ul>
-
 <p>Ở đây mình sẽ giải thích ngắn gọn và một số use-case của từng loại exchange. Chi tiết có thể đọc thêm trong document của RabbitMQ.</p>
-
-<h3 id="4-1-fanout-exchange">4.1 Fanout Exchange</h3>
-
+<h3 id="41-fanout-exchange">4.1 Fanout Exchange</h3>
 <p>Fanout exchange sẽ routing message tới tất cả các queue liên quan, nếu có N queue liên quan tới fanout exchange thì khi một message được publish vào exchange sẽ có N bản copy của message được gửi tới tất cả N queue, ý tưởng là một dạng <strong>broadcast routing</strong>.</p>
-
-<p><img src="https://github.com/ruby-amqp/amqp/raw/master/docs/diagrams/004_fanout_exchange.png" alt="fanout-exchange" /></p>
-
+<p><img src="https://github.com/ruby-amqp/amqp/raw/master/docs/diagrams/004_fanout_exchange.png" alt="fanout-exchange"></p>
 <p>Fanout Exchange sẽ phù hợp với các bài toán dạng broadcast như các trang sport-news muốn distributing score update tới tất cả các client near-realtime (nghe có vẻ giống cách mà ForzaFootball đang làm) hoặc các ứng dụng chat nhóm cần distrubute message tới những người trong nhóm.</p>
-
-<h3 id="4-2-direct-exchange">4.2 Direct Exchange</h3>
-
+<h3 id="42-direct-exchange">4.2 Direct Exchange</h3>
 <p>Direct exchange là loại exchange sẽ gửi message tới các queue dựa trên message routing key, ví dụ message dạng <code>image.resize</code> sẽ được gửi tới queue <code>resize</code>, message dạng <code>pdf.render</code> sẽ được gửi tới <code>render</code>.</p>
-
-<p><img src="https://github.com/ruby-amqp/amqp/raw/master/docs/diagrams/005_direct_exchange.png" alt="direct-exchange" /></p>
-
+<p><img src="https://github.com/ruby-amqp/amqp/raw/master/docs/diagrams/005_direct_exchange.png" alt="direct-exchange"></p>
 <p>Direct exchange thường được dùng để distribute tasks giữa nhiều worker theo thuật toán round-robin.</p>
-
 <p><strong>Default exchange</strong> là direct exchange mà không có tên (nameless), đây là một trường hợp đặc biệt, message sẽ được gửi tới một queue có tên bằng routing-key của message. Có bao nhiêu message thì sẽ có bấy nhiêu queue và các queue này sẽ tự động liên kết với default-exchange với routing key trùng với queue-name.</p>
-
 <p>Ở ví dụ trên ta sử dụng chính là <strong>default exchange</strong>.</p>
-
 <p>Ví dụ với <code>sender.rb</code> như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e">#!/usr/bin/env ruby</span>
 
-<pre><code>#!/usr/bin/env ruby
+require <span style="color:#e6db74">&#39;bunny&#39;</span>
 
-require 'bunny'
+<span style="color:#75715e"># create connection</span>
+co <span style="color:#f92672">=</span> <span style="color:#66d9ef">Bunny</span><span style="color:#f92672">.</span>new
+co<span style="color:#f92672">.</span>start
 
-# create connection
-co = Bunny.new
-co.start
+<span style="color:#75715e"># create queue</span>
+ch <span style="color:#f92672">=</span> co<span style="color:#f92672">.</span>create_channel
+q <span style="color:#f92672">=</span> ch<span style="color:#f92672">.</span>queue()
 
-# create queue
-ch = co.create_channel
-q = ch.queue()
+msg <span style="color:#f92672">=</span> <span style="color:#66d9ef">ARGV</span><span style="color:#f92672">.</span>empty? ? <span style="color:#e6db74">&#39;Hello World!&#39;</span> : <span style="color:#66d9ef">ARGV</span><span style="color:#f92672">.</span>join(<span style="color:#e6db74">&#39; &#39;</span>)
+ch<span style="color:#f92672">.</span>default_exchange<span style="color:#f92672">.</span>publish(msg, <span style="color:#e6db74">routing_key</span>: q<span style="color:#f92672">.</span>name)
 
-msg = ARGV.empty? ? 'Hello World!' : ARGV.join(' ')
-ch.default_exchange.publish(msg, routing_key: q.name)
-
-puts&quot; [x] Sent #{msg}&quot;
-</code></pre>
-
-<p>Ta sẽ gửi vài message khác nhau vào RabbitMQ:</p>
-
-<pre><code>&gt; ruby sender.rb 'vn'
- [x] Sent vn
-&gt; ruby sender.rb 'korea'
- [x] Sent korea
-&gt; ruby sender.rb 'jp'
- [x] Sent jp 
-</code></pre>
-
-<p>Sau đó list queue trên như sau:</p>
-
-<pre><code>&gt; rabbitmqadmin list queues
+puts<span style="color:#e6db74">&#34; [x] Sent </span><span style="color:#e6db74">#{</span>msg<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</code></pre></div><p>Ta sẽ gửi vài message khác nhau vào RabbitMQ:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; ruby sender.rb <span style="color:#e6db74">&#39;vn&#39;</span>
+ <span style="color:#f92672">[</span>x<span style="color:#f92672">]</span> Sent vn
+&gt; ruby sender.rb <span style="color:#e6db74">&#39;korea&#39;</span>
+ <span style="color:#f92672">[</span>x<span style="color:#f92672">]</span> Sent korea
+&gt; ruby sender.rb <span style="color:#e6db74">&#39;jp&#39;</span>
+ <span style="color:#f92672">[</span>x<span style="color:#f92672">]</span> Sent jp 
+</code></pre></div><p>Sau đó list queue trên như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; rabbitmqadmin list queues
 +--------------------------------+----------+
 |              name              | messages |
 +--------------------------------+----------+
-| amq.gen-0qxI0SWMYMULK1fsxg--vQ | 1        |
-| amq.gen-7VOVANd-tWcsp9wHuneYOg | 1        |
-| amq.gen-hkQSAn_21ppeOjHONtTAmA | 1        |
+| amq.gen-0qxI0SWMYMULK1fsxg--vQ | <span style="color:#ae81ff">1</span>        |
+| amq.gen-7VOVANd-tWcsp9wHuneYOg | <span style="color:#ae81ff">1</span>        |
+| amq.gen-hkQSAn_21ppeOjHONtTAmA | <span style="color:#ae81ff">1</span>        |
 +--------------------------------+----------+
-</code></pre>
-
-<h3 id="4-3-topic-exchange">4.3 Topic Exchange</h3>
-
+</code></pre></div><h3 id="43-topic-exchange">4.3 Topic Exchange</h3>
 <p>Topic exchange sẽ route messate tới một hoặc nhiều queue dựa trên việc matching giữa message routing key và một pattern nào đó được liên kết với queue.</p>
-
 <p>Một ví dụ đó là việc routing tới các geographic location cụ thể nào đó. Ví dụ với routing key là <code>americas.south.#&quot;</code> message sẽ được gửi tới các queue như:</p>
-
 <ul>
 <li>americas.south</li>
 <li>americas.south.brazil</li>
 <li>americas.south.brazil.saopaolo</li>
 <li>americas.south.chile.santiago</li>
 </ul>
-
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Multicast.svg/500px-Multicast.svg.png" alt="topic-exchange" /></p>
-
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Multicast.svg/500px-Multicast.svg.png" alt="topic-exchange"></p>
 <h2 id="5-ref">5. Ref</h2>
-
 <ul>
 <li><a href="https://www.rabbitmq.com/tutorials/tutorial-two-ruby.html">https://www.rabbitmq.com/tutorials/tutorial-two-ruby.html</a></li>
 <li><a href="http://rubybunny.info/articles/exchanges.html">http://rubybunny.info/articles/exchanges.html</a></li>
 <li><a href="https://www.rabbitmq.com/tutorials/amqp-concepts.html">https://www.rabbitmq.com/tutorials/amqp-concepts.html</a></li>
 </ul>
 
-</main>
-<section>
-  <hr>
-<script src="https://utteranc.es/client.js"
-        repo="xluffy/xluffy.github.io"
-        issue-term="url"
-        label="comments"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</section>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h"
+              >...</span
+            >
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://xluffy.github.io/post/alb-vs-nginx/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">ALB vs nginx</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://xluffy.github.io/post/sidekiq-how-to-reliability/">
+                  <span class="button__text">Sidekiq, how to reliability?</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
 
-    <footer>
+    
       
-<script>
-(function() {
-  function center_el(tagName) {
-    var tags = document.getElementsByTagName(tagName), i, tag;
-    for (i = 0; i < tags.length; i++) {
-      tag = tags[i];
-      var parent = tag.parentElement;
-      
-      if (parent.childNodes.length === 1) {
         
-        if (parent.nodeName === 'A') {
-          parent = parent.parentElement;
-          if (parent.childNodes.length != 1) continue;
-        }
-        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
-      }
-    }
-  }
-  var tagNames = ['img', 'embed', 'object'];
-  for (var i = 0; i < tagNames.length; i++) {
-    center_el(tagNames[i]);
-  }
-})();
-</script>
 
       
-      <hr/>
-      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+    
+  </div>
+
+      </div>
+
       
-      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
-    </footer>
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">hàng nhà trồng theo giấy phép CC BY-NC 4.0</div>
+      
+  </div>
+</footer>
+
+<script src="https://xluffy.github.io/assets/main.js"></script>
+<script src="https://xluffy.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
   </body>
 </html>
-

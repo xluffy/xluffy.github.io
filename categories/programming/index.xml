@@ -1,11 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>programming on xluffy&#39;s page</title>
+    <title>programming on /dev/clgt</title>
+    
+    
+    
     <link>https://xluffy.github.io/categories/programming/</link>
-    <description>Recent content in programming on xluffy&#39;s page</description>
+    <description>Recent content in programming on /dev/clgt</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <copyright>hàng nhà trồng theo giấy phép CC BY-NC 4.0</copyright>
     <lastBuildDate>Fri, 06 Jul 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/categories/programming/index.xml" rel="self" type="application/rss+xml" />
@@ -17,8 +21,18 @@
       <pubDate>Fri, 06 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/noted-c&#43;&#43;/</guid>
-      <description>Tại sao hôm nay có bài này?
-Mình chẳng bao giờ code C, C++ nên chẳng bao giờ nhớ được các khái niệm về con trỏ. Nên mình không thích con trỏ tí nào cả. Nhưng khổ cái này trong một số trường hợp mình lại vẫn muốn hiểu nó, mà do không làm việc với C, C++ (và sau này có Golang) nên mình lại rất hay &amp;ldquo;quên&amp;rdquo;. Nên tổng hợp lại để khi nào quên thì vô đọc lại.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Tại sao hôm nay có bài này?
+          
+        
+        </description>
     </item>
     
   </channel>

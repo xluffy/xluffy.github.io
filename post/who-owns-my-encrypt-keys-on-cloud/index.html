@@ -1,222 +1,297 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Who owns my encrypt keys on cloud? | xluffy&#39;s page</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
     
-    <header>
+      <title>
+        Who owns my encrypt keys on cloud? ::
+        /dev/clgt
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="Gần đây phải đọc lại về các dịch vụ mã hoá này, mình chợt nhận ra trong bài này có vài điểm chưa chính xác về cách hoạt động và tính năng."
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://xluffy.github.io/post/who-owns-my-encrypt-keys-on-cloud/" />
 
+
+
+
+
+<link rel="stylesheet" href="https://xluffy.github.io/assets/style.css" />
+
+<link rel="stylesheet" href="https://xluffy.github.io/style.css" />
+
+
+<link
+  rel="apple-touch-icon-precomposed"
+  sizes="144x144"
+  href="https://xluffy.github.io/img/apple-touch-icon-144-precomposed.png"
+/>
+<link rel="shortcut icon" href="https://xluffy.github.io/img/favicon.png" />
+
+
+<link href="https://xluffy.github.io/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Who owns my encrypt keys on cloud?"/>
+<meta name="twitter:description" content="Gần đây phải đọc lại về các dịch vụ mã hoá này, mình chợt nhận ra trong bài này có vài điểm chưa chính xác về cách hoạt động và tính năng."/>
+
+
+
+<meta property="og:title" content="Who owns my encrypt keys on cloud?" />
+<meta property="og:description" content="Gần đây phải đọc lại về các dịch vụ mã hoá này, mình chợt nhận ra trong bài này có vài điểm chưa chính xác về cách hoạt động và tính năng." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xluffy.github.io/post/who-owns-my-encrypt-keys-on-cloud/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-02-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-02-26T00:00:00+00:00" /><meta property="og:site_name" content="/dev/clgt" />
+
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <nav>
-    <ul>
-      
-      
-      <li class="pull-left ">
-        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/categories/">~/categories</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="https://github.com/xluffy/til/issues">~/til</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/about">~/about</a>
-      </li>
-      
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
+</svg>
+</span>
+    <span class="logo__text"
+      >/dev/clgt</span
+    >
+    <span class="logo__cursor"></span>
+  
+</a>
 
+    <span class="header__right">
       
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
       
-      <li class="pull-right">
-        <a href="/index.xml">~/subscribe</a>
-      </li>
+        
+          <li><a href="/about">about</a></li>
+        
       
+        
+          <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+        
+      
+    
+  </ul>
 
-    </ul>
-  </nav>
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about</a></li>
+      
+    
+      
+        <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg
+  class="theme-toggler"
+  width="24"
+  height="24"
+  viewBox="0 0 48 48"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+
+      </span>
+    </span>
+  </span>
 </header>
 
-    
-    
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">Who owns my encrypt keys on cloud?</h1>
+    <div class="post-meta">
       
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-K4LWNXV');</script>
+        <span class="post-date">
+          2019-02-26
+        </span>
+
+        
+          
+        
       
-    
-  </head>
 
-  <body>
-    
       
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4LWNXV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
       
+    </div>
+
     
-    <br/>
 
-<div class="article-meta">
-<h1><span class="title">Who owns my encrypt keys on cloud?</span></h1>
+    
 
-<h2 class="date">2019/02/26</h2>
-<p class="terms">
-  
-  
-  Categories: <a href="/categories/security">security</a> <a href="/categories/aws">aws</a> 
-  
-  
-  
-  
-</p>
-</div>
-
-
-
-<main>
-<blockquote>
-<p>Gần đây phải đọc lại về các dịch vụ mã hoá này, mình chợt nhận ra trong bài này có vài điểm chưa chính xác về cách hoạt động và tính năng. Cụ thể hơn có thể đọc bài [](), tuy nhiên về cơ bản ý tưởng &ldquo;Ai là người sở hữu?&rdquo; cũng như &ldquo;Mô hình chia sẻ trách nhiệm&rdquo; vẫn có ý nghĩa.</p>
+    <div class="post-content">
+      
+      <blockquote>
+<p>Gần đây phải đọc lại về các dịch vụ mã hoá này, mình chợt nhận ra trong bài này có vài điểm chưa chính xác về cách hoạt động và tính năng. Cụ thể hơn có thể đọc bài <a href=""></a>, tuy nhiên về cơ bản ý tưởng &ldquo;Ai là người sở hữu?&rdquo; cũng như &ldquo;Mô hình chia sẻ trách nhiệm&rdquo; vẫn có ý nghĩa.</p>
 </blockquote>
-
 <p>Một trong những câu hỏi thường gặp khi nói về mã hóa trên các dịch vụ cloud như AWS đó là:</p>
-
 <ul>
 <li><strong>Ai là người sở hữu encrypt key trên AWS?</strong></li>
 <li><strong>AWS có thể truy cập vào encrypt key của tôi hay không?</strong></li>
 </ul>
-
 <p>Đây là một câu hỏi <strong>cực kỳ quan trọng</strong> mà các tổ chức lớn muốn dịch chuyển hệ thống của mình từ on-premise lên Cloud đặt ra và cần câu trả lời.</p>
-
 <p>Các tổ chức chính phủ hoặc các công ty làm về mảng thanh toán khá là e ngại khi phải đặt hệ thống của mình trong tay người khác vì họ không tin tưởng dữ liệu của họ an toàn, chính vì thế họ thường tự xây dựng hạ tầng. Tuy nhiên việc tự xây dựng hạ tầng lại gặp nhiều hạn chế khác về thời gian từ khi purchase server tới lúc server có thể phục vụ user -&gt; việc scaling chậm chạp.</p>
-
 <p>Trả lời được câu hỏi này, ta sẽ giải đáp được câu hỏi liệu các nhà cung cấp dịch vụ cloud có thể truy cập các dữ liệu đã mã hóa của tổ chức trên hạ tầng cloud hay không?</p>
-
 <p>AWS cung cấp 2 dịch vụ để quản lý encrypt key đó là:</p>
-
 <ul>
 <li>AWS Cloud HSM</li>
 <li>AWS Key Management Service (KMS)</li>
 </ul>
-
 <p>Để trả lời cho câu hỏi ai sở hữu encrypt-key trên AWS, nó tùy thuộc vào dịch vụ mà bạn sử dụng.</p>
-
 <p>Giải thích chút xíu về <strong>HSM</strong> (physical hardware security module)<a href="http://antoanthongtin.vn/Detail.aspx?CatID=e53f32e5-eec0-40c0-9cd9-e4c88a27161e&amp;NewsID=be1076b2-ee64-4852-a65f-cc4841c6da00">[1]</a>:</p>
-
 <ul>
 <li>Là thiết bị phần cứng được thiết kế đặc biệt chuyên dụng cho tính năng security.</li>
 <li>Là thiết bị có thể sinh cặp khóa bất đối xứng và bảo vệ khóa bí mật trong nó.</li>
 <li>Kháng được đầy đủ các hình thức tấn công vật lí như:
-
 <ul>
 <li>Tấn công trực tiếp đến phần cứng để đọc, dịch ngược các hàm trong chip điện tử để tìm hiểu thuật toán.</li>
 <li>Tấn công bằng dung môi hóa học, chất khắc axit, biến màu (một kỹ thuật tương tự khắc axit nhưng dựa vào sự khác nhau trong tốc độ khắc axit) nhằm bóc tách lớp vỏ đóng gói bên ngoài, làm lộ khác biệt về vật chất nhằm xác định đâu là bit 0/1 trong bộ nhớ ROM.</li>
 <li>Tấn công dùng kính hiển vi hạt điện tử quét và quang học để phân tích quang học và dịch ngược. Nhằm làm lộ ra các khu vực đang hoạt động &hellip;.</li>
 <li>Tấn công đặt trạm thử, đặt các kim dò thử vào các dây dẫn bất kỳ trên chip điện tử đã lột vỏ để tạo ra một kênh truyền mới, nhằm truyền dữ liệu ra bên ngoài. Dữ liệu trao đổi giữa CPU và các bộ nhớ có thể bị thu chặn và khôi phục đầy đủ (mã thực thi chương trình hoặc dữ liệu chương trình, bao gồm cả khóa bí mật).</li>
 <li>Tấn công sử dụng chùm hạt ion tập trung để bắn các hạt ion nhằm thực hiện các thay đổi trong vi mạch. Các ngắt mạch của các vi mạch có thể được nối lại hay các tín hiệu ngầm bên trong có thể được truyền ra các dây dẫn bên ngoài.</li>
-</ul></li>
+</ul>
+</li>
 <li>Tuân theo các tiêu chuẩn nghiêm ngặt như FIPS 140-2.</li>
 </ul>
-
 <p>=&gt; Tóm lại thì HSM có thể nghĩ nó tương tự như một USB chứa key, nhưng chống được các tấn công vật lý nhằm bảo về dữ liệu nó chứa đựng.</p>
-
 <p>Quay trở lại với dịch vụ CloudHSM của AWS, bản chất cũng là HSM bình thường nhưng được cung cấp bởi AWS. Nó được <strong>đặt ở một AWS region</strong> nhưng <strong>chỉ bạn mới có quyền truy cập vào key server</strong>. Amazon tuyên bố rõ ràng  là với dịch vụ CloudHSM thì <strong>chỉ duy nhất bạn mới có quyền truy cập key</strong>. Tất nhiên Amazon có physical access vào HSM vì nó được đặt ở DataCenter của họ, nhưng ta có thể phần nào tin vào tuyên bố của AWS.</p>
-
 <p>CloudHSM là dịch vụ cung cấp phần cứng đạt chuẩn FIPS 140-2 cấp độ 3, dễ dàng quản lí, mở rộng, tương thích với các dịch vụ khác của AWS và tương thích với các HSM trên thị trường cũng như các API tiêu chuẩn của ngành (thư viện PKCS#11, Java Cryptography Extensions (JCE) và Microsoft CryptoNG (CNG)).</p>
-
 <p>Với AWS KMS, dịch vụ quản lý key được back bởi Amazon hardware security module. Nghĩa là <strong>Amazon sẽ tạo ra một key, và key này sẽ chỉ được duy nhất bạn sử dụng</strong>, key này được bảo vệ (encrypt) bởi HSM của Amazon. Khi bạn tạo một key trên KMS, nó gọi là CMK (Customer Master Key), CMK là một cấu trúc dữ liệu gồm:</p>
-
 <ul>
 <li><del>Symmetric key.</del></li>
 <li><del>Metadata về symmetric key đó.</del></li>
 </ul>
-
 <p>Quay trở lại câu hỏi &ldquo;Ai là chủ sở hữu của CMK?&rdquo;, do CMK được bảo vệ bởi Amazon HSM nên <strong>bạn và Amazon sẽ chia sẻ quyền sở hữu key này và cả hai đều có thể có quyền access vào raw key</strong>.</p>
-
 <p>AWS KMS giới thiệu một tính năng đó là &ldquo;Bring Your Own Key&rdquo;, điều này cũng không thay đổi việc Amazon có chung quyền sở hữu key với bạn, điểm khác biệt là key sẽ được tạo ra bên ngoài hệ thống AWS, nhưng khi upload lên KMS, nó vẫn được bảo vệ bởi Amazon HSM nên Amazon chia sẻ quyền sở hữu key.</p>
-
 <p><strong>Tóm tắt lại thì:</strong></p>
-
 <ul>
 <li>với AWS CloudHSM, cung cấp dịch vụ mà encrypt-key chỉ duy nhất bạn có quyền truy cập.</li>
 <li>Với AWS KMS, cung cấp dịch vụ mà encrypt-key được truy cập bởi cả bạn và Amazon.</li>
 </ul>
-
 <p>Và nó cũng tương tự với bất cứ dịch vụ cloud nào chứ không chỉ riêng AWS.</p>
-
 <p><strong>Vậy tại sao chuyện này lại quan trọng?</strong></p>
-
 <p>Ở nhiều quốc gia, các cơ quan thực thi pháp luật và cơ quan an ninh quốc gia có thẩm quyền buộc các nhà cung cấp dịch vụ cloud phải trao đổi thông tin/dữ liệu liên quan đến khách hàng. Ở US thì điều trên là sự thật, các cơ quan thực thi pháp luật hoặc cơ quan an ninh quốc gia có thể request các dịch vụ cloud để truy cập các thông tin của khách hàng mà cấm các dịch vụ cloud được thông báo tới khách hàng. Và Amazon, theo lẽ tự nhiên phải tuân theo luật của quốc gia mà họ cung cấp dịch vụ. Điều đó nghĩa là encrypt-key của bạn trên AWS KMS có thể bị trao đổi với các cơ quan pháp luật mà bạn không biết. Bạn có thể không thích chuyện này (và hệ thống pháp luật của đất nước bạn) nhưng đó mới là thực tế.</p>
-
 <p>Từ những giải thích trên, bạn sẽ thấy việc lưu trữ an toàn trên các dịch vụ cloud thật không dễ dàng.</p>
-
 <ul>
 <li>Nếu không mã hóa (filesystem encrypt, tương tự FileVault hoặc LUKS), việc nhà cung cấp dịch vụ truy cập dữ liệu của bạn là khá dễ dàng. Chỉ có thể tin vào sự uy tín của nhà cung cấp.</li>
 <li>Nếu mã hóa, nhưng lại lưu chính chìa khóa để giải mã trên dịch vụ của nhà cung cấp đó thì cũng không khác lắm với việc không mã hóa, dù việc access-key có thể phức tạp, rắc rối hơn. Tuy nhiên nếu bị compromise ở level account hoặc toàn bộ system thì vấn đề mất dữ liệu chỉ còn là thời gian.</li>
 <li>Nếu mã hóa, nhưng lưu chìa khóa ở nơi khác thì &hellip; quy trình phức tạp, phát sinh nhiều hệ thống, quản lý kho khăn &hellip;</li>
 </ul>
-
 <p>=&gt; Tóm lại các giải pháp security nên implement ở mindset của người vận hành, phát triển hệ thống.</p>
-
 <p>Lược dịch từ bài viết <a href="https://info.townsendsecurity.com/who-owns-my-encryption-key-in-the-amazon-aws-cloud">Who owns my encryption key in the Amazon AWS cloud?</a> có bổ sung, tham khảo thêm các tài liệu trên internet.</p>
 
-</main>
-<section>
-  <hr>
-<script src="https://utteranc.es/client.js"
-        repo="xluffy/xluffy.github.io"
-        issue-term="url"
-        label="comments"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</section>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h"
+              >...</span
+            >
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://xluffy.github.io/post/vpc-architecture/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">VPC architecture</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://xluffy.github.io/post/how-to-resolve-io-issue-on-cloud/">
+                  <span class="button__text">How to resolve I/O issue on cloud</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
 
-    <footer>
+    
       
-<script>
-(function() {
-  function center_el(tagName) {
-    var tags = document.getElementsByTagName(tagName), i, tag;
-    for (i = 0; i < tags.length; i++) {
-      tag = tags[i];
-      var parent = tag.parentElement;
-      
-      if (parent.childNodes.length === 1) {
         
-        if (parent.nodeName === 'A') {
-          parent = parent.parentElement;
-          if (parent.childNodes.length != 1) continue;
-        }
-        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
-      }
-    }
-  }
-  var tagNames = ['img', 'embed', 'object'];
-  for (var i = 0; i < tagNames.length; i++) {
-    center_el(tagNames[i]);
-  }
-})();
-</script>
 
       
-      <hr/>
-      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+    
+  </div>
+
+      </div>
+
       
-      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
-    </footer>
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">hàng nhà trồng theo giấy phép CC BY-NC 4.0</div>
+      
+  </div>
+</footer>
+
+<script src="https://xluffy.github.io/assets/main.js"></script>
+<script src="https://xluffy.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
   </body>
 </html>
-

@@ -1,166 +1,254 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Delayed Replication in MySQL | xluffy&#39;s page</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
     
-    <header>
+      <title>
+        Delayed Replication in MySQL ::
+        /dev/clgt
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="Trong bài Giới thiệu về MySQL Replication mình có giới thiệu một chức năng của hệ thống Replication đó là realtime backup."
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://xluffy.github.io/post/delayed-replication-in-mysql/" />
 
+
+
+
+
+<link rel="stylesheet" href="https://xluffy.github.io/assets/style.css" />
+
+<link rel="stylesheet" href="https://xluffy.github.io/style.css" />
+
+
+<link
+  rel="apple-touch-icon-precomposed"
+  sizes="144x144"
+  href="https://xluffy.github.io/img/apple-touch-icon-144-precomposed.png"
+/>
+<link rel="shortcut icon" href="https://xluffy.github.io/img/favicon.png" />
+
+
+<link href="https://xluffy.github.io/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Delayed Replication in MySQL"/>
+<meta name="twitter:description" content="Trong bài Giới thiệu về MySQL Replication mình có giới thiệu một chức năng của hệ thống Replication đó là realtime backup."/>
+
+
+
+<meta property="og:title" content="Delayed Replication in MySQL" />
+<meta property="og:description" content="Trong bài Giới thiệu về MySQL Replication mình có giới thiệu một chức năng của hệ thống Replication đó là realtime backup." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xluffy.github.io/post/delayed-replication-in-mysql/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-04-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-04-24T00:00:00+00:00" /><meta property="og:site_name" content="/dev/clgt" />
+
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <nav>
-    <ul>
-      
-      
-      <li class="pull-left ">
-        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/categories/">~/categories</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="https://github.com/xluffy/til/issues">~/til</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/about">~/about</a>
-      </li>
-      
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
+</svg>
+</span>
+    <span class="logo__text"
+      >/dev/clgt</span
+    >
+    <span class="logo__cursor"></span>
+  
+</a>
 
+    <span class="header__right">
       
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
       
-      <li class="pull-right">
-        <a href="/index.xml">~/subscribe</a>
-      </li>
+        
+          <li><a href="/about">about</a></li>
+        
       
+        
+          <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+        
+      
+    
+  </ul>
 
-    </ul>
-  </nav>
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about</a></li>
+      
+    
+      
+        <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg
+  class="theme-toggler"
+  width="24"
+  height="24"
+  viewBox="0 0 48 48"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+
+      </span>
+    </span>
+  </span>
 </header>
 
-    
-    
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">Delayed Replication in MySQL</h1>
+    <div class="post-meta">
       
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-K4LWNXV');</script>
+        <span class="post-date">
+          2018-04-24
+        </span>
+
+        
+          
+        
       
-    
-  </head>
 
-  <body>
-    
       
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4LWNXV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
       
+    </div>
+
     
-    <br/>
 
-<div class="article-meta">
-<h1><span class="title">Delayed Replication in MySQL</span></h1>
+    
 
-<h2 class="date">2018/04/24</h2>
-<p class="terms">
-  
-  
-  Categories: <a href="/categories/mysql">mysql</a> 
-  
-  
-  
-  
-</p>
-</div>
-
-
-
-<main>
-<p>Trong bài <a href="https://xluffy.github.io/post/intro-mysql-replication">Giới thiệu về MySQL Replication</a> mình có giới thiệu một chức năng của hệ thống Replication đó là <strong>realtime backup</strong>. Nếu server master gặp sự cố như hư hỏng ổ cứng mà không thể phục hồi dữ liệu từ ổ cứng thì các bản backup offline định kì sẽ có độ trễ dữ liệu. Ví dụ nếu ta chỉ chạy offline backup dữ liệu <strong>2 lần/ngày</strong> thì dữ liệu trong trường hợp xấu nhất sẽ bị mất trong vòng 12 tiếng. Nếu sử dụng MySQL replication thì việc mất dữ liệu sẽ vô cùng nhỏ, tối đa là khoảng vài giây.</p>
-
+    <div class="post-content">
+      
+      <p>Trong bài <a href="https://xluffy.github.io/post/intro-mysql-replication">Giới thiệu về MySQL Replication</a> mình có giới thiệu một chức năng của hệ thống Replication đó là <strong>realtime backup</strong>. Nếu server master gặp sự cố như hư hỏng ổ cứng mà không thể phục hồi dữ liệu từ ổ cứng thì các bản backup offline định kì sẽ có độ trễ dữ liệu. Ví dụ nếu ta chỉ chạy offline backup dữ liệu <strong>2 lần/ngày</strong> thì dữ liệu trong trường hợp xấu nhất sẽ bị mất trong vòng 12 tiếng. Nếu sử dụng MySQL replication thì việc mất dữ liệu sẽ vô cùng nhỏ, tối đa là khoảng vài giây.</p>
 <p>Tuy nhiên trong việc vận hành hệ thống, luôn có những rủi ro về con người không thể lường trước được như xóa nhầm data, <code>DROP TABLE</code>, <code>DROP DATABASE</code> 🙀 -&gt; 😨 -&gt; 🙏</p>
-
 <ul>
 <li><a href="https://about.gitlab.com/2017/02/10/postmortem-of-database-outage-of-january-31">[Gitlab] - Postmortem of database outage of January 31</a></li>
 <li><a href="https://blog.travis-ci.com/2018-04-03-incident-post-mortem">[Travis-CI] - Incident Post-Mortem and Security Advisory: Data Exposure After travis-ci.com Outage</a></li>
 </ul>
-
 <p>Nếu sử dụng replication thì data bị xóa sẽ replicate sang slave ngay lập tức (trong điều kiện lý tưởng độ trễ = 0). Lúc đó sử dụng replication cũng không thể <strong>cứu</strong> được những data xóa nhầm.</p>
-
-<p>Từ tâm trạng của người đã <strong>vài lần</strong> từng làm <strong>những chuyện tương tự</strong>  thì mình xin khẳng định là chuyện này hoàn toàn &hellip; <a href="https://en.wikipedia.org/wiki/Human_error"><strong>bình thường</strong></a> 🙈🙈, là con người thì cũng có lúc mệt mỏi và stress. Tất nhiên ở góc độ hệ thống và khách hàng thì những hành động này là không được phép xảy ra, và dù xảy ra thì <strong>bằng mọi giá</strong> cũng phải phục hồi lại dữ liệu cho khách hàng.</p>
-
+<p>Từ tâm trạng của người đã <strong>vài lần</strong> từng làm <strong>những chuyện tương tự</strong> :trollface: thì mình xin khẳng định là chuyện này hoàn toàn &hellip; <a href="https://en.wikipedia.org/wiki/Human_error"><strong>bình thường</strong></a> 🙈🙈, là con người thì cũng có lúc mệt mỏi và stress. Tất nhiên ở góc độ hệ thống và khách hàng thì những hành động này là không được phép xảy ra, và dù xảy ra thì <strong>bằng mọi giá</strong> cũng phải phục hồi lại dữ liệu cho khách hàng.</p>
 <p>Từ MySQL 5.6 chúng ta có thể cấu hình để slave có độ trễ tối thiểu nào đó so với master. Cấu hình cực kì đơn giản nhưng lợi ích thì vô cùng lớn.</p>
-
-<pre><code>mysql&gt; CHANGE MASTER TO MASTER_DELAY = N;
-</code></pre>
-
-<p>Với N là thời gian tối thiểu mà slave lag so với master, ví dụ:</p>
-
-<pre><code>mysql&gt; CHANGE MASTER TO MASTER_DELAY = 3660;
-</code></pre>
-
-<p>Slave sẽ luôn trễ 1 giờ dữ liệu so với master, nếu có bất kỳ <strong>human error</strong> gì chúng ta cũng vẫn còn cơ hội để phục hồi lại data.</p>
-
+<pre tabindex="0"><code>mysql&gt; CHANGE MASTER TO MASTER_DELAY = N;
+</code></pre><p>Với N là thời gian tối thiểu mà slave lag so với master, ví dụ:</p>
+<pre tabindex="0"><code>mysql&gt; CHANGE MASTER TO MASTER_DELAY = 3660;
+</code></pre><p>Slave sẽ luôn trễ 1 giờ dữ liệu so với master, nếu có bất kỳ <strong>human error</strong> gì chúng ta cũng vẫn còn cơ hội để phục hồi lại data.</p>
 <p>Ngoài ra, cấu hình độ trễ của slave so với master còn có thể ứng dụng trong việc test xem chuyện gì sẽ xảy ra khi độ lag tăng dần. Ví dụ khi ứng dụng heavy load, độ trễ tăng cao thì có phát sinh bug gì trong hệ thống hay không.</p>
-
 <p>Trong hệ thống production, giả định những <strong>tình huống xấu nhất</strong> luôn là việc cần thiết để đảm bảo giảm thiểu tối đa rủi ro của hệ thống. Dù hệ thống có tốt, có những kỹ sư xuất sắc đến như thế nào cũng luôn có những tình huống <strong>thật không thể tin được</strong> như Gitlab, Travis-CI. Cẩn tắc vô áy náy, luôn cần chuẩn bị cho những tình huống như trên.</p>
 
-</main>
-<section>
-  <hr>
-<script src="https://utteranc.es/client.js"
-        repo="xluffy/xluffy.github.io"
-        issue-term="url"
-        label="comments"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</section>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h"
+              >...</span
+            >
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://xluffy.github.io/post/improving-mongodb-perf-by-managing-indexes/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">Improving MongoDB performance by managing indexes</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://xluffy.github.io/post/how-to-fix-mysql-replication/">
+                  <span class="button__text">How to fix MySQL replication</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
 
-    <footer>
+    
       
-<script>
-(function() {
-  function center_el(tagName) {
-    var tags = document.getElementsByTagName(tagName), i, tag;
-    for (i = 0; i < tags.length; i++) {
-      tag = tags[i];
-      var parent = tag.parentElement;
-      
-      if (parent.childNodes.length === 1) {
         
-        if (parent.nodeName === 'A') {
-          parent = parent.parentElement;
-          if (parent.childNodes.length != 1) continue;
-        }
-        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
-      }
-    }
-  }
-  var tagNames = ['img', 'embed', 'object'];
-  for (var i = 0; i < tagNames.length; i++) {
-    center_el(tagNames[i]);
-  }
-})();
-</script>
 
       
-      <hr/>
-      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+    
+  </div>
+
+      </div>
+
       
-      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
-    </footer>
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">hàng nhà trồng theo giấy phép CC BY-NC 4.0</div>
+      
+  </div>
+</footer>
+
+<script src="https://xluffy.github.io/assets/main.js"></script>
+<script src="https://xluffy.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
   </body>
 </html>
-

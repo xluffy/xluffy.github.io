@@ -1,128 +1,203 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Setup hệ thống mạng cho cty vừa và nhỏ | xluffy&#39;s page</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
     
-    <header>
+      <title>
+        Setup hệ thống mạng cho cty vừa và nhỏ ::
+        /dev/clgt
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="Là một công ty công nghệ, làm về dịch vụ internet, nhu cầu về mạng là một nhu cầu cơ bản và bắt buộc."
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://xluffy.github.io/post/how-to-setup-our-networking/" />
 
+
+
+
+
+<link rel="stylesheet" href="https://xluffy.github.io/assets/style.css" />
+
+<link rel="stylesheet" href="https://xluffy.github.io/style.css" />
+
+
+<link
+  rel="apple-touch-icon-precomposed"
+  sizes="144x144"
+  href="https://xluffy.github.io/img/apple-touch-icon-144-precomposed.png"
+/>
+<link rel="shortcut icon" href="https://xluffy.github.io/img/favicon.png" />
+
+
+<link href="https://xluffy.github.io/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Setup hệ thống mạng cho cty vừa và nhỏ"/>
+<meta name="twitter:description" content="Là một công ty công nghệ, làm về dịch vụ internet, nhu cầu về mạng là một nhu cầu cơ bản và bắt buộc."/>
+
+
+
+<meta property="og:title" content="Setup hệ thống mạng cho cty vừa và nhỏ" />
+<meta property="og:description" content="Là một công ty công nghệ, làm về dịch vụ internet, nhu cầu về mạng là một nhu cầu cơ bản và bắt buộc." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xluffy.github.io/post/how-to-setup-our-networking/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-07-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-07-16T00:00:00+00:00" /><meta property="og:site_name" content="/dev/clgt" />
+
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <nav>
-    <ul>
-      
-      
-      <li class="pull-left ">
-        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/categories/">~/categories</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="https://github.com/xluffy/til/issues">~/til</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/about">~/about</a>
-      </li>
-      
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
+</svg>
+</span>
+    <span class="logo__text"
+      >/dev/clgt</span
+    >
+    <span class="logo__cursor"></span>
+  
+</a>
 
+    <span class="header__right">
       
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
       
-      <li class="pull-right">
-        <a href="/index.xml">~/subscribe</a>
-      </li>
+        
+          <li><a href="/about">about</a></li>
+        
       
+        
+          <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+        
+      
+    
+  </ul>
 
-    </ul>
-  </nav>
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about</a></li>
+      
+    
+      
+        <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg
+  class="theme-toggler"
+  width="24"
+  height="24"
+  viewBox="0 0 48 48"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+
+      </span>
+    </span>
+  </span>
 </header>
 
-    
-    
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">Setup hệ thống mạng cho cty vừa và nhỏ</h1>
+    <div class="post-meta">
       
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-K4LWNXV');</script>
+        <span class="post-date">
+          2018-07-16
+        </span>
+
+        
+          
+        
       
-    
-  </head>
 
-  <body>
-    
       
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4LWNXV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
       
+    </div>
+
     
-    <br/>
 
-<div class="article-meta">
-<h1><span class="title">Setup hệ thống mạng cho cty vừa và nhỏ</span></h1>
+    
 
-<h2 class="date">2018/07/16</h2>
-<p class="terms">
-  
-  
-  Categories: <a href="/categories/networking">networking</a> 
-  
-  
-  
-  
-</p>
-</div>
-
-
-
-<main>
-
-
-<p>Là một công ty công nghệ, làm về dịch vụ internet, nhu cầu về mạng là một nhu cầu cơ bản và bắt buộc. Nếu không có internet thì chỉ có nước cả công ty cùng nghỉ đi chơi. Vì vậy setup một hệ thống mạng sao cho vừa đạt nhu cầu, chi phí rẻ là một việc không dễ dàng, nhất là khi các giải pháp luôn được quảng cáo vượt quá hiệu năng thực sự.</p>
-
+    <div class="post-content">
+      
+      <p>Là một công ty công nghệ, làm về dịch vụ internet, nhu cầu về mạng là một nhu cầu cơ bản và bắt buộc. Nếu không có internet thì chỉ có nước cả công ty cùng nghỉ đi chơi. Vì vậy setup một hệ thống mạng sao cho vừa đạt nhu cầu, chi phí rẻ là một việc không dễ dàng, nhất là khi các giải pháp luôn được quảng cáo vượt quá hiệu năng thực sự.</p>
 <p>Tuy nhiên cũng phải hiểu rằng, không thể đòi hỏi một hệ thống mạng chất lượng cao, an toàn, nhiều tính năng mà không bỏ ra quá nhiều chi phí. Chỉ có thể cân đối nhu cầu với đặc thù riêng của từng công ty.</p>
-
 <p>Ta sẽ cần khảo sát và đi qua lần lượt:</p>
-
 <ul>
 <li>Nhà cung cấp dịch vụ Internet và gói cước.</li>
 <li>Router chính.</li>
 <li>Mạng Wireless với AP.</li>
 </ul>
-
 <p>Hệ thống mạng sẽ cung cấp cho 52 nhân viên ~ 52 thiết bị kết nối chính và 52 device cá nhân + 10 device test. Toàn bộ đều sử dụng kết nối không dây.</p>
-
 <h2 id="1-isp">1. ISP?</h2>
-
 <p>Trước tiên phải xác định nhu cầu là phải thuê tối thiểu 2 nhà cung cấp dịch vụ internet để đảm bảo:</p>
-
 <ul>
 <li>Failover ISP, nếu một ISP gặp sự cố thì công ty vẫn có thể làm việc được.</li>
 <li>Tăng băng thông cho toàn bộ hệ thống (ví dụ mỗi ISP có băng thông là 60Mbps thì 2 nhà cung cấp gộp lại có thể đạt 120Mbps).</li>
 </ul>
-
 <p>Nhà cung cấp nào là tốt? Ở Việt Nam hiện tại có 3 nhà cung cấp lớn đó là VNPT, Viettel, FPT và một số nhà cung cấp khác như CMC, Netnam, SPT &hellip; Việc lựa chọn nhà cung cấp nào không quá khó &hellip; vì tất cả các nhà cung cấp mạng đều từng dính phốt và đều có chất lượng chăm sóc khách hàng <strong>tệ</strong> như nhau. Tuy nhiên mình vẫn ưu tiên chọn 3 ông lớn, nhất là VNPT do họ quản lý phần core ra internet quốc tế. Bạn cũng cần liên hệ trước với Sale của ISP để biết tòa nhà bạn thuê có còn cáp mạng để kéo hay không?</p>
-
 <p>Một đặc tính của mạng internet tại VN là chu kỳ <strong>đứt cáp</strong> một năm 4-5 lần, mỗi lần sửa mất <strong>gần 1 tháng</strong>, dafuq. Vậy nên việc chọn gói cước sao cho tối ưu chi phí và đủ xài cho công việc trong những lần đứt cáp là một yêu cầu bắt buộc. Khi chọn gói cước cần chú ý vào <strong>cam kết băng thông quốc tế tối thiểu</strong> thay vì băng thông quốc tế tối đa. Nhà mạng chia phân khúc gói cước như sau:</p>
-
 <ul>
 <li>Gói cước cá nhân.</li>
 <li>Gói cước doanh nghiệp.</li>
 <li>Thuê đường truyền riêng. Đây là gói có chất lượng dịch vụ được cam kết cao nhất, chất lượng dịch vụ tốt nhất, dù đứt cáp vẫn đảm bảo chất lượng dịch vụ nhưng giá thì siêu cao.</li>
 </ul>
-
 <p>Đây là băng thông và giá của Internet Leased Line Viettel, họ cam kết băng thông đạt <strong>100%</strong> tại mọi thời điểm.</p>
-
 <table>
 <thead>
 <tr>
@@ -131,26 +206,22 @@
 <th>Cước hàng tháng</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>01Mbps quốc tế + 10Mbps trong nước</td>
 <td>2,200,000</td>
 <td>4.000.000</td>
 </tr>
-
 <tr>
 <td>02Mbps quốc tế + 20Mbps trong nước</td>
 <td>2,200,000</td>
 <td>8.000.000</td>
 </tr>
-
 <tr>
 <td>03Mbps quốc tế + 30Mbps trong nước</td>
 <td>2,200,000</td>
 <td>12.000.000</td>
 </tr>
-
 <tr>
 <td>04Mbps quốc tế + 40Mbps trong nước</td>
 <td>2,200,000</td>
@@ -158,38 +229,29 @@
 </tr>
 </tbody>
 </table>
-
 <p>Tóm lại tiêu chí lựa chọn là:</p>
-
 <ul>
 <li>Có cam kết băng thông quốc tế tối thiểu ~ 1-2Mbps.</li>
 <li>Có static IP, có thể tận dụng để map domain cho internal service hoặc cấu hình firewall allow ip.</li>
 <li>Băng thông trong nước đạt tối thiểu 1Mbps/device.</li>
 <li>Chi phí không quá mắc, tối đa vài triệu/tháng.</li>
 </ul>
-
-<p><img src="https://github.com/xluffy/assets/raw/master/internet_packages.png" alt="internet_packages" /></p>
-
+<p><img src="https://github.com/xluffy/assets/raw/master/internet_packages.png" alt="internet_packages"></p>
 <p>Như ở trường hợp của mình, mình chọn nhà cung cấp FPT gói FiberBusiness và VNPT gói Fiber7:</p>
-
 <ul>
 <li>Tổng băng thông trong nước đạt 130Mbps, băng thông đạt 1.14Mbps/device.</li>
 <li>Tổng băng thông quốc tế cam kết tối thiểu đạt 3Mbps, nếu đứt cáp thì vẫn còn có thể SSH vào server.</li>
 <li>Có 2 static IP (cần gọi lên tổng đài yêu cầu thiết lập) và chi phí là hơn 2tr/tháng.</li>
 </ul>
-
 <blockquote>
 <p>Một số nhà mạng không cho phép chuyển modem của họ sang chế độ bridge, ví dụ Viettel với gói cước dưới 60Mpbs là họ không cho.</p>
-
+</blockquote>
+<blockquote>
 <p>Nhà mạng không cho chuyển sang bridge lí do chính là để họ có <strong>toàn quyền điều khiển trên modem</strong>, giúp họ giảm chi phí đi lại, chi phí kỹ thuật tới kiểm tra. Khi có toàn quyền điều khiển trên modem họ có thể dễ dàng update firmware, cập nhật cấu hình, vá lỗi &hellip; mà không mất công tới nhà của khách hàng.</p>
-
 <p>Việc này rất nguy hiểm, nên cần phải có router riêng để tự chủ động control hệ thống mạng.</p>
 </blockquote>
-
 <h2 id="2-router">2. Router</h2>
-
 <p>Router chính là một phần quan trọng của hệ thống, gánh toàn bộ kết nối ra ngoài internet. Nên đầu tư một Router tốt, yêu cầu tối thiểu gồm:</p>
-
 <ul>
 <li>Do phải handle toàn bộ kết nối, cấp DHCP cho toàn bộ mạng &hellip; nên cần có cấu hình về CPU, RAM tốt 1 chút, nhiều core thì càng tốt.</li>
 <li>Tối thiểu 2 cổng WAN để dual-wan, tốc độ tối thiểu là <strong>1Gbps</strong>.</li>
@@ -197,13 +259,9 @@
 <li>Tính năng firewall cơ bản, QoS.</li>
 <li>Có một số tính năng nâng cao có thể có như VPN, Proxy.</li>
 </ul>
-
 <p>Yêu cầu ở tốc độ của các c<strong>ổng tối thiểu 1Gbps là cực kỳ quan trọng</strong>, vì nếu băng thông chỉ đạt 100Mbps thì không thể sử dụng các gói cước có băng thông trên 100Mpbs.</p>
-
 <p>Mình không có nhiều kinh nghiệm với các dòng router ngoài Draytek và Mikrotik nên chỉ đánh giá 2 dòng router này. Riêng về Cisco cũng là một lựa chọn tốt, tuy nhiên chi phí cao nên không cân nhắc.</p>
-
 <p>Draytek 3220 (giá khoảng gần 9tr):</p>
-
 <ul>
 <li>WAN: 4 x 10/100/<strong>1000Mbps</strong>, RJ45</li>
 <li>LAN: 1 x 10/100/<strong>1000Mbps</strong></li>
@@ -211,77 +269,47 @@
 <li>NAT Session: 80.000</li>
 <li>NAT Throughput: 900Mbps (WAN mode Static)</li>
 </ul>
-
 <p>Ưu điểm của Draytek là đơn giản, dễ cấu hình, rất phù hợp cho những ai không muốn tìm hiểu quá nhiều, ngoài ra thì anphat.com.vn có chế độ hỗ trợ khá tốt, nên có thể nhờ họ hướng dẫn hoặc xem tài liệu cấu hình của họ.</p>
-
 <p>Nhược điểm là chỉ có 1 cổng LAN, nghĩa là ta cần thêm switch nếu cần kết nối nhiều AP, tất nhiên có switch thì có thể chia VLAN cho từng team, tăng độ bảo mật cho từng nhóm user. Tuy nhiên chi phí sẽ tăng thêm (Draytek VigorSwitch P1090 8 port có giá khoảng 3.4tr).</p>
-
 <p>=&gt; Nói chung combo router Draytek 3320 + 1 switch VigorSwitch P1090 là một lựa chọn không tồi. Tuy nhiên đòi hỏi về VLAN là không cao do team nhỏ -&gt; đánh đổi với vấn đề security.</p>
-
 <p>Router Mikrotik:</p>
-
 <ul>
 <li>RB3011UiAS-RM (5tr3), CPU 2 core, 1 GB RAM, <strong>10 port 10/100/1000 Mbps</strong>.</li>
 <li>CCR1009-7G-1C-1S+ (~ 10tr), với CPU TLR4-00980CH-10CE-A3b, 9 core, 2 GB RAM, <strong>7 port 10/100/1000 Mbps</strong>, 1 SFP+ và 1 SFP combo.</li>
 </ul>
-
 <p>RB3011UiAS là router core cũ đáp ứng đủ nhu cầu nhưng do văn phòng chuyển nên mình muốn nâng cấp luôn router core để nếu có nhu cầu mở rộng không cần đổi thiết bị. Tiếc là 2 module SFP lại không tận dụng được.</p>
-
 <p>Ưu điểm của Mikrotik là RouterOS, rất nhiều tính năng hữu ích, hiệu năng cao, có thể custom được nhiều thứ.</p>
-
 <p>Nhược điểm là khó cấu hình nhưng nếu làm chủ được thiết bị thì khá ngon lành.</p>
-
 <p><strong>Tóm lại</strong>:</p>
-
 <ul>
 <li>Chọn router có cấu hình tốt, tránh tin vào các con số marketing.</li>
 <li>Nên chọn các hãng có chút uy tín, tránh sử dụng các dòng dân dụng như topolink, tplink, dlink &hellip;</li>
 <li>Nên chọn thiết bị đồng bộ hãng để dễ cấu hình và dễ tương thích.</li>
 <li>Nên chọn thiết bị chuyên dụng, tránh tận dụng chức năng (ví dụ router kèm phát wifi).</li>
 </ul>
-
 <p><strong>Lưu ý</strong>:</p>
-
 <ul>
 <li>Nếu có thể, hãy yêu cầu nhà mạng cấp converter riêng, sau đó đấu nối trực tiếp và quay PPPoE trên router.</li>
 <li>Lúc đầu mình chọn có module SFP mục đích để tối giản thiết bị, cáp quang sẽ cắm trực tiếp vào router chính nhưng do công nghệ PON của FPT nên không thể dùng converter riêng cũng không thể cắm trực tiếp vào router.</li>
 <li>Bỏ modem của nhà mạng sẽ giúp hệ thống gọn, dễ hiểu và không bị nghẽn do thiết bị yếu của nhà mạng.</li>
 </ul>
-
 <h2 id="3-ap">3. AP</h2>
-
-<p>Lựa chọn AP luôn là một phần khó bởi các con số marketing rất tào lao và những case-study của người khác khó mà áp dụng cho hệ thống hiện tại. Ví dụ spec của AP thường quảng cáo chịu được 50 user đồng thời, nhưng con số thực tế chỉ bằng <sup>1</sup>&frasl;<sub>2</sub> hoặc chỉ được <sup>1</sup>&frasl;<sub>3</sub>. Rất khó nói AP nào là lựa chọn tốt, mình chỉ list ra một số trường hợp mình đã gặp phải để hiểu vấn đề của mình và lựa chọn tương ứng.</p>
-
-<h3 id="3-1-combo-ap-dân-dụng-đủ-các-hãng-từ-tplink-topolink-buffalo">3.1 Combo AP dân dụng đủ các hãng từ tplink, topolink, buffalo &hellip;</h3>
-
+<p>Lựa chọn AP luôn là một phần khó bởi các con số marketing rất tào lao và những case-study của người khác khó mà áp dụng cho hệ thống hiện tại. Ví dụ spec của AP thường quảng cáo chịu được 50 user đồng thời, nhưng con số thực tế chỉ bằng 1/2 hoặc chỉ được 1/3. Rất khó nói AP nào là lựa chọn tốt, mình chỉ list ra một số trường hợp mình đã gặp phải để hiểu vấn đề của mình và lựa chọn tương ứng.</p>
+<h3 id="31-combo-ap-dân-dụng-đủ-các-hãng-từ-tplink-topolink-buffalo-">3.1 Combo AP dân dụng đủ các hãng từ tplink, topolink, buffalo &hellip;</h3>
 <p>Ưu điểm là giá thành rẻ nhưng nhược điểm là mỗi hãng có cấu hình khác nhau, mỗi AP phải cấu hình SSID riêng, không roaming được khi di chuyển trong một khu vực văn phòng. Hiệu năng của các AP này cũng rất kém dù các dòng đắt tiền. Khi số user kết nối tăng cao sẽ bị tình trạng đá kết nối, rất khó chịu.</p>
-
-<h3 id="3-2-meraki-ap">3.2 Meraki AP</h3>
-
+<h3 id="32-meraki-ap">3.2 Meraki AP</h3>
 <p>Mình không có cơ hội sử dụng Meraki nhưng từng được tham khảo thì thấy Meraki có chất lượng khá tốt, chịu được lượng user tương đối ổn tuy nhiên giá thành thì quá cao ($1000/AP, báo giá 2013).</p>
-
 <p>Mình cũng biết nhiều công ty lớn lựa chọn Meraki để triển khai hệ thống tới vài ngàn user như Tiki, VNG.</p>
-
-<h3 id="3-3-openmesh">3.3 OpenMesh</h3>
-
+<h3 id="33-openmesh">3.3 OpenMesh</h3>
 <p>Nhiều hệ thống vừa và nhỏ cũng chọn OpenMesh do có tính năng roaming, chung SSID, cấu hình đơn giản, có tính năng cloud để quản trị từ xa và giá thành rẻ (vài triệu cho 1 AP).</p>
-
-<h3 id="3-4-linksys-ea9500">3.4 Linksys EA9500</h3>
-
+<h3 id="34-linksys-ea9500">3.4 Linksys EA9500</h3>
 <p>AP này có giá khoảng 9tr/AP nhưng thuộc dòng AP dân dụng, chất lượng thì khá tệ so với giá thành và khả năng đáp ứng lượng user đồng thời không cao. AP này phù hợp cho nhu cầu băng thông cao và giải trí tại gia hơn là cho doanh nghiệp nhỏ.</p>
-
-<h3 id="3-5-unifi-ap-hd">3.5 Unifi AP-HD</h3>
-
+<h3 id="35-unifi-ap-hd">3.5 Unifi AP-HD</h3>
 <p>Hiện tại mình đang sử dụng Unifi AP cho hệ thống mạng không dây tại công ty mình. Unifi cùng phân khúc với OpenMesh, với 2 AP-HD thì đủ khả năng đáp ứng cho 120 user đồng thời.</p>
-
 <p>Ưu điểm của Unifi là tương đối dễ cấu hình, chi phí vừa phải, hiệu năng tốt và có một số tính năng monitor băng thông trên AP.</p>
-
 <p>Tương tự các hãng khác như OpenMesh, Unifi cũng có tính năng quản lý AP trên cloud, tức là các AP của bạn sẽ được quản lý ở bất cứ đầu mà không cần ở văn phòng.</p>
-
 <p>Tuy nhiên phải mua license, nếu không thì bạn chỉ có thể quản lý local (cũng thông qua một giao diện web).</p>
-
 <h2 id="4-kết">4. Kết</h2>
-
 <ul>
 <li>Lựa chọn các gói internet doanh nghiệp, lưu ý về cam kết tối thiểu băng thông quốc tế.</li>
 <li>Router core nên chọn loại tốt.</li>
@@ -290,52 +318,64 @@
 <li>Không chọn AP dân dụng.</li>
 </ul>
 
-</main>
-<section>
-  <hr>
-<script src="https://utteranc.es/client.js"
-        repo="xluffy/xluffy.github.io"
-        issue-term="url"
-        label="comments"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</section>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h"
+              >...</span
+            >
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://xluffy.github.io/post/rails-for-devops-engineer/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">Rails for DevOps engineer</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://xluffy.github.io/post/noted-c&#43;&#43;/">
+                  <span class="button__text">Tham chiếu và con trỏ trong C&#43;&#43;</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
 
-    <footer>
+    
       
-<script>
-(function() {
-  function center_el(tagName) {
-    var tags = document.getElementsByTagName(tagName), i, tag;
-    for (i = 0; i < tags.length; i++) {
-      tag = tags[i];
-      var parent = tag.parentElement;
-      
-      if (parent.childNodes.length === 1) {
         
-        if (parent.nodeName === 'A') {
-          parent = parent.parentElement;
-          if (parent.childNodes.length != 1) continue;
-        }
-        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
-      }
-    }
-  }
-  var tagNames = ['img', 'embed', 'object'];
-  for (var i = 0; i < tagNames.length; i++) {
-    center_el(tagNames[i]);
-  }
-})();
-</script>
 
       
-      <hr/>
-      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+    
+  </div>
+
+      </div>
+
       
-      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
-    </footer>
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">hàng nhà trồng theo giấy phép CC BY-NC 4.0</div>
+      
+  </div>
+</footer>
+
+<script src="https://xluffy.github.io/assets/main.js"></script>
+<script src="https://xluffy.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
   </body>
 </html>
-

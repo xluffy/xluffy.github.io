@@ -1,225 +1,298 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ALB vs nginx | xluffy&#39;s page</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
     
-    <header>
+      <title>
+        ALB vs nginx ::
+        /dev/clgt
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="Nhân một người bạn hỏi về vấn đề này, mình take note lại vì đã được hỏi 2 lần :sosad:"
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://xluffy.github.io/post/alb-vs-nginx/" />
 
+
+
+
+
+<link rel="stylesheet" href="https://xluffy.github.io/assets/style.css" />
+
+<link rel="stylesheet" href="https://xluffy.github.io/style.css" />
+
+
+<link
+  rel="apple-touch-icon-precomposed"
+  sizes="144x144"
+  href="https://xluffy.github.io/img/apple-touch-icon-144-precomposed.png"
+/>
+<link rel="shortcut icon" href="https://xluffy.github.io/img/favicon.png" />
+
+
+<link href="https://xluffy.github.io/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ALB vs nginx"/>
+<meta name="twitter:description" content="Nhân một người bạn hỏi về vấn đề này, mình take note lại vì đã được hỏi 2 lần :sosad:"/>
+
+
+
+<meta property="og:title" content="ALB vs nginx" />
+<meta property="og:description" content="Nhân một người bạn hỏi về vấn đề này, mình take note lại vì đã được hỏi 2 lần :sosad:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xluffy.github.io/post/alb-vs-nginx/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-11-30T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-11-30T00:00:00+00:00" /><meta property="og:site_name" content="/dev/clgt" />
+
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <nav>
-    <ul>
-      
-      
-      <li class="pull-left ">
-        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/categories/">~/categories</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="https://github.com/xluffy/til/issues">~/til</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/about">~/about</a>
-      </li>
-      
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
+</svg>
+</span>
+    <span class="logo__text"
+      >/dev/clgt</span
+    >
+    <span class="logo__cursor"></span>
+  
+</a>
 
+    <span class="header__right">
       
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
       
-      <li class="pull-right">
-        <a href="/index.xml">~/subscribe</a>
-      </li>
+        
+          <li><a href="/about">about</a></li>
+        
       
+        
+          <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+        
+      
+    
+  </ul>
 
-    </ul>
-  </nav>
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about</a></li>
+      
+    
+      
+        <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg
+  class="theme-toggler"
+  width="24"
+  height="24"
+  viewBox="0 0 48 48"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+
+      </span>
+    </span>
+  </span>
 </header>
 
-    
-    
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">ALB vs nginx</h1>
+    <div class="post-meta">
       
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-K4LWNXV');</script>
+        <span class="post-date">
+          2018-11-30
+        </span>
+
+        
+          
+        
       
-    
-  </head>
 
-  <body>
-    
       
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4LWNXV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
       
+    </div>
+
     
-    <br/>
 
-<div class="article-meta">
-<h1><span class="title">ALB vs nginx</span></h1>
+    
 
-<h2 class="date">2018/11/30</h2>
-<p class="terms">
-  
-  
-  
-  
-  
-</p>
-</div>
-
-
-
-<main>
-
-
-<blockquote>
+    <div class="post-content">
+      
+      <blockquote>
 <p>Nhân một người bạn hỏi về vấn đề này, mình take note lại vì đã được hỏi 2 lần :sosad:</p>
 </blockquote>
-
 <p><strong>ALB</strong>: là dịch vụ Application Load Balancer của AWS, một dịch vụ về cân bằng tải của AWS hoạt động ở layer 7 support giao thức HTTP/HTTPs, Websocket, HTTP2.</p>
-
 <p><strong>nginx</strong>: là một webserver opensource, support cả chức năng cân bằng tải ở layer 7 (có support ở layer 4 nhưng khá cơ bản).</p>
-
 <p>Ngoài ALB và nginx thì còn có <strong>HAproxy</strong> cũng là một service cung cấp chức năng cân bằng tải ở layer 4 và layer 7 khá phổ biến.</p>
-
 <p>Load balancer là dịch vụ sẽ phục vụ như một single point giao tiếp với user. Load balancer sẽ phân tán các incomming request từ user tới nhiều server phía sau LB nhằm mục đích scale hệ thống.</p>
-
 <p>Câu hỏi đặt ra là khi xây dựng một hệ thống trên AWS, ta sẽ chọn cái gì để thực hiện chức năng cân bằng tải? ALB hay nginx? ưu nhược điểm của từng dịch vụ là gì?</p>
-
 <p>Về bản chất, ALB và nginx hoạt động cùng chức năng cân bằng tải, một trong các rule khi thiết kế hệ thống đó là <a href="https://wiki.archlinux.org/index.php/arch_terminology#KISS">KISS</a>, giữ cho hệ thống đơn giản nhất có thể, tránh gây confuse. Điều đó có nghĩa là về lý thuyết ta chỉ nên sử dụng một dịch vụ cho một chức năng cụ thể nào đó.</p>
-
 <h2 id="1-chỉ-xài-alb">1. Chỉ xài ALB</h2>
-
 <p><strong>Ưu điểm</strong>:</p>
-
 <ul>
 <li>Chi phí rẻ, $20.</li>
 <li>Support tính năng host-based và path-based giúp routing request tới các cụm host có chức năng khác nhau.</li>
 <li>Tận dụng infra của AWS để hỗ trợ multi-zone, high availability dễ dàng.</li>
 </ul>
-
 <p><strong>Nhược điểm</strong>:</p>
-
 <ul>
 <li>ALB chỉ hỗ trợ round robin algorithm.</li>
 <li>Log của ALB không nhiều thông tin hữu ích cho việc build 1 in-house metric system như nginx.</li>
 </ul>
-
 <p>Lưu ý thêm là round-robin là một thuật toán cân bằng tải rất không fair, LB sẽ tuần tự pass đều số lượng request incoming tới các instance phía sau mà không quan tâm trạng thái hay khả năng phục vụ của instance phía sau như thế náo. Sẽ dẫn tới trường hợp là:</p>
-
 <ul>
 <li>Có instance xui xẻo sẽ chỉ nhận các heavy request, nhưng nó chưa kịp xử lý xong đã bị pass tiếp nhiều heavy request khác vào.</li>
 <li>Có instance thì lại chỉ phải phục vụ các request rất nhanh, nhưng vì round-robin chia đều nên ở request tiếp theo nó vẫn có thể nhận được các request nhẹ nhàng đó tiếp.</li>
 </ul>
-
 <p>Tính năng multi-zone là một tính năng khá khó xây dựng trên một hệ thống on-premise, hiểu đơn giản thì nếu bạn có một LB đặt ở DC Viettel thì bạn sẽ phải có 1 LB khác cùng chức năng, sync với nhau và heartbeat với nhau ở DC của FPT.</p>
-
 <h2 id="2-nếu-chỉ-xài-nginx">2. Nếu chỉ xài nginx</h2>
-
 <p>Một lựa chọn khác đó là thay vì sử dụng dịch vụ của AWS, ta có thể tự build LB và tự vận hành như các hệ thống on-premise. Đây là bài toán cũ mà bất cứ ai xây dựng hệ thống on-premise cũng đã từng gặp qua.</p>
-
 <p><strong>Ưu điểm</strong>:</p>
-
 <ul>
 <li>Hỗ trợ <a href="http://nginx.org/en/docs/http/load_balancing.html">nhiều thuật toán load balancer</a> như round-robin, round-robin weight, ip_hash (session persistence), least-connected.</li>
 <li>Log có nhiều thông tin hỗ trợ debug và metric.</li>
 <li>Hỗ trợ nhiều module giúp thực hiện nhiều chức năng nâng cao:
-
 <ul>
 <li><a href="https://github.com/openresty">lua modules.</a></li>
 <li><a href="https://github.com/openresty/headers-more-nginx-module">headers-more-nginx-module</a> -&gt; giúp ẩn token hoặc làm sai lệch token từ server -&gt; hữu ích khi cần che giấu công nghệ ở server-side.</li>
 <li>Các module giao tiếp trực tiếp tới các service như redis, memcached, mysql &hellip;</li>
-</ul></li>
+</ul>
+</li>
 <li>Hỗ trợ các tính năng cản lọc cơ bản và lightweight ở tầng load balancer như block by ip, geoip, user-agent.</li>
 <li>Hỗ trợ routing từ một dải IP vào một cụm server nào đó trong backend -&gt; sẽ rất hữu ích khi muốn debug/test trên production mà không ảnh hưởng tới user.</li>
 </ul>
-
 <p><strong>Nhược điểm</strong>:</p>
-
 <p>LB sẽ là single point of fail giữa user và server, sử dụng nginx làm LB ta phải đảm bảo được là dịch vụ LB sẽ luôn có khả năng dự phòng. Dự phòng ở đây cần đạt được ở 3 yêu cầu:</p>
-
 <ul>
 <li>Dự phòng ở mức service, dịch vụ nginx phải luôn luôn được phục vụ hoặc ít nhất có khả năng tự restart để giảm thiểu thời gian downtime (nhưng restart sẽ force close current connection).</li>
 <li>Dự phòng ở mức server, sẽ phải luôn có một server nginx tương tự để thay thế khi server chính bị hư hỏng phần cứng hoặc sập điện &hellip; Yêu cầu này có thể thực hiện ở khi sử dụng nginx + keepalived + floating IP.</li>
 <li>Ở mức dự phòng server, ta cần phải đặt LB ở một khu vực khác ví dụ như ở 2 DC khác nhau, đây là vấn đề không dễ và so với chi phí $20 của AWS thì đây là một mức giá quá hời cho tính năng này.</li>
 </ul>
-
 <p>Nói thêm về tính năng routing dựa trên client IP của nginx là nó vô cùng hữu ích khi ta cần test sản phẩm trên môi trường production, nhưng chỉ effect tới 1 lượng nhỏ user (ví dụ user là QC trong cty, routing dựa trên static ip của cty), ngoài ra cũng có thể routing tới 1 server mới với code mới nhưng database và các phần khác vẫn như cũ.</p>
-
 <p>Về metric, ta có thể có metric dạng như vầy giúp đánh giá hệ thống.</p>
-
-<p><img src="https://raw.githubusercontent.com/xluffy/assets/master/nginx_metric_log.png" alt="nginx-metric-log" /></p>
-
+<p><img src="https://raw.githubusercontent.com/xluffy/assets/master/nginx_metric_log.png" alt="nginx-metric-log"></p>
 <h2 id="3-tóm-lại">3. Tóm lại</h2>
-
 <p>Để tận dụng lợi thế của cả 2 dịch vụ, cuối cùng ta có diagram như sau:</p>
-
-<p><img src="https://github.com/xluffy/assets/blob/master/alb_nginx_backend.png?raw=true" alt="alb-nginx-backend" /></p>
-
+<p><img src="https://github.com/xluffy/assets/blob/master/alb_nginx_backend.png?raw=true" alt="alb-nginx-backend"></p>
 <blockquote>
 <p>Ngoài lý do ở đầu bài (do một người bạn hỏi) thì bài này nhằm thỏa mãn cho câu hỏi tại sao lại có <strong>2 service cùng chức năng</strong> trong hệ thống. Thắc mắc, tự đặt câu hỏi, tự tìm câu trả lời luôn đem lại một cảm hứng giúp thúc đẩy đam mê trong công việc và thúc đẩy bản thân tự phát triển.</p>
 </blockquote>
 
-</main>
-<section>
-  <hr>
-<script src="https://utteranc.es/client.js"
-        repo="xluffy/xluffy.github.io"
-        issue-term="url"
-        label="comments"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</section>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h"
+              >...</span
+            >
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://xluffy.github.io/post/how-to-resolve-io-issue-on-cloud/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">How to resolve I/O issue on cloud</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://xluffy.github.io/post/build-simple-bg-job-with-rabbitmq/">
+                  <span class="button__text">Build simple backgroud job with RabbitMQ</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
 
-    <footer>
+    
       
-<script>
-(function() {
-  function center_el(tagName) {
-    var tags = document.getElementsByTagName(tagName), i, tag;
-    for (i = 0; i < tags.length; i++) {
-      tag = tags[i];
-      var parent = tag.parentElement;
-      
-      if (parent.childNodes.length === 1) {
         
-        if (parent.nodeName === 'A') {
-          parent = parent.parentElement;
-          if (parent.childNodes.length != 1) continue;
-        }
-        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
-      }
-    }
-  }
-  var tagNames = ['img', 'embed', 'object'];
-  for (var i = 0; i < tagNames.length; i++) {
-    center_el(tagNames[i]);
-  }
-})();
-</script>
 
       
-      <hr/>
-      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+    
+  </div>
+
+      </div>
+
       
-      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
-    </footer>
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">hàng nhà trồng theo giấy phép CC BY-NC 4.0</div>
+      
+  </div>
+</footer>
+
+<script src="https://xluffy.github.io/assets/main.js"></script>
+<script src="https://xluffy.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
   </body>
 </html>
-

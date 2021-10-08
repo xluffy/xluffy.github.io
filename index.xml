@@ -1,11 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>xluffy&#39;s page</title>
+    <title>/dev/clgt</title>
+    
+    
+    
     <link>https://xluffy.github.io/</link>
-    <description>Recent content on xluffy&#39;s page</description>
+    <description>Recent content on /dev/clgt</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <copyright>hàng nhà trồng theo giấy phép CC BY-NC 4.0</copyright>
     <lastBuildDate>Fri, 22 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/index.xml" rel="self" type="application/rss+xml" />
@@ -17,8 +21,18 @@
       <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/how-to-check-a-ip-is-in-a-blacklist/</guid>
-      <description>Một đồng nghiệp trong công ti giới thiệu cho mình blcheck, tool này dùng để check một IP có nằm trong mail blacklist hay không bằng cách check qua một danh sách các tổ chức. Về cơ bản nó tương tự mxtoolbox nhưng nó là command-line tool.
-./blcheck 1.2.3.4 ---------------------------------------------------------- Results for 1.2.3.4 Tested: 3 Passed: 3 Invalid: 0 Blacklisted: 0 ----------------------------------------------------------  Sẵn tò mò nên thử đọc code và xem cách nó hoạt động như thế nào, phương pháp rất đơn giản là xoá code và đọc từng phần và chạy thử.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Một đồng nghiệp trong công ti giới thiệu cho mình blcheck, tool này dùng để check một IP có nằm trong mail blacklist hay không bằng cách check qua một danh sách các tổ chức.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -27,9 +41,18 @@
       <pubDate>Tue, 04 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/null-in-sql/</guid>
-      <description>Lược dịch + thêm ví dụ từ https://mitchum.blog
- 1. NULL CREATE TABLE `t` ( `a` varchar(10) DEFAULT NULL, `b` varchar(10) DEFAULT NULL ) ENGINE=InnoDB DEFAULT CHARSET=latin1;  INSERT INTO t(a) VALUES (&#39;1&#39;); INSERT INTO t(b) VALUES (&#39;2&#39;); INSERT INTO t VALUES ();  Câu hỏi là nếu có 2 truy vấn như sau thì nên sử dụng truy vấn nào?
-SELECT * FROM t WHERE b = NULL;  và</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Lược dịch + thêm ví dụ từ https://mitchum.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -38,9 +61,18 @@ SELECT * FROM t WHERE b = NULL;  và</description>
       <pubDate>Mon, 06 Jan 2020 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/chaos-of-configuration/</guid>
-      <description>Một trong các vấn đề cơ bản khi deployment và đảm bảo security cho ứng dụng đó là làm sao để quản lý config một cách tiện lợi, an toàn, dễ cập nhật.
-Tuân theo một method là 12factor ta coi như việc dùng biến môi trường để lưu config là chuyện hiển nhiên không cần phải giải thích.
-1. What the fuck are u doing now? Lấy ví dụ là ứng dụng Rails, cách quản lý config hiện tại được mô tả như sau:</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Một trong các vấn đề cơ bản khi deployment và đảm bảo security cho ứng dụng đó là làm sao để quản lý config một cách tiện lợi, an toàn, dễ cập nhật.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -49,8 +81,18 @@ Tuân theo một method là 12factor ta coi như việc dùng biến môi trư�
       <pubDate>Fri, 27 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/change-schema-of-huge-table-in-mysql/</guid>
-      <description>Bài này được update lại gần như toàn bộ sau khi mình join team research-database của Grokking. Lý do chính là mình phát hiện có nhiều điểm không chính xác ở nội dung cũ.
- 1. Theo dòng lịch sử Thay đổi schema của một bảng dữ liệu trong MySQL là một nhu cầu thường xuyên và hết sức cơ bản khi phát triển hệ thống. Tuy nhiên bất kỳ ai hiểu biết về MySQL đều biết rằng công việc này thực sự rất đau đớn vì nó có thể làm drop traffic production, tăng thời gian xử lý ở tầng database, đem lại trải nghiệm không tốt cho người dùng, trong một số trường hợp hệ thống sẽ bị downtime cho tới khi việc thay đổi schema hoàn thành.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Bài này được update lại gần như toàn bộ sau khi mình join team research-database của Grokking.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -59,8 +101,18 @@ Tuân theo một method là 12factor ta coi như việc dùng biến môi trư�
       <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/cloudflare-101/</guid>
-      <description>1. DDoS 101 Về DDoS dù mục đích cuối cùng là làm cho dịch vụ của bạn không thể cung cấp tới người dùng nhưng nó có thể được chia thành 3 nhóm:
- Application Layer Attacks: mục tiêu là khiến ứng dụng phải xử lý một lượng lớn các request có vẻ hợp lệ, làm cạn kiệt tài nguyên của ứng dụng, khiến ứng dụng không thể phục vụ các user hợp lệ khác.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          1. DDoS 101 Về DDoS dù mục đích cuối cùng là làm cho dịch vụ của bạn không thể cung cấp tới người dùng nhưng nó có thể được chia thành 3 nhóm:
+          
+        
+        </description>
     </item>
     
     <item>
@@ -69,8 +121,18 @@ Tuân theo một method là 12factor ta coi như việc dùng biến môi trư�
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/vpc-architecture/</guid>
-      <description>Thiết kế này đặt toàn bộ hệ thống trong một region và không có một kết nối cross-region nào. Sẽ có 2 VPC đó là:
- Production VPC Management VPC  Chúng được kết nối với nhau thông qua VPC Peering. Và lớp mạng được chọn lựa để tránh đụng độ với các lớp mạng ở VPC khác (khi có nhu cầu peering giữa các region, AWS đã hỗ trợ peering giữa các region, trước đây phải tạo kết nối VPN, tham khảo thêm về AWS Inter-Region Latency) hoặc đụng độ với các lớp mạng nội bộ ở cty.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Thiết kế này đặt toàn bộ hệ thống trong một region và không có một kết nối cross-region nào.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -79,8 +141,18 @@ Tuân theo một method là 12factor ta coi như việc dùng biến môi trư�
       <pubDate>Tue, 26 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/who-owns-my-encrypt-keys-on-cloud/</guid>
-      <description>Gần đây phải đọc lại về các dịch vụ mã hoá này, mình chợt nhận ra trong bài này có vài điểm chưa chính xác về cách hoạt động và tính năng. Cụ thể hơn có thể đọc bài [](), tuy nhiên về cơ bản ý tưởng &amp;ldquo;Ai là người sở hữu?&amp;rdquo; cũng như &amp;ldquo;Mô hình chia sẻ trách nhiệm&amp;rdquo; vẫn có ý nghĩa.
- Một trong những câu hỏi thường gặp khi nói về mã hóa trên các dịch vụ cloud như AWS đó là:</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Gần đây phải đọc lại về các dịch vụ mã hoá này, mình chợt nhận ra trong bài này có vài điểm chưa chính xác về cách hoạt động và tính năng.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -89,7 +161,18 @@ Tuân theo một method là 12factor ta coi như việc dùng biến môi trư�
       <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/how-to-resolve-io-issue-on-cloud/</guid>
-      <description>Một trong các bài toán khiến mình khá đau đầu khi lên plan để chuyển một hệ thống từ physical server lên cloud đó là bài toán giới hạn I/O và chi phí cho database. Nó khiến mình mất khá nhiều thời gian và thắc mắc, bài này là bài lược dịch từ một bài blog của Percona, có nói chi tiết các cách giải quyết, các issues có thể gặp phải và cách giải quyết các issues đó.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Một trong các bài toán khiến mình khá đau đầu khi lên plan để chuyển một hệ thống từ physical server lên cloud đó là bài toán giới hạn I/O và chi phí cho database.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -98,9 +181,18 @@ Tuân theo một method là 12factor ta coi như việc dùng biến môi trư�
       <pubDate>Fri, 30 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/alb-vs-nginx/</guid>
-      <description>Nhân một người bạn hỏi về vấn đề này, mình take note lại vì đã được hỏi 2 lần :sosad:
- ALB: là dịch vụ Application Load Balancer của AWS, một dịch vụ về cân bằng tải của AWS hoạt động ở layer 7 support giao thức HTTP/HTTPs, Websocket, HTTP2.
-nginx: là một webserver opensource, support cả chức năng cân bằng tải ở layer 7 (có support ở layer 4 nhưng khá cơ bản).</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Nhân một người bạn hỏi về vấn đề này, mình take note lại vì đã được hỏi 2 lần :sosad:
+          
+        
+        </description>
     </item>
     
     <item>
@@ -109,8 +201,18 @@ nginx: là một webserver opensource, support cả chức năng cân bằng t�
       <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/build-simple-bg-job-with-rabbitmq/</guid>
-      <description>Ở trong một bài viết trước mình đã có tìm hiểu về Sidekiq - backgroud job, hiểu cách implement để đảm bảo tính tin cậy. Hôm nay nhân một người bạn có hỏi về một framework khác sử dụng RabbitMQ để làm queue, thấy khá thú vị nên dành chút thời gian đọc quá.
-Ý tưởng là sẽ viết một sender.rb để đóng gói các task thành dạng message và gửi vào queue.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Ở trong một bài viết trước mình đã có tìm hiểu về Sidekiq - backgroud job, hiểu cách implement để đảm bảo tính tin cậy.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -119,8 +221,18 @@ nginx: là một webserver opensource, support cả chức năng cân bằng t�
       <pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/sidekiq-how-to-reliability/</guid>
-      <description>Thông thường, khi xây dựng một ứng dụng web, quy trình đơn giản sẽ như sau:
- Người dùng gửi yêu cầu, request tới web application. Web application nhận request, xử lý (hoặc intergration với service khác như database để xử lý). Cuối cùng trả về kết quả cho user.  Ví dụ trong thực tế, bạn đăng ký user ở một website nào đó, sau khi nhập đầy đủ thông tin, submit -&amp;gt; request sẽ được gửi lên server và người dùng sẽ chờ cho tới khi server xử lý xong và trả về kết quả (thành công hoặc thất bại).</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Thông thường, khi xây dựng một ứng dụng web, quy trình đơn giản sẽ như sau:
+          
+        
+        </description>
     </item>
     
     <item>
@@ -129,9 +241,18 @@ nginx: là một webserver opensource, support cả chức năng cân bằng t�
       <pubDate>Wed, 25 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/rails-for-devops-engineer/</guid>
-      <description>Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer.
-1. Basic Active Record 1.1 find Tham số truyền vào của find là primary-key, ví dụ User.find(1) tương đương với SELECT * FROM users WHERE id = 1 LIMIT 1
-Cũng có thể nhận nhiều giá trị kiểu User.find(1, 10) hoặc User.find([1, 10]) sẽ tương đương với SELECT * FROM users WHERE id IN (1, 10)</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -140,7 +261,18 @@ Cũng có thể nhận nhiều giá trị kiểu User.find(1, 10) hoặc User.fi
       <pubDate>Mon, 16 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/how-to-setup-our-networking/</guid>
-      <description>Là một công ty công nghệ, làm về dịch vụ internet, nhu cầu về mạng là một nhu cầu cơ bản và bắt buộc. Nếu không có internet thì chỉ có nước cả công ty cùng nghỉ đi chơi. Vì vậy setup một hệ thống mạng sao cho vừa đạt nhu cầu, chi phí rẻ là một việc không dễ dàng, nhất là khi các giải pháp luôn được quảng cáo vượt quá hiệu năng thực sự.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Là một công ty công nghệ, làm về dịch vụ internet, nhu cầu về mạng là một nhu cầu cơ bản và bắt buộc.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -149,8 +281,18 @@ Cũng có thể nhận nhiều giá trị kiểu User.find(1, 10) hoặc User.fi
       <pubDate>Fri, 06 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/noted-c&#43;&#43;/</guid>
-      <description>Tại sao hôm nay có bài này?
-Mình chẳng bao giờ code C, C++ nên chẳng bao giờ nhớ được các khái niệm về con trỏ. Nên mình không thích con trỏ tí nào cả. Nhưng khổ cái này trong một số trường hợp mình lại vẫn muốn hiểu nó, mà do không làm việc với C, C++ (và sau này có Golang) nên mình lại rất hay &amp;ldquo;quên&amp;rdquo;. Nên tổng hợp lại để khi nào quên thì vô đọc lại.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Tại sao hôm nay có bài này?
+          
+        
+        </description>
     </item>
     
     <item>
@@ -159,8 +301,18 @@ Mình chẳng bao giờ code C, C++ nên chẳng bao giờ nhớ được các k
       <pubDate>Mon, 18 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/how-to-hash-store-password/</guid>
-      <description>Sau khi đọc bài viết băm mật khẩu đúng cách của anh thaidn, mình nhớ lại lúc mình mới ra trường, cũng đã từng nghĩ về vấn đề này (lúc đó mình khá thích môn Bảo Mật Thông Tin ở trường) nhưng chưa bao giờ hiểu tường tận. Chỉ biết là không nên:
- Lưu password ở dạng plain-text. Hash với một thuật toán hash mạnh, không nên xài MD5, SHA-1 &amp;hellip; Hash với salt.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Sau khi đọc bài viết băm mật khẩu đúng cách của anh thaidn, mình nhớ lại lúc mình mới ra trường, cũng đã từng nghĩ về vấn đề này (lúc đó mình khá thích môn Bảo Mật Thông Tin ở trường) nhưng chưa bao giờ hiểu tường tận.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -169,8 +321,18 @@ Mình chẳng bao giờ code C, C++ nên chẳng bao giờ nhớ được các k
       <pubDate>Sat, 16 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/what-is-difference-between-ssl-tls-https/</guid>
-      <description>Chắc ai cũng đã nghe qua về HTTPs (HTTP secure), SSL và TLS, nhưng có bao giờ bạn thắc mắc tụi này khác nhau như thế nào chưa? Và liệu có phải 3 thuật ngữ đó đều chỉ một thứ hay không?
-SSL (Secure Sockets Layer), đây là tên được đặt bởi những người phát minh ra giao thức này phiên bản đầu tiên, công ty Netspace (công ty này sau đó đã được AOL mua lại).</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Chắc ai cũng đã nghe qua về HTTPs (HTTP secure), SSL và TLS, nhưng có bao giờ bạn thắc mắc tụi này khác nhau như thế nào chưa?
+          
+        
+        </description>
     </item>
     
     <item>
@@ -179,7 +341,18 @@ SSL (Secure Sockets Layer), đây là tên được đặt bởi những ngườ
       <pubDate>Fri, 01 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/speeding-up-backup-and-restore-in-postgresql/</guid>
-      <description>Tương tự như MySQL, bạn có thể dùng replication để backup. Nhưng cuộc đời lúc nào cũng có những nhu cầu ngoại lệ, thường thấy nhất là data cho môi trường staging hoặc development hoặc đơn giản chỉ là chép một bảng từ chỗ này qua chỗ kia để test cái này cái kia. Cách đơn giản, dễ xài, có thể lấy một phần dữ liệu đó là pg_dump, ta có thể dump một table, dump schema &amp;hellip; dễ dàng với dữ liệu nhỏ.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Tương tự như MySQL, bạn có thể dùng replication để backup.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -188,9 +361,18 @@ SSL (Secure Sockets Layer), đây là tên được đặt bởi những ngườ
       <pubDate>Wed, 30 May 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/improving-mongodb-perf-by-managing-indexes/</guid>
-      <description>Ai cũng biết đánh index giúp tăng tốc các truy vấn tìm kiếm, tìm kiếm trong cây index (B-Tree) sẽ nhanh hơn scan trong toàn bộ bảng. Ai cũng biết nên không nói nhiều về index là gì nữa vậy nhé.
-Đây là MongoDB users dataset bạn có thể tải về chơi thử.
-1. Sơ sơ về index Index trong Mongo cũng tương tự các cơ sở dữ liệu quan hệ, ví dụ ta có một index được định nghĩa như sau:</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Ai cũng biết đánh index giúp tăng tốc các truy vấn tìm kiếm, tìm kiếm trong cây index (B-Tree) sẽ nhanh hơn scan trong toàn bộ bảng.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -199,7 +381,18 @@ SSL (Secure Sockets Layer), đây là tên được đặt bởi những ngườ
       <pubDate>Tue, 24 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/delayed-replication-in-mysql/</guid>
-      <description>Trong bài Giới thiệu về MySQL Replication mình có giới thiệu một chức năng của hệ thống Replication đó là realtime backup. Nếu server master gặp sự cố như hư hỏng ổ cứng mà không thể phục hồi dữ liệu từ ổ cứng thì các bản backup offline định kì sẽ có độ trễ dữ liệu. Ví dụ nếu ta chỉ chạy offline backup dữ liệu 2 lần/ngày thì dữ liệu trong trường hợp xấu nhất sẽ bị mất trong vòng 12 tiếng.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Trong bài Giới thiệu về MySQL Replication mình có giới thiệu một chức năng của hệ thống Replication đó là realtime backup.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -208,8 +401,18 @@ SSL (Secure Sockets Layer), đây là tên được đặt bởi những ngườ
       <pubDate>Tue, 27 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/how-to-fix-mysql-replication/</guid>
-      <description>Khi vận hành một hệ thống MySQL replication, thì khi một server slave bị lỗi có nghĩa là dữ liệu giữa Slave và Master đã có sự sai lệch, và lúc đó Slave sẽ không còn tác dụng trong hệ thống nữa. Nhiệm vụ của người vận hành hệ thống là cần fix để đưa slave quay trở lại hoạt động bình thường.
-Có nhiều cách để fix slave tùy vào từng trường hợp cụ thể, một trong những yêu cầu cần thiết để có thể giải quyết nhanh chóng khi hệ thống M-S bị lỗi đó là bạn phải hiểu dữ liệu của bạn, phải biết là table đó làm gì, dữ liệu lưu trong đó có tác dụng gì, phục vụ cho chức năng nào, yêu cầu độ chính xác của dữ liệu đó ra sao thì mới có hướng giải quyết cụ thể.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Khi vận hành một hệ thống MySQL replication, thì khi một server slave bị lỗi có nghĩa là dữ liệu giữa Slave và Master đã có sự sai lệch, và lúc đó Slave sẽ không còn tác dụng trong hệ thống nữa.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -218,8 +421,18 @@ Có nhiều cách để fix slave tùy vào từng trường hợp cụ thể, m
       <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/docker-eco-system/</guid>
-      <description>Hôm nay mình đọc được một bài khá là hay của tác giả @lherrera trên medium, nó giải thích khá nhiều các thông tin cho các bạn mới bắt đầu với Docker. Mình xin phép lược dịch (có bỏ một số phần cho đơn giản và dễ hiểu cũng như thêm một số phần khác để giải thích kỹ hơn)
-Khi mới bắt đầu với Docker bạn có thể bị nhầm lẫn giữa một rừng các công cụ với tên kiểu Docker-something.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Hôm nay mình đọc được một bài khá là hay của tác giả @lherrera trên medium, nó giải thích khá nhiều các thông tin cho các bạn mới bắt đầu với Docker.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -228,7 +441,178 @@ Khi mới bắt đầu với Docker bạn có thể bị nhầm lẫn giữa m�
       <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/intro-mysql-replication/</guid>
-      <description>1. Giới thiệu Right tool for right job. Trước tiên phải hiểu là MySQL Replication không phải là giải pháp giải quyết mọi bài toán về quá tải hệ thống cơ sở dữ liệu. Để mở rộng một hệ thống ta có hai phương pháp mở rộng là scale up và scale out. Bắt đầu với 1 máy chủ thì hai phương pháp trên được diễn giải như sau:</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          1. Giới thiệu Right tool for right job.
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://xluffy.github.io/post/default-transaction-isolation-level/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/default-transaction-isolation-level/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Nếu bạn xài nhiều DB quan hệ, bạn sẽ thấy có một ý khá là lạ đó là:
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://xluffy.github.io/post/elasticsearch-cache/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/elasticsearch-cache/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Elasticsearch support 3 loại caches:
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://xluffy.github.io/post/es/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/es/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Một trong các bài toán mình phải đối mặt gần đây đó là bài toán về hiệu suất của cụm Elasticsearch không được như mong đợi.
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://xluffy.github.io/post/mysql-parallel-replication/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/mysql-parallel-replication/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Trong MySQL 5.
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://xluffy.github.io/post/mysql-query-cache/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/mysql-query-cache/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          MySQL có một tính năng mà cơ bản bản thân mình thấy nó khá là vô dụng và đem lại nhiều hệ quả ko tốt nếu cố tình sử dụng, nhưng mình không hiểu tại sao nó lại ra đời và được phát hành.
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://xluffy.github.io/post/optimize-reindex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/optimize-reindex/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Optimize reindex Elasticsearch
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://xluffy.github.io/post/ruby-sidekiq-connection-pool/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/ruby-sidekiq-connection-pool/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Nếu ai xài Rails, sẽ thấy config kết nối tới DB có cấu trúc như vầy:
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://xluffy.github.io/post/types-of-locking/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xluffy.github.io/post/types-of-locking/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Types of locking
+          
+        
+        </description>
     </item>
     
     <item>
@@ -237,7 +621,18 @@ Khi mới bắt đầu với Docker bạn có thể bị nhầm lẫn giữa m�
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/about/</guid>
-      <description>Quăng</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Quăng
+          
+        
+        </description>
     </item>
     
   </channel>

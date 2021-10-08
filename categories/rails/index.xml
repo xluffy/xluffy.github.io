@@ -1,11 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>rails on xluffy&#39;s page</title>
+    <title>rails on /dev/clgt</title>
+    
+    
+    
     <link>https://xluffy.github.io/categories/rails/</link>
-    <description>Recent content in rails on xluffy&#39;s page</description>
+    <description>Recent content in rails on /dev/clgt</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <copyright>hàng nhà trồng theo giấy phép CC BY-NC 4.0</copyright>
     <lastBuildDate>Mon, 06 Jan 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/categories/rails/index.xml" rel="self" type="application/rss+xml" />
@@ -17,9 +21,18 @@
       <pubDate>Mon, 06 Jan 2020 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/chaos-of-configuration/</guid>
-      <description>Một trong các vấn đề cơ bản khi deployment và đảm bảo security cho ứng dụng đó là làm sao để quản lý config một cách tiện lợi, an toàn, dễ cập nhật.
-Tuân theo một method là 12factor ta coi như việc dùng biến môi trường để lưu config là chuyện hiển nhiên không cần phải giải thích.
-1. What the fuck are u doing now? Lấy ví dụ là ứng dụng Rails, cách quản lý config hiện tại được mô tả như sau:</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Một trong các vấn đề cơ bản khi deployment và đảm bảo security cho ứng dụng đó là làm sao để quản lý config một cách tiện lợi, an toàn, dễ cập nhật.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -28,8 +41,18 @@ Tuân theo một method là 12factor ta coi như việc dùng biến môi trư�
       <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/build-simple-bg-job-with-rabbitmq/</guid>
-      <description>Ở trong một bài viết trước mình đã có tìm hiểu về Sidekiq - backgroud job, hiểu cách implement để đảm bảo tính tin cậy. Hôm nay nhân một người bạn có hỏi về một framework khác sử dụng RabbitMQ để làm queue, thấy khá thú vị nên dành chút thời gian đọc quá.
-Ý tưởng là sẽ viết một sender.rb để đóng gói các task thành dạng message và gửi vào queue.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Ở trong một bài viết trước mình đã có tìm hiểu về Sidekiq - backgroud job, hiểu cách implement để đảm bảo tính tin cậy.
+          
+        
+        </description>
     </item>
     
     <item>
@@ -38,8 +61,18 @@ Tuân theo một method là 12factor ta coi như việc dùng biến môi trư�
       <pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/sidekiq-how-to-reliability/</guid>
-      <description>Thông thường, khi xây dựng một ứng dụng web, quy trình đơn giản sẽ như sau:
- Người dùng gửi yêu cầu, request tới web application. Web application nhận request, xử lý (hoặc intergration với service khác như database để xử lý). Cuối cùng trả về kết quả cho user.  Ví dụ trong thực tế, bạn đăng ký user ở một website nào đó, sau khi nhập đầy đủ thông tin, submit -&amp;gt; request sẽ được gửi lên server và người dùng sẽ chờ cho tới khi server xử lý xong và trả về kết quả (thành công hoặc thất bại).</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Thông thường, khi xây dựng một ứng dụng web, quy trình đơn giản sẽ như sau:
+          
+        
+        </description>
     </item>
     
     <item>
@@ -48,9 +81,18 @@ Tuân theo một method là 12factor ta coi như việc dùng biến môi trư�
       <pubDate>Wed, 25 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/rails-for-devops-engineer/</guid>
-      <description>Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer.
-1. Basic Active Record 1.1 find Tham số truyền vào của find là primary-key, ví dụ User.find(1) tương đương với SELECT * FROM users WHERE id = 1 LIMIT 1
-Cũng có thể nhận nhiều giá trị kiểu User.find(1, 10) hoặc User.find([1, 10]) sẽ tương đương với SELECT * FROM users WHERE id IN (1, 10)</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer.
+          
+        
+        </description>
     </item>
     
   </channel>

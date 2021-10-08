@@ -1,103 +1,186 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Change schema of huge table in MySQL | xluffy&#39;s page</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
     
-    <header>
+      <title>
+        Change schema of huge table in MySQL ::
+        /dev/clgt
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="Bài này được update lại gần như toàn bộ sau khi mình join team research-database của Grokking."
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://xluffy.github.io/post/change-schema-of-huge-table-in-mysql/" />
 
+
+
+
+
+<link rel="stylesheet" href="https://xluffy.github.io/assets/style.css" />
+
+<link rel="stylesheet" href="https://xluffy.github.io/style.css" />
+
+
+<link
+  rel="apple-touch-icon-precomposed"
+  sizes="144x144"
+  href="https://xluffy.github.io/img/apple-touch-icon-144-precomposed.png"
+/>
+<link rel="shortcut icon" href="https://xluffy.github.io/img/favicon.png" />
+
+
+<link href="https://xluffy.github.io/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Change schema of huge table in MySQL"/>
+<meta name="twitter:description" content="Bài này được update lại gần như toàn bộ sau khi mình join team research-database của Grokking."/>
+
+
+
+<meta property="og:title" content="Change schema of huge table in MySQL" />
+<meta property="og:description" content="Bài này được update lại gần như toàn bộ sau khi mình join team research-database của Grokking." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xluffy.github.io/post/change-schema-of-huge-table-in-mysql/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-12-27T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-27T00:00:00+00:00" /><meta property="og:site_name" content="/dev/clgt" />
+
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <nav>
-    <ul>
-      
-      
-      <li class="pull-left ">
-        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/categories/">~/categories</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="https://github.com/xluffy/til/issues">~/til</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/about">~/about</a>
-      </li>
-      
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
+</svg>
+</span>
+    <span class="logo__text"
+      >/dev/clgt</span
+    >
+    <span class="logo__cursor"></span>
+  
+</a>
 
+    <span class="header__right">
       
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
       
-      <li class="pull-right">
-        <a href="/index.xml">~/subscribe</a>
-      </li>
+        
+          <li><a href="/about">about</a></li>
+        
       
+        
+          <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+        
+      
+    
+  </ul>
 
-    </ul>
-  </nav>
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about</a></li>
+      
+    
+      
+        <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg
+  class="theme-toggler"
+  width="24"
+  height="24"
+  viewBox="0 0 48 48"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+
+      </span>
+    </span>
+  </span>
 </header>
 
-    
-    
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">Change schema of huge table in MySQL</h1>
+    <div class="post-meta">
       
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-K4LWNXV');</script>
+        <span class="post-date">
+          2019-12-27
+        </span>
+
+        
+          
+        
       
-    
-  </head>
 
-  <body>
-    
       
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4LWNXV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
       
+    </div>
+
     
-    <br/>
 
-<div class="article-meta">
-<h1><span class="title">Change schema of huge table in MySQL</span></h1>
+    
 
-<h2 class="date">2019/12/27</h2>
-<p class="terms">
-  
-  
-  Categories: <a href="/categories/mysql">mysql</a> 
-  
-  
-  
-  
-</p>
-</div>
-
-
-
-<main>
-
-
-<blockquote>
+    <div class="post-content">
+      
+      <blockquote>
 <p>Bài này được update lại gần như toàn bộ sau khi mình join team research-database của <a href="https://www.grokking.org/">Grokking</a>. Lý do chính là mình phát hiện có nhiều điểm không chính xác ở nội dung cũ.</p>
 </blockquote>
-
 <h2 id="1-theo-dòng-lịch-sử">1. Theo dòng lịch sử</h2>
-
-<p>Thay đổi schema của một bảng dữ liệu trong MySQL là một nhu cầu thường xuyên và hết sức cơ bản khi phát triển hệ thống. Tuy nhiên bất kỳ ai hiểu biết về MySQL đều biết rằng công việc này thực sự rất đau đớn vì nó có thể làm drop traffic production, tăng thời gian xử lý ở tầng database, đem lại trải nghiệm không tốt cho người dùng, trong một số trường hợp hệ thống sẽ bị downtime cho tới khi việc thay đổi schema hoàn thành. Hệ quả là giảm revenue, khách hàng bỏ đi. Đối với những hệ thống traffic cao, yêu cầu phục vụ là <sup>24</sup>&frasl;<sub>7</sub> thì khách hàng sẽ khó chấp nhận chuyện này.</p>
-
+<p>Thay đổi schema của một bảng dữ liệu trong MySQL là một nhu cầu thường xuyên và hết sức cơ bản khi phát triển hệ thống. Tuy nhiên bất kỳ ai hiểu biết về MySQL đều biết rằng công việc này thực sự rất đau đớn vì nó có thể làm drop traffic production, tăng thời gian xử lý ở tầng database, đem lại trải nghiệm không tốt cho người dùng, trong một số trường hợp hệ thống sẽ bị downtime cho tới khi việc thay đổi schema hoàn thành. Hệ quả là giảm revenue, khách hàng bỏ đi. Đối với những hệ thống traffic cao, yêu cầu phục vụ là 24/7 thì khách hàng sẽ khó chấp nhận chuyện này.</p>
 <p>Các hệ quản trị CSDL sử dụng một ngôn ngữ để định nghĩa cấu trúc của dữ liệu gọi là DDL (Data Definition Language) để thêm/sửa/xóa cấu trúc logic của schema (databases, tables, keys &hellip;). Ví dụ về DDL như <code>CREATE</code>, <code>ALTER TABLE ...</code>, <code>DROP ...</code>một số nhu cầu thường thấy như:</p>
-
 <ul>
 <li>Đánh index cho một bảng để tăng tốc độ truy vấn dữ liệu.</li>
 <li>Xóa các index dư thừa.</li>
@@ -106,45 +189,32 @@
 <li>Thay đổi data-type của một cột trong bảng.</li>
 <li>Thay đổi charset của bảng hoặc database.</li>
 </ul>
-
 <p><strong>Tuy nhiên</strong> với các phiên bản MySQL khác nhau, <em>storage engine</em> khác nhau, MySQL sẽ có cách hành xử khác nhau trên các câu lệnh thay đổi schema:</p>
-
 <ul>
 <li>Với MySQL &lt; 5.1, storage engine mặc định là MyISAM.</li>
 <li>Với MySQL &gt; 5.1 với InnoDB plugin, hoặc MySQL 5.5.</li>
 <li>Với MySQL &gt; 5.6 với Online DDL.</li>
 </ul>
-
 <p>Ngoài ra, để giải quyết nhu cầu thay đổi schema, cũng có những cách tiếp cận khác khi bản thân MySQL chưa hỗ trợ tốt online DDL (ở các version cũ) hoặc bản thân storage engine chưa xử lý tốt yêu cầu thay đổi schema như:</p>
-
 <ul>
 <li><a href="https://www.percona.com/doc/percona-toolkit/LATEST/pt-online-schema-change.html">pt-online-schema-change</a> từ Percona team.</li>
 <li><a href="https://github.com/github/gh-ost">gh-ost</a> từ github team.</li>
 <li><a href="https://github.com/facebookincubator/OnlineSchemaChange">osc</a> từ facebook team.</li>
 </ul>
-
 <p>Mỗi tool sẽ có cách tiếp cận khác nhau, nhưng tùy vào tình huống và cũng tùy vào phiên bản MySQL sẽ có những ưu nhược điểm riêng.</p>
-
 <p>Ngoài ra còn 2 cách tiếp cận khác đó là:</p>
-
 <ul>
 <li>Downtime hệ thống và thực hiện thay đổi schema xong thì mới bật hệ thống lại.</li>
 <li>Thực hiện thay đổi trên Slave, sau khi hoàn thành thì promote slave lên thay thế master. (manunal nhiều, tốn thời gian, phức tạp khi có nhiều slave, schema inconsistent)</li>
 </ul>
-
-<h2 id="2-mysql-5-0-và-myisam">2. MySQL 5.0 và MyISAM</h2>
-
+<h2 id="2-mysql-50-và-myisam">2. MySQL 5.0 và MyISAM</h2>
 <p>Đây là storage engine mặc định ở version MySQL 5.0, hiện giờ nó không được sử dụng nhiều nữa nhưng bạn cũng cần biết về nó để hiểu tại sao việc thay đổi schema trên InnoDB lại dễ dàng hơn MyISAM.</p>
-
 <p>Điểm khác biệt lớn nhất liên quan đến nhu cầu thay đổi schema giữa 2 storage engine này là cơ chế locking:</p>
-
 <ul>
 <li>InnoDB dùng cơ chế row-level locking.</li>
 <li>MyISAM dùng cơ chế full table-level locking.</li>
 </ul>
-
 <p>Lock trong MyISAM được chia làm hai loại là READ-LOCK và WRITE-LOCK được mô tả như sau:</p>
-
 <ul>
 <li>READ-LOCK sẽ được yêu cầu trên toàn bộ bảng khi có một truy vấn đọc dữ liệu, ví dụ <code>SELECT</code>.</li>
 <li>Khi một READ-LOCK được yêu cầu, nó sẽ không cho phép bất cứ truy vấn ghi dữ liệu nào được thực thi (để đảm bảo dữ liệu đọc lên không có sự thay đổi), nghĩa là các truy vấn UPDATE/DELETE/INSERT sẽ không được thực thi, các truy vấn này phải chờ cho tới khi tất cả các client đang đọc dữ liệu hoàn thành và release lock.</li>
@@ -153,115 +223,92 @@
 <li>Concurrent INSTER là một trường hợp đặc biệt, nếu một bảng không có <strong>no holes</strong> ở giữa (kết quả của việc xóa các record dữ liệu), thì dữ liệu INSERT sẽ luôn luôn được đặt ở cuối của bảng. Trong trường hợp này, client đọc dữ liệu trên bảng này, đã yêu cầu một READ-LOCK, cho phép các client khác được phép INSTER dữ liệu vào bảng này. Nếu một bảng có một hole, concurrent INSTER sẽ không được phép thực hiện, tuy nhiên bạn có thể xóa hole bằng cách sử dụng <code>OPTIMIZE TABLE</code>  để chống phân mảnh bảng (Lưu ý là việc xóa record ở cuối cùng của bảng không tạo ra hole).</li>
 <li>Một client chỉ được phép yêu cầu một WRITE-LOCK khi không có bất kỳ một client nào khác đang sử dụng bảng đó. Nếu có tồn tại một client khác đang sử dụng bảng khi WRITE LOCK được yêu cầu, nó sẽ phải chờ cho tới khi tất cả các client đó hoàn thành.</li>
 </ul>
-
 <p>Theo mô tả của <a href="https://www.cmi.ac.in/~madhavan/courses/databases10/mysql-5.0-reference-manual/sql-syntax.html#alter-table">MySQL 5.0</a> thì lệnh <code>ALTER TABLE ...</code> sẽ hoạt động như sau:</p>
-
 <ul>
 <li>Tạo một bảng tạm giống cấu trúc bảng gốc.</li>
 <li>Thực hiện yêu cầu thay đổi lên bảng tạm.</li>
 <li>Copy dữ liệu từ bảng gốc sang bảng tạm mới theo từng dòng.</li>
 <li>Khi hoàn thành việc copy, drop bảng cũ và rename bảng tạm thành bảng gốc.</li>
 </ul>
-
 <p>Trong quá trình <code>ALTER TABLE</code> thực thi, bảng gốc sẽ bị lock ở READ-LOCK, nghĩa là có thể đọc dữ liệu nhưng không thể cập nhật dữ liệu. Tất cả các truy vấn cập nhật dữ liệu sẽ bị đình trệ cho tới khi bảng mới sẵn sàng, và sẽ được tự động chuyển hướng qua bảng mới mà không có bất kỳ lỗi nào (timeout).</p>
-
 <p>Vấn đề là nếu một bảng MyISAM có nhiều dữ liệu thì trong quá trình thay đổi cấu trúc bảng ta sẽ không thể cập nhật dữ liệu mà chỉ có thể đọc dữ liệu. Nếu quá trình thay đổi cấu trúc bảng mất 1 tiếng, đồng nghĩa ứng dụng không thể cập nhật dữ liệu trong 1 tiếng đồng hồ.</p>
-
-<h2 id="3-5-5-mysql-innodb-5-1">3. 5.5 &gt;= MySQL InnoDB&gt;= 5.1</h2>
-
+<h2 id="3-55--mysql-innodb-51">3. 5.5 &gt;= MySQL InnoDB&gt;= 5.1</h2>
 <p>Chia làm 2 loại:</p>
-
 <ul>
 <li>Với index, phụ thuộc vào tính năng fast-create-index của InnoDB.</li>
 <li>Với thay đổi cấu trúc, thêm/xóa cột dữ liệu hoặc kiểu dữ liệu -&gt; hoạt động tương tự  MyISAM, chỉ khác là do InnoDB dùng cơ chế row-level locking, nên sẽ chỉ lock trên dòng dữ liệu copy.</li>
 </ul>
-
 <p>Điểm đặc biệt ở phiên bản này là tính năng <a href="https://dev.mysql.com/doc/refman/5.5/en/innodb-create-index-overview.html">fast create index</a> được cung cấp bởi InnoDB storage engine. Từ đây trở về sau, ta mặc định sẽ chỉ nói về InnoDB storage engine. Trước khi nói về tính năng fast-create-index, ta sẽ cần hiểu về 2 khái niệm là <strong>clustered index</strong> và <strong>non-clustered index.</strong> Điều này <strong>đặc biệt quan trọng</strong> vì tính năng này phụ thuộc hoàn toàn vào cách hoạt động của 2 loại index này.</p>
-
 <p>Khi nói tới clustered-index là mặc nhiên nói tới InnoDB (vì các storage engine khác không hỗ trợ). Ngoài InnoDB thì MSSQL cũng có khái niệm clustered-index, cách hoạt động tương tự. MyISAM và Postgres không có khái niệm clustered-index.</p>
-
 <p><strong>Clustered index</strong> vs <strong>non-clustered index:</strong></p>
-
 <ul>
-<li><p>Ý tưởng của clustered indexes là lưu trữ <strong>toàn bộ một bảng dữ liệu</strong> vào một cấu trúc B-tree, hay nói cách khác một bảng có clustered indexes thì bản thân bảng đó chính là một cây index được sắp xếp theo <strong>trường được đánh index</strong>, bình thường là PK .</p></li>
-
-<li><p>Các <strong>nodex lá</strong> của clustered indexes <strong>chứa khóa là các trường được đánh index</strong> và đồng thời chứa tất cả các trường còn lại của bảng. Nên việc truy suất dữ liệu thông qua clustered index sẽ rất nhanh bởi vì <strong>row data</strong> sẽ nằm trên cùng một page với <strong>khóa của index</strong></p></li>
-
-<li><p>Clustered index không yêu cầu phải unique, tuy nhiên nếu trường được đánh clustered index không unique thì khóa cũng được thêm vào một giá trị random để đảm bảo các node index vẫn unique.</p></li>
-
-<li><p>Trên MySQL, với InnoDB storage engine, khóa chính sẽ được mặc định sử dụng làm clustered index. Nếu một bảng không có khóa chính thì MySQL sẽ chọn một index unique với tất cả các giá trị khác NULL làm clustered index. Nếu không có cả khóa chính và unique index, MySQL sẽ tự sinh ra một clustered index ẩn tên là <code>GEN_CLUST_INDEX</code>.</p></li>
-
-<li><p>Khi một bảng đã có clustered index thì tất cả các index khác sẽ được gọi là non-clustered index hoặc secondary-index. Non-clustered index sẽ có một cấu trúc tách biệt với dữ liệu của bảng (có thể xem như một bảng riêng).</p></li>
-
-<li><p>Điểm khác biệt giữa clustered-index và non-clustered-index là node lá của non-clustered-index không chứa dữ liệu, hay nói cách khác là tất cả các node của non-clustered-index sẽ chứa khóa là trường được đánh index và một con trỏ, trỏ tới vùng dữ liệu chứa giá trị khóa, trong trường hợp này là trỏ ngược sang clustered-index. Ví dụ nếu PK là trường <code>id</code> thì clustered-index chính là <code>id</code>, nếu ta đánh index trên một trường khác ví dụ là <code>name</code> thì index này sẽ là non-clustered-index, ở dạng <code>id, name</code></p></li>
-
-<li><p>Điều này dẫn tới sự khác biệt khi truy vấn dữ liệu với điều kiện là clustered-index hay non-clustered-index:</p>
-
+<li>
+<p>Ý tưởng của clustered indexes là lưu trữ <strong>toàn bộ một bảng dữ liệu</strong> vào một cấu trúc B-tree, hay nói cách khác một bảng có clustered indexes thì bản thân bảng đó chính là một cây index được sắp xếp theo <strong>trường được đánh index</strong>, bình thường là PK .</p>
+</li>
+<li>
+<p>Các <strong>nodex lá</strong> của clustered indexes <strong>chứa khóa là các trường được đánh index</strong> và đồng thời chứa tất cả các trường còn lại của bảng. Nên việc truy suất dữ liệu thông qua clustered index sẽ rất nhanh bởi vì <strong>row data</strong> sẽ nằm trên cùng một page với <strong>khóa của index</strong></p>
+</li>
+<li>
+<p>Clustered index không yêu cầu phải unique, tuy nhiên nếu trường được đánh clustered index không unique thì khóa cũng được thêm vào một giá trị random để đảm bảo các node index vẫn unique.</p>
+</li>
+<li>
+<p>Trên MySQL, với InnoDB storage engine, khóa chính sẽ được mặc định sử dụng làm clustered index. Nếu một bảng không có khóa chính thì MySQL sẽ chọn một index unique với tất cả các giá trị khác NULL làm clustered index. Nếu không có cả khóa chính và unique index, MySQL sẽ tự sinh ra một clustered index ẩn tên là <code>GEN_CLUST_INDEX</code>.</p>
+</li>
+<li>
+<p>Khi một bảng đã có clustered index thì tất cả các index khác sẽ được gọi là non-clustered index hoặc secondary-index. Non-clustered index sẽ có một cấu trúc tách biệt với dữ liệu của bảng (có thể xem như một bảng riêng).</p>
+</li>
+<li>
+<p>Điểm khác biệt giữa clustered-index và non-clustered-index là node lá của non-clustered-index không chứa dữ liệu, hay nói cách khác là tất cả các node của non-clustered-index sẽ chứa khóa là trường được đánh index và một con trỏ, trỏ tới vùng dữ liệu chứa giá trị khóa, trong trường hợp này là trỏ ngược sang clustered-index. Ví dụ nếu PK là trường <code>id</code> thì clustered-index chính là <code>id</code>, nếu ta đánh index trên một trường khác ví dụ là <code>name</code> thì index này sẽ là non-clustered-index, ở dạng <code>id, name</code></p>
+</li>
+<li>
+<p>Điều này dẫn tới sự khác biệt khi truy vấn dữ liệu với điều kiện là clustered-index hay non-clustered-index:</p>
 <ul>
 <li>Với clustered-index, khi tìm đến node lá, bản thân node lá đã chứa sẵn dữ liệu cần truy vấn nên tới đây coi như kết thúc truy vấn.</li>
 <li>Với non-clustered-index, khi tìm đến node lá phù hợp với điều kiện tìm kiếm, node lá sẽ chỉ chứa một con trỏ, trỏ tới clustered-index. Nên sẽ cần look-up thêm một lần nữa sang clustered-index để lấy các trường dữ liệu cần tìm.</li>
-</ul></li>
 </ul>
-
 <p><em>Minh họa clustered-index và non-clustered-index (nguồn: <a href="https://use-the-index-luke.com">https://use-the-index-luke.com</a>)</em></p>
-
-<p><img src="https://use-the-index-luke.com/static/fig05_03_secondary_index_on_clustered_index.x1.Q21aCRSZ.png" alt="clustered-index" /></p>
-
+</li>
+</ul>
+<p><img src="https://use-the-index-luke.com/static/fig05_03_secondary_index_on_clustered_index.x1.Q21aCRSZ.png" alt="clustered-index"></p>
 <p>Tính năng <strong>fast-create-index</strong> thực chất chỉ áp dụng cho <strong>secondary-index</strong>, vì thực chất secondary-index tách biệt với bảng dữ liệu, dẫn đến nếu tạo secondary-index sẽ không cần phải copy lại toàn bộ bảng dữ liệu (như cách mà MyISAM hoạt động). Riêng clustered-index, do bản chất là toàn bộ bảng dữ liệu nên thay đổi trên clustered-index hoạt động giống cách mà MyISAM hoạt động, tức là phải copy lại toàn bộ bảng.</p>
-
 <p>Cơ chế của <strong>fast-create-index</strong> hoạt động như sau:</p>
-
 <ul>
 <li>Thêm mới secondary-index vào một bảng đã tồn tại, InnoDB sẽ scan toàn bảng này, sắp xếp các row dữ liệu bằng cách sử dụng memory buffer và temporary file theo thứ tự của trường được đánh index (<a href="https://mariadb.com/kb/en/innodb-system-variables/#innodb_sort_buffer_size">innodb_sort_buffer_size</a>). Sau đó cây index của secondary-index sẽ được tạo dựa trên key-value đã được sắp xếp, điều này khiến việc tạo cây index sẽ hiệu quả hơn chèn từng dòng của bảng vào cây index (vì chèn từng dòng là random access). Nên ta sẽ thấy việc add secondary-index vào một bảng sẽ mất một chút thời gian tùy thuộc vào số lượng dữ liệu (quá trình scan và sort).</li>
 <li>Xóa secondary-index thì đơn giản hơn, chỉ các internal InnoDB system table và MySQL data table được cập nhật lại là index này khôing còn tồn tại, InnoDB sau đó sẽ trả lại vùng nhớ sử dụng index cho tablespace chứa index đó để các indexes mới hoặc các dữ liệu mới có thể tái sử dụng vùng nhớ này. Nên ta sẽ thấy việc xóa index trả về kết quả tức thì.</li>
 </ul>
-
 <p>Khi một InnoDB secondary index được tạo hoặc xóa, bảng sẽ bị lock ở <strong>shared mode</strong>. Bất kỳ truy vấn ghi dữ liệu nào lên bảng này sẽ bị block, nhưng dữ liệu của bảng vẫn có thể được đọc. Nghe có vẻ giống cách MyISAM hoạt động, nhưng thực chất sẽ chỉ thao tác trên trường cần tạo index mà không phải copy toàn bộ bảng nên quá trình này vẫn nhanh hơn.</p>
-
 <p>Khi thay đổi clustered-index của bảng, bảng sẽ bị lock ở exclusive mode bởi vì dữ liệu sẽ cần phải copy nên tất cả các operation trên bảng này sẽ bị block hết. <code>CREATE INDEX</code> và <code>ALTER TABLE</code> cho InnoDB sẽ luôn luôn chờ cho các transaction đang thực thi được commit hoặc rollback mới được thực thi. Riêng với clustered-index thì phải chờ tất cả các truy vấn SELECT hoàn thành mới được thực thi.</p>
-
 <p>Một lưu ý quan trọng nữa là InnoDB secondary index sẽ chỉ chứa các dữ liệu đã được commited TẠI THỜI ĐIỂM <code>CREATE INDEX</code> hoặc <code>ALTER TALBE</code> bắt đầu thực thi, không bao gồm dữ liệu uncommitted (trong một transaction được khởi tạo trước khi <code>ALTER TABLE</code> nhưng chưa commited), những dữ liệu bị mark deleted hoặc old version của dữ liệu (do cơ chế MVCC của InnoDB).</p>
-
 <p>Test với MySQL 5.5 như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#f92672">`</span>users<span style="color:#f92672">`</span>;
 
-<pre><code class="language-sql">DROP TABLE `users`;
+<span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#f92672">`</span>users<span style="color:#f92672">`</span> (
+  <span style="color:#f92672">`</span>id<span style="color:#f92672">`</span> int(<span style="color:#ae81ff">10</span>) unsigned <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> AUTO_INCREMENT,
+  <span style="color:#f92672">`</span>name<span style="color:#f92672">`</span> varchar(<span style="color:#ae81ff">255</span>) <span style="color:#66d9ef">COLLATE</span> utf8mb4_unicode_ci <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+  <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span> (<span style="color:#f92672">`</span>id<span style="color:#f92672">`</span>)
+) ENGINE<span style="color:#f92672">=</span>InnoDB AUTO_INCREMENT<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">DEFAULT</span> CHARSET<span style="color:#f92672">=</span>utf8mb4 <span style="color:#66d9ef">COLLATE</span><span style="color:#f92672">=</span>utf8mb4_unicode_ci;
 
-CREATE TABLE `users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+<span style="color:#66d9ef">DELIMITER</span> <span style="color:#960050;background-color:#1e0010">$$</span>
+<span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">PROCEDURE</span> generate_data(<span style="color:#66d9ef">IN</span> no_rows INT)
+         <span style="color:#66d9ef">BEGIN</span>
+             <span style="color:#66d9ef">DECLARE</span> i INT;
+             <span style="color:#66d9ef">SET</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+             <span style="color:#66d9ef">START</span> <span style="color:#66d9ef">TRANSACTION</span>;
+                WHILE i <span style="color:#f92672">&lt;=</span> no_rows <span style="color:#66d9ef">DO</span>
+                    <span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> <span style="color:#f92672">`</span>users<span style="color:#f92672">`</span> (<span style="color:#f92672">`</span>name<span style="color:#f92672">`</span>) <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#34;Jamal&#34;</span>),(<span style="color:#e6db74">&#34;Thaddeus&#34;</span>),(<span style="color:#e6db74">&#34;Hasad&#34;</span>),(<span style="color:#e6db74">&#34;August&#34;</span>),(<span style="color:#e6db74">&#34;Macaulay&#34;</span>),(<span style="color:#e6db74">&#34;Rudyard&#34;</span>),(<span style="color:#e6db74">&#34;Amal&#34;</span>),(<span style="color:#e6db74">&#34;Harding&#34;</span>),(<span style="color:#e6db74">&#34;Todd&#34;</span>),(<span style="color:#e6db74">&#34;Julian&#34;</span>),(<span style="color:#e6db74">&#34;Vaughan&#34;</span>),(<span style="color:#e6db74">&#34;August&#34;</span>),(<span style="color:#e6db74">&#34;Martin&#34;</span>),(<span style="color:#e6db74">&#34;Clark&#34;</span>),(<span style="color:#e6db74">&#34;Bevis&#34;</span>),(<span style="color:#e6db74">&#34;Branden&#34;</span>),(<span style="color:#e6db74">&#34;Maxwell&#34;</span>),(<span style="color:#e6db74">&#34;Brian&#34;</span>),(<span style="color:#e6db74">&#34;Kelly&#34;</span>),(<span style="color:#e6db74">&#34;Basil&#34;</span>),(<span style="color:#e6db74">&#34;Cyrus&#34;</span>),(<span style="color:#e6db74">&#34;Isaac&#34;</span>),(<span style="color:#e6db74">&#34;Joshua&#34;</span>),(<span style="color:#e6db74">&#34;Cadman&#34;</span>),(<span style="color:#e6db74">&#34;Rigel&#34;</span>),(<span style="color:#e6db74">&#34;Alec&#34;</span>),(<span style="color:#e6db74">&#34;Aquila&#34;</span>),(<span style="color:#e6db74">&#34;Wing&#34;</span>),(<span style="color:#e6db74">&#34;Alden&#34;</span>),(<span style="color:#e6db74">&#34;Ulric&#34;</span>),(<span style="color:#e6db74">&#34;Theodore&#34;</span>),(<span style="color:#e6db74">&#34;Barrett&#34;</span>),(<span style="color:#e6db74">&#34;Jamal&#34;</span>),(<span style="color:#e6db74">&#34;Cooper&#34;</span>),(<span style="color:#e6db74">&#34;Matthew&#34;</span>),(<span style="color:#e6db74">&#34;Malik&#34;</span>),(<span style="color:#e6db74">&#34;Lane&#34;</span>),(<span style="color:#e6db74">&#34;Eagan&#34;</span>),(<span style="color:#e6db74">&#34;Dylan&#34;</span>),(<span style="color:#e6db74">&#34;Colt&#34;</span>),(<span style="color:#e6db74">&#34;Kevin&#34;</span>),(<span style="color:#e6db74">&#34;Gannon&#34;</span>),(<span style="color:#e6db74">&#34;Maxwell&#34;</span>),(<span style="color:#e6db74">&#34;Drew&#34;</span>),(<span style="color:#e6db74">&#34;Coby&#34;</span>),(<span style="color:#e6db74">&#34;Burke&#34;</span>),(<span style="color:#e6db74">&#34;Ishmael&#34;</span>),(<span style="color:#e6db74">&#34;Kasimir&#34;</span>),(<span style="color:#e6db74">&#34;Byron&#34;</span>),(<span style="color:#e6db74">&#34;Moses&#34;</span>),(<span style="color:#e6db74">&#34;Kaseem&#34;</span>),(<span style="color:#e6db74">&#34;Aladdin&#34;</span>),(<span style="color:#e6db74">&#34;Brenden&#34;</span>),(<span style="color:#e6db74">&#34;Geoffrey&#34;</span>),(<span style="color:#e6db74">&#34;Grant&#34;</span>),(<span style="color:#e6db74">&#34;Nathaniel&#34;</span>),(<span style="color:#e6db74">&#34;Dominic&#34;</span>),(<span style="color:#e6db74">&#34;Merrill&#34;</span>),(<span style="color:#e6db74">&#34;Garrison&#34;</span>),(<span style="color:#e6db74">&#34;Marsden&#34;</span>),(<span style="color:#e6db74">&#34;Raymond&#34;</span>),(<span style="color:#e6db74">&#34;Baxter&#34;</span>),(<span style="color:#e6db74">&#34;Tate&#34;</span>),(<span style="color:#e6db74">&#34;Kibo&#34;</span>),(<span style="color:#e6db74">&#34;Hall&#34;</span>),(<span style="color:#e6db74">&#34;Cullen&#34;</span>),(<span style="color:#e6db74">&#34;Nehru&#34;</span>),(<span style="color:#e6db74">&#34;Wesley&#34;</span>),(<span style="color:#e6db74">&#34;Silas&#34;</span>),(<span style="color:#e6db74">&#34;Fitzgerald&#34;</span>),(<span style="color:#e6db74">&#34;Zeph&#34;</span>),(<span style="color:#e6db74">&#34;Salvador&#34;</span>),(<span style="color:#e6db74">&#34;Lyle&#34;</span>),(<span style="color:#e6db74">&#34;Jakeem&#34;</span>),(<span style="color:#e6db74">&#34;Lyle&#34;</span>),(<span style="color:#e6db74">&#34;Tarik&#34;</span>),(<span style="color:#e6db74">&#34;Nehru&#34;</span>),(<span style="color:#e6db74">&#34;Nero&#34;</span>),(<span style="color:#e6db74">&#34;Stewart&#34;</span>),(<span style="color:#e6db74">&#34;Jameson&#34;</span>),(<span style="color:#e6db74">&#34;Nicholas&#34;</span>),(<span style="color:#e6db74">&#34;Jamal&#34;</span>),(<span style="color:#e6db74">&#34;Hu&#34;</span>),(<span style="color:#e6db74">&#34;Erasmus&#34;</span>),(<span style="color:#e6db74">&#34;Chaney&#34;</span>),(<span style="color:#e6db74">&#34;Nash&#34;</span>),(<span style="color:#e6db74">&#34;Emery&#34;</span>),(<span style="color:#e6db74">&#34;Colby&#34;</span>),(<span style="color:#e6db74">&#34;Brett&#34;</span>),(<span style="color:#e6db74">&#34;Benjamin&#34;</span>),(<span style="color:#e6db74">&#34;Philip&#34;</span>),(<span style="color:#e6db74">&#34;Chaim&#34;</span>),(<span style="color:#e6db74">&#34;Jakeem&#34;</span>),(<span style="color:#e6db74">&#34;Hyatt&#34;</span>),(<span style="color:#e6db74">&#34;Avram&#34;</span>),(<span style="color:#e6db74">&#34;Theodore&#34;</span>),(<span style="color:#e6db74">&#34;Palmer&#34;</span>),(<span style="color:#e6db74">&#34;Brandon&#34;</span>),(<span style="color:#e6db74">&#34;Thane&#34;</span>),(<span style="color:#e6db74">&#34;Adrian&#34;</span>);
+                    <span style="color:#66d9ef">SET</span> i <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+                <span style="color:#66d9ef">END</span> WHILE;
+             <span style="color:#66d9ef">COMMIT</span>;
+         <span style="color:#66d9ef">END</span><span style="color:#960050;background-color:#1e0010">$$</span>
+<span style="color:#66d9ef">DELIMITER</span> ;
 
-DELIMITER $$
-CREATE PROCEDURE generate_data(IN no_rows INT)
-         BEGIN
-             DECLARE i INT;
-             SET i = 1;
-             START TRANSACTION;
-                WHILE i &lt;= no_rows DO
-                    INSERT INTO `users` (`name`) VALUES (&quot;Jamal&quot;),(&quot;Thaddeus&quot;),(&quot;Hasad&quot;),(&quot;August&quot;),(&quot;Macaulay&quot;),(&quot;Rudyard&quot;),(&quot;Amal&quot;),(&quot;Harding&quot;),(&quot;Todd&quot;),(&quot;Julian&quot;),(&quot;Vaughan&quot;),(&quot;August&quot;),(&quot;Martin&quot;),(&quot;Clark&quot;),(&quot;Bevis&quot;),(&quot;Branden&quot;),(&quot;Maxwell&quot;),(&quot;Brian&quot;),(&quot;Kelly&quot;),(&quot;Basil&quot;),(&quot;Cyrus&quot;),(&quot;Isaac&quot;),(&quot;Joshua&quot;),(&quot;Cadman&quot;),(&quot;Rigel&quot;),(&quot;Alec&quot;),(&quot;Aquila&quot;),(&quot;Wing&quot;),(&quot;Alden&quot;),(&quot;Ulric&quot;),(&quot;Theodore&quot;),(&quot;Barrett&quot;),(&quot;Jamal&quot;),(&quot;Cooper&quot;),(&quot;Matthew&quot;),(&quot;Malik&quot;),(&quot;Lane&quot;),(&quot;Eagan&quot;),(&quot;Dylan&quot;),(&quot;Colt&quot;),(&quot;Kevin&quot;),(&quot;Gannon&quot;),(&quot;Maxwell&quot;),(&quot;Drew&quot;),(&quot;Coby&quot;),(&quot;Burke&quot;),(&quot;Ishmael&quot;),(&quot;Kasimir&quot;),(&quot;Byron&quot;),(&quot;Moses&quot;),(&quot;Kaseem&quot;),(&quot;Aladdin&quot;),(&quot;Brenden&quot;),(&quot;Geoffrey&quot;),(&quot;Grant&quot;),(&quot;Nathaniel&quot;),(&quot;Dominic&quot;),(&quot;Merrill&quot;),(&quot;Garrison&quot;),(&quot;Marsden&quot;),(&quot;Raymond&quot;),(&quot;Baxter&quot;),(&quot;Tate&quot;),(&quot;Kibo&quot;),(&quot;Hall&quot;),(&quot;Cullen&quot;),(&quot;Nehru&quot;),(&quot;Wesley&quot;),(&quot;Silas&quot;),(&quot;Fitzgerald&quot;),(&quot;Zeph&quot;),(&quot;Salvador&quot;),(&quot;Lyle&quot;),(&quot;Jakeem&quot;),(&quot;Lyle&quot;),(&quot;Tarik&quot;),(&quot;Nehru&quot;),(&quot;Nero&quot;),(&quot;Stewart&quot;),(&quot;Jameson&quot;),(&quot;Nicholas&quot;),(&quot;Jamal&quot;),(&quot;Hu&quot;),(&quot;Erasmus&quot;),(&quot;Chaney&quot;),(&quot;Nash&quot;),(&quot;Emery&quot;),(&quot;Colby&quot;),(&quot;Brett&quot;),(&quot;Benjamin&quot;),(&quot;Philip&quot;),(&quot;Chaim&quot;),(&quot;Jakeem&quot;),(&quot;Hyatt&quot;),(&quot;Avram&quot;),(&quot;Theodore&quot;),(&quot;Palmer&quot;),(&quot;Brandon&quot;),(&quot;Thane&quot;),(&quot;Adrian&quot;);
-                    SET i = i + 1;
-                END WHILE;
-             COMMIT;
-         END$$
-DELIMITER ;
-
-CALL generate_data(100000);
-</code></pre>
-
-<p>Trên một session, add thêm một secondary-index vào bảng users như sau:</p>
-
-<pre><code class="language-mysql">ALTER TABLE users ADD INDEX idx_users_name(name); # assume là sẽ mất nhiều thời gian để thực hiện
-</code></pre>
-
-<p>Trên một session khác, truy vấn dữ liệu hoặc chèn thêm dữ liệu, expect là session này sẽ bị block cho tới khi việc thay đổi schema hoàn thành:</p>
-
-<pre><code class="language-mysql">INSERT INTO `users` (`name`) VALUES (&quot;Quang&quot;); SELECT * FROM users LIMIT 1;
-</code></pre>
-
-<p>Kết quả:</p>
-
-<pre><code>&gt; DESC users;
+<span style="color:#66d9ef">CALL</span> generate_data(<span style="color:#ae81ff">100000</span>);
+</code></pre></div><p>Trên một session, add thêm một secondary-index vào bảng users như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> users <span style="color:#66d9ef">ADD</span> <span style="color:#66d9ef">INDEX</span> <span style="color:#a6e22e">idx_users_name</span>(name); <span style="color:#75715e"># assume là sẽ mất nhiều thời gian để thực hiện
+</span></code></pre></div><p>Trên một session khác, truy vấn dữ liệu hoặc chèn thêm dữ liệu, expect là session này sẽ bị block cho tới khi việc thay đổi schema hoàn thành:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> <span style="color:#f92672">`</span>users<span style="color:#f92672">`</span> (<span style="color:#f92672">`</span>name<span style="color:#f92672">`</span>) <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#34;Quang&#34;</span>); <span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>;
+</code></pre></div><p>Kết quả:</p>
+<pre tabindex="0"><code>&gt; DESC users;
 +-------+------------------+------+-----+---------+----------------+
 | Field | Type             | Null | Key | Default | Extra          |
 +-------+------------------+------+-----+---------+----------------+
@@ -283,46 +330,35 @@ Records: 0  Duplicates: 0  Warnings: 0
 mysql&gt; ALTER TABLE users ADD INDEX idx_users_name(name);
 Query OK, 0 rows affected, 2 warnings (14.19 sec)
 Records: 0  Duplicates: 0  Warnings: 2
-</code></pre>
+</code></pre><p>Tiếp theo ta sẽ thử UPDATE PK để xem kết quả về thời gian sẽ khác biệt như thế nào.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> users <span style="color:#66d9ef">ADD</span> <span style="color:#66d9ef">COLUMN</span> phone_no <span style="color:#66d9ef">VARCHAR</span>(<span style="color:#ae81ff">20</span>);
+Query OK, <span style="color:#ae81ff">3000104</span> rows <span style="color:#a6e22e">affected</span> (<span style="color:#ae81ff">10</span>.<span style="color:#ae81ff">18</span> sec)
+Records: <span style="color:#ae81ff">3000104</span>  Duplicates: <span style="color:#ae81ff">0</span>  Warnings: <span style="color:#ae81ff">0</span>
 
-<p>Tiếp theo ta sẽ thử UPDATE PK để xem kết quả về thời gian sẽ khác biệt như thế nào.</p>
+mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">UPDATE</span> users <span style="color:#66d9ef">SET</span> phone_no <span style="color:#f92672">=</span> <span style="color:#a6e22e">FLOOR</span>(<span style="color:#a6e22e">rand</span>()<span style="color:#f92672">*</span><span style="color:#ae81ff">10000000000</span>);
+Query OK, <span style="color:#ae81ff">3000104</span> rows <span style="color:#a6e22e">affected</span> (<span style="color:#ae81ff">46</span>.<span style="color:#ae81ff">12</span> sec)
+Rows matched: <span style="color:#ae81ff">3000104</span>  Changed: <span style="color:#ae81ff">3000104</span>  Warnings: <span style="color:#ae81ff">0</span>
 
-<pre><code class="language-mysql">mysql&gt; ALTER TABLE users ADD COLUMN phone_no VARCHAR(20);
-Query OK, 3000104 rows affected (10.18 sec)
-Records: 3000104  Duplicates: 0  Warnings: 0
+<span style="color:#75715e"># Remove duplicate phone_no
+</span><span style="color:#75715e">#
+</span><span style="color:#75715e"></span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">DISTINCT</span>(phone_no), <span style="color:#a6e22e">COUNT</span>(phone_no) <span style="color:#66d9ef">AS</span> c <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> phone_no <span style="color:#66d9ef">HAVING</span> c <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">2</span>;
 
-mysql&gt; UPDATE users SET phone_no = FLOOR(rand()*10000000000);
-Query OK, 3000104 rows affected (46.12 sec)
-Rows matched: 3000104  Changed: 3000104  Warnings: 0
+mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">DELETE</span> t1 <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">AS</span> t1 <span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> users <span style="color:#66d9ef">AS</span> t2 <span style="color:#66d9ef">WHERE</span> t1.id <span style="color:#f92672">&lt;</span> t2.id <span style="color:#66d9ef">AND</span> t1.phone_no <span style="color:#f92672">=</span> t2.phone_no;
 
-# Remove duplicate phone_no
-#
-mysql&gt; SELECT DISTINCT(phone_no), COUNT(phone_no) AS c FROM users GROUP BY phone_no HAVING c &gt;=2;
-
-mysql&gt; DELETE t1 FROM users AS t1 INNER JOIN users AS t2 WHERE t1.id &lt; t2.id AND t1.phone_no = t2.phone_no;
-
-mysql&gt; ALTER TABLE users MODIFY id int(10) unsigned NOT NULL, DROP PRIMARY KEY, ADD PRIMARY KEY (phone_no);
-</code></pre>
-
-<p>Mặc dù việc tạo secondary-index đã nhanh hơn, nhưng nó vẫn phụ thuộc vào kích thước của bảng dữ liệu và với các trường hợp ngoài index, vấn không có giải pháp tránh downtime. <strong>Đây là lý do mà các giải pháp thứ 3 ra đời từ percona, github hoặc facebook</strong>.</p>
-
+mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> users MODIFY id <span style="color:#66d9ef">int</span>(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>, <span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>, <span style="color:#66d9ef">ADD</span> <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span> (phone_no);
+</code></pre></div><p>Mặc dù việc tạo secondary-index đã nhanh hơn, nhưng nó vẫn phụ thuộc vào kích thước của bảng dữ liệu và với các trường hợp ngoài index, vấn không có giải pháp tránh downtime. <strong>Đây là lý do mà các giải pháp thứ 3 ra đời từ percona, github hoặc facebook</strong>.</p>
 <h2 id="4-3rd-solution">4. 3rd solution</h2>
-
-<h3 id="4-1-pt-online-schema-change">4.1 pt-online-schema-change</h3>
-
+<h3 id="41-pt-online-schema-change">4.1 pt-online-schema-change</h3>
 <p>Percona phát triển một ứng dụng, cho phép thay đổi schema trở lên bớt painful hơn áp dụng cho MySQL 5.5 trở xuống là <code>pt-online-schema-change</code>. Bản chất công cụ này hoạt động như sau:</p>
-
-<pre><code class="language-bash">&gt; grep 'Step' /usr/bin/pt-online-schema-change
-   # Step 1: Create the new table.
-   # Step 2: Alter the new, empty table.  This should be very quick,
-   # Step 3: Create the triggers to capture changes on the original table and
-   # Step 4: Copy rows.
-   # Step 5: Rename tables: orig -&gt; old, new -&gt; orig
-   # Step 6: Update foreign key constraints if there are child tables.
-   # Step 7: Drop the old table.
-</code></pre>
-
-<ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; grep <span style="color:#e6db74">&#39;Step&#39;</span> /usr/bin/pt-online-schema-change
+   <span style="color:#75715e"># Step 1: Create the new table.</span>
+   <span style="color:#75715e"># Step 2: Alter the new, empty table.  This should be very quick,</span>
+   <span style="color:#75715e"># Step 3: Create the triggers to capture changes on the original table and</span>
+   <span style="color:#75715e"># Step 4: Copy rows.</span>
+   <span style="color:#75715e"># Step 5: Rename tables: orig -&gt; old, new -&gt; orig</span>
+   <span style="color:#75715e"># Step 6: Update foreign key constraints if there are child tables.</span>
+   <span style="color:#75715e"># Step 7: Drop the old table.</span>
+</code></pre></div><ul>
 <li>Tạo bảng mới với cấu trúc tương tự bảng cũ <code>_new_table_name</code>.</li>
 <li><code>ALTER TABLE</code> bảng mới được tạo ra như yêu cầu -&gt; do bảng mới rỗng nên việc này sẽ rất nhanh.</li>
 <li>Tạo 3 trigger trên bảng cũ dạng <code>AFTER DELETE ON</code>, <code>AFTER UPDATE ON</code>, <code>AFTER INSERT ON</code> để trigger khi có dữ liệu mới trên bảng cũ thì cập nhật vào bảng mới. -&gt; <strong>metadata lock</strong>.</li>
@@ -331,92 +367,60 @@ mysql&gt; ALTER TABLE users MODIFY id int(10) unsigned NOT NULL, DROP PRIMARY KE
 <li>Cập nhật ràng buộc khóa ngoại (FK) nếu có trên các bảng con.</li>
 <li>Drop bảng cũ.</li>
 </ul>
-
 <p>Như ta thấy ở trên thì bước 3 và 5 là 2 bước quan trọng vì có <strong>metadata lock</strong>, có nghĩa là bản chất các truy vấn xảy ra trong thời gian thực hiện hai bước này vẫn sẽ phải <strong>chờ</strong>. <strong>Metadata lock</strong> được giới thiệu ở phiên bản MySQL 5.5.3, khi một transaction được chạy, nó sẽ acquire một metadata lock trên tất cả các table nó sử dụng và sau đó release khi transaction đó hoàn thành. Điều này đảm bảo sẽ không có bất cứ một sự thay đổi cấu trúc bảng nào khác trong quá trình transaction đó thực hiện.</p>
-
 <p>Vậy ngoại trừ 2 bước có <strong>metadata lock</strong> thì các operation khác có làm tăng thời gian xử lý của database hay không? <strong>về lý thuyết là KHÔNG ảnh hưởng với các read operation</strong>, nhưng các write operation sẽ bị <strong>double thời gian thực thi</strong>, do cần <strong>trigger</strong> data qua bảng mới để đảm bảo tính đúng đắn của dữ liệu.</p>
-
 <p>Ngoài ra có 4 điểm đặc biệt cần lưu ý:</p>
-
 <ul>
 <li>Thay đổi schema bằng <code>pt-osc</code> có thể làm tăng lag của slave, <code>pt-osc</code> có hỗ trợ check-slave-lag và sẽ tạm dừng quá trình copy dữ liệu nếu giá trị max_lag vượt qua ngưỡng cấu hình.</li>
 <li><code>pt-osc</code> yêu cầu tạo trigger trên bảng cần thay đổi schema nên các bảng đã tồn tại trigger sẽ không hoạt động.</li>
 <li><code>pt-osc</code> có một vài cách handle với các bảng có khóa ngoại, nhưng ràng buộc dữ liệu giữa hai bảng sẽ rất phức tạp khi thay đổi schema, tốt nhất nên tránh.</li>
 <li>Luôn chạy trong <code>tmux</code> hoặc <code>screen</code> để tránh rớt kết nối</li>
 </ul>
-
-<h3 id="4-2-osc">4.2 OSC</h3>
-
+<h3 id="42-osc">4.2 OSC</h3>
 <p>(WIP)</p>
-
-<h3 id="4-3-g-host">4.3 g-host</h3>
-
+<h3 id="43-g-host">4.3 g-host</h3>
 <p>(WIP)</p>
-
-<h2 id="5-mysql-5-6">5. MySQL &gt;= 5.6</h2>
-
-<p>Kể từ MySQL 5.6, <a href="https://mariadb.com/kb/en/alter-table/#online-ddl">online DDL</a> đã được hỗ trợ bởi cú pháp <code>ALGORITHM</code> (điều khiển cách DDL operation được thực hiện) và <code>LOCK</code> (điều khiển lock được yêu cầu khi một DDL operation được thực hiện). Ở đây sẽ chỉ nói trường hợp cho InnoDB, vì đây là storage enginee phổ biến nhất hiện nay.</p>
-
+<h2 id="5-mysql--56">5. MySQL &gt;= 5.6</h2>
+<p>Kể từ MySQL 5.6, <a href="https://mariadb.com/kb/en/alter-table/#online-ddl">online DDL</a> đã được hỗ trợ bởi cú pháp <code>ALGORITHM </code> (điều khiển cách DDL operation được thực hiện) và <code>LOCK</code> (điều khiển lock được yêu cầu khi một DDL operation được thực hiện). Ở đây sẽ chỉ nói trường hợp cho InnoDB, vì đây là storage enginee phổ biến nhất hiện nay.</p>
 <p>Ví dụ về online DDL:</p>
-
-<pre><code class="language-mysql">ALTER TABLE users ADD index idx_user_user_status (user_status), ALGORITHM=IN-PLACE, LOCK=NONE;
-</code></pre>
-
-<p>Online DDL nhưng vẫn cần copy và lock các truy vấn ghi dữ liệu.</p>
-
-<pre><code class="language-mysql">ALTER TABLE users ADD index idx_user_user_status (user_status), ALGORITHM=COPY, LOCK=SHARED;
-</code></pre>
-
-<p>Cụ thể về online DDL được mô tả kỹ từng trường hợp trên tài liệu của MariaDB tại <a href="https://mariadb.com/kb/en/alter-table/#online-ddl">link</a> hoặc <a href="https://mariadb.com/kb/en/innodb-online-ddl-operations-with-the-inplace-alter-algorithm/">in-place</a>, tuy nhiên có thể tóm gọn như sau:</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> users <span style="color:#66d9ef">ADD</span> <span style="color:#66d9ef">index</span> <span style="color:#a6e22e">idx_user_user_status</span> (user_status), ALGORITHM<span style="color:#f92672">=</span><span style="color:#66d9ef">IN</span><span style="color:#f92672">-</span>PLACE, <span style="color:#66d9ef">LOCK</span><span style="color:#f92672">=</span>NONE;
+</code></pre></div><p>Online DDL nhưng vẫn cần copy và lock các truy vấn ghi dữ liệu.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> users <span style="color:#66d9ef">ADD</span> <span style="color:#66d9ef">index</span> <span style="color:#a6e22e">idx_user_user_status</span> (user_status), ALGORITHM<span style="color:#f92672">=</span>COPY, <span style="color:#66d9ef">LOCK</span><span style="color:#f92672">=</span>SHARED;
+</code></pre></div><p>Cụ thể về online DDL được mô tả kỹ từng trường hợp trên tài liệu của MariaDB tại <a href="https://mariadb.com/kb/en/alter-table/#online-ddl">link</a> hoặc <a href="https://mariadb.com/kb/en/innodb-online-ddl-operations-with-the-inplace-alter-algorithm/">in-place</a>, tuy nhiên có thể tóm gọn như sau:</p>
 <p><strong>ALGORITHM:</strong></p>
-
 <ul>
 <li>INPLACE: thay đổi sẽ được thực hiện tại chỗ mà không cần rebuild lại toàn bộ bảng, ko cần copy dữ liệu ra bảng tạm.</li>
 <li>COPY: copy dữ liệu ra bảng tạm, rebuild lại table, tái cấu trúc lại secondary-index.</li>
 </ul>
-
 <p><strong>LOCK:</strong></p>
-
 <ul>
 <li>NONE: Các truy vấn đọc/ghi được cho phép trong quá trình thay đổi schema của bảng.</li>
 <li>SHARED: Chỉ cho phép các truy vấn đọc dữ liệu được thực thi khi thay đổi schema của bảng (DML không được phép thực thi).</li>
 <li>EXCLUSIVE: Toàn bộ bảng sẽ bị lock cho cả đọc và ghi ()The entire table will be locked for both reading and writing (SELECT và DML đều không được phép thực thi).</li>
 </ul>
-
 <p>Không phải tất cả các yêu cầu thay đổi schema sử dụng online DDL đều là Online (không yêu cầu copy hoặc rebuild lại bảng). Một số trường hợp ngoại lệ dù dùng <code>ALGORITHM=IN-PLACE, LOCK=NONE</code> vẫn yêu cầu copy bảng như:</p>
-
 <ul>
 <li>Thay đổi kiểu dữ liệu của cột (từ 5.7 thì tăng kích thước của VARCHAR là in-place).</li>
 <li>Thay đổi charset.</li>
 <li>Thay đổi trên PK.</li>
 </ul>
-
 <p>Với replica, Online DDL vẫn có side-effect:</p>
-
 <ul>
 <li>Operations sẽ cần hoàn thành trên master, sau đó mới được sync qua slave.</li>
 <li>SQL thread sẽ bị block trong khi slave thực thi DDL operation từ master replica qua.</li>
 <li>Khi thực thi xong DDL operation từ master, lag sẽ tăng đột biến.</li>
 </ul>
-
-<h2 id="6">6. ?!!?</h2>
-
+<h2 id="6-">6. ?!!?</h2>
 <p>Quá dài để tiếp tục, nhưng thực sự nên dùng cách nào là một câu hỏi dàiiiiiiiiiiiiiiii và khó. Câu trả là tùy và phụ thuộc vào rất nhiều yếu tố khác nhau như thay đổi cái gì? có xài MySQL service của AWS/GCP hay không, có Fulltext index hay không &hellip;. Xin phép được cập nhật sau, nhưng nếu bạn rảnh, có thể đọc thêm như các link phía dưới.</p>
-
 <blockquote>
 <p>Một phiên bản ngắn gọn có thể dựa trên <a href="https://www.percona.com/blog/wp-content/uploads/2014/11/DDLFlow1.png">flow này của Percona</a>.</p>
-
 <p>Hoặc 2 phiên bản vô cùng phức tạp là:</p>
-
 <ul>
 <li><a href="https://www.slideshare.net/MariaDB/m18-battle-of-the-online-schema-change-methods">https://www.slideshare.net/MariaDB/m18-battle-of-the-online-schema-change-methods</a></li>
 <li><a href="https://blog.pythian.com/depth-mysql-5-6-ddl/">https://blog.pythian.com/depth-mysql-5-6-ddl/</a></li>
 </ul>
 </blockquote>
-
 <h2 id="7-ref">7. Ref</h2>
-
 <ul>
 <li><a href="https://www.percona.com/blog/2014/11/18/avoiding-mysql-alter-table-downtime">https://www.percona.com/blog/2014/11/18/avoiding-mysql-alter-table-downtime</a></li>
 <li><a href="https://www.percona.com/doc/percona-toolkit/LATEST/pt-online-schema-change.html">https://www.percona.com/doc/percona-toolkit/LATEST/pt-online-schema-change.html</a></li>
@@ -427,52 +431,64 @@ mysql&gt; ALTER TABLE users MODIFY id int(10) unsigned NOT NULL, DROP PRIMARY KE
 <li><a href="https://github.com/github/gh-ost/tree/master/doc">https://github.com/github/gh-ost/tree/master/doc</a></li>
 </ul>
 
-</main>
-<section>
-  <hr>
-<script src="https://utteranc.es/client.js"
-        repo="xluffy/xluffy.github.io"
-        issue-term="url"
-        label="comments"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</section>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h"
+              >...</span
+            >
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://xluffy.github.io/post/chaos-of-configuration/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">Chaos of configuration</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://xluffy.github.io/post/cloudflare-101/">
+                  <span class="button__text">Cloudflare 101</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
 
-    <footer>
+    
       
-<script>
-(function() {
-  function center_el(tagName) {
-    var tags = document.getElementsByTagName(tagName), i, tag;
-    for (i = 0; i < tags.length; i++) {
-      tag = tags[i];
-      var parent = tag.parentElement;
-      
-      if (parent.childNodes.length === 1) {
         
-        if (parent.nodeName === 'A') {
-          parent = parent.parentElement;
-          if (parent.childNodes.length != 1) continue;
-        }
-        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
-      }
-    }
-  }
-  var tagNames = ['img', 'embed', 'object'];
-  for (var i = 0; i < tagNames.length; i++) {
-    center_el(tagNames[i]);
-  }
-})();
-</script>
 
       
-      <hr/>
-      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+    
+  </div>
+
+      </div>
+
       
-      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
-    </footer>
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">hàng nhà trồng theo giấy phép CC BY-NC 4.0</div>
+      
+  </div>
+</footer>
+
+<script src="https://xluffy.github.io/assets/main.js"></script>
+<script src="https://xluffy.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
   </body>
 </html>
-

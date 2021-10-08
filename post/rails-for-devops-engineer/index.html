@@ -1,114 +1,193 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Rails for DevOps engineer | xluffy&#39;s page</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
     
-    <header>
+      <title>
+        Rails for DevOps engineer ::
+        /dev/clgt
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer."
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://xluffy.github.io/post/rails-for-devops-engineer/" />
 
+
+
+
+
+<link rel="stylesheet" href="https://xluffy.github.io/assets/style.css" />
+
+<link rel="stylesheet" href="https://xluffy.github.io/style.css" />
+
+
+<link
+  rel="apple-touch-icon-precomposed"
+  sizes="144x144"
+  href="https://xluffy.github.io/img/apple-touch-icon-144-precomposed.png"
+/>
+<link rel="shortcut icon" href="https://xluffy.github.io/img/favicon.png" />
+
+
+<link href="https://xluffy.github.io/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Rails for DevOps engineer"/>
+<meta name="twitter:description" content="Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer."/>
+
+
+
+<meta property="og:title" content="Rails for DevOps engineer" />
+<meta property="og:description" content="Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xluffy.github.io/post/rails-for-devops-engineer/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-07-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-07-25T00:00:00+00:00" /><meta property="og:site_name" content="/dev/clgt" />
+
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <nav>
-    <ul>
-      
-      
-      <li class="pull-left ">
-        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/categories/">~/categories</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="https://github.com/xluffy/til/issues">~/til</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/about">~/about</a>
-      </li>
-      
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
+</svg>
+</span>
+    <span class="logo__text"
+      >/dev/clgt</span
+    >
+    <span class="logo__cursor"></span>
+  
+</a>
 
+    <span class="header__right">
       
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
       
-      <li class="pull-right">
-        <a href="/index.xml">~/subscribe</a>
-      </li>
+        
+          <li><a href="/about">about</a></li>
+        
       
+        
+          <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+        
+      
+    
+  </ul>
 
-    </ul>
-  </nav>
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about</a></li>
+      
+    
+      
+        <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg
+  class="theme-toggler"
+  width="24"
+  height="24"
+  viewBox="0 0 48 48"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+
+      </span>
+    </span>
+  </span>
 </header>
 
-    
-    
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">Rails for DevOps engineer</h1>
+    <div class="post-meta">
       
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-K4LWNXV');</script>
+        <span class="post-date">
+          2018-07-25
+        </span>
+
+        
+          
+        
       
-    
-  </head>
 
-  <body>
-    
       
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4LWNXV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
       
+    </div>
+
     
-    <br/>
 
-<div class="article-meta">
-<h1><span class="title">Rails for DevOps engineer</span></h1>
+    
 
-<h2 class="date">2018/07/25</h2>
-<p class="terms">
-  
-  
-  Categories: <a href="/categories/rails">rails</a> 
-  
-  
-  
-  
-</p>
-</div>
-
-
-
-<main>
-
-
-<p>Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer.</p>
-
+    <div class="post-content">
+      
+      <p>Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer.</p>
 <h2 id="1-basic-active-record">1. Basic Active Record</h2>
-
-<h3 id="1-1-find">1.1 find</h3>
-
+<h3 id="11-find">1.1 find</h3>
 <p>Tham số truyền vào của <code>find</code> là primary-key, ví dụ <code>User.find(1)</code> tương đương với <code>SELECT * FROM users WHERE id = 1 LIMIT 1</code></p>
-
 <p>Cũng có thể nhận nhiều giá trị kiểu <code>User.find(1, 10)</code> hoặc <code>User.find([1, 10])</code> sẽ tương đương với <code>SELECT * FROM users WHERE id IN (1, 10)</code></p>
-
-<h3 id="1-2-take-first-last">1.2 take/first/last</h3>
-
+<h3 id="12-takefirstlast">1.2 take/first/last</h3>
 <ul>
 <li><code>take</code> trả về một hoặc nhiều record tùy vào giá trị truyền vào nhưng KHÔNG SẮP XẾP</li>
 <li><code>first</code> mặc định trả về một record và SẮP XẾP GIẢM DẦN dựa trên primary key <code>ORDER BY id ASC</code>, cũng có thể trả về nhiều giá trị</li>
 <li><code>last</code> giống <code>first</code>, chỉ khác là sắp xếp tăng dần.</li>
 </ul>
-
 <p>Theo thứ tự active record và sql sẽ như sau:</p>
-
-<pre><code>User.take
+<pre tabindex="0"><code>User.take
 User.take(20)
 
 SELECT * FROM users LIMIT 1;
@@ -123,62 +202,38 @@ SELECT * FROM users ORDER BY id ASC LIMIT 2
 User.last
 
 SELECT * FROM users ORDER BY id DESC LIMIT 1
-</code></pre>
-
-<h3 id="1-3-find-by-và-where-take">1.3 <code>find_by</code> và <code>where().take</code></h3>
-
+</code></pre><h3 id="13-find_by-và-wheretake">1.3 <code>find_by</code> và <code>where().take</code></h3>
 <ul>
 <li><code>find_by</code> trả về một record match với điều kiện.</li>
 <li><code>where</code> trả về record theo điều kiện.</li>
 </ul>
-
 <p>Ví dụ 2 query sau sẽ như nhau:</p>
-
-<pre><code>User.find_by name: 'Quang'
+<pre tabindex="0"><code>User.find_by name: 'Quang'
 User.where(name: 'Quang').take
 
 SELECT * FROM users WHERE name = 'Quang' LIMIT 1;
-</code></pre>
-
-<h3 id="1-4-unscope-và-only">1.4 <code>unscope</code> và <code>only</code></h3>
-
+</code></pre><h3 id="14-unscope-và-only">1.4 <code>unscope</code> và <code>only</code></h3>
 <p><code>unscope</code> dùng để xóa một số <strong>điều kiện</strong> cụ thể nào đó, <code>only</code> thì ngược lại, chỉ định các <strong>điều kiện</strong> sẽ được giữ lại, ví dụ:</p>
-
-<pre><code>User.where(&quot;email LIKE '%@gmail%'&quot;).order(:id)
+<pre tabindex="0"><code>User.where(&quot;email LIKE '%@gmail%'&quot;).order(:id)
 SELECT  `users`.* FROM `users` WHERE (email LIKE '%@gmail%') ORDER BY `users`.`id` ASC;
-</code></pre>
-
-<p>Nhưng giờ mình muốn xóa điều kiện sắp xếp theo <code>id</code> thì dùng method <code>unscope</code> như sau:</p>
-
-<pre><code>User.where(&quot;email LIKE '%@gmail%'&quot;).order(:id).unscope(:order)
+</code></pre><p>Nhưng giờ mình muốn xóa điều kiện sắp xếp theo <code>id</code> thì dùng method <code>unscope</code> như sau:</p>
+<pre tabindex="0"><code>User.where(&quot;email LIKE '%@gmail%'&quot;).order(:id).unscope(:order)
 SELECT  `users`.* FROM `users` WHERE (email LIKE '%@gmail%');
-</code></pre>
-
-<h2 id="2-some-active-record-tips">2. Some Active-Record tips</h2>
-
-<h3 id="2-1-include-và-n-1-query">2.1. <code>include</code> và n + 1 query</h3>
-
+</code></pre><h2 id="2-some-active-record-tips">2. Some Active-Record tips</h2>
+<h3 id="21-include-và-n--1-query">2.1. <code>include</code> và n + 1 query</h3>
 <p>Giả sử ta có model User như sau:</p>
-
-<pre><code>class User
+<pre tabindex="0"><code>class User
   has_many :posts
 end
-</code></pre>
-
-<p>=&gt; một user có thể có nhiều post</p>
-
+</code></pre><p>=&gt; một user có thể có nhiều post</p>
 <p>Với cách query thông thường trong active-record</p>
-
-<pre><code>users = User.all
+<pre tabindex="0"><code>users = User.all
 
 users.each do |user|
   user.posts
 end
-</code></pre>
-
-<p>Đoạn trên sẽ generate ra n + 1 query như sau:</p>
-
-<pre><code>SELECT users.* FROM users;
+</code></pre><p>Đoạn trên sẽ generate ra n + 1 query như sau:</p>
+<pre tabindex="0"><code>SELECT users.* FROM users;
 
 SELECT posts.* FROM posts WHERE posts.user_id = 1;
 SELECT posts.* FROM posts WHERE posts.user_id = 2;
@@ -186,42 +241,28 @@ SELECT posts.* FROM posts WHERE posts.user_id = 3;
 SELECT posts.* FROM posts WHERE posts.user_id = 4;
 ...
 SELECT posts.* FROM posts WHERE posts.user_id = n;
-</code></pre>
-
-<p>=&gt; nếu có bao nhiêu user thì generate ra bằng đó + 1 user nên gọi là n + 1</p>
-
+</code></pre><p>=&gt; nếu có bao nhiêu user thì generate ra bằng đó + 1 user nên gọi là n + 1</p>
 <p>Nếu ta dùng <code>includes</code> thì sẽ chỉ generate ra 2 query, 1 là load tất cả users và 1 là load tất cả các posts liên quan đến các users đó.</p>
-
-<pre><code>users = User.includes(:posts)
+<pre tabindex="0"><code>users = User.includes(:posts)
 
 users.each do |user|
   user.posts
 end
-</code></pre>
-
-<pre><code>SELECT users.* FROM users;
+</code></pre><pre tabindex="0"><code>SELECT users.* FROM users;
 
 SELECT posts.* FROM posts WHERE posts.user_id IN (1, 2, 3, 4 ... n);
-</code></pre>
-
-<p>Ngoài <code>include</code> cũng có thể sử dụng <code>preload</code> hoặc <code>eager_load</code> để tránh n + 1 query</p>
-
-<h3 id="2-2-find-each-khi-load-một-lượng-lớn-record">2.2. <code>find_each</code> khi load một lượng lớn record</h3>
-
+</code></pre><p>Ngoài <code>include</code> cũng có thể sử dụng <code>preload</code> hoặc <code>eager_load</code> để tránh n + 1 query</p>
+<h3 id="22-find_each-khi-load-một-lượng-lớn-record">2.2. <code>find_each</code> khi load một lượng lớn record</h3>
 <p>Tương tự như việc dùng <code>LIMIT</code> trong SQL</p>
-
-<pre><code>User.all.each do |user|
+<pre tabindex="0"><code>User.all.each do |user|
   puts users
 end
 
 # SQL generate
 
 SELECT users.* FROM users;
-</code></pre>
-
-<p>Thay vì load tất cả các user thì ta có thể LIMIT lượng user hiển thị ra bằng cách dùng <code>find_each</code> như sau:</p>
-
-<pre><code>User.all.find_each(batch_size: 100) do |u|
+</code></pre><p>Thay vì load tất cả các user thì ta có thể LIMIT lượng user hiển thị ra bằng cách dùng <code>find_each</code> như sau:</p>
+<pre tabindex="0"><code>User.all.find_each(batch_size: 100) do |u|
   puts u
 end
 
@@ -231,78 +272,43 @@ SELECT users.* FROM users ORDER BY users.id ASC LIMIT 100;
 SELECT users.* FROM users WHERE users.id &gt; 100 ORDER BY users.id ASC LIMIT 100;
 SELECT users.* FROM users WHERE users.id &gt; 200 ORDER BY users.id ASC LIMIT 100;
 ...
-</code></pre>
-
-<p>Chú ý là các query sau sẽ có thêm điều kiện <code>users.id &gt; batch_size</code></p>
-
-<h3 id="2-3-chỉ-lấy-field-cần-với-pluck-hoặc-select">2.3. Chỉ lấy field cần với <code>pluck</code> hoặc <code>select</code></h3>
-
+</code></pre><p>Chú ý là các query sau sẽ có thêm điều kiện <code>users.id &gt; batch_size</code></p>
+<h3 id="23-chỉ-lấy-field-cần-với-pluck-hoặc-select">2.3. Chỉ lấy field cần với <code>pluck</code> hoặc <code>select</code></h3>
 <p>Tương tự trong SQL, không phải lúc nào ta cũng cần tất cả thuộc tính của model, thay vì:</p>
-
-<pre><code>SELECT * FROM users;
-</code></pre>
-
-<p>Ta chỉ lấy các thuộc tính cần thiết bằng câu query:</p>
-
-<pre><code>SELECT email FROM users;
-</code></pre>
-
-<p>Trong active-record thì thay vì dùng</p>
-
-<pre><code>user_emails = User.where(status: &quot;active&quot;).map(&amp;:email)
+<pre tabindex="0"><code>SELECT * FROM users;
+</code></pre><p>Ta chỉ lấy các thuộc tính cần thiết bằng câu query:</p>
+<pre tabindex="0"><code>SELECT email FROM users;
+</code></pre><p>Trong active-record thì thay vì dùng</p>
+<pre tabindex="0"><code>user_emails = User.where(status: &quot;active&quot;).map(&amp;:email)
 # SELECT * FROM users;
-</code></pre>
-
-<p>Ta sẽ chỉ lấy thuộc tính email của user như sau:</p>
-
-<pre><code>user_emails = User.where(status: &quot;active&quot;).pluck(:email)
+</code></pre><p>Ta sẽ chỉ lấy thuộc tính email của user như sau:</p>
+<pre tabindex="0"><code>user_emails = User.where(status: &quot;active&quot;).pluck(:email)
 # SELECT users.email FROM users;
-</code></pre>
-
-<p>Hoặc xài <code>select</code></p>
-
-<pre><code>User.select(:name)
+</code></pre><p>Hoặc xài <code>select</code></p>
+<pre tabindex="0"><code>User.select(:name)
 or
 User.select(&quot;name&quot;)
-</code></pre>
-
-<h3 id="2-4-kiểm-tra-sự-tồn-tại-của-dữ-liệu-với-exist-thay-vì-present">2.4. Kiểm tra sự tồn tại của dữ liệu với <code>exist?</code> thay vì <code>present?</code></h3>
-
-<pre><code>if User.where(email: &quot;a@bc.d&quot;).present?
+</code></pre><h3 id="24-kiểm-tra-sự-tồn-tại-của-dữ-liệu-với-exist-thay-vì-present">2.4. Kiểm tra sự tồn tại của dữ liệu với <code>exist?</code> thay vì <code>present?</code></h3>
+<pre tabindex="0"><code>if User.where(email: &quot;a@bc.d&quot;).present?
   puts &quot;There is a user with email address a@bc.d&quot;
 else
   puts &quot;There is no user with email address a@bc.d&quot;
 end
-</code></pre>
-
-<p>Câu query SQL sẽ generate thành:</p>
-
-<pre><code>SELECT * FROM users WHERE email = 'a@bc.d';
-</code></pre>
-
-<p>Câu query trên sẽ lãng phí bởi ví ta không cần load hết thuộc tính của user để kiểm tra user với email đó có tồn tại hay không. Thay vào đó có thể dùng như sau:</p>
-
-<pre><code>if User.where(email: &quot;a@bc.d&quot;).exist?
+</code></pre><p>Câu query SQL sẽ generate thành:</p>
+<pre tabindex="0"><code>SELECT * FROM users WHERE email = 'a@bc.d';
+</code></pre><p>Câu query trên sẽ lãng phí bởi ví ta không cần load hết thuộc tính của user để kiểm tra user với email đó có tồn tại hay không. Thay vào đó có thể dùng như sau:</p>
+<pre tabindex="0"><code>if User.where(email: &quot;a@bc.d&quot;).exist?
   puts &quot;There is a user with email address a@bc.d&quot;
 else
   puts &quot;There is no user with email address a@bc.d&quot;
 end
-</code></pre>
-
-<p>Query SQL sẽ thành:</p>
-
-<pre><code>SELECT 1 FROM users WHERE email = 'a@bc.d' LIMIT 1;
-</code></pre>
-
-<p>Kết quả chỉ trả về 1 record và không bao gồm bất kỳ thuộc tính nào.</p>
-
-<h3 id="2-5-bulk">2.5 Bulk</h3>
-
+</code></pre><p>Query SQL sẽ thành:</p>
+<pre tabindex="0"><code>SELECT 1 FROM users WHERE email = 'a@bc.d' LIMIT 1;
+</code></pre><p>Kết quả chỉ trả về 1 record và không bao gồm bất kỳ thuộc tính nào.</p>
+<h3 id="25-bulk">2.5 Bulk</h3>
 <p>Ví dụ ta phải INSERT/UPDATE/DELETE một lượng lớn dữ liệu, thì bulk INSERT/UPDATE/DELETE sẽ nhanh hơn là thao tác với từng record dữ liệu.</p>
-
 <p>Ví dụ với tạo dữ liệu:</p>
-
-<pre><code>new_users = [
+<pre tabindex="0"><code>new_users = [
   {name: &quot;A&quot;, email: &quot;a@bc.d&quot;},
   {name: &quot;B&quot;, email: &quot;b@bc.d&quot;},
   {name: &quot;C&quot;, email: &quot;c@bc.d&quot; },
@@ -320,35 +326,23 @@ INSERT INTO users VALUES (&quot;B&quot;, &quot;b@bc.d&quot;);
 INSERT INTO users VALUES (&quot;C&quot;, &quot;c@bc.d&quot;);
 ...
 INSERT INTO users VALUES (&quot;Z&quot;, &quot;z@bc.d&quot;);
-</code></pre>
-
-<p>Ta có thể bulk INSERT bằng cách:</p>
-
-<pre><code>User.create(new_users)
+</code></pre><p>Ta có thể bulk INSERT bằng cách:</p>
+<pre tabindex="0"><code>User.create(new_users)
 
 -------------------------------------------------------------------------------------------
 INSERT INTO users VALUES (&quot;A&quot;, &quot;a@bc.d&quot;), (&quot;B&quot;, &quot;b@bc.d&quot;), (&quot;C&quot;, &quot;c@bc.d&quot;), (&quot;Z&quot;, &quot;z@bc.d&quot;);
-</code></pre>
-
-<p>Ví dụ với cập nhật dữ liệu:</p>
-
-<pre><code>update_users = User.where(user_status: nil)
+</code></pre><p>Ví dụ với cập nhật dữ liệu:</p>
+<pre tabindex="0"><code>update_users = User.where(user_status: nil)
 
 update_users.each do |u|
   u.updute(user_status: &quot;new_user&quot;)
 end
 
-</code></pre>
-
-<p>Ta có thể bulk UPDATE bằng cách:</p>
-
-<pre><code>update_users = User.where(user_status: nil)
+</code></pre><p>Ta có thể bulk UPDATE bằng cách:</p>
+<pre tabindex="0"><code>update_users = User.where(user_status: nil)
 update_users.update_all(user_status: &quot;new_user&quot;)
-</code></pre>
-
-<p>Ví dụ với xóa dữ liệu:</p>
-
-<pre><code>banned_users = User.where(user_status: &quot;banned&quot;)
+</code></pre><p>Ví dụ với xóa dữ liệu:</p>
+<pre tabindex="0"><code>banned_users = User.where(user_status: &quot;banned&quot;)
 
 banned_users.each do |u|
   u.destroy
@@ -360,24 +354,16 @@ DELETE FROM users WHERE id = 1;
 DELETE FROM users WHERE id = 2;
 DELETE FROM users WHERE id = 3;
 DELETE FROM users WHERE id = 4;
-</code></pre>
-
-<p>=&gt; Lấy tất cả các user cần DELETE sau đó sinh ra n query DELETE từng user dựa trên id của user. Thay vì vậy ta có thể xài bulk DELETE như sau</p>
-
-<pre><code>banned_users = User.where(user_status: &quot;banned&quot;)
+</code></pre><p>=&gt; Lấy tất cả các user cần DELETE sau đó sinh ra n query DELETE từng user dựa trên id của user. Thay vì vậy ta có thể xài bulk DELETE như sau</p>
+<pre tabindex="0"><code>banned_users = User.where(user_status: &quot;banned&quot;)
 banned_users.delete_all
 
 -----------------------------------------------------
 DELETE FROM users WHERE users.user_status = &quot;banned&quot;;
-</code></pre>
-
-<h3 id="2-6-map-vs-select">2.6. Map vs Select</h3>
-
+</code></pre><h3 id="26-map-vs-select">2.6. Map vs Select</h3>
 <p>Kết quả trả về của <code>map</code> sẽ là một mảng bằng mảng đầu vào, kết quả của <code>map</code> là mảng chứa kết quả của từng phần tử đối chiếu với điều kiện trong block.</p>
-
 <p><code>select</code> chỉ trả về các kết quả thỏa mãn với điều kiện trong block, <code>select</code> có thể xem như <code>map</code> + <code>compact</code></p>
-
-<pre><code>&gt; an_array = [0, 1, 2, 3, 4, 5]
+<pre tabindex="0"><code>&gt; an_array = [0, 1, 2, 3, 4, 5]
 &gt; m_array = an_array.map { |e| e if e.even? }
 =&gt; [0, nil, 2, nil, 4, nil]
 &gt; m_array.compact
@@ -385,67 +371,73 @@ DELETE FROM users WHERE users.user_status = &quot;banned&quot;;
 
 &gt; s_array = an_array.select { |e| e if e.even? }
 =&gt; [0, 2, 4]
-</code></pre>
-
-<h2 id="3-other">3. Other</h2>
-
-<h3 id="3-1">3.1. <code>||=</code></h3>
-
+</code></pre><h2 id="3-other">3. Other</h2>
+<h3 id="31-">3.1. <code>||=</code></h3>
 <p>Ví dụ <code>x ||= y</code> có nghĩa là <code>x || x = y</code>. Nếu <code>x = nil</code> hoặc <code>x = false</code> gán <code>x = y</code></p>
-
 <h2 id="4-ref">4. Ref</h2>
-
 <ul>
 <li><a href="https://medium.com/@User3141592/active-record-query-performance-tips-a3c3947b968">https://medium.com/@User3141592/active-record-query-performance-tips-a3c3947b968</a></li>
 <li><a href="https://www.netguru.co/codestories/activerecord-tips-2">https://www.netguru.co/codestories/activerecord-tips-2</a></li>
 </ul>
 
-</main>
-<section>
-  <hr>
-<script src="https://utteranc.es/client.js"
-        repo="xluffy/xluffy.github.io"
-        issue-term="url"
-        label="comments"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</section>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h"
+              >...</span
+            >
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://xluffy.github.io/post/sidekiq-how-to-reliability/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">Sidekiq, how to reliability?</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://xluffy.github.io/post/how-to-setup-our-networking/">
+                  <span class="button__text">Setup hệ thống mạng cho cty vừa và nhỏ</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
 
-    <footer>
+    
       
-<script>
-(function() {
-  function center_el(tagName) {
-    var tags = document.getElementsByTagName(tagName), i, tag;
-    for (i = 0; i < tags.length; i++) {
-      tag = tags[i];
-      var parent = tag.parentElement;
-      
-      if (parent.childNodes.length === 1) {
         
-        if (parent.nodeName === 'A') {
-          parent = parent.parentElement;
-          if (parent.childNodes.length != 1) continue;
-        }
-        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
-      }
-    }
-  }
-  var tagNames = ['img', 'embed', 'object'];
-  for (var i = 0; i < tagNames.length; i++) {
-    center_el(tagNames[i]);
-  }
-})();
-</script>
 
       
-      <hr/>
-      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+    
+  </div>
+
+      </div>
+
       
-      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
-    </footer>
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">hàng nhà trồng theo giấy phép CC BY-NC 4.0</div>
+      
+  </div>
+</footer>
+
+<script src="https://xluffy.github.io/assets/main.js"></script>
+<script src="https://xluffy.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
   </body>
 </html>
-

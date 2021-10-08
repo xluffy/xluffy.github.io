@@ -1,11 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>networking on xluffy&#39;s page</title>
+    <title>networking on /dev/clgt</title>
+    
+    
+    
     <link>https://xluffy.github.io/categories/networking/</link>
-    <description>Recent content in networking on xluffy&#39;s page</description>
+    <description>Recent content in networking on /dev/clgt</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <copyright>hàng nhà trồng theo giấy phép CC BY-NC 4.0</copyright>
     <lastBuildDate>Mon, 16 Jul 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/categories/networking/index.xml" rel="self" type="application/rss+xml" />
@@ -17,7 +21,18 @@
       <pubDate>Mon, 16 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/how-to-setup-our-networking/</guid>
-      <description>Là một công ty công nghệ, làm về dịch vụ internet, nhu cầu về mạng là một nhu cầu cơ bản và bắt buộc. Nếu không có internet thì chỉ có nước cả công ty cùng nghỉ đi chơi. Vì vậy setup một hệ thống mạng sao cho vừa đạt nhu cầu, chi phí rẻ là một việc không dễ dàng, nhất là khi các giải pháp luôn được quảng cáo vượt quá hiệu năng thực sự.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Là một công ty công nghệ, làm về dịch vụ internet, nhu cầu về mạng là một nhu cầu cơ bản và bắt buộc.
+          
+        
+        </description>
     </item>
     
   </channel>

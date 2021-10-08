@@ -1,11 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>cdn on xluffy&#39;s page</title>
+    <title>cdn on /dev/clgt</title>
+    
+    
+    
     <link>https://xluffy.github.io/categories/cdn/</link>
-    <description>Recent content in cdn on xluffy&#39;s page</description>
+    <description>Recent content in cdn on /dev/clgt</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <copyright>hàng nhà trồng theo giấy phép CC BY-NC 4.0</copyright>
     <lastBuildDate>Thu, 11 Jul 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xluffy.github.io/categories/cdn/index.xml" rel="self" type="application/rss+xml" />
@@ -17,8 +21,18 @@
       <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
       
       <guid>https://xluffy.github.io/post/cloudflare-101/</guid>
-      <description>1. DDoS 101 Về DDoS dù mục đích cuối cùng là làm cho dịch vụ của bạn không thể cung cấp tới người dùng nhưng nó có thể được chia thành 3 nhóm:
- Application Layer Attacks: mục tiêu là khiến ứng dụng phải xử lý một lượng lớn các request có vẻ hợp lệ, làm cạn kiệt tài nguyên của ứng dụng, khiến ứng dụng không thể phục vụ các user hợp lệ khác.</description>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          1. DDoS 101 Về DDoS dù mục đích cuối cùng là làm cho dịch vụ của bạn không thể cung cấp tới người dùng nhưng nó có thể được chia thành 3 nhóm:
+          
+        
+        </description>
     </item>
     
   </channel>

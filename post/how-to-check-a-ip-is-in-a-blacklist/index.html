@@ -1,148 +1,215 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>How to check a IP is in a blacklist | xluffy&#39;s page</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
     
-    <header>
+      <title>
+        How to check a IP is in a blacklist ::
+        /dev/clgt
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="Một đồng nghiệp trong công ti giới thiệu cho mình blcheck, tool này dùng để check một IP có nằm trong mail blacklist hay không bằng cách check qua một danh sách các tổ chức."
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://xluffy.github.io/post/how-to-check-a-ip-is-in-a-blacklist/" />
 
+
+
+
+
+<link rel="stylesheet" href="https://xluffy.github.io/assets/style.css" />
+
+<link rel="stylesheet" href="https://xluffy.github.io/style.css" />
+
+
+<link
+  rel="apple-touch-icon-precomposed"
+  sizes="144x144"
+  href="https://xluffy.github.io/img/apple-touch-icon-144-precomposed.png"
+/>
+<link rel="shortcut icon" href="https://xluffy.github.io/img/favicon.png" />
+
+
+<link href="https://xluffy.github.io/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://xluffy.github.io/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="How to check a IP is in a blacklist"/>
+<meta name="twitter:description" content="Một đồng nghiệp trong công ti giới thiệu cho mình blcheck, tool này dùng để check một IP có nằm trong mail blacklist hay không bằng cách check qua một danh sách các tổ chức."/>
+
+
+
+<meta property="og:title" content="How to check a IP is in a blacklist" />
+<meta property="og:description" content="Một đồng nghiệp trong công ti giới thiệu cho mình blcheck, tool này dùng để check một IP có nằm trong mail blacklist hay không bằng cách check qua một danh sách các tổ chức." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xluffy.github.io/post/how-to-check-a-ip-is-in-a-blacklist/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-05-22T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-22T00:00:00+00:00" /><meta property="og:site_name" content="/dev/clgt" />
+
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <nav>
-    <ul>
-      
-      
-      <li class="pull-left ">
-        <a href="https://xluffy.github.io">/home/xluffy&#39;s page</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/categories/">~/categories</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="https://github.com/xluffy/til/issues">~/til</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/about">~/about</a>
-      </li>
-      
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
+</svg>
+</span>
+    <span class="logo__text"
+      >/dev/clgt</span
+    >
+    <span class="logo__cursor"></span>
+  
+</a>
 
+    <span class="header__right">
       
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
       
-      <li class="pull-right">
-        <a href="/index.xml">~/subscribe</a>
-      </li>
+        
+          <li><a href="/about">about</a></li>
+        
       
+        
+          <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+        
+      
+    
+  </ul>
 
-    </ul>
-  </nav>
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about</a></li>
+      
+    
+      
+        <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg
+  class="theme-toggler"
+  width="24"
+  height="24"
+  viewBox="0 0 48 48"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+
+      </span>
+    </span>
+  </span>
 </header>
 
-    
-    
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">How to check a IP is in a blacklist</h1>
+    <div class="post-meta">
       
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-K4LWNXV');</script>
+        <span class="post-date">
+          2020-05-22
+        </span>
+
+        
+          
+        
       
-    
-  </head>
 
-  <body>
-    
       
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4LWNXV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
       
+    </div>
+
     
-    <br/>
 
-<div class="article-meta">
-<h1><span class="title">How to check a IP is in a blacklist</span></h1>
+    
 
-<h2 class="date">2020/05/22</h2>
-<p class="terms">
-  
-  
-  Categories: <a href="/categories/blacklist">blacklist</a> <a href="/categories/dns">dns</a> 
-  
-  
-  
-  
-</p>
-</div>
-
-
-
-<main>
-
-
-<p>Một đồng nghiệp trong công ti giới thiệu cho mình <a href="https://github.com/IntellexApps/blcheck">blcheck</a>, tool này dùng để check một IP có nằm trong mail blacklist hay không bằng cách check qua một <a href="https://github.com/IntellexApps/blcheck/blob/master/blcheck#L45">danh sách các tổ chức</a>. Về cơ bản nó tương tự <a href="https://mxtoolbox.com/blacklists.aspx">mxtoolbox</a> nhưng nó là command-line tool.</p>
-
-<pre><code class="language-bash">./blcheck 1.2.3.4
+    <div class="post-content">
+      
+      <p>Một đồng nghiệp trong công ti giới thiệu cho mình <a href="https://github.com/IntellexApps/blcheck">blcheck</a>, tool này dùng để check một IP có nằm trong mail blacklist hay không bằng cách check qua một <a href="https://github.com/IntellexApps/blcheck/blob/master/blcheck#L45">danh sách các tổ chức</a>. Về cơ bản nó tương tự <a href="https://mxtoolbox.com/blacklists.aspx">mxtoolbox</a> nhưng nó là command-line tool.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./blcheck 1.2.3.4
 
 ----------------------------------------------------------
-Results for 1.2.3.4
+Results <span style="color:#66d9ef">for</span> 1.2.3.4
 
-Tested:        3
-Passed:        3
-Invalid:       0
-Blacklisted:   0
+Tested:        <span style="color:#ae81ff">3</span>
+Passed:        <span style="color:#ae81ff">3</span>
+Invalid:       <span style="color:#ae81ff">0</span>
+Blacklisted:   <span style="color:#ae81ff">0</span>
 ----------------------------------------------------------
-</code></pre>
-
-<p>Sẵn tò mò nên thử đọc code và xem cách nó hoạt động như thế nào, phương pháp rất đơn giản là xoá code và đọc từng phần và chạy thử.</p>
-
-<pre><code class="language-bash">&gt; bash -x ./blcheck 1.2.3.4
-</code></pre>
-
-<p>Sau một hồi lò mò thì đại khái cũng hiểu cách hoạt động, cơ bản thì:</p>
-
+</code></pre></div><p>Sẵn tò mò nên thử đọc code và xem cách nó hoạt động như thế nào, phương pháp rất đơn giản là xoá code và đọc từng phần và chạy thử.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; bash -x ./blcheck 1.2.3.4
+</code></pre></div><p>Sau một hồi lò mò thì đại khái cũng hiểu cách hoạt động, cơ bản thì:</p>
 <ul>
 <li>Reversed địa chỉ IP</li>
 <li>Dùng <code>dig</code> để check DNS của <code>${REVERSED_IP}.blacklist_domain.</code>, dạng dạng như command <code>/usr/bin/dig +short -t a +time=3 +tries=2 4.3.2.1.zen.spamhaus.org.</code></li>
 <li>Đánh giá dựa trên kết quả trả về</li>
 </ul>
-
 <h2 id="overview">Overview</h2>
-
 <p>Trước tiên câu hỏi đặt ra là <em>các tổ chức trong danh sách làm sao có bộ dữ liệu IP để đánh giá IP đó là xấu?  và dữ liệu có đáng tin cậy hay không?</em></p>
-
 <p>Mình để ý, để có bộ data thì thường người ta hay sử dụng phương pháp đặt bẫy (trap) hoặc đặt các honey pot. Rất nhiều trap và honey pot được tạo ra để <em>dụ spammer</em>. Spammer tất nhiên không thể bỏ qua một miếng mồi ngon như vậy được, nên sẽ ra sức để spam hoặc tìm cách tấn công/khai thác. Từ các trap/honey pot này, dữ liệu sẽ được thu thập và dùng để đánh giá. Bộ dữ liệu từ các trap/honey pot này sẽ được cập nhật liên tục để tránh dữ liệu sai, ngoài ra họ cũng cho phép bạn submit một địa chỉ IP là spam nếu bạn biết chắc chắn hoặc ngược lại gửi yêu cầu gỡ một IP ra khỏi danh sách spam.</p>
-
 <p>Nên đôi khi trên Internet, bạn thấy một <em>miếng mồi ngon</em> thì chưa chắc nó đã thực sự ngon :troll:, đôi khi nó chỉ là một cái bẫy để dụ bạn mà thôi.</p>
-
 <p>Nếu một địa chỉ IP của mail server bị dính blacklist, khi bạn gửi email tới người khác, email sẽ bị vô <em>Spam</em> hoặc tới người nhận chậm hoặc không thể tới được người nhận. (Email OTP mà chậm thì expired mất tiêu).</p>
-
 <p>Tương tự như email, cũng có các tổ chức bảo trì một bộ dữ liệu cho web traffic, dựa vào dữ liệu này, có thể biết được có nên chặn/cản lọc request từ các IP này hay không. Phương pháp thu thập dữ liệu là tương tự với email.</p>
-
 <h2 id="dns-query-format">DNS Query Format</h2>
-
 <p>Nếu dữ liệu đã có thì phương pháp để xác định một IP là spammer rất đơn giản. Chúng ta sẽ thực hiện một <strong>DNS query</strong> bằng các công cụ quen thuộc như <code>nslookup</code> hoặc <code>dig</code> như cách phân giải các domain. Cú pháp với <code>dig</code> như sau:</p>
-
-<pre><code>&gt; dig +short &lt;octec-reversed-IP&gt;.&lt;list-domains&gt;.
-</code></pre>
-
-<ul>
+<pre tabindex="0"><code>&gt; dig +short &lt;octec-reversed-IP&gt;.&lt;list-domains&gt;.
+</code></pre><ul>
 <li><code>+short</code> trả về dữ liệu đơn giản cho dễ nhìn.</li>
 <li><code>&lt;octec-reversed-IP&gt;</code> đây là địa chỉ IP mà bạn muốn kiểm tra, nhưng quan trọng nhất là <strong>địa chỉ IP này cần được đảo ngược</strong>. Ví dụ bạn muốn kiểm tra IP <code>1.23.34.5</code> thì giá trị ở DNS query sẽ là <code>5.34.23.1.</code> (<code>5.43.32.1.</code> là sai).</li>
 <li>List-domains là danh sách các tổ chức cung cấp bộ dữ liệu cho chúng ta truy vấn, ví dụ <code>cbl.abuseat.org</code>, <code>sbl-xbl.spamhaus.org</code> &hellip; bạn có thể kiếm một danh sách về email ở <a href="https://mxtoolbox.com/problem/blacklist.">mxtoolbox</a>.</li>
 </ul>
-
 <p>Ví dụ muốn kiểm tra địa chỉ IP <code>85.117.61.186</code> tại thời điểm mình viết bài này:</p>
-
-<pre><code class="language-bash">&gt; dig +short 186.61.117.85.cbl.abuseat.org.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; dig +short 186.61.117.85.cbl.abuseat.org.
 127.0.0.2
 
 &gt;  dig +short 186.61.117.85.bl.spamcannibal.org.
@@ -152,36 +219,23 @@ Blacklisted:   0
 127.0.0.2
 
 &gt; dig +short 186.61.117.85.korea.services.net.
-=&gt; nil
-</code></pre>
-
-<p>Ở đây mình kiểm tra thông qua 4 blacklist mình lấy bất kỳ để ra 4 kết quả khác nhau.</p>
-
+<span style="color:#f92672">=</span>&gt; nil
+</code></pre></div><p>Ở đây mình kiểm tra thông qua 4 blacklist mình lấy bất kỳ để ra 4 kết quả khác nhau.</p>
 <h2 id="query-responses">Query Responses</h2>
-
 <p>Phương pháp truy vấn thì rất đơn giản, giờ ta sẽ cần biết kết quả trả về phía trên có ý nghĩa như thế nào trong việc xác định thông tin về một IP có là spammer hay không.</p>
-
 <p>Đâu tiên, ta có 2 kết quả là <code>103.224.212.22</code> và <code>nil</code> (không có kết quả trả về). Hai kết quả này không có ý nghĩa trong việc xác định thông tin của một IP. Coi như 2 blacklist mình lấy không có thông tin gì về IP này. Nên sẽ bỏ qua.</p>
-
 <p>Còn lại kết quả <code>127.0.0.2</code>, một địa chỉ IPv4 với 4 octet, từng octet sẽ có ý nghĩa riêng:</p>
-
 <p><strong>Octet đầu tiên</strong> <strong>luôn luôn là 127</strong> và không mang ý nghĩa gì đặc biệt ngoài thể hiện là có dữ liệu validate (ngược lại với 2 kết quả phía trên do không bằng bắt đầu bằng 127 nên invalidate).</p>
-
 <p><strong>Octet thứ hai</strong> (giá trị <code>0</code> ở ví dụ trên) đại diện cho <strong>số ngày kể từ lần hoạt động cuối</strong>. Giá trị này từ 0 - 255, giúp đánh giá dữ liệu của tổ chức blacklist là cũ hay mới, càng mới thì càng đáng tin cậy. Giá trị <code>0</code> nghĩa là địa chỉ IP này mới vừa hoạt động mới gần đây.</p>
-
 <p><strong>Octet thứ 3</strong> (giá trị <code>0</code> ở ví dụ trên) đại diện <em>threat score</em> của địa chỉ IP. Đánh giá trên một số yếu tố như số trap/honeypot mà địa chỉ IP này truy cập, số request/email gửi tới trap/honeypot&hellip; Tương tự giá trị này nằm trong khoảng từ 0 - 255, trong đó 255 là cực kỳ đe doạ. Như ở đây giá trị là <code>0</code> nghĩa là mức độ đe doạ thấp nhất. Một tổ chức như ProjectHoneyPot thì họ tính cứ gửi 100 spam message +25 điểm, 1000 spam message thì +50 điểm và 1_000_000 thì +75 điểm -&gt; <a href="https://www.projecthoneypot.org/threat_info.php">link</a></p>
-
 <p><strong>Octet thứ 4</strong> (giá trị <code>2</code> ở ví dụ trên) đại diện cho <em>loại (type)</em> của vistor. Có 4 type chính là:</p>
-
 <ul>
 <li>Search Engine</li>
 <li>Suspicious</li>
 <li>Harvester</li>
 <li>Comment Spammer</li>
 </ul>
-
 <p>Giá trị của octet này cũng nằm trong khoảng từ 0 - 255, tương ứng với bảng sau.</p>
-
 <table>
 <thead>
 <tr>
@@ -189,57 +243,46 @@ Blacklisted:   0
 <th>Meaning</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>0</td>
 <td>Search Engine</td>
 </tr>
-
 <tr>
 <td>1</td>
 <td>Suspicious (nghi ngờ)</td>
 </tr>
-
 <tr>
 <td>2</td>
 <td>Harvester (thu tập dữ liệu)</td>
 </tr>
-
 <tr>
 <td>4</td>
 <td>Comment Spammer</td>
 </tr>
-
 <tr>
 <td>8</td>
 <td>[Reserved for Future Use]</td>
 </tr>
-
 <tr>
 <td>6</td>
 <td>[Reserved for Future Use]</td>
 </tr>
-
 <tr>
 <td>32</td>
 <td>[Reserved for Future Use]</td>
 </tr>
-
 <tr>
 <td>64</td>
 <td>[Reserved for Future Use]</td>
 </tr>
-
 <tr>
 <td>128</td>
 <td>[Reserved for Future Use]</td>
 </tr>
 </tbody>
 </table>
-
 <p>Do một địa chỉ IP cũng có thể thuộc nhiều loại khác nhau, nên tổ hợp lại ta có một bảng dữ liệu khác:</p>
-
 <table>
 <thead>
 <tr>
@@ -247,72 +290,55 @@ Blacklisted:   0
 <th>Meaning</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>0</td>
 <td>Search Engine (0)</td>
 </tr>
-
 <tr>
 <td>1</td>
 <td>Suspicious (1)</td>
 </tr>
-
 <tr>
 <td>2</td>
 <td>Harvester (2)</td>
 </tr>
-
 <tr>
 <td>3</td>
 <td>Suspicious &amp; Harvester (1+2)</td>
 </tr>
-
 <tr>
 <td>4</td>
 <td>Comment Spammer (4)</td>
 </tr>
-
 <tr>
 <td>5</td>
 <td>Suspicious &amp; Comment Spammer (1+4)</td>
 </tr>
-
 <tr>
 <td>6</td>
 <td>Harvester &amp; Comment Spammer (2+4)</td>
 </tr>
-
 <tr>
 <td>7</td>
 <td>Suspicious &amp; Harvester &amp; Comment Spammer (1+2+4)</td>
 </tr>
-
 <tr>
 <td>&gt;7</td>
 <td>[Reserved for Future Use]</td>
 </tr>
 </tbody>
 </table>
-
 <p>Như kết quả của mình thì địa chỉ IP mà mình kiểm tra được xếp vào loại <em>thu thập dữ liệu</em>.</p>
-
 <p>Lướt qua một số mẫu kết quả để dễ hình dùng hơn</p>
-
 <ul>
 <li><code>127.1.9.3</code>:  Kết quả này thể hiện địa chỉ IP được kiểm tra vừa có hành vi đáng nghi ngờ (1) vừa có hành vi thu thập dữ liệu (2) dựa vào octet cuối cùng, threat score là &ldquo;9&rdquo; và được nhìn thấy trên mạng dữ liệu cách đây 1 ngày.</li>
 <li><code>127.82.23.4</code>: Kết quả này thể hiện địa chỉ IP được kiểm tra có hành vi spam content (4), có threat score là &ldquo;23&rdquo; và được thấy lần cuối trên mạng dữ liệu cách đây 82 ngày.</li>
 </ul>
-
 <h2 id="search-engines">Search Engines</h2>
-
 <p>Search engines là một trường hợp đặc biệt. Với các search engines đã được biết tới như Google/Bing thì giá trị của octet cuối cùng sẽ luôn là <code>0</code>. Sẽ không tồn tại một search engines vừa có hành vi search engines và vừa có hành vi của spammer, nếu một search engines vi phạm chính sách này, nó sẽ bị loại khỏi danh sách các search engines.</p>
-
 <p>Trong trường hợp kết quả trả về là một search engines (octet cuối cùng là <code>0</code>) thì giá trị của <strong>octet thứ ba</strong> sẽ là <strong>định danh của loại search engines</strong>. Còn octet thứ hai sẽ không có ý nghĩa gì trong trường hợp này.</p>
-
 <p>Có một bảng định danh dựa trên octet thứ ba như sau:</p>
-
 <table>
 <thead>
 <tr>
@@ -320,141 +346,124 @@ Blacklisted:   0
 <th><strong>Search Engine</strong></th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>0</td>
 <td>Undocumented</td>
 </tr>
-
 <tr>
 <td>1</td>
 <td>AltaVista</td>
 </tr>
-
 <tr>
 <td>2</td>
 <td>Ask</td>
 </tr>
-
 <tr>
 <td>3</td>
 <td>Baidu</td>
 </tr>
-
 <tr>
 <td>4</td>
 <td>Excite</td>
 </tr>
-
 <tr>
 <td>5</td>
 <td>Google</td>
 </tr>
-
 <tr>
 <td>6</td>
 <td>Looksmart</td>
 </tr>
-
 <tr>
 <td>7</td>
 <td>Lycos</td>
 </tr>
-
 <tr>
 <td>8</td>
 <td>MSN</td>
 </tr>
-
 <tr>
 <td>9</td>
 <td>Yahoo</td>
 </tr>
-
 <tr>
 <td>10</td>
 <td>Cuil</td>
 </tr>
-
 <tr>
 <td>11</td>
 <td>InfoSeek</td>
 </tr>
-
 <tr>
 <td>12</td>
 <td>Miscellaneous</td>
 </tr>
 </tbody>
 </table>
-
 <h2 id="projecthoneypot">ProjectHoneyPot</h2>
-
 <p>Về cơ bản thì nếu check một địa chỉ IP nằm trong blacklist email thì khả năng cao là nó cũng nằm trong blacklist web traffic. Có những tổ chức họ đặt bẫy và thu thập thông tin cho blacklist email, nhưng cũng có những tổ chức chỉ thu thập cho dữ liệu web. Ở phía trên mình tạm coi dữ liệu là như nhau nên không phân biệt blacklist.</p>
-
 <p>Có một mạng lưới gọi là <a href="https://www.projecthoneypot.org/index.php">Project HoneyPot</a>, chuyên đặt trap/honeypot để cung cấp các dữ liệu xác định thông tin một IP có phải là spammer hay không. Họ hoạt động phi lợi nhuận và chủ yếu dựa trên donate, tuy nhiên để dữ liệu chính xác và liên tục, họ cung cấp một giải pháp giúp cài đặt một trap trên website của chính bạn, nhằm thu thập thêm dữ liệu để chống spam (nhưng không ảnh hưởng đến hệ thống của bạn). Ngoài ra họ chia sẻ các dữ liệu thu thập được cho các lập trình viên và các nhà nghiên cứu chống spam khác. Tổ chức này cũng chịu trách nhiệm trong việc theo dõi, truy tố spammer tới các cơ quan pháp luật dựa trên đạo luật chống thư rác.</p>
-
 <p>Ở phía trên, khi nhắc tới một mạng lưới dữ liệu thì bạn có thể ngầm hiểu đó là Project HoneyPot hoạt một tổ chức có chức năng tương tự.</p>
-
 <p>Danh sách domain phía trên mình lấy của email blacklist, tuy nhiên ProjectHoneyPot họ cũng cấp một dịch vụ tương tự, bạn sẽ cần tạo một <a href="https://www.projecthoneypot.org/httpbl_configure.php">AccessKey</a> để sử dụng. Cú pháp truy vấn thì tương tự nhưng thêm prefix là <em>access_key</em>. Ví dụ với IP phía trên:</p>
-
-<pre><code>&gt; dig +short &lt;access_key&gt;.186.61.117.85.dnsbl.httpbl.org.
+<pre tabindex="0"><code>&gt; dig +short &lt;access_key&gt;.186.61.117.85.dnsbl.httpbl.org.
 127.1.62.5
-</code></pre>
-
-<p>Kết quả trả về khá khác với các kết quả phía trên nhưng cũng dễ hiểu bởi mỗi mạng dữ liệu có cách đánh giá, bộ thu thập dữ liệu khác nhau. Nhưng về cơ bản phương pháp là tương tự nhau.</p>
-
+</code></pre><p>Kết quả trả về khá khác với các kết quả phía trên nhưng cũng dễ hiểu bởi mỗi mạng dữ liệu có cách đánh giá, bộ thu thập dữ liệu khác nhau. Nhưng về cơ bản phương pháp là tương tự nhau.</p>
 <blockquote>
 <p>Bài viết tham khảo từ dịch vụ <a href="https://www.projecthoneypot.org/httpbl_api.php">HTTP Blacklist của ProjectHoneyPot</a>.</p>
 </blockquote>
 
-</main>
-<section>
-  <hr>
-<script src="https://utteranc.es/client.js"
-        repo="xluffy/xluffy.github.io"
-        issue-term="url"
-        label="comments"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</section>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h"
+              >...</span
+            >
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+            
+              <span class="button next">
+                <a href="https://xluffy.github.io/post/null-in-sql/">
+                  <span class="button__text">Null in SQL</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
 
-    <footer>
+    
       
-<script>
-(function() {
-  function center_el(tagName) {
-    var tags = document.getElementsByTagName(tagName), i, tag;
-    for (i = 0; i < tags.length; i++) {
-      tag = tags[i];
-      var parent = tag.parentElement;
-      
-      if (parent.childNodes.length === 1) {
         
-        if (parent.nodeName === 'A') {
-          parent = parent.parentElement;
-          if (parent.childNodes.length != 1) continue;
-        }
-        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
-      }
-    }
-  }
-  var tagNames = ['img', 'embed', 'object'];
-  for (var i = 0; i < tagNames.length; i++) {
-    center_el(tagNames[i]);
-  }
-})();
-</script>
 
       
-      <hr/>
-      <a href="https://github.com/xluffy">Github</a> | <a href="https://twitter.com/min0lta">Twitter</a> | <a href="https://t.me/xluffy">Telegram</a>
+    
+  </div>
+
+      </div>
+
       
-      <br><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
-    </footer>
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">hàng nhà trồng theo giấy phép CC BY-NC 4.0</div>
+      
+  </div>
+</footer>
+
+<script src="https://xluffy.github.io/assets/main.js"></script>
+<script src="https://xluffy.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
   </body>
 </html>
-
