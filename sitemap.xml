@@ -107,12 +107,6 @@
     <loc>https://xluffy.github.io/post/what-is-difference-between-ssl-tls-https/</loc>
     <lastmod>2018-06-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://xluffy.github.io/categories/postgresql/</loc>
-    <lastmod>2018-06-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://xluffy.github.io/post/speeding-up-backup-and-restore-in-postgresql/</loc>
-    <lastmod>2018-06-01T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://xluffy.github.io/post/improving-mongodb-perf-by-managing-indexes/</loc>
     <lastmod>2018-05-30T00:00:00+00:00</lastmod>
   </url><url>
@@ -133,22 +127,6 @@
   </url><url>
     <loc>https://xluffy.github.io/post/intro-mysql-replication/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://xluffy.github.io/post/default-transaction-isolation-level/</loc>
-  </url><url>
-    <loc>https://xluffy.github.io/post/elasticsearch-cache/</loc>
-  </url><url>
-    <loc>https://xluffy.github.io/post/es/</loc>
-  </url><url>
-    <loc>https://xluffy.github.io/post/mysql-parallel-replication/</loc>
-  </url><url>
-    <loc>https://xluffy.github.io/post/mysql-query-cache/</loc>
-  </url><url>
-    <loc>https://xluffy.github.io/post/optimize-reindex/</loc>
-  </url><url>
-    <loc>https://xluffy.github.io/post/ruby-sidekiq-connection-pool/</loc>
-  </url><url>
-    <loc>https://xluffy.github.io/post/types-of-locking/</loc>
   </url><url>
     <loc>https://xluffy.github.io/about/</loc>
   </url><url>
