@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>/dev/xluffy</title>
+    <title>/home/xluffy</title>
     
     
     
     <link>https://xluffy.github.io/</link>
-    <description>Recent content on /dev/xluffy</description>
+    <description>Recent content on /home/xluffy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>hàng nhà trồng 🌴 theo giấy phép CC BY-NC 4.0</copyright>
@@ -436,7 +436,7 @@
     </item>
     
     <item>
-      <title>about</title>
+      <title>\&gt; cd /home/xluffy &amp;&amp; cat me.txt</title>
       <link>https://xluffy.github.io/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
