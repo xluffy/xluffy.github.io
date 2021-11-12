@@ -225,7 +225,7 @@
 <li>Tuỳ chọn sẵn một số gói phần mềm (curl, htop, nano, samba3.6, sock, vpn và các gói hỗ trợ gắn card 3/4G)</li>
 <li>Tiếng Trung từ bộ từ điển <a href="https://github.com/gorden5566/padavan">gorden5566</a></li>
 </ul>
-<p>Do bản tiếng Trung này có hỗ trợ <a href="https://github.com/hanwckf/rt-n56u/pull/671">Mi-4</a> nên tui cũng sẽ xài bản này luôn, nhưng do đây là bản tiếng Trung nên cần load từ điển tiếng Việt để xài, may mắn thay đã có một bạn làm sẵn bộ <a href="https://github.com/daivietpda/PDVN-LANG">từ điển tiếng Việt cho Padavan</a>. Việc bây giờ là tìm hiểu cách build firmware, tuỳ chỉnh các package để xài thử.</p>
+<p>Do bản tiếng Trung này có hỗ trợ <a href="https://github.com/hanwckf/rt-n56u/pull/671">MI-4</a> nên tui cũng sẽ xài bản này luôn, nhưng do đây là bản tiếng Trung nên cần load từ điển tiếng Việt để xài, may mắn thay đã có một bạn làm sẵn bộ <a href="https://github.com/daivietpda/PDVN-LANG">từ điển tiếng Việt cho Padavan</a>. Việc bây giờ là tìm hiểu cách build firmware, tuỳ chỉnh các package để xài thử.</p>
 <h2 id="3-chuẩn-bị-môi-trường-build">3. Chuẩn bị môi trường build</h2>
 <p>Dựa chủ yếu vào <a href="https://github.com/hanwckf/rt-n56u/blob/master/README.md">README của bản tiếng Trung</a> có tham khảo <a href="https://bitbucket.org/padavan/rt-n56u/wiki/EN/HowToMakeFirmware">WIKI Pandava gốc</a>. Tui sẽ dùng Ubuntu 16.04 LTS i386, tránh nhầm x86_64 (hoặc amd64) nhé. Để đỡ mất công cài đặt thì sử dụng luôn Vagrant cho tiện, <code>Vagrantfile</code> như sau (cấp RAM/CPU nhiều để build cho lẹ, đỡ mất thời gian chờ):</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># -*- mode: ruby -*-</span>
@@ -296,7 +296,7 @@ Linux padavan-box 4.4.0-210-generic <span style="color:#75715e">#242-Ubuntu SMP 
 <pre tabindex="0"><code>&gt; cd rt-n56u
 &gt; ls -l trunk/user/www/dict/*.dict
 &gt; wget -O trunk/user/www/dict/VN.dict https://raw.githubusercontent.com/daivietpda/PDVN-LANG/master/VN.dict
-</code></pre><p>Xong xuôi các bước trên là đã chuẩn bị đủ, bây giờ tui sẽ build <code>toolchain</code> (cross-compiler and tools for building) trước, để có cái tí build firmware. Trong bản Padavan của thím <code>hanwckf</code> có sẵn phiên bản pre-build của toolchain, fen nào thích thì tải về hoặc chạy script <code>dl_toolchain.sh</code> sẽ tự tải về nhé, link ở đây <a href="https://github.com/hanwckf/padavan-toolchain/releases/download/v1.1/mipsel-linux-uclibc.tar.xz">https://github.com/hanwckf/padavan-toolchain/releases/download/v1.1/mipsel-linux-uclibc.tar.xz</a>. Còn tui lỡ build rồi thì build hết luôn, ngại ngần chi nữa.</p>
+</code></pre><p>Xong xuôi các bước trên là đã chuẩn bị đủ, bây giờ tui sẽ build <code>toolchain</code> (cross-compiler and tools for building) trước, để có cái tí build firmware. Trong bản Padavan của thím <code>hanwckf</code> có sẵn phiên bản pre-build của toolchain, fen nào thích thì tải về hoặc chạy script <code>dl_toolchain.sh</code> sẽ tự tải về nhé, link ở đây <a href="https://github.com/hanwckf/padavan-toolchain/releases/download/v1.1/mipsel-linux-uclibc.tar.xz">mipsel-linux-uclibc.tar.xz</a>. Còn tui lỡ build rồi thì build hết luôn, ngại ngần chi nữa.</p>
 <pre tabindex="0"><code>&gt; cd /build/rt-n56u/toolchain-mipsel
 &gt; ulimit -n 4096
 &gt; ./clean_toolchain
@@ -423,7 +423,7 @@ drwxr-xr-x  <span style="color:#ae81ff">2</span> root root 4.0K Nov <span style=
 GPIO: Mi-Net button
 LAN1/LAN2/WAN port assignments
 No USB port
-</code></pre></div><p>Chi tiết PR cần update các tệp ở <a href="https://github.com/hanwckf/rt-n56u/pull/671">PR #671</a></p>
+</code></pre></div><p>Chi tiết ở <a href="https://github.com/hanwckf/rt-n56u/pull/671">PR #671</a></p>
 <h2 id="5-bootloader-và-breed-bootloader">5. Bootloader và BREED bootloader</h2>
 <p>Fen nào quen thuộc với hệ điều thành Linux sẽ quen thuộc với 2 bootloader như GRUB hoặc Syslinux. Hiểu một cách đơn giản thì bootloader chịu trách nhiệm nạp kernel và khởi tạo ramdisk trước khi bắt đầu quá trình khởi động. Đây là diễn giải về quá <a href="https://wiki.archlinux.org/title/Arch_boot_process">boot process trong ArcLinux</a> tương tự vậy cho các thiết bị nhúng như router, bootloader cũng có <a href="https://openwrt.org/docs/techref/bootloader">chức năng khởi tạo phần cứng và nạp kernel</a>.</p>
 <p>Theo tui được biết thì các thiết bị nhúng hay xài nhất là U-Boot bootloader, cá nhân tui cũng đánh giá cao dự án này vì:</p>
@@ -439,7 +439,7 @@ No USB port
 <li>Hỗ trợ upgrade realtime firmware qua giao diện web (tức là mấy ông zô WEB, bấm upload firmware hoặc paste link vô nó tự mần, khác với các bản bootloader khác là phải <code>scp</code> lên &hellip;)</li>
 </ul>
 <p>Thông tin về bootloader này khá hạn chế, tác giả chỉ cung cấp link tải tại <a href="https://breed.hackpascal.net/">https://breed.hackpascal.net/</a> và giới thiệu về BREED ở <a href="https://www.right.com.cn/forum/thread-161906-1-1.html">https://www.right.com.cn/forum/thread-161906-1-1.html</a>, khổ cái toàn tiếng Trung, dịch mãi cũng không rõ là viết cái gì =)). Tuy nhiên tác giả vẫn cập nhật bootloader này, lần cập nhật cuối cùng là vào ngày 09-10-2020.</p>
-<p><em><strong>Xin lưu ý lại một lần nữa là BREED không phải phần mềm mã nguồn mở, nên tui không biết tác giả làm gì trong mã nguồn, nên chấp nhận xài là chấp nhận rủ ro.</strong></em></p>
+<p><em><strong>Xin lưu ý lại một lần nữa là BREED không phải phần mềm mã nguồn mở, nên tui không biết tác giả làm gì trong mã nguồn, nếu đã chấp nhận xài là chấp nhận rủ ro.</strong></em></p>
 <p>Và như đã nói ở đầu thì tui đoán cái thím bán cho tui con MI-4 này cũng xài BREED vì nó tiện cho quá trình nạp Padavan, thành ra cũng hơi nghi ngại. Dự án U-Boot thì xịn xò thế kia, tội gì ko thử?</p>
 <p>Cách cài BREED thì rất nhiều các bản <a href="https://4pda.to/forum/index.php?showtopic=975687&amp;st=8240#entry104304281">tiếng Nga</a>, tiếng Việt trên <a href="https://voz.vn/t/dap-hop-xiaomi-redmi-router-ac2100.48554/#post-1322727">VoZ</a>, diễn đàn <a href="https://miui.vn/forum/threads/padavan-custom-firmware-qos-iptv-transmission-for-xioami-router-gen3-gen3g-mini-nano.24161/">miui.vn</a> đủ cả, tự tìm nhé.</p>
 <h2 id="6-restore-bootloader-stock-và-rom-stock">6. Restore bootloader stock và ROM stock</h2>
@@ -451,7 +451,7 @@ No USB port
 <p>Phần mềm cần chuẩn bị:</p>
 <ul>
 <li>Bootloader stock, riêng cái này không tìm đâu ra bản official được, tui chỉ tìm được một bản của thím <a href="https://voz.vn/u/lethanhtuan2895.1052437/">lethanhtuan2895</a> ở <a href="https://www.dropbox.com/sh/triqs68g4zapi7m/AAAPQJYS7FxglkbsOJpUQH6Fa?dl=0">Bootloader_MIR4.zip</a>, trên <a href="https://4pda.to/forum/index.php?showtopic=905966&amp;st=6740#entry105136079">4pda.to</a> có nhưng link hiện tại đã die hoặc do tui không có tài khoản đăng nhập.</li>
-<li><a href="https://bigota.miwifi.com/xiaoqiang/tools/MIWIFIRepairTool.x86.zip">MIWifiRepairToolX86</a> nếu link die thì mấy ông vô đây kiếm hàng nhé. <a href="http://miwifi.com/miwifi_download.html">http://miwifi.com/miwifi_download.html</a>, chỗ nào có cái biểu tượng Windows PC thì dò dò vào xem link.</li>
+<li><a href="https://bigota.miwifi.com/xiaoqiang/tools/MIWIFIRepairTool.x86.zip">MIWifiRepairToolX86</a> nếu link die thì mấy ông vô đây kiếm hàng nhé <a href="http://miwifi.com/miwifi_download.html">MiWifil</a>, chỗ nào có cái biểu tượng Windows PC thì dò dò vào xem link.</li>
 <li>Firmware gốc <a href="https://bigota.miwifi.com/xiaoqiang/rom/r4/miwifi_r4_firmware_8ed47_2.26.175.bin">miwifi_r4_firmware_8ed47_2.26.175</a></li>
 </ul>
 <p>Cách bước làm thì thím <a href="https://voz.vn/t/chia-se-rom-padavan-tieng-viet-cho-xiaomi-router-r3g-v1-co-usb.108869/">lethanhtuan2895</a> có hướng dẫn rồi nhé.</p>
@@ -481,12 +481,12 @@ No USB port
 <p>Với bản mod của thím <strong>pepe2k</strong>:</p>
 <ul>
 <li>based trên U-Boot 1.14, sửa tùm lum tà la nhưng dựa trên <strong>TP-Link</strong> là chủ yếu, ngoài có thêm mã của đám <strong>Link</strong>, <strong>Netgear</strong>, <strong>ZyXEL</strong> và<strong>Belkin</strong>, tất cả các cty này sử dụng SDK từ Qualcomm/Atheros.</li>
-<li>Mục tiêu của bản mod này là hỗ trợ các thiết bị router của TP-Link yếu, ví dụ con <strong>TL-WR703N</strong>, nhưng bây giờ thì hỗ trợ tùm lum tè le các thiết bị <a href="https://github.com/pepe2k/u-boot_mod#supported-devices"><strong>Atheros AR934x</strong>, <strong>Qualcomm Atheros QCA953x</strong>, <strong>Qualcomm Atheros QCA955x</strong></a>.</li>
+<li>Mục tiêu của bản mod này là hỗ trợ các thiết bị router yếu yếu của TP-Link, ví dụ con <strong>TL-WR703N</strong>, nhưng bây giờ thì hỗ trợ tùm lum tè le các thiết bị <a href="https://github.com/pepe2k/u-boot_mod#supported-devices"><strong>Atheros AR934x</strong>, <strong>Qualcomm Atheros QCA953x</strong>, <strong>Qualcomm Atheros QCA955x</strong></a>.</li>
 <li>Cơ mà đen cái là chưa hỗ trợ <strong>Qualcomm Atheros QCA956x</strong> và <strong>MediaTek MT762x</strong>, trong đó chip MT762x là cái con tui đang xài, xu cà na luôn.</li>
 <li>Tuy nhiên tui nghía thử thì bản mod này khá xịn, hỗ trợ upgrade firmware, U-Boot và ART (Atheros Radio Test) image trực tiếp thông qua giao diện web luôn, khỏi cần qua mấy cổng serial và TFTP. <a href="https://github.com/pepe2k/u-boot_mod#web-server">[1]</a></li>
 <li>Có hướng dẫn build cụ thể trên Linux và macOSX <a href="https://github.com/pepe2k/u-boot_mod#web-server">[2]</a></li>
 </ul>
-<p>Còn bản mod của thím <strong>shibajee</strong> có hỗ trợ Mediatek SoC, chip MT7621 và tui có thấy config cho con MI-R3G_SPI, con này có vẻ hơi giống con MI-R4 của tui. Tụi Mì xào này đặt tên lằng nhằng vãi, anh em check specs kĩ nhé:</p>
+<p>Còn bản mod của thím <strong>shibajee</strong> có hỗ trợ Mediatek SoC, chip MT7621 và tui có thấy config cho con MI-R3G_SPI, con này có vẻ hơi giống con MI-R4 của tui. Tụi Mì xào này đặt tên lằng nhằng vãi, anh em check specs kĩ nhé, search xui xui toàn ra mấy con MI Phone, cay:</p>
 <ul>
 <li><a href="https://openwrt.org/toh/xiaomi/mir3g">https://openwrt.org/toh/xiaomi/mir3g</a>, lưu ý là ko phải bản MI-R3 (ko có G nhé) bà R3G nó cũng có 2 version là V1 và V2</li>
 <li><a href="https://www.mi.com/miwifi3g/specs/">So sánh con R3G và R3 không G</a></li>
@@ -496,26 +496,6 @@ No USB port
 
     </div>
     
-      
-        <div class="pagination">
-          <div class="pagination__title">
-            <span class="pagination__title-h"
-              >Read other posts</span
-            >
-            <hr />
-          </div>
-          <div class="pagination__buttons">
-            
-            
-              <span class="button next">
-                <a href="https://xluffy.github.io/post/how-to-check-a-ip-is-in-a-blacklist/">
-                  <span class="button__text">How to check a IP is in a blacklist</span>
-                  <span class="button__icon">→</span>
-                </a>
-              </span>
-            
-          </div>
-        </div>
       
     
 
