@@ -439,7 +439,7 @@ No USB port
 <li>Hỗ trợ upgrade realtime firmware qua giao diện web (tức là mấy ông zô WEB, bấm upload firmware hoặc paste link vô nó tự mần, khác với các bản bootloader khác là phải <code>scp</code> lên &hellip;)</li>
 </ul>
 <p>Thông tin về bootloader này khá hạn chế, tác giả chỉ cung cấp link tải tại <a href="https://breed.hackpascal.net/">https://breed.hackpascal.net/</a> và giới thiệu về BREED ở <a href="https://www.right.com.cn/forum/thread-161906-1-1.html">https://www.right.com.cn/forum/thread-161906-1-1.html</a>, khổ cái toàn tiếng Trung, dịch mãi cũng không rõ là viết cái gì =)). Tuy nhiên tác giả vẫn cập nhật bootloader này, lần cập nhật cuối cùng là vào ngày 09-10-2020.</p>
-<p><em><strong>Xin lưu ý lại một lần nữa là BREED không phải phần mềm mã nguồn mở, nên tui không biết tác giả làm gì trong mã nguồn, nếu đã chấp nhận xài là chấp nhận rủ ro.</strong></em></p>
+<p><em><strong>Xin lưu ý lại một lần nữa là BREED không phải phần mềm mã nguồn mở, nên tui không biết tác giả làm gì trong mã nguồn, nếu đã chấp nhận xài là chấp nhận rủi ro.</strong></em></p>
 <p>Và như đã nói ở đầu thì tui đoán cái thím bán cho tui con MI-4 này cũng xài BREED vì nó tiện cho quá trình nạp Padavan, thành ra cũng hơi nghi ngại. Dự án U-Boot thì xịn xò thế kia, tội gì ko thử?</p>
 <p>Cách cài BREED thì rất nhiều các bản <a href="https://4pda.to/forum/index.php?showtopic=975687&amp;st=8240#entry104304281">tiếng Nga</a>, tiếng Việt trên <a href="https://voz.vn/t/dap-hop-xiaomi-redmi-router-ac2100.48554/#post-1322727">VoZ</a>, diễn đàn <a href="https://miui.vn/forum/threads/padavan-custom-firmware-qos-iptv-transmission-for-xioami-router-gen3-gen3g-mini-nano.24161/">miui.vn</a> đủ cả, tự tìm nhé.</p>
 <h2 id="6-restore-bootloader-stock-và-rom-stock">6. Restore bootloader stock và ROM stock</h2>
@@ -451,12 +451,12 @@ No USB port
 <p>Phần mềm cần chuẩn bị:</p>
 <ul>
 <li>Bootloader stock, riêng cái này không tìm đâu ra bản official được, tui chỉ tìm được một bản của thím <a href="https://voz.vn/u/lethanhtuan2895.1052437/">lethanhtuan2895</a> ở <a href="https://www.dropbox.com/sh/triqs68g4zapi7m/AAAPQJYS7FxglkbsOJpUQH6Fa?dl=0">Bootloader_MIR4.zip</a>, trên <a href="https://4pda.to/forum/index.php?showtopic=905966&amp;st=6740#entry105136079">4pda.to</a> có nhưng link hiện tại đã die hoặc do tui không có tài khoản đăng nhập.</li>
-<li><a href="https://bigota.miwifi.com/xiaoqiang/tools/MIWIFIRepairTool.x86.zip">MIWifiRepairToolX86</a> nếu link die thì mấy ông vô đây kiếm hàng nhé <a href="http://miwifi.com/miwifi_download.html">MiWifil</a>, chỗ nào có cái biểu tượng Windows PC thì dò dò vào xem link.</li>
+<li><a href="https://bigota.miwifi.com/xiaoqiang/tools/MIWIFIRepairTool.x86.zip">MIWifiRepairToolX86</a> nếu link die thì mấy ông vô <a href="http://miwifi.com/miwifi_download.html">MiWifil</a> kiếm hàng nhé, chỗ nào có cái biểu tượng Windows PC thì dò dò vào xem link.</li>
 <li>Firmware gốc <a href="https://bigota.miwifi.com/xiaoqiang/rom/r4/miwifi_r4_firmware_8ed47_2.26.175.bin">miwifi_r4_firmware_8ed47_2.26.175</a></li>
 </ul>
 <p>Cách bước làm thì thím <a href="https://voz.vn/t/chia-se-rom-padavan-tieng-viet-cho-xiaomi-router-r3g-v1-co-usb.108869/">lethanhtuan2895</a> có hướng dẫn rồi nhé.</p>
 <p>May mắn thay, sau một hồi lần mò trên <a href="https://forum.openwrt.org/t/xiaomi-mi-wifi-r4-exploration/23322">OpenWrt</a> tui đã nhìn thấy bản backup uboot mà thím thread này đã cẩn thận backup lại tại <a href="https://drive.google.com/open?id=1EpBAV_vEpvtyL0vZ-j82saMSX6JvJN5o">link này</a>, xin phép tải về lưu trữ chứ tìm cực quá:</p>
-<p>Sau đó tui kiểm tra checkup với bản của thím <a href="https://voz.vn/u/lethanhtuan2895.1052437/">lethanhtuan2895</a></p>
+<p>Sau đó tui kiểm tra checksum với bản của thím <a href="https://voz.vn/u/lethanhtuan2895.1052437/">lethanhtuan2895</a></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># bản của 0shape trên OpenWrt</span>
 &gt; sha256sum Bootloader.bin
 89b517f76073e9e093f05d9baf6df003a3d1fa82d46e6421914ef0650ee4583d  Bootloader.bin
@@ -464,7 +464,7 @@ No USB port
 <span style="color:#75715e"># bản của lethanhtuan2895</span>
 &gt; sha256sum Bootloader/Bootloader_MIR4.bin
 89b517f76073e9e093f05d9baf6df003a3d1fa82d46e6421914ef0650ee4583d  Bootloader/Bootloader_MIR4.bin
-</code></pre></div><p>Ngon, đỡ phải tự build</p>
+</code></pre></div><p>Ngon, đỡ phải tự build, hi vọng 2 thím này không phải là 1🤏</p>
 <h2 id="7-thành-quả">7. Thành quả</h2>
 <p>Việc còn lại là:</p>
 <ul>
@@ -482,16 +482,16 @@ No USB port
 <ul>
 <li>based trên U-Boot 1.14, sửa tùm lum tà la nhưng dựa trên <strong>TP-Link</strong> là chủ yếu, ngoài có thêm mã của đám <strong>Link</strong>, <strong>Netgear</strong>, <strong>ZyXEL</strong> và<strong>Belkin</strong>, tất cả các cty này sử dụng SDK từ Qualcomm/Atheros.</li>
 <li>Mục tiêu của bản mod này là hỗ trợ các thiết bị router yếu yếu của TP-Link, ví dụ con <strong>TL-WR703N</strong>, nhưng bây giờ thì hỗ trợ tùm lum tè le các thiết bị <a href="https://github.com/pepe2k/u-boot_mod#supported-devices"><strong>Atheros AR934x</strong>, <strong>Qualcomm Atheros QCA953x</strong>, <strong>Qualcomm Atheros QCA955x</strong></a>.</li>
-<li>Cơ mà đen cái là chưa hỗ trợ <strong>Qualcomm Atheros QCA956x</strong> và <strong>MediaTek MT762x</strong>, trong đó chip MT762x là cái con tui đang xài, xu cà na luôn.</li>
+<li>Cơ mà đen cái là chưa hỗ trợ <strong>Qualcomm Atheros QCA956x</strong> và <strong>MediaTek MT762x</strong>, trong đó chip MT762x là cái con tui đang xài, xu cà na luôn 🥺🥺🥺.</li>
 <li>Tuy nhiên tui nghía thử thì bản mod này khá xịn, hỗ trợ upgrade firmware, U-Boot và ART (Atheros Radio Test) image trực tiếp thông qua giao diện web luôn, khỏi cần qua mấy cổng serial và TFTP. <a href="https://github.com/pepe2k/u-boot_mod#web-server">[1]</a></li>
 <li>Có hướng dẫn build cụ thể trên Linux và macOSX <a href="https://github.com/pepe2k/u-boot_mod#web-server">[2]</a></li>
 </ul>
 <p>Còn bản mod của thím <strong>shibajee</strong> có hỗ trợ Mediatek SoC, chip MT7621 và tui có thấy config cho con MI-R3G_SPI, con này có vẻ hơi giống con MI-R4 của tui. Tụi Mì xào này đặt tên lằng nhằng vãi, anh em check specs kĩ nhé, search xui xui toàn ra mấy con MI Phone, cay:</p>
 <ul>
-<li><a href="https://openwrt.org/toh/xiaomi/mir3g">https://openwrt.org/toh/xiaomi/mir3g</a>, lưu ý là ko phải bản MI-R3 (ko có G nhé) bà R3G nó cũng có 2 version là V1 và V2</li>
-<li><a href="https://www.mi.com/miwifi3g/specs/">So sánh con R3G và R3 không G</a></li>
+<li><a href="https://openwrt.org/toh/xiaomi/mir3g">https://openwrt.org/toh/xiaomi/mir3g</a>, lưu ý là ko phải bản MI-R3 (ko có G nhé) bà R3G nó cũng có 2 version là V1 và V2.</li>
+<li><a href="https://www.mi.com/miwifi3g/specs/">So sánh con R3G và R3 không G</a>.</li>
 </ul>
-<p>Tui cũng không biết là có build ra chạy được khum, nhưng tạm thế đã nhé</p>
+<p>Tui cũng không biết là có build ra chạy được khum, nhưng tạm thế đã nhé.</p>
 <p><img src="https://github.com/xluffy/assets/blob/master/meme-daunam.png?raw=true" alt="cáo-từ"></p>
 
     </div>
