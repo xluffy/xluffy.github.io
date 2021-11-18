@@ -243,7 +243,7 @@
 <li>Thông minh, tự động nhận biết các request không hợp lệ, có thể expire sau một khoảng thời gian (tương tự lua+redis), cho phép user tự bypass bằng cách pass <em>challenge</em> hoặc <em>js challenge</em> thay vì block ngay.</li>
 <li><strong>Nhược điểm</strong> là phải trả tiền cho tính năng này và Cloudflare offer số lượng rule khá thấp (Pro là 10 rule, Business 15 rule và Enterprise rule), nên cần nhiều rule limit thì Cloudflare là một lựa chọn khá đắt đỏ.s</li>
 </ul>
-<p><img src="https://www.cloudflare.com/resources/images/slt3lc6tev37/49gHcPDvyg0AcS4sy6qWao/e890866ea6582fb7a63f30e0ed34bdb9/rate-limiting-rules.png" alt="rate-limit"></p>
+<p><img src="https://www.cloudflare.com/resources/images/slt3lc6tev37/49gHcPDvyg0AcS4sy6qWao/e890866ea6582fb7a63f30e0ed34bdb9/rate-limiting-rules.png" alt="rate-limit" style="width:53%;" /></p>
 <p>Nói tóm lại thì Cloudflare với chi phí tầm 20$/tháng là một lựa chọn không tồi để chống/giảm DDoS, tất nhiên bạn phải hiểu vấn đề của mình là gì và đánh giá các lựa chọn để đưa ra quyết định phù hợp.</p>
 <p>Nếu bạn xài terraform thì nó sẽ như sau:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;cloudflare_rate_limit&#34; &#34;rl_login&#34;</span> {
@@ -485,7 +485,7 @@ server <span style="color:#f92672">{</span>
 </code></pre></div><p>Ngoài các giải pháp trên, Cloudflare cung cấp một dịch vụ gọi là <a href="https://www.cloudflare.com/products/argo-tunnel">Argo tunnel</a>, hiểu một cách đơn giản thì argo-tunnel sẽ tạo một encrypted-tunnel giữa origin server tới Cloudflare data-center gần nhất (kèm theo smart routing), mọi kết nối từ client được Cloudflare pass qua origin server sẽ đi qua tunnel này, tất cả các request còn lại sẽ bị block.</p>
 <h2 id="5-end">5. End</h2>
 <p>Yeah, quá nhiều câu hỏi, quá nhiều chữ rồi, vậy nếu lỡ Cloudflare tạch proxy thì phải làm sao? Thật ra toy cũng đíu biết ae ạ 🖕🏽🖕🏽🖕🏽, lên Twitter xem dân tình chửi nhau và nằm chờ Cloudflare sống dậy thôi.</p>
-<p><img src="https://raw.githubusercontent.com/xluffy/assets/master/notlikethis.png" alt="notlikethis"></p>
+<p><img src="https://raw.githubusercontent.com/xluffy/assets/master/notlikethis.png" alt="notlikethis" style="width:33%;" /></p>
 <h2 id="6-ref">6. Ref</h2>
 <ul>
 <li><a href="https://www.cloudflare.com/learning/ddos/what-is-a-ddos-attacks">https://www.cloudflare.com/learning/ddos/what-is-a-ddos-attacks</a></li>
