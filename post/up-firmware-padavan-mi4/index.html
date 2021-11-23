@@ -453,21 +453,21 @@ drwxr-xr-x  <span style="color:#ae81ff">2</span> root root 4.0K Nov <span style=
 <span style="color:#75715e">#define DEF_WLAN_5G_SSID	&#34;ASUS_5G&#34;</span>
 <span style="color:#75715e">#define DEF_WLAN_2G_GSSID	&#34;ASUS_GUEST&#34;</span>
 <span style="color:#75715e">#define DEF_WLAN_5G_GSSID	&#34;ASUS_GUEST_5G&#34;</span>
-</code></pre></div><p>Tên của AP sau khi nạp kernel, có thể dùng BOARD_PID để gen AP name dựa tển BOARD</p>
+</code></pre></div><p>=&gt; Tên của AP sau khi nạp kernel, có thể dùng BOARD_PID để gen AP name dựa trên BOARD</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#define DEF_WLAN_2G_SSID        BOARD_PID &#34;_xluffy_%s&#34;</span>
 <span style="color:#75715e">#define DEF_WLAN_5G_SSID        BOARD_PID &#34;_5G_xluffy_%s&#34;</span>
 <span style="color:#75715e">#define DEF_WLAN_2G_GSSID       BOARD_PID &#34;_GUEST_%s&#34;</span>
 <span style="color:#75715e">#define DEF_WLAN_5G_GSSID       BOARD_PID &#34;_GUEST_5G_%s&#34;</span>
 </code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#define DEF_WLAN_2G_PSK		&#34;r000t@dBl2021&#34;</span>
 <span style="color:#75715e">#define DEF_WLAN_5G_PSK		&#34;r000t@dBl2021&#34;</span>
-</code></pre></div><p>=&gt; Mật khẩu đăng nhập mặc định của AP (lưu ý là <code>GTM+7</code> sẽ là <code>UTC-7</code>)</p>
+</code></pre></div><p>=&gt; Mật khẩu đăng nhập mặc định của AP</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#define DEF_TIMEZONE		&#34;UTC-7&#34;</span>
 <span style="color:#75715e">#define DEF_NTP_SERVER0		&#34;vn.pool.ntp.org&#34;</span>
 <span style="color:#75715e">#define DEF_NTP_SERVER1		&#34;2.vn.pool.ntp.org&#34;</span>
-</code></pre></div><p>=&gt; Múi giờ mặc định, NTP server mặc định</p>
+</code></pre></div><p>=&gt; Múi giờ mặc định (lưu ý là <code>GTM+7</code> sẽ là <code>UTC-7</code>), NTP server mặc định</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#define DEF_WLAN_2G_CC          &#34;US&#34;</span>
 <span style="color:#75715e">#define DEF_WLAN_5G_CC          &#34;US&#34;</span>
-</code></pre></div><p><code>rt_country_code</code> hay <code>region_code</code>, trong tab cấu hình của AP, dưới cùng sẽ cho phép thay đổi channels AP dựa trên region code.</p>
+</code></pre></div><p>=&gt; <code>rt_country_code</code> hay <code>region_code</code>, trong tab cấu hình của AP, dưới cùng sẽ cho phép thay đổi channels AP dựa trên region code.</p>
 <h2 id="5-chặn-quảng-cáo">5. Chặn quảng cáo</h2>
 <p>Cơ chế chặn quảng cáo cũng đơn giản như setup trên máy tính cá nhân, cơ chế là phân giải các domain quảng cáo về một địa chỉ IP không truy cập được (127.0.0.1 hoặc 0.0.0.0). Ở đây hầu hết là dùng <code>dnsmasq</code> để làm DNS server, (tuỳ chọn cung cấp dịch vụ DHCP luôn)  hỗ trợ nạp tệp <code>hosts</code> chứa các domain quảng cáo.</p>
 <p>Về cơ bản hiểu cách <code>dnsmasq</code> hoạt động sẽ hiểu cách cấu hình để chặn quảng cáo cho firmware này. Cấu hình dịch vụ DNS đơn giản chỉ vầy:</p>
@@ -554,7 +554,7 @@ No USB port
 </ul>
 <p>Với bản mod của thím <strong>pepe2k</strong>:</p>
 <ul>
-<li>based trên U-Boot 1.14, sửa tùm lum tà la nhưng dựa trên <strong>TP-Link</strong> là chủ yếu, ngoài có thêm mã của đám <strong>Link</strong>, <strong>Netgear</strong>, <strong>ZyXEL</strong> và<strong>Belkin</strong>, tất cả các cty này sử dụng SDK từ Qualcomm/Atheros.</li>
+<li>based trên U-Boot 1.14, sửa tùm lum tà la nhưng dựa trên <strong>TP-Link</strong> là chủ yếu, ngoài có thêm mã của đám <strong>Link</strong>, <strong>Netgear</strong>, <strong>ZyXEL</strong> và <strong>Belkin</strong>, tất cả các cty này sử dụng SDK từ Qualcomm/Atheros.</li>
 <li>Mục tiêu của bản mod này là hỗ trợ các thiết bị router yếu yếu của TP-Link, ví dụ con <strong>TL-WR703N</strong>, nhưng bây giờ thì hỗ trợ tùm lum tè le các thiết bị <a href="https://github.com/pepe2k/u-boot_mod#supported-devices"><strong>Atheros AR934x</strong>, <strong>Qualcomm Atheros QCA953x</strong>, <strong>Qualcomm Atheros QCA955x</strong></a>.</li>
 <li>Cơ mà đen cái là chưa hỗ trợ <strong>Qualcomm Atheros QCA956x</strong> và <strong>MediaTek MT762x</strong>, trong đó chip MT762x là cái con tui đang xài, xu cà na luôn 🥺🥺🥺.</li>
 <li>Tuy nhiên tui nghía thử thì bản mod này khá xịn, hỗ trợ upgrade firmware, U-Boot và ART (Atheros Radio Test) image trực tiếp thông qua giao diện web luôn, khỏi cần qua mấy cổng serial và TFTP. <a href="https://github.com/pepe2k/u-boot_mod#web-server">[1]</a></li>
@@ -562,7 +562,7 @@ No USB port
 </ul>
 <p>Còn bản mod của thím <strong>shibajee</strong> có hỗ trợ Mediatek SoC, chip MT7621 và tui có thấy config cho con MI-R3G_SPI, con này có vẻ hơi giống con MI-R4 của tui. Tụi Mì xào này đặt tên lằng nhằng vãi, anh em check specs kĩ nhé, search xui xui toàn ra mấy con MI Phone, cay:</p>
 <ul>
-<li><a href="https://openwrt.org/toh/xiaomi/mir3g">https://openwrt.org/toh/xiaomi/mir3g</a>, lưu ý là ko phải bản MI-R3 (ko có G nhé) bà R3G nó cũng có 2 version là V1 và V2.</li>
+<li><a href="https://openwrt.org/toh/xiaomi/mir3g">https://openwrt.org/toh/xiaomi/mir3g</a>, lưu ý là ko phải bản MI-R3 (ko có G nhé) bản R3G nó cũng có 2 version là V1 và V2.</li>
 <li><a href="https://www.mi.com/miwifi3g/specs/">So sánh con R3G và R3 không G</a>.</li>
 </ul>
 <h2 id="10-túm-lại">10. Túm lại</h2>
