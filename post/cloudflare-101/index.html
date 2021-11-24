@@ -244,8 +244,7 @@
 <li><strong>Nhược điểm</strong> là phải trả tiền cho tính năng này và Cloudflare offer số lượng rule khá thấp (Pro là 10 rule, Business 15 rule và Enterprise rule), nên cần nhiều rule limit thì Cloudflare là một lựa chọn khá đắt đỏ.s</li>
 </ul>
 <p align="center"><img src="https://www.cloudflare.com/resources/images/slt3lc6tev37/49gHcPDvyg0AcS4sy6qWao/e890866ea6582fb7a63f30e0ed34bdb9/rate-limiting-rules.png" alt="rate-limit" style="width:53%;" /></p>
-<p align="center"><img src="https://github.com/xluffy/assets/blob/master/alb_nginx_backend.png?raw=true" alt="alb_nginx_backend" width="45%"/></p>
-<p>Nếu bạn xài terraform thì nó sẽ như sau:</p>
+<p>Nếu bạn xài terraform 0.11 thì nó sẽ như sau:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;cloudflare_rate_limit&#34; &#34;rl_login&#34;</span> {
   zone <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;${var.domain}&#34;</span>
 
