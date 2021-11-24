@@ -346,11 +346,11 @@ puts <span style="color:#e6db74">&#39; [*] Waiting for messages. To exit press C
 <p>Ở đây mình sẽ giải thích ngắn gọn và một số use-case của từng loại exchange. Chi tiết có thể đọc thêm trong document của RabbitMQ.</p>
 <h3 id="41-fanout-exchange">4.1 Fanout Exchange</h3>
 <p>Fanout exchange sẽ routing message tới tất cả các queue liên quan, nếu có N queue liên quan tới fanout exchange thì khi một message được publish vào exchange sẽ có N bản copy của message được gửi tới tất cả N queue, ý tưởng là một dạng <strong>broadcast routing</strong>.</p>
-<p><img src="https://github.com/ruby-amqp/amqp/raw/master/docs/diagrams/004_fanout_exchange.png" alt="fanout-exchange"></p>
+<p align="center"><img src="https://github.com/ruby-amqp/amqp/raw/master/docs/diagrams/004_fanout_exchange.png" alt="004_fanout_exchange" width="70%"/></p>
 <p>Fanout Exchange sẽ phù hợp với các bài toán dạng broadcast như các trang sport-news muốn distributing score update tới tất cả các client near-realtime (nghe có vẻ giống cách mà ForzaFootball đang làm) hoặc các ứng dụng chat nhóm cần distrubute message tới những người trong nhóm.</p>
 <h3 id="42-direct-exchange">4.2 Direct Exchange</h3>
 <p>Direct exchange là loại exchange sẽ gửi message tới các queue dựa trên message routing key, ví dụ message dạng <code>image.resize</code> sẽ được gửi tới queue <code>resize</code>, message dạng <code>pdf.render</code> sẽ được gửi tới <code>render</code>.</p>
-<p><img src="https://github.com/ruby-amqp/amqp/raw/master/docs/diagrams/005_direct_exchange.png" alt="direct-exchange"></p>
+<p align="center"><img src="https://github.com/ruby-amqp/amqp/raw/master/docs/diagrams/005_direct_exchange.png" alt="005_direct_exchange" width="70%"/></p>
 <p>Direct exchange thường được dùng để distribute tasks giữa nhiều worker theo thuật toán round-robin.</p>
 <p><strong>Default exchange</strong> là direct exchange mà không có tên (nameless), đây là một trường hợp đặc biệt, message sẽ được gửi tới một queue có tên bằng routing-key của message. Có bao nhiêu message thì sẽ có bấy nhiêu queue và các queue này sẽ tự động liên kết với default-exchange với routing key trùng với queue-name.</p>
 <p>Ở ví dụ trên ta sử dụng chính là <strong>default exchange</strong>.</p>
@@ -396,7 +396,7 @@ puts<span style="color:#e6db74">&#34; [x] Sent </span><span style="color:#e6db74
 <li>americas.south.brazil.saopaolo</li>
 <li>americas.south.chile.santiago</li>
 </ul>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Multicast.svg/500px-Multicast.svg.png" alt="topic-exchange"></p>
+<p align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Multicast.svg/500px-Multicast.svg.png" alt="Multicast" width="50%"/></p>
 <h2 id="5-ref">5. Ref</h2>
 <ul>
 <li><a href="https://www.rabbitmq.com/tutorials/tutorial-two-ruby.html">https://www.rabbitmq.com/tutorials/tutorial-two-ruby.html</a></li>

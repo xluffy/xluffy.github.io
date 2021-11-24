@@ -222,9 +222,9 @@
 <p>Để tránh xảy ra trường hợp trên và giảm thiểu rủi ro mất dữ liệu, mình có giới thiệu một bài khác <a href="https://xluffy.github.io/post/delayed-replication-in-mysql/">delay-replication</a>.</p>
 <h1 id="2-hoạt-động-như-thế-nào">2. Hoạt động như thế nào?</h1>
 <h2 id="21-một-số-mô-hình">2.1 Một số mô hình</h2>
-<p><img src="https://i.imgur.com/mevNr10.png" alt="mysql-replication"></p>
-<p>Với cả hai mô hình ta luôn chỉ có 1 Master database phục vụ cho Write dữ liệu, có thể có một hoặc nhiều Slave database. Tùy từng mô hình ta có thể cấu hình mỗi web node connect vào một Slave DB tương ứng hoặc có thể dùng một LB đặt trước cụm Slave để LB tự động phân phối connection vào từng Slave DB theo thuật toán của LB</p>
-<p><img src="https://i.imgur.com/etkJXxd.png" alt="mysql-replication-lb"></p>
+<p align="center"><img src="https://i.imgur.com/mevNr10.png" alt="mysql-replication" width="65%"/></p>
+<p>Với cả hai mô hình ta luôn chỉ có 1 Master database phục vụ cho Write dữ liệu, có thể có một hoặc nhiều Slave database. Tùy từng mô hình ta có thể cấu hình mỗi web node connect vào một Slave DB tương ứng hoặc có thể dùng một LB đặt trước cụm Slave để LB tự động phân phối connection vào từng Slave DB theo thuật toán của LB.</p>
+<p align="center"><img src="https://i.imgur.com/etkJXxd.png" alt="mysql-replication-lb" width="65%"/></p>
 <h2 id="22-cách-hoạt-động">2.2 Cách hoạt động</h2>
 <p>Trên Master:</p>
 <ul>
@@ -237,7 +237,7 @@
 <li>Sau khi <code>Dump_Thread</code> gửi binlog tới <code>I/O_Thead</code>, <code>I/O_Thread</code> sẽ có nhiệm vụ đọc binlog này và ghi vào relaylog.</li>
 <li>Đồng thời trên Slave sẽ mở một <code>SQL_Thread</code>, <code>SQL_Thread</code> có nhiệm vụ đọc các event từ relaylog và apply các event đó vào Slave =&gt; quá trình replication hoàn thành.</li>
 </ul>
-<p><img src="https://i.imgur.com/RLAnddr.jpg" alt="arch"></p>
+<p align="center"><img src="https://i.imgur.com/RLAnddr.jpg" alt="mysql-replication-arch" width="85%"/></p>
 <p>Về logic mỗi Slave DB sẽ chỉ nhận dữ liệu từ Master DB, mọi hành động cập nhật dữ liệu <strong>BẮT BUỘC</strong> phải được thực hiện trên Master. Về nguyên tắc nếu ghi dữ liệu trực tiếp lên Slave DB =&gt; hỏng replication. Nhưng thực chất ta hoàn toàn có thể ghi dữ liệu trên Slave miễn sao khi Slave đọc binlog và apply không đụng gì tới những trường dữ liệu mà ta mới ghi vào thì sẽ không bị lỗi (mục này sẽ nói thêm ở các phần sau)</p>
 <p>Với MySQL 5.5 thì mỗi slave sẽ chỉ có một <code>slave_thread</code> connect tới Master, tuy nhiên từ phiên bản 5.6 chúng ta có thể cấu hình nhiều <code>slave_thread</code> để việc apply bin log tới các slave nhanh hơn.</p>
 <h1 id="3-hướng-dẫn-cài-đặt-và-cấu-hình">3. Hướng dẫn cài đặt và cấu hình</h1>

@@ -278,7 +278,7 @@
 <pre tabindex="0"><code>hash(pepper + salt + password)
 </code></pre><p>Ta nên lưu pepper ở application hoặc ở một service khác, nếu database bị compromise, thì kẻ tấn công cũng không có pepper để tạo ra rainbow-table.</p>
 <h2 id="6-bonus">6. Bonus</h2>
-<p><img src="https://dropbox.tech/cms/content/dam/dropbox/tech-blog/en-us/2016/09/layers.png" alt="dropbox-store-password"></p>
+<p align="center"><img src="https://dropbox.tech/cms/content/dam/dropbox/tech-blog/en-us/2016/09/layers.png" alt="layers" width="65%"/><a href="https://blogs.dropbox.com/tech/2016/09/how-dropbox-securely-stores-your-passwords"><i>Source: https://blogs.dropbox.com/tech/2016/09/how-dropbox-securely-stores-your-passwords</i></a></p>
 <p>Trong khi tìm câu trả lời để viết bài này, mình tìm được một bài blog của dropbox nói về cách họ lưu password như thế nào. Thấy có 2 điểm khá hay nên muốn nói thêm.</p>
 <ul>
 <li>Trước khi hash password với salt-per-user, họ có <code>SHA512(password)</code> trước để <strong>cố định</strong> độ dài của input-password. Theo Dropbox thì việc này giải quyết 2 issues của <code>bcrypt</code>

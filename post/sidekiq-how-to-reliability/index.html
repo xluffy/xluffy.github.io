@@ -201,8 +201,7 @@
 <p>Tuy nhiên trong thực tế, không phải lúc nào web app cũng xử lý nhanh hoặc không phải lúc nào chúng ta cũng cần <strong>phản hồi ngay lập tức</strong> kết quả cho người dùng. Ví dụ sau khi đăng ký ta có gửi email thông báo tới cho người dùng, nhưng không nhất thiết phải gửi email <strong>ngay lập tức</strong> cho người dùng, có thể chậm 1-2 phút cũng chấp nhận được hoặc ví dụ các tác vụ resize, optimize ảnh do người dùng upload thường tốn nhiều thời gian, nếu để user chờ ở màn hình upload cũng không phải là cách hay.</p>
 <p>Những tác vụ như vậy ta có thể đưa vào chạy nền hay còn gọi là backgroud job/asynchronous job. Giúp tránh bắt người dùng phải chờ đợi lâu mà vẫn đảm bảo là sẽ xử lý tác vụ đó cho người dùng.</p>
 <p>Mô hình chung sẽ như sau:</p>
-<p><img src="https://drivy.engineering/assets/posts/2015-10-12-taskqueues-go-wild/taskqueues.svg" alt="task-queue"></p>
-<p><em>image source from <a href="https://drivy.engineering/taskqueues-tips">https://drivy.engineering/taskqueues-tips</a></em></p>
+<p align="center"><img src="https://getaround.tech/assets/posts/2015-10-12-taskqueues-go-wild/taskqueues.svg" alt="alb_nginx_backend" width="65%"/><a href="https://drivy.engineering/taskqueues-tips"><i>https://drivy.engineering/taskqueues-tips</i></a></p>
 <ul>
 <li>Broker là một queue ví dụ như redis, RabbitMQ.</li>
 <li>App sẽ enqueue các tác vụ cần xử lý background tùy vào từng request.</li>
@@ -224,8 +223,7 @@
 <li>Redis là data storage cho sidekiq, dùng để lưu trữ các job được đẩy xuống từ sidekiq client.</li>
 <li>Sidekiq server là một process độc lập, <strong>pull job</strong> từ queue trong Redis và xử lý.</li>
 </ul>
-<p><img src="https://brandonhilkert.com/images/sidekiq/rails-web-worker.png" alt="sidekiq-flow">
-<em>image source from <a href="https://brandonhilkert.com/blog/sidekiq-as-a-microservice-message-queue">https://brandonhilkert.com/blog/sidekiq-as-a-microservice-message-queue</a></em></p>
+<p align="center"><img src="https://brandonhilkert.com/images/sidekiq/rails-web-worker.png" alt="rails-web-worker" width="65%"/><a href="https://brandonhilkert.com/blog/sidekiq-as-a-microservice-message-queue"><i>Source: https://brandonhilkert.com/blog/sidekiq-as-a-microservice-message-queue</i></a></p>
 <p>Đứng ở góc độ vận hành hệ thống, mình chỉ quan tâm chuyện gì xảy ra khi bất cứ thành phần trên fail và làm cách nào để đảm bảo hệ thống có khả năng fail-over. Để trả lời câu hỏi đó thì cần phải hiểu cách hoạt động, implement của sidekiq.</p>
 <h2 id="2-how-to-reliability">2. How to Reliability?</h2>
 <h3 id="21-sidekiq-client">2.1 Sidekiq client</h3>

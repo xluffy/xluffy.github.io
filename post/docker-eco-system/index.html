@@ -205,7 +205,7 @@
 <li><strong>Volume</strong>: volume được thiết kể để lưu trữ các dữ liệu độc lập với vòng đời của container.</li>
 </ul>
 <p>Chúng ta sẽ xem qua một biểu đồ minh họa các lệnh phổ biến của Docker Client và mối quan hệ giữa 4 thành phần trên.</p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*FZpFz0gM5vuADIPe_0jtJg.png" alt="docker"></p>
+<p align="center"><img src="https://cdn-images-1.medium.com/max/800/1*FZpFz0gM5vuADIPe_0jtJg.png" alt="docker" width="65%"/></p>
 <p>Ngoài ra thì Docker Engine cho phép load thêm các third-party plugins để mở rộng thêm các chức năng khác. Ví dụ <strong>Flocker</strong> là một volume-plugin cung cấp cơ chế volume cho multi-host hoặc <strong>Weave</strong> là một network-plugin cho phép tạo một mạng ảo, kết nối các Docker container trên nhiều host lại với nhau, cho phép tự động discovery các ứng dụng.</p>
 <h2 id="2-distribution-tools">2. Distribution tools</h2>
 <p>Docker cung cấp 3 công cụ phân tán giúp chúng ta lưu trữ và quản lý các Docker image. Để tự dựng một private registry và lưu trữ các private image chúng ta có thể sử dụng một trong 2 công cụ sau:</p>
@@ -236,7 +236,7 @@
 <ul>
 <li><strong>Docker Toolbox</strong>: Bởi vì Docker Engine dùng một số feature của kernel Linux nên ta sẽ không thể chạy Docker Engine natively trên Windows hoặc BSD được. Ở các phiên bản trước đây thì ta sẽ cần một máy ảo cài một phiên bản Linux nào đó và sau đó cài Docker Engine lên máy ảo đó. Nghĩa là từ <strong>Docker Client -&gt; VirtualBox (VM Linux) -&gt; Docker Engine</strong> thay vì trực tiếp từ <strong>Docker Client -&gt; Docker Engine</strong> như trên Linux. Nếu bạn dùng Mac OS X và Microsoft Windows thì nó sẽ giúp bạn cài Docker Client, Docker Compose, Docker Machine, Docker Kitematic (một GUI client), và sử dụng VirtualBox để deploy Docker Engine trên boot2docker (tinycore). Như hình dưới đây.</li>
 </ul>
-<p><img src="https://i.imgur.com/mtTIj8P.png" alt="linux-windows-mac"></p>
+<p align="center"><img src="https://i.imgur.com/mtTIj8P.png)" alt="linux-windows-macdocker" width="65%"/></p>
 <ul>
 <li><strong>Docker for Mac and Docker for Windows</strong>: Ở phiên bản gần đây thì Docker tung ra công cụ này ở bản beta, và hiện tại đã public beta. Tuy nhiên bạn phải nhớ rằng Docker Engine vẫn không thể chạy trên Windows hay BSD (cá nhân mình tin là sau này cũng vẫn thế thôi). Mà thực chất nó vẫn phải chạy trên một máy ảo Linux. Điểm khác biệt là bạn không nhất thiết phải dùng VirtualBox. Đối với Mac thì Docker Engine sẽ chạy trên xhyve Virtual Machine (VM), xhyve là một giải pháp ảo hóa lightweight trên OSX, và distribution chạy trên nền ảo hóa này là Alpine Linux, một distribution vô cùng nhỏ ngọn. Đối với Windows thì Docker Engine cũng sẽ trên một máy ảo Alpine Linux, trên công nghệ ảo hóa của Windows là Hyper-V, bạn nào làm system sẽ biết Hyper-V. Với Hyper-V thì sẽ có một số yêu cần về phiên bản Windows và phần cứng (phần này các bạn tự tìm hiểu, mình không có hứng thú với M$)</li>
 </ul>
