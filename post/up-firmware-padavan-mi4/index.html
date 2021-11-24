@@ -417,7 +417,11 @@ CONFIG_FIRMWARE_INCLUDE_WIREGUARD<span style="color:#f92672">=</span>y
 
 <span style="color:#f92672">-CONFIG_FIRMWARE_INCLUDE_WIREGUARD=n
 </span><span style="color:#f92672"></span><span style="color:#a6e22e">+CONFIG_FIRMWARE_INCLUDE_WIREGUARD=y
-</span></code></pre></div><p>Fen nào thích sửa cái dòng COPYRIGHT thì sửa trong file này <a href="https://github.com/hanwckf/rt-n56u/blob/c9c3cec65c619dd8a1f51eee1d305d09d474fff6/trunk/user/www/Makefile#L12">Makefile</a>, sau khi biên dịch, load UI thì ở dưới footer sẽ thấy dòng chữ kiểu kiểu vầy nhé:</p>
+</span></code></pre></div><ul>
+<li>OpenVPN thì thường nếu xài VPN service như đám NordVPN nó sẽ cấp ovpn config, lúc đó sẽ tận dụng được một tài khoản NordVPN dùng cho cả nhà. Nhưng OpenVPN thì hơi chậm, mà tui cũng ko xài nên tui bỏ.</li>
+<li>Wireguard thì nhanh hơn OpenVPN, nhưng hình như đám VPN service chưa hỗ trợ, còn muốn xài thì phải tự build 1 cái VPS chạy wireguard để tự dùng nhé.</li>
+</ul>
+<p>Fen nào thích sửa cái dòng COPYRIGHT thì sửa trong file này <a href="https://github.com/hanwckf/rt-n56u/blob/c9c3cec65c619dd8a1f51eee1d305d09d474fff6/trunk/user/www/Makefile#L12">Makefile</a>, sau khi biên dịch, load UI thì ở dưới footer sẽ thấy dòng chữ kiểu kiểu vầy nhé:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">© 2011-2021 Padavan <span style="color:#960050;background-color:#1e0010">&amp;</span> N56U project community 
 			Compiled by xluffy
 </code></pre></div><p>Sau đó bắt đầu biên dịch firmware, nhớ <code>$1</code> là tên của model, dùng để render config build từ cái file config template phía trên nhé, nó sẽ chép template phía trên ra <code>.config</code>.</p>
