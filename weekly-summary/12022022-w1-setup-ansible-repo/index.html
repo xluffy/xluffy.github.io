@@ -650,6 +650,7 @@ INFO     Running default &gt; prepare
 <li><code>mol test --destroy=never</code> sẽ không destroy sau khi test chạy xong (<code>mol</code> mặc định sẽ destroy kể cả khi chạy test hoặc chạy playbook fail), sẽ tiện trong development vì quá tình <code>create</code> VM cũng mất 1-2 phút</li>
 <li><code>mol login</code>, có thể login vào VM tương tự như <code>vagrant login</code>, hỗ trợ debug trong instance</li>
 <li><code>mol --debug test</code> sẽ in ra nhiều thông tin hơn khi chạy <code>mol</code> dễ debug hơn</li>
+<li>Có thể chạy riêng từng bước như <code>mol verify</code>, <code>mol create</code> cũng được, xem <code>mol matrix &lt;verify/create/test&gt;</code> để biết là sẽ chạy những bước gì trong đó</li>
 <li>2 biến môi trường <code>FORCE_COLOR</code> và <code>PY_COLORS</code> ở <code>direnv/.envrc</code> giúp show color khi chạy test</li>
 </ul>
 <p>Dài vậy, nhưng chưa rõ thì vào mã nguồn xem thêm nhé <a href="https://github.com/xluffy/gh-infra">https://github.com/xluffy/gh-infra</a></p>
