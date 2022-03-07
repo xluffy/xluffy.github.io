@@ -285,16 +285,16 @@
 <pre tabindex="0"><code>resource &quot;random_string&quot; &quot;this&quot; {
   length           = 5
   special          = true
-  override_special = &quot;/@¬£$&quot;
+  override_special = &quot;/@¬¨¬£$&quot;
   lower            = true
   min_lower        = 5
 }
 
 locals {
-	host_ip  = &quot;${element(split(&quot;.&quot;, var.network_ip), 3)}&quot;
-	net_ip   = &quot;${element(split(&quot;.&quot;, var.private_ip), 2)}&quot;
-  name     = &quot;${var.product}-${var.env}-${var.service}-${var.role}-${random_string.this.id}-${local.net_ip}-${local.host_ip}&quot;
-	
+  host_ip = element(split(&quot;.&quot;, var.network_ip), 3)
+  net_ip  = element(split(&quot;.&quot;, var.private_ip), 2)
+  name    = &quot;${var.product}-${var.env}-${var.service}-${var.role}-${random_string.this.id}-${local.net_ip}-${local.host_ip}&quot;
+
   on_host_maintenance = (
     var.preemptible ? &quot;TERMINATE&quot; : var.on_host_maintenance
   )
