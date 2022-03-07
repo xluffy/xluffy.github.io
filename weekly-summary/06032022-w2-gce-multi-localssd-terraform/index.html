@@ -387,7 +387,7 @@ scratch_disk {
   machine_type    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;n2-highcpu-2&#34;</span>
   tags            <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;web&#34;, &#34;ssh&#34;, &#34;gh&#34;</span>]
 }
-</code></pre></div><p>Vấn đề ở đây là không phải GCE resource nào tui cũng muốn có LocalSSD, và không phải GCE nào tui cũng muốn 2 LocalSSD. Tui muốn bật tắt được nó và input vào số lượng tui muốn dựa vào nhu cầu. Nếu hardcode số lượng <code>scratch_disk</code> trong code module thì sẽ không thể nào truyền argument ở module được.</p>
+</code></pre></div><p>Vấn đề ở đây là không phải GCE resource nào tui cũng muốn có LocalSSD, và không phải GCE nào tui cũng muốn 2 LocalSSD. <strong>Tui muốn bật tắt được nó và input vào số lượng tui muốn dựa vào nhu cầu</strong>. Nếu hardcode số lượng <code>scratch_disk</code> trong code module thì sẽ không thể nào truyền argument ở module được.</p>
 <p>Suy nghĩ đầu tiên là hay thử với cú pháp <code>for_each</code>, tuy nhiên thì <code>for_each</code> phù hợp với việc tạo <strong>nhiều resource</strong>, ví dụ tạo nhiều GCE thì có thể dùng <code>for_each</code> thay cho <code>count</code> =&gt; bỏ, không dùng được</p>
 <p>Suy nghĩ tiếp theo là <code>dynamic</code> block, đọc thử qua <a href="https://www.terraform.io/language/expressions/dynamic-blocks">docs</a> thì nghĩ mãi và thử một vài ví dụ vẫn không chạy được.</p>
 <p>Do không nghĩ ra cách, tui quyết định đọc issues của tất cả các module tương tự như <a href="https://github.com/terraform-google-modules/terraform-google-vm">terraform-google-vm</a> và đọc luôn <a href="https://github.com/hashicorp/terraform-provider-google/issues?q=is%3Aissue+scratch_disk+is%3Aclosed">provider repo</a> (lưu ý là đọc tất cả những gì thấy liên quan bao gồm cả closed issue, các comment, link comment). Và search luôn trên cả Github với từ khóa <code>scratch_disk</code> xem có gì liên quan không (nhưng search của Github không ngon lắm), sau đó search tiếp <a href="https://sourcegraph.com/search?q=context:global+lang:hcl+scratch_disk&amp;patternType=literal">Sourcegraph</a> và cuối cùng cũng ra kết quả.</p>
@@ -463,7 +463,7 @@ module &quot;gh-web&quot; {
   
   scratch_disks = { count = 0, interface = &quot;NVME&quot; }
 }
-</code></pre><p>Vậy là xong, mất 2 ngày để giải quyết vấn đề này 🥺, trong đầu chỉ có một suy nghĩ là syntax của Terraform thật &ldquo;kỳ lạ&rdquo;, và khá khó để biết là nó phù hợp với vấn đề gì.</p>
+</code></pre><p>Vậy là xong, mất 2 ngày để giải quyết vấn đề này 🥺, trong đầu chỉ có một suy nghĩ là syntax của Terraform thật &ldquo;kỳ lạ&rdquo;, và khá khó để biết là nó phù hợp với vấn đề gì hoặc khi gặp một vấn đề, không biết bắt đầu với keyword gì. Thực ra, tui vẫn chưa hiểu là cú pháp đó nó làm gì đâu =)) nhưng thôi, để coi sau, cứ biết là nó chạy đúng nhu cầu đã. :v</p>
 
     </div>
     
