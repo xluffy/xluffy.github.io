@@ -280,11 +280,11 @@
 127.0.0.1:6379&gt; LLEN sidekiq
 (integer) 3
 127.0.0.1:6379&gt; RPOP sidekiq
-&quot;a&quot;
+&#34;a&#34;
 127.0.0.1:6379&gt; RPOP sidekiq
-&quot;b&quot;
+&#34;b&#34;
 127.0.0.1:6379&gt; RPOP sidekiq
-&quot;c&quot;
+&#34;c&#34;
 127.0.0.1:6379&gt; RPOP sidekiq
 (nil)
 </code></pre><p>Để giải quyết vấn đề trên, ta có thể bắt consumer đợi trong một khoảng thời gian nào đó và sau đó sẽ gọi lại LPOP để lấy dữ liệu, kỹ thuật này gọi là <em>polling</em>. Tuy nhiên kỹ thuật này vẫn có nhược điểm:</p>
@@ -305,12 +305,12 @@
 <pre tabindex="0"><code>127.0.0.1:6379&gt; LPUSH sidekiq a b c
 (integer) 3
 127.0.0.1:6379&gt; RPOPLPUSH sidekiq sidekiq_current_processing
-&quot;a&quot;
+&#34;a&#34;
 127.0.0.1:6379&gt; LRANGE sidekiq 0 -1
-1) &quot;c&quot;
-2) &quot;b&quot;
+1) &#34;c&#34;
+2) &#34;b&#34;
 127.0.0.1:6379&gt; LRANGE sidekiq_current_processing 0 -1
-1) &quot;a&quot;
+1) &#34;a&#34;
 </code></pre><p>Với Sidekiq Pro, để đảm bảo tính tin cậy thì thay vì dùng <code>fetch</code> ta có hàm <code>super_fetch</code> sử dụng <code>RPOPLPUSH</code> như cách ở trên.</p>
 <h3 id="24-others">2.4 Others</h3>
 <p>Mặc định, sidekiq sử dụng duy nhất một queue là <code>default</code> trong redis. Nếu muốn sử dụng nhiều queue thì chỉ việc định nghĩa thêm queue, và vấn đề tiếp theo là làm thế nào để biết queue nào được ưu tiên xử lý.</p>

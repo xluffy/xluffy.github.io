@@ -3,7 +3,7 @@
   <head>
     
       <title>
-        What is difference between SSL, TLS, and HTTPs? ::
+        2023 ::
         /home/xluffy
       </title>
     
@@ -11,14 +11,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta
   name="description"
-  content="Chắc ai cũng đã nghe qua về HTTPs (HTTP secure), SSL và TLS, nhưng có bao giờ bạn thắc mắc tụi này khác nhau như thế nào chưa?"
+  content="Có nhiều sự thay đổi từ bài viết cuối cùng và thứ dễ thấy nhất là tui viết ít đi nhiều so với hồi trước."
 />
 <meta
   name="keywords"
   content=""
 />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="https://taoquangne.com/post/what-is-difference-between-ssl-tls-https/" />
+<link rel="canonical" href="https://taoquangne.com/post/2023/" />
 
 
 
@@ -46,17 +46,17 @@
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="What is difference between SSL, TLS, and HTTPs?"/>
-<meta name="twitter:description" content="Chắc ai cũng đã nghe qua về HTTPs (HTTP secure), SSL và TLS, nhưng có bao giờ bạn thắc mắc tụi này khác nhau như thế nào chưa?"/>
+<meta name="twitter:title" content="2023"/>
+<meta name="twitter:description" content="Có nhiều sự thay đổi từ bài viết cuối cùng và thứ dễ thấy nhất là tui viết ít đi nhiều so với hồi trước."/>
 
 
 
-<meta property="og:title" content="What is difference between SSL, TLS, and HTTPs?" />
-<meta property="og:description" content="Chắc ai cũng đã nghe qua về HTTPs (HTTP secure), SSL và TLS, nhưng có bao giờ bạn thắc mắc tụi này khác nhau như thế nào chưa?" />
+<meta property="og:title" content="2023" />
+<meta property="og:description" content="Có nhiều sự thay đổi từ bài viết cuối cùng và thứ dễ thấy nhất là tui viết ít đi nhiều so với hồi trước." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://taoquangne.com/post/what-is-difference-between-ssl-tls-https/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2018-06-16T00:00:00+00:00" />
-<meta property="article:modified_time" content="2018-06-16T00:00:00+00:00" /><meta property="og:site_name" content="/home/xluffy" />
+<meta property="og:url" content="https://taoquangne.com/post/2023/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-04-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-04-01T00:00:00+00:00" /><meta property="og:site_name" content="/home/xluffy" />
 
 
 
@@ -167,11 +167,11 @@
   
 
   <div class="post">
-    <h1 class="post-title">What is difference between SSL, TLS, and HTTPs?</h1>
+    <h1 class="post-title">2023</h1>
     <div class="post-meta">
       
         <span class="post-date">
-          2018-06-16
+          2023-04-01
         </span>
 
         
@@ -188,9 +188,7 @@
     
       <span class="post-tags">
         
-          <a href="https://taoquangne.com/tags/security/">#security</a>&nbsp;
-        
-          <a href="https://taoquangne.com/tags/tls/">#tls</a>&nbsp;
+          <a href="https://taoquangne.com/tags/2023/">#2023</a>&nbsp;
         
       </span>
     
@@ -199,18 +197,23 @@
 
     <div class="post-content">
       
-      <p>Chắc ai cũng đã nghe qua về HTTPs (HTTP secure), SSL và TLS, nhưng có bao giờ bạn thắc mắc tụi này khác nhau như thế nào chưa? Và liệu có phải 3 thuật ngữ đó đều chỉ một thứ hay không?</p>
-<p><strong>SSL (Secure Sockets Layer)</strong>, đây là tên được đặt bởi những người phát minh ra giao thức này phiên bản đầu tiên, công ty Netscape (công ty này sau đó đã được AOL mua lại). Giao thức SSL có 3 phiên bản lần lượt là SSLv1, SSLv2, SSLv3.</p>
-<p>Cho ai chưa biết, thì Netscape là một trong những trình duyệt đầu tiên trên thế giới, có trước cả IE, có thể coi là cụ của các trình duyệt.</p>
-<p align="center"><img src="https://raw.githubusercontent.com/xluffy/assets/master/Netscape_logo.svg" alt="Netscape" width="55%"</p>
-<p><strong>TLS (Transport Layer Security)</strong> <strong>thực ra</strong> chính là SSL, nhưng giao thức này được <strong>đổi tên</strong> để tránh các vấn đề về pháp lý với Netscape, và đưa giao thức này thành một giao thức chuẩn, mở và miễn phí (được mô tả trong RFC). Tên giao thức cũng ẩn chứa ý tưởng là giao thức này có thể hoạt động trên bất kỳ luồng byte 2 chiều nào chứ không chỉ trên các kết nối dựa trên Internet.</p>
-<p>TLS có 3 phiên bản là TLS 1.0 (thực chất là SSLv3.1), TLS 1.1 và TLS 1.2.</p>
-<p>HTTPs với chữ <strong>s</strong> là giao thức SSL/TLS, có mỗi thế thôi.</p>
-<p>Vậy, cuối cùng tại sao phải biết mấy cái này làm gì? :trollface:</p>
-<p align="center"><img src="https://raw.githubusercontent.com/xluffy/assets/master/but-why-meme.jpg" alt="but-why-meme" width="55%"</p>
-<p>Nếu bạn có cấu hình SSL trên webserver như nginx, bạn sẽ thấy một đoạn kiểu như thế này:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-nginx" data-lang="nginx"><span style="display:flex;"><span><span style="color:#66d9ef">ssl_protocols</span> <span style="color:#e6db74">TLSv1</span> <span style="color:#e6db74">TLSv1.1</span> <span style="color:#e6db74">TLSv1.2</span>;
-</span></span></code></pre></div><p>Điều này nghĩa là webserver của bạn sẽ chỉ hỗ trợ các phiên bản TLS như trên, còn các phiên bản khác (SSL) sẽ không được hỗ trợ. Tại sao lại như vậy? Nếu bạn biết <a href="https://security.googleblog.com/2014/10/this-poodle-bites-exploiting-ssl-30.html">POODLE</a>, một vulnerability trên SSLv3 được khám phá bởi Google thì bạn sẽ biết rằng SSLv2 và SSLv3 không còn an toàn nữa, đó là lí do bạn chỉ nên hỗ trợ TLS các version mới. Đó là tất cả kiến thức bạn cần biết.</p>
+      <p>Có nhiều sự thay đổi từ bài viết cuối cùng và thứ dễ thấy nhất là tui viết ít đi nhiều so với hồi trước. Và tui thấy chuyện đó <em>không ổn</em>, thế nên tui cần phải làm một cái gì đó. Bài viết này là một kiểu như thế.
+Sau 2-3 năm đại dịch, có quá nhiều thứ thay đổi, bản thân đại dịch cũng là một trong các sự kiến ảnh hưởng lớn đến rất nhiều người. Trong 3 năm đó, có 2 sự kiện lớn trong cuộc đời tui.</p>
+<ul>
+<li>Có con gái, hehe 🐯👨‍👩‍👧🧑‍🍼</li>
+<li>Chuyển sang một công ti mới sau 4 năm làm việc 🦩🌱, tụi tui làm game hehe</li>
+</ul>
+<p>Có quá nhiều điều, nhiều cảm xúc khi có con mà khó có thể diễn tả thành lời được. Nhưng tui chỉ có thể nói, có con là một trong những điều tuyệt vời nhất trong cuộc đời này. Ai đó có thể thấy mệt, vất vả hoặc gì gì đó, nhưng với tui, có con gái, đã thay đổi mọi suy nghĩ, cảm xúc, độ ưu tiên trong cuộc sống, thái độ với xã hội, bản thân &hellip;</p>
+<p>Với sự thay đổi thứ 2, tui chuyển việc. Từ một công ti nhỏ với dưới 30 người, sản phẩm nhỏ, ngách, team nhỏ, ít quy trình sang một công ti khác, to hơn, nhiều sản phẩm hơn, qui trình thủ tục nhiều hơn, đi nhanh hơn, nhiều việc hơn và làm với nhiều team-member hơn.</p>
+<p>Chính sự thay đổi đó một phần khiến cho việc viết lách trở nên ít dần đi, nó có thể gói gọn trong mấy lí do:</p>
+<ul>
+<li>Mọi thứ phải đi nhanh hơn, nên nhiều lúc phải get-thing-done, mà không thể trải nghiệm, nghiên cứu nhiều, mà tui trước giờ thì không thích viết những gì mình không tường tận.</li>
+<li>Do làm với nhiều người hơn, nên phải bỏ thời gian cho những thứ khác như giao tiếp, làm việc nhóm, họp hành hơn</li>
+<li>Tốc độ thay đổi là rất lớn, nên đôi khi phải đánh đổi rằng việc tìm hiểu kĩ sẽ không đem lại nhiều lợi ích</li>
+</ul>
+<p>Khác với hồi xưa làm công ti nhỏ, tui có thể dành vài ba ngày chỉ để đọc, kiểm nghiệm và lại đọc, cũng kiểu như là ngồi chơi, đọc docs suốt một tuần.</p>
+<p>Nói chung mỗi môi trường có ưu/nhược điểm khác nhau. Làm công ti bé thì có nhiều thời gian như vậy, nhưng sản phẩm ko đủ lớn, bài toán không đủ khó để đem những nghiên cứu trải nghiệm đó vào áp dụng. Ngược lại, làm công ti lớn lớn xíu, thì bài toán phức tạp hơn, nhiều thử thách hơn, nhưng phải đi nhanh hơn, phải tập trung công việc nhiều hơn phải chấp nhận đôi khi có nhiều thứ không tốt, không vừa ý mình.</p>
+<p>Chính vì vậy, bản thân tui phải tự tìm cách thay đổi, tất nhiên không dễ dàng gì, nhưng phải bắt đầu thôi. Lâu ngày không viết, thực sự cảm thấy viết không còn dễ dàng như ngày trước, nhưng ráng giữ cho mình một nguyên tắc nào đó, cũng coi như đó là một điều tốt như cách mình tốt lên như một tấm gương cho con gái sau này, hehe. Vậy nhé</p>
 
     </div>
     
@@ -224,17 +227,10 @@
           </div>
           <div class="pagination__buttons">
             
-              <span class="button previous">
-                <a href="https://taoquangne.com/post/how-to-hash-store-password/">
-                  <span class="button__icon">←</span>
-                  <span class="button__text">Băm và lưu password đúng cách</span>
-                </a>
-              </span>
-            
             
               <span class="button next">
-                <a href="https://taoquangne.com/post/improving-mongodb-perf-by-managing-indexes/">
-                  <span class="button__text">Improving MongoDB performance by managing indexes</span>
+                <a href="https://taoquangne.com/post/bet-isp-vietnam/">
+                  <span class="button__text">Nhà cung cấp dịch vụ Internet mạnh nhất Việt Nam</span>
                   <span class="button__icon">→</span>
                 </a>
               </span>

@@ -235,14 +235,14 @@
 <p>Và nếu chỉ hash password thì nếu mất hash_value, có thể tra trong rainbow table để tìm ra được password của người dùng.</p>
 <p>Giờ ta thử thay vì <code>hash(password)</code> ta sẽ <code>hash(salt + password)</code>:</p>
 <p>Từ <code>md5(123456)</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">id |          hash_md5                |
----------------------------------------
-<span style="color:#ae81ff">1</span>  | e10adc3949ba59abbe56e057f20f883e |
-</code></pre></div><p>Thành <code>md5(7nWZLcCK0vsPzIM + 123456)</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">id |          hash_md5                |    salt         |
----------------------------------------------------------
-<span style="color:#ae81ff">1</span>  | 0510210d4b370165658bdc0d0b005244 | 7nWZLcCK0vsPzIM |
-</code></pre></div><p>Giờ giả sử, ta mất bảng dữ liệu gồm <code>hash_md5, salt</code>, kẻ tấn công sẽ phải <strong>tính toán lại</strong> rainbow table của tất cả các trường hợp cộng với salt. Nếu salt là random cho từng user, kẻ tấn công sẽ phải tính toán toàn bộ trường hợp cộng với riêng từng salt cho toàn bộ user.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>id |          hash_md5                |
+</span></span><span style="display:flex;"><span>---------------------------------------
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>  | e10adc3949ba59abbe56e057f20f883e |
+</span></span></code></pre></div><p>Thành <code>md5(7nWZLcCK0vsPzIM + 123456)</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>id |          hash_md5                |    salt         |
+</span></span><span style="display:flex;"><span>---------------------------------------------------------
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>  | 0510210d4b370165658bdc0d0b005244 | 7nWZLcCK0vsPzIM |
+</span></span></code></pre></div><p>Giờ giả sử, ta mất bảng dữ liệu gồm <code>hash_md5, salt</code>, kẻ tấn công sẽ phải <strong>tính toán lại</strong> rainbow table của tất cả các trường hợp cộng với salt. Nếu salt là random cho từng user, kẻ tấn công sẽ phải tính toán toàn bộ trường hợp cộng với riêng từng salt cho toàn bộ user.</p>
 <p>Chi phí cho 2 phép tính trên là vô cùng lớn và tốn rất nhiều thời gian để thực hiện. Vậy tóm lại mục đích của salt và random-salt là:</p>
 <ul>
 <li>Bảo vệ user kể cả khi user dùng password phổ biến và password không mạnh vì user không thể nhớ được các password phức tạp nhưng tốc độ tính toán của máy tính thì càng ngày càng nhanh.</li>

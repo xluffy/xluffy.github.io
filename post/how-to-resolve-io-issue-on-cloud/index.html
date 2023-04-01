@@ -330,31 +330,31 @@ Compute: $ 1251.22
 <li>Hữu ích nếu nếu dùng nhiều tablespace hoặc khi sử dụng <em>schema per customer</em>, <em>table per customer</em> &hellip;</li>
 </ul>
 <p>Một số thông tin về zfs compression như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; du -sh --apparent-size /mysqldata/mysql/data
-8.6T	/mysqldata/mysql/data
-&gt; du -sh /mysqldata/mysql/data
-3.2T	/mysqldata/mysql/data
-</code></pre></div><p>=&gt; lưu ý đây là dữ liệu thật mà tác giả đang vận hành chứ không phải generated data để test.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; du -sh --apparent-size /mysqldata/mysql/data
+</span></span><span style="display:flex;"><span>8.6T	/mysqldata/mysql/data
+</span></span><span style="display:flex;"><span>&gt; du -sh /mysqldata/mysql/data
+</span></span><span style="display:flex;"><span>3.2T	/mysqldata/mysql/data
+</span></span></code></pre></div><p>=&gt; lưu ý đây là dữ liệu thật mà tác giả đang vận hành chứ không phải generated data để test.</p>
 <p>Với tỉ lệ nén là 2.42x cho table và 3.75x cho binary log, giúp giảm từ 8.6T -&gt; 3.2T sẽ vừa đủ trên i3.8xlarge instance.:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; zfs get all | grep -i compress
-...
-mysqldata/mysql/data  compressratio         2.42x                  -
-mysqldata/mysql/data  compression           gzip                   inherited from mysqldata/mysql
-mysqldata/mysql/data  refcompressratio      2.42x                  -
-mysqldata/mysql/log   compressratio         3.75x                  -
-mysqldata/mysql/log   compression           gzip                   inherited from mysqldata/mysql
-mysqldata/mysql/log   refcompressratio      3.75x    
-</code></pre></div><p>=&gt; Tóm lại thì ZFS cung cấp một tỉ lệ nén khá tốt và do nén ở level filesystem nên có thể nén tất cả mọi thứ trên filesystem, giúp tiết kiệm một số tiền đáng kể. Tuy nhiên thì compression không miễn phí <a href="https://www.percona.com/blog/2018/02/16/why-zfs-affects-mysql-performance">ZFS scan sẽ chậm hơn ở một số workload</a>, sử dụng local NVMe storage để bù lại hiệu suất.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; zfs get all | grep -i compress
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>mysqldata/mysql/data  compressratio         2.42x                  -
+</span></span><span style="display:flex;"><span>mysqldata/mysql/data  compression           gzip                   inherited from mysqldata/mysql
+</span></span><span style="display:flex;"><span>mysqldata/mysql/data  refcompressratio      2.42x                  -
+</span></span><span style="display:flex;"><span>mysqldata/mysql/log   compressratio         3.75x                  -
+</span></span><span style="display:flex;"><span>mysqldata/mysql/log   compression           gzip                   inherited from mysqldata/mysql
+</span></span><span style="display:flex;"><span>mysqldata/mysql/log   refcompressratio      3.75x    
+</span></span></code></pre></div><p>=&gt; Tóm lại thì ZFS cung cấp một tỉ lệ nén khá tốt và do nén ở level filesystem nên có thể nén tất cả mọi thứ trên filesystem, giúp tiết kiệm một số tiền đáng kể. Tuy nhiên thì compression không miễn phí <a href="https://www.percona.com/blog/2018/02/16/why-zfs-affects-mysql-performance">ZFS scan sẽ chậm hơn ở một số workload</a>, sử dụng local NVMe storage để bù lại hiệu suất.</p>
 <p>Ngoài ra bạn có thể đọc thêm về một số performance testing dành cho ZFS trên linux ở bài viết <a href="https://www.percona.com/blog/2018/05/15/about-zfs-performance">About ZFS Performance</a>.</p>
 <p><em><strong>MyRock</strong></em></p>
 <p>Ngoài 2 cách trên để nén dữ liệu thì một lựa chọn khác là sử dụng <a href="http://myrocks.io">MyRocks storage engine</a>, đây là storage engine do Facebook phát triển nhằm giải quyết bài toán kích thước lưu trữ và hiệu năng ghi dữ liệu.</p>
 <p><strong>Replication &amp; local volumes</strong>: Như nói ở trên thì ta sẽ cần vài server replication để đảm bảo độ an toàn của dữ liệu, mô hình sẽ như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">master - local storage <span style="color:#f92672">(</span>AZ 1, i.e. 1a<span style="color:#f92672">)</span>
--&gt; slave1 - local storage <span style="color:#f92672">(</span>AZ 2, i.e. 1b<span style="color:#f92672">)</span>
--&gt; slave2 - local storage with delayed replication <span style="color:#f92672">(</span>AZ 3, i.e. 1b<span style="color:#f92672">)</span>
--&gt; slave3 - ebs storage <span style="color:#f92672">(</span>AZ 3, i.e. 1c<span style="color:#f92672">)</span>
-   <span style="color:#f92672">(</span>other replication slaves <span style="color:#66d9ef">if</span> needed with local storage - optional<span style="color:#f92672">)</span>
-</code></pre></div><p align="center"><img src="https://www.percona.com/blog/wp-content/uploads/2018/08/master-slave.png" alt="master-slave" /></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>master - local storage <span style="color:#f92672">(</span>AZ 1, i.e. 1a<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>-&gt; slave1 - local storage <span style="color:#f92672">(</span>AZ 2, i.e. 1b<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>-&gt; slave2 - local storage with delayed replication <span style="color:#f92672">(</span>AZ 3, i.e. 1b<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>-&gt; slave3 - ebs storage <span style="color:#f92672">(</span>AZ 3, i.e. 1c<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">(</span>other replication slaves <span style="color:#66d9ef">if</span> needed with local storage - optional<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p align="center"><img src="https://www.percona.com/blog/wp-content/uploads/2018/08/master-slave.png" alt="master-slave" /></p>
 <p>Một số lưu ý:</p>
 <ul>
 <li>Đặt các replication ở các availability zone khác nhau.</li>

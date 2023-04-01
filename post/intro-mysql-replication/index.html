@@ -256,97 +256,97 @@
 </ul>
 <h3 id="trên-master-db">Trên Master DB</h3>
 <p>Cấu hình my.cnf</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">event-scheduler <span style="color:#f92672">=</span> on
-bind-address <span style="color:#f92672">=</span> 172.17.0.1
-server-id <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
-
-log-bin
-binlog-format<span style="color:#f92672">=</span>row
-binlog-do-db<span style="color:#f92672">=</span>dwh_prod
-binlog-ignore-db<span style="color:#f92672">=</span>mysql
-binlog-ignore-db<span style="color:#f92672">=</span>test
-
-sync_binlog<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
-expire_logs_days<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
-</code></pre></div><p>Tạo user replication</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">GRANT</span> REPLICATION SLAVE <span style="color:#66d9ef">ON</span> <span style="color:#f92672">*</span>.<span style="color:#f92672">*</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#39;slave_user&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;172.16.0.2&#39;</span> IDENTIFIED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;p@ssword&#39;</span>;
-FLUSH <span style="color:#66d9ef">PRIVILEGES</span>;
-</code></pre></div><p>Tạo schema, dữ liệu để test</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">SCHEMA</span> dwh_prod CHARACTER <span style="color:#66d9ef">SET</span> utf8 <span style="color:#66d9ef">COLLATE</span> utf8_general_ci;
-
-<span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> tb1 (
- id INT,
- <span style="color:#66d9ef">data</span> VARCHAR(<span style="color:#ae81ff">100</span>)
-) ENGINE<span style="color:#f92672">=</span>InnoDB <span style="color:#66d9ef">DEFAULT</span> CHARSET<span style="color:#f92672">=</span>utf8;
- 
-<span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> tb2 (
- id INT,
- <span style="color:#66d9ef">data</span> VARCHAR(<span style="color:#ae81ff">100</span>)
-) ENGINE<span style="color:#f92672">=</span>InnoDB <span style="color:#66d9ef">DEFAULT</span> CHARSET<span style="color:#f92672">=</span>utf8;
-
-<span style="color:#66d9ef">SHOW</span> TABLES;
-</code></pre></div><h3 id="trên-slave-db">Trên Slave DB</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>event-scheduler <span style="color:#f92672">=</span> on
+</span></span><span style="display:flex;"><span>bind-address <span style="color:#f92672">=</span> 172.17.0.1
+</span></span><span style="display:flex;"><span>server-id <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>log-bin
+</span></span><span style="display:flex;"><span>binlog-format<span style="color:#f92672">=</span>row
+</span></span><span style="display:flex;"><span>binlog-do-db<span style="color:#f92672">=</span>dwh_prod
+</span></span><span style="display:flex;"><span>binlog-ignore-db<span style="color:#f92672">=</span>mysql
+</span></span><span style="display:flex;"><span>binlog-ignore-db<span style="color:#f92672">=</span>test
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sync_binlog<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>expire_logs_days<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+</span></span></code></pre></div><p>Tạo user replication</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">GRANT</span> REPLICATION SLAVE <span style="color:#66d9ef">ON</span> <span style="color:#f92672">*</span>.<span style="color:#f92672">*</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#39;slave_user&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;172.16.0.2&#39;</span> IDENTIFIED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;p@ssword&#39;</span>;
+</span></span><span style="display:flex;"><span>FLUSH <span style="color:#66d9ef">PRIVILEGES</span>;
+</span></span></code></pre></div><p>Tạo schema, dữ liệu để test</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">SCHEMA</span> dwh_prod CHARACTER <span style="color:#66d9ef">SET</span> utf8 <span style="color:#66d9ef">COLLATE</span> utf8_general_ci;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> tb1 (
+</span></span><span style="display:flex;"><span> id INT,
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">data</span> VARCHAR(<span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>) ENGINE<span style="color:#f92672">=</span>InnoDB <span style="color:#66d9ef">DEFAULT</span> CHARSET<span style="color:#f92672">=</span>utf8;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> tb2 (
+</span></span><span style="display:flex;"><span> id INT,
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">data</span> VARCHAR(<span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>) ENGINE<span style="color:#f92672">=</span>InnoDB <span style="color:#66d9ef">DEFAULT</span> CHARSET<span style="color:#f92672">=</span>utf8;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SHOW</span> TABLES;
+</span></span></code></pre></div><h3 id="trên-slave-db">Trên Slave DB</h3>
 <p>Cấu hình my.cnf</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">event_scheduler<span style="color:#f92672">=</span>off
-bind-address <span style="color:#f92672">=</span> 172.17.0.2
-server-id<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
-
-log-bin
-binlog-format<span style="color:#f92672">=</span>row
-binlog-do-db<span style="color:#f92672">=</span>dwh_prod
-binlog-ignore-db<span style="color:#f92672">=</span>mysql
-binlog-ignore-db<span style="color:#f92672">=</span>test
-
-transaction-isolation<span style="color:#f92672">=</span>read-committed
-sync_binlog<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
-expire_logs_days<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
-</code></pre></div><h3 id="tạo-replication-và-kiểm-tra">Tạo replication và kiểm tra</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>event_scheduler<span style="color:#f92672">=</span>off
+</span></span><span style="display:flex;"><span>bind-address <span style="color:#f92672">=</span> 172.17.0.2
+</span></span><span style="display:flex;"><span>server-id<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>log-bin
+</span></span><span style="display:flex;"><span>binlog-format<span style="color:#f92672">=</span>row
+</span></span><span style="display:flex;"><span>binlog-do-db<span style="color:#f92672">=</span>dwh_prod
+</span></span><span style="display:flex;"><span>binlog-ignore-db<span style="color:#f92672">=</span>mysql
+</span></span><span style="display:flex;"><span>binlog-ignore-db<span style="color:#f92672">=</span>test
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>transaction-isolation<span style="color:#f92672">=</span>read-committed
+</span></span><span style="display:flex;"><span>sync_binlog<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>expire_logs_days<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+</span></span></code></pre></div><h3 id="tạo-replication-và-kiểm-tra">Tạo replication và kiểm tra</h3>
 <p>Nguyên tắc khi tạo replication là phải LOCK tất cả các table trên Master DB, để dữ liệu không thay đổi, sau đó xác định binlog và position, 2 thông số dùng để cấu hình trên Slave xác định đoạn dữ liệu bắt đầu đồng bộ</p>
 <p>Trên Master DB</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">FLUSH TABLES <span style="color:#66d9ef">WITH</span> <span style="color:#66d9ef">READ</span> <span style="color:#66d9ef">LOCK</span>;
-<span style="color:#66d9ef">SHOW</span> MASTER STATUS;
-
-<span style="color:#f92672">+</span><span style="color:#75715e">----------------+----------+--------------+------------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> File           <span style="color:#f92672">|</span> <span style="color:#66d9ef">Position</span> <span style="color:#f92672">|</span> Binlog_Do_DB <span style="color:#f92672">|</span> Binlog_Ignore_DB <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">----------------+----------+--------------+------------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> m01<span style="color:#f92672">-</span>bin.<span style="color:#ae81ff">000001</span> <span style="color:#f92672">|</span>      <span style="color:#ae81ff">827</span> <span style="color:#f92672">|</span> dwh_prod     <span style="color:#f92672">|</span> mysql,test       <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">----------------+----------+--------------+------------------+
-</span></code></pre></div><p>Giá trị cần quan tâm là</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>FLUSH TABLES <span style="color:#66d9ef">WITH</span> <span style="color:#66d9ef">READ</span> <span style="color:#66d9ef">LOCK</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SHOW</span> MASTER STATUS;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">----------------+----------+--------------+------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> File           <span style="color:#f92672">|</span> <span style="color:#66d9ef">Position</span> <span style="color:#f92672">|</span> Binlog_Do_DB <span style="color:#f92672">|</span> Binlog_Ignore_DB <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">----------------+----------+--------------+------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> m01<span style="color:#f92672">-</span>bin.<span style="color:#ae81ff">000001</span> <span style="color:#f92672">|</span>      <span style="color:#ae81ff">827</span> <span style="color:#f92672">|</span> dwh_prod     <span style="color:#f92672">|</span> mysql,test       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">----------------+----------+--------------+------------------+
+</span></span></span></code></pre></div><p>Giá trị cần quan tâm là</p>
 <ul>
 <li>m01-bin.000001</li>
 <li>827</li>
 </ul>
 <p>Sau đó ta sẽ dump dữ liệu từ Master DB và đẩy qua Slave DB (sau khi dump xong có thể <code>UNLOCK TABLES;</code> để Master DB có thể hoạt động lại).</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mysqldump -uroot -p dwh_prod &gt; dwh_prod_03072015.sql
-rsync -avz -P -e<span style="color:#e6db74">&#39;ssh&#39;</span> dwh_prod_03072015.sql root@172.17.0.2:/root/
-</code></pre></div><p>Trên Slave</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p dwh_prod <span style="color:#f92672">&lt;</span> <span style="color:#f92672">/</span>root<span style="color:#f92672">/</span>dwh_prod_03072015.<span style="color:#66d9ef">sql</span>
-
-<span style="color:#f92672">&gt;</span> CHANGE MASTER <span style="color:#66d9ef">TO</span> MASTER_HOST<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;172.17.0.1&#39;</span>,MASTER_USER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;slave_user&#39;</span>, MASTER_PASSWORD<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;p@ssword&#39;</span>, MASTER_LOG_FILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;m01-bin.000001&#39;</span>, MASTER_LOG_POS<span style="color:#f92672">=</span><span style="color:#ae81ff">827</span>;
-<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">START</span> SLAVE
-<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> SLAVE STATUS<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">G</span>
-</code></pre></div><p>Một số thông tin đã được lược bỏ cho dễ nhìn</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">***************************</span> <span style="color:#ae81ff">1</span>. <span style="color:#66d9ef">row</span> <span style="color:#f92672">***************************</span>
-               Slave_IO_State: Waiting <span style="color:#66d9ef">for</span> master <span style="color:#66d9ef">to</span> send event
-                  Master_Host: <span style="color:#ae81ff">172</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">1</span>
-                  Master_User: slave_user
-              Master_Log_File: m01<span style="color:#f92672">-</span>bin.<span style="color:#ae81ff">000001</span>
-          Read_Master_Log_Pos: <span style="color:#ae81ff">827</span>
-               Relay_Log_File: m02<span style="color:#f92672">-</span>relay<span style="color:#f92672">-</span>bin.<span style="color:#ae81ff">000002</span>
-                Relay_Log_Pos: <span style="color:#ae81ff">251</span>
-        Relay_Master_Log_File: m01<span style="color:#f92672">-</span>bin.<span style="color:#ae81ff">000001</span>
-                   Last_Errno: <span style="color:#ae81ff">0</span>
-                   Last_Error: 
-                 Skip_Counter: <span style="color:#ae81ff">0</span>
-          Exec_Master_Log_Pos: <span style="color:#ae81ff">827</span>
-              Relay_Log_Space: <span style="color:#ae81ff">405</span>
-        Seconds_Behind_Master: <span style="color:#ae81ff">0</span>
-                Last_IO_Errno: <span style="color:#ae81ff">0</span>
-                Last_IO_Error: 
-               Last_SQL_Errno: <span style="color:#ae81ff">0</span>
-               Last_SQL_Error: 
-             Master_Server_Id: <span style="color:#ae81ff">1</span>
-</code></pre></div><p>Các thông số cần quan tâm là</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mysqldump -uroot -p dwh_prod &gt; dwh_prod_03072015.sql
+</span></span><span style="display:flex;"><span>rsync -avz -P -e<span style="color:#e6db74">&#39;ssh&#39;</span> dwh_prod_03072015.sql root@172.17.0.2:/root/
+</span></span></code></pre></div><p>Trên Slave</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p dwh_prod <span style="color:#f92672">&lt;</span> <span style="color:#f92672">/</span>root<span style="color:#f92672">/</span>dwh_prod_03072015.<span style="color:#66d9ef">sql</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> CHANGE MASTER <span style="color:#66d9ef">TO</span> MASTER_HOST<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;172.17.0.1&#39;</span>,MASTER_USER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;slave_user&#39;</span>, MASTER_PASSWORD<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;p@ssword&#39;</span>, MASTER_LOG_FILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;m01-bin.000001&#39;</span>, MASTER_LOG_POS<span style="color:#f92672">=</span><span style="color:#ae81ff">827</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">START</span> SLAVE
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> SLAVE STATUS<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">G</span>
+</span></span></code></pre></div><p>Một số thông tin đã được lược bỏ cho dễ nhìn</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">***************************</span> <span style="color:#ae81ff">1</span>. <span style="color:#66d9ef">row</span> <span style="color:#f92672">***************************</span>
+</span></span><span style="display:flex;"><span>               Slave_IO_State: Waiting <span style="color:#66d9ef">for</span> master <span style="color:#66d9ef">to</span> send event
+</span></span><span style="display:flex;"><span>                  Master_Host: <span style="color:#ae81ff">172</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                  Master_User: slave_user
+</span></span><span style="display:flex;"><span>              Master_Log_File: m01<span style="color:#f92672">-</span>bin.<span style="color:#ae81ff">000001</span>
+</span></span><span style="display:flex;"><span>          Read_Master_Log_Pos: <span style="color:#ae81ff">827</span>
+</span></span><span style="display:flex;"><span>               Relay_Log_File: m02<span style="color:#f92672">-</span>relay<span style="color:#f92672">-</span>bin.<span style="color:#ae81ff">000002</span>
+</span></span><span style="display:flex;"><span>                Relay_Log_Pos: <span style="color:#ae81ff">251</span>
+</span></span><span style="display:flex;"><span>        Relay_Master_Log_File: m01<span style="color:#f92672">-</span>bin.<span style="color:#ae81ff">000001</span>
+</span></span><span style="display:flex;"><span>                   Last_Errno: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>                   Last_Error: 
+</span></span><span style="display:flex;"><span>                 Skip_Counter: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>          Exec_Master_Log_Pos: <span style="color:#ae81ff">827</span>
+</span></span><span style="display:flex;"><span>              Relay_Log_Space: <span style="color:#ae81ff">405</span>
+</span></span><span style="display:flex;"><span>        Seconds_Behind_Master: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>                Last_IO_Errno: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>                Last_IO_Error: 
+</span></span><span style="display:flex;"><span>               Last_SQL_Errno: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>               Last_SQL_Error: 
+</span></span><span style="display:flex;"><span>             Master_Server_Id: <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>Các thông số cần quan tâm là</p>
 <ul>
 <li><code>Last_Error: 0</code></li>
 <li><code>Last_SQL_Error</code></li>
@@ -357,110 +357,110 @@ rsync -avz -P -e<span style="color:#e6db74">&#39;ssh&#39;</span> dwh_prod_030720
 <h2 id="41-test-logic-replication">4.1 Test logic replication</h2>
 <p>Ở trạng thái bình thường dữ liệu trên Slave DB đã đồng bộ với Master DB. Kiểm tra</p>
 <p>Trên Master</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> USE dwh_prod
-mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> TABLES;
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Tables_in_dwh_prod <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> tb1                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb2                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb3                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb4                <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span></code></pre></div><p>Trên Slave</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> USE dwh_prod
-mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> TABLES;
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Tables_in_dwh_prod <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> tb1                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb2                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb3                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb4                <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql <span style="color:#f92672">-</span>e <span style="color:#f92672">-</span>p <span style="color:#e6db74">&#39;SHOW SLAVE STATUS\G&#39;</span> <span style="color:#f92672">|</span> grep <span style="color:#f92672">-</span>i <span style="color:#e6db74">&#39;error\|seconds&#39;</span>
-                   Last_Error: 
-        Seconds_Behind_Master: <span style="color:#ae81ff">0</span>
-                Last_IO_Error: 
-               Last_SQL_Error:
-</code></pre></div><p>Mọi thứ đều ổn, không lỗi và không có Lag.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> USE dwh_prod
+</span></span><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> TABLES;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Tables_in_dwh_prod <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> tb1                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb2                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb3                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb4                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span></code></pre></div><p>Trên Slave</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> USE dwh_prod
+</span></span><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> TABLES;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Tables_in_dwh_prod <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> tb1                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb2                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb3                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb4                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql <span style="color:#f92672">-</span>e <span style="color:#f92672">-</span>p <span style="color:#e6db74">&#39;SHOW SLAVE STATUS\G&#39;</span> <span style="color:#f92672">|</span> grep <span style="color:#f92672">-</span>i <span style="color:#e6db74">&#39;error\|seconds&#39;</span>
+</span></span><span style="display:flex;"><span>                   Last_Error: 
+</span></span><span style="display:flex;"><span>        Seconds_Behind_Master: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>                Last_IO_Error: 
+</span></span><span style="display:flex;"><span>               Last_SQL_Error:
+</span></span></code></pre></div><p>Mọi thứ đều ổn, không lỗi và không có Lag.</p>
 <p>Giờ giả sử ta sẽ tạo một table với tên là tb00 trên Slave và kiểm tra xem có đúng là khi ghi dữ liệu lên Slave DB thì replication có bị hỏng hay không.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> tb00 (
- id INT,
- <span style="color:#66d9ef">data</span> VARCHAR(<span style="color:#ae81ff">100</span>)
-) ENGINE<span style="color:#f92672">=</span>InnoDB <span style="color:#66d9ef">DEFAULT</span> CHARSET<span style="color:#f92672">=</span>utf8;
-
-mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> TABLES;
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Tables_in_dwh_prod <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> tb00               <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb1                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb2                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb3                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb4                <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span><span style="color:#75715e"></span><span style="color:#ae81ff">5</span> <span style="color:#66d9ef">rows</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">set</span> (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">00</span> sec)
-</code></pre></div><p>Kiểm tra các table trên Master DB</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> TABLES;
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Tables_in_dwh_prod <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> tb1                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb2                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb3                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb4                <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span></code></pre></div><p>Và kiểm tra lại trạng thái của replication</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#39;SHOW SLAVE STATUS\G&#39;</span> <span style="color:#f92672">|</span> grep <span style="color:#f92672">-</span>i <span style="color:#e6db74">&#39;error\|seconds&#39;</span>                                                                                                   
-            Last_Error: 
-      Seconds_Behind_Master: <span style="color:#ae81ff">0</span>
-            Last_IO_Error: 
-            Last_SQL_Error:
-</code></pre></div><p>=&gt; Như ta thấy rõ ràng là dữ liệu trên Slave và Master đã khác nhau (Slave có tb00 nhưng Master thì không) nhưng trạng thái của replication vẫn hoàn toàn ổn.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> tb00 (
+</span></span><span style="display:flex;"><span> id INT,
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">data</span> VARCHAR(<span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>) ENGINE<span style="color:#f92672">=</span>InnoDB <span style="color:#66d9ef">DEFAULT</span> CHARSET<span style="color:#f92672">=</span>utf8;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> TABLES;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Tables_in_dwh_prod <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> tb00               <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb1                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb2                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb3                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb4                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#ae81ff">5</span> <span style="color:#66d9ef">rows</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">set</span> (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">00</span> sec)
+</span></span></code></pre></div><p>Kiểm tra các table trên Master DB</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> TABLES;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Tables_in_dwh_prod <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> tb1                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb2                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb3                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb4                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span></code></pre></div><p>Và kiểm tra lại trạng thái của replication</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#39;SHOW SLAVE STATUS\G&#39;</span> <span style="color:#f92672">|</span> grep <span style="color:#f92672">-</span>i <span style="color:#e6db74">&#39;error\|seconds&#39;</span>                                                                                                   
+</span></span><span style="display:flex;"><span>            Last_Error: 
+</span></span><span style="display:flex;"><span>      Seconds_Behind_Master: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            Last_IO_Error: 
+</span></span><span style="display:flex;"><span>            Last_SQL_Error:
+</span></span></code></pre></div><p>=&gt; Như ta thấy rõ ràng là dữ liệu trên Slave và Master đã khác nhau (Slave có tb00 nhưng Master thì không) nhưng trạng thái của replication vẫn hoàn toàn ổn.</p>
 <p>Giờ chúng ta sẽ thử thêm một trường hợp nữa là trên Master ta sẽ tạo một table tên là tb6 để kiểm tra xem chuyện gì sẽ xảy ra</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> tb6 (
- id INT,
- <span style="color:#66d9ef">data</span> VARCHAR(<span style="color:#ae81ff">100</span>)
-) ENGINE<span style="color:#f92672">=</span>InnoDB <span style="color:#66d9ef">DEFAULT</span> CHARSET<span style="color:#f92672">=</span>utf8;
-
-mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> TABLES;
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Tables_in_dwh_prod <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> tb1                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb2                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb3                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb4                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb6                <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span></code></pre></div><p>Kiểm tra các table trên Slave DB</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> TABLES;
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Tables_in_dwh_prod <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> tb00               <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb1                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb2                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb3                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb4                <span style="color:#f92672">|</span>
-<span style="color:#f92672">|</span> tb6                <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
-</span></code></pre></div><p>=&gt; bảng tb6 đã được đồng bộ từ Master qua, kiểm tra trạng thái replication</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#39;SHOW SLAVE STATUS\G&#39;</span> <span style="color:#f92672">|</span> grep <span style="color:#f92672">-</span>i <span style="color:#e6db74">&#39;error\|seconds&#39;</span>
-                   Last_Error: 
-        Seconds_Behind_Master: <span style="color:#ae81ff">0</span>
-                Last_IO_Error: 
-               Last_SQL_Error:
-</code></pre></div><p>=&gt; Mọi thứ vẫn ổn, nghĩa là dù ta có ghi dữ liệu vào Slave, nhưng nếu Master thực thi các câu truy vấn không đụng gì tới dữ liệu được ghi mới ở Slave thì trạng thái của replication vẫn ổn.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> tb6 (
+</span></span><span style="display:flex;"><span> id INT,
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">data</span> VARCHAR(<span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>) ENGINE<span style="color:#f92672">=</span>InnoDB <span style="color:#66d9ef">DEFAULT</span> CHARSET<span style="color:#f92672">=</span>utf8;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> TABLES;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Tables_in_dwh_prod <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> tb1                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb2                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb3                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb4                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb6                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span></code></pre></div><p>Kiểm tra các table trên Slave DB</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> TABLES;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Tables_in_dwh_prod <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> tb00               <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb1                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb2                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb3                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb4                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> tb6                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span></code></pre></div><p>=&gt; bảng tb6 đã được đồng bộ từ Master qua, kiểm tra trạng thái replication</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#39;SHOW SLAVE STATUS\G&#39;</span> <span style="color:#f92672">|</span> grep <span style="color:#f92672">-</span>i <span style="color:#e6db74">&#39;error\|seconds&#39;</span>
+</span></span><span style="display:flex;"><span>                   Last_Error: 
+</span></span><span style="display:flex;"><span>        Seconds_Behind_Master: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>                Last_IO_Error: 
+</span></span><span style="display:flex;"><span>               Last_SQL_Error:
+</span></span></code></pre></div><p>=&gt; Mọi thứ vẫn ổn, nghĩa là dù ta có ghi dữ liệu vào Slave, nhưng nếu Master thực thi các câu truy vấn không đụng gì tới dữ liệu được ghi mới ở Slave thì trạng thái của replication vẫn ổn.</p>
 <p>Giờ ta sẽ thực hiện thêm một thử nghiệm nữa là trên Master ta tạo một table tên là tb00, trùng với table đã tạo lúc trước ở Slave phía trên và kiểm tra lại trạng thái của replication</p>
 <p>Kiểm tra trạng thái replication trên Slave</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#39;SHOW SLAVE STATUS\G&#39;</span> <span style="color:#f92672">|</span> grep <span style="color:#f92672">-</span>i <span style="color:#e6db74">&#39;error\|seconds&#39;</span>
-              Last_Error: Error <span style="color:#e6db74">&#39;Table &#39;</span>tb00<span style="color:#e6db74">&#39; already exists&#39;</span> <span style="color:#66d9ef">on</span> query. <span style="color:#66d9ef">Default</span> <span style="color:#66d9ef">database</span>: <span style="color:#e6db74">&#39;dwh_prod&#39;</span>. Query: <span style="color:#e6db74">&#39;CREATE TABLE tb00 (
-</span><span style="color:#e6db74">   Seconds_Behind_Master: NULL
-</span><span style="color:#e6db74">           Last_IO_Error:
-</span><span style="color:#e6db74">          Last_SQL_Error: Error &#39;</span><span style="color:#66d9ef">Table</span> <span style="color:#e6db74">&#39;tb00&#39;</span> already <span style="color:#66d9ef">exists</span><span style="color:#e6db74">&#39; on query. Default database: &#39;</span>dwh_prod<span style="color:#e6db74">&#39;. Query: &#39;</span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> tb00 (
-</code></pre></div><p>=&gt; như ta thấy hệ thống báo lỗi do trên Slave không thể thực thi hành động tạo table tb00 từ Master đẩy xuống (do table này đã tồn tại trước đó)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#39;SHOW SLAVE STATUS\G&#39;</span> <span style="color:#f92672">|</span> grep <span style="color:#f92672">-</span>i <span style="color:#e6db74">&#39;error\|seconds&#39;</span>
+</span></span><span style="display:flex;"><span>              Last_Error: Error <span style="color:#e6db74">&#39;Table &#39;</span>tb00<span style="color:#e6db74">&#39; already exists&#39;</span> <span style="color:#66d9ef">on</span> query. <span style="color:#66d9ef">Default</span> <span style="color:#66d9ef">database</span>: <span style="color:#e6db74">&#39;dwh_prod&#39;</span>. Query: <span style="color:#e6db74">&#39;CREATE TABLE tb00 (
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   Seconds_Behind_Master: NULL
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">           Last_IO_Error:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Last_SQL_Error: Error &#39;</span><span style="color:#66d9ef">Table</span> <span style="color:#e6db74">&#39;tb00&#39;</span> already <span style="color:#66d9ef">exists</span><span style="color:#e6db74">&#39; on query. Default database: &#39;</span>dwh_prod<span style="color:#e6db74">&#39;. Query: &#39;</span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> tb00 (
+</span></span></code></pre></div><p>=&gt; như ta thấy hệ thống báo lỗi do trên Slave không thể thực thi hành động tạo table tb00 từ Master đẩy xuống (do table này đã tồn tại trước đó)</p>
 <p>Kết Luận: Việc ghi dữ liệu vào Slave là có thể thực hiện được, nhưng sẽ gây ra rủi ro hỏng replication ở một lúc nào đó. Nhất là các câu truy vấn dạng SELECT &hellip; UPDATE. Tốt nhất là nên tránh ghi dữ liệu vào Slave</p>
 <h2 id="42-replication-lag">4.2 Replication Lag</h2>
 <p><code>Replication Lag</code> là độ trễ dữ liệu của Slave so với Master. Khi triển khai một hệ thống MySQL Replication thì Lag là vấn đề chắc chắn gặp phải. Ta chỉ có thể giảm thiểu độ trễ dữ liệu trong mức chấp nhận được chứ không thể không có lag. Lí do là việc đồng bộ dữ liệu là Asynchronous, nghĩa là các Slave server không cần thông báo cho Master biết khi transaction thực hiện trên Slave thành công -&gt; điều này giúp giữ nguyên hiệu suất (khác với cơ chế đồng bộ synchronous, một transaction được gọi là thành công khi nó committed trên master server và master server nhận được một thông báo từ slave server là transaction này đã được write và committed. Quá trình này đảm bảo tính thống nhất giữa master và slave server nhưng đồng thời nó làm giảm hiệu suất đi một nữa do các vấn đề về network, bandwidth, location.)</p>

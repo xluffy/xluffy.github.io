@@ -234,163 +234,163 @@
 <li><code>direnv</code> để tự động load một số ENV variable khi <code>cd</code> vào source code -&gt; cái này thấy rất ngon</li>
 </ul>
 <p>Cụ thể như sau</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; brew install pyenv
-<span style="color:#75715e"># Nhét đủ 4 cái vào bash_profile, bashrc gì đó, lên docs xem nhé</span>
-
-export PYENV_ROOT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.pyenv
-</span><span style="color:#e6db74">export PATH=&#34;</span>$PYENV_ROOT/bin:$PATH<span style="color:#e6db74">&#34;
-</span><span style="color:#e6db74">eval &#34;</span><span style="color:#66d9ef">$(</span>pyenv init --path<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;
-</span><span style="color:#e6db74">eval &#34;</span><span style="color:#66d9ef">$(</span>pyenv init -<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;
-</span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Đang xài Python 3.8.12</span>
-
-&gt; pyenv install 3.8.12
-&gt; pyenv global 3.8.12
-&gt; python3 --version
-Python 3.8.12
-
-<span style="color:#75715e"># Upgrade pip và cài poetry trước nhé</span>
-&gt; pip install --upgrade pip
-&gt; pip install poetry
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; brew install direnv
-<span style="color:#75715e"># config direnv</span>
-echo <span style="color:#e6db74">&#39;eval &#34;$(direnv hook bash)&#34;&#39;</span> &gt;&gt; ~/.bashrc
-
-<span style="color:#75715e"># Cài layout poetry cho direnv</span>
-&gt; add to ~/.direnvrc
-layout_poetry<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-  <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> ! -f pyproject.toml <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
-    log_error <span style="color:#e6db74">&#39;No pyproject.toml found. Use `poetry new` or `poetry init` to create one first.&#39;</span>
-    exit <span style="color:#ae81ff">2</span>
-  <span style="color:#66d9ef">fi</span>
-
-  <span style="color:#75715e"># create venv if it doesn&#39;t exist</span>
-  poetry run true
-
-  export VIRTUAL_ENV<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>poetry env info --path<span style="color:#66d9ef">)</span>
-  export POETRY_ACTIVE<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
-  PATH_add <span style="color:#e6db74">&#34;</span>$VIRTUAL_ENV<span style="color:#e6db74">/bin&#34;</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><p>Thêm một tí là để <code>direnv</code> sẽ tự update <code>PS1</code> khi <code>cd</code> và source code, thì thêm cái này trong <code>.bashrc</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">show_virtual_env<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-  <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> -n <span style="color:#e6db74">&#34;</span>$VIRTUAL_ENV<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">&amp;&amp;</span> -n <span style="color:#e6db74">&#34;</span>$DIRENV_DIR<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
-    echo <span style="color:#e6db74">&#34;(</span><span style="color:#66d9ef">$(</span>basename $VIRTUAL_ENV<span style="color:#66d9ef">)</span><span style="color:#e6db74">)&#34;</span>
-  <span style="color:#66d9ef">fi</span>
-<span style="color:#f92672">}</span>
-export -f show_virtual_env
-PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;$(show_virtual_env)&#39;</span>$PS1
-</code></pre></div><p>=&gt; Dùng được cho tất cả các dự án Python khác nhé, không phải mỗi Ansible</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; brew install pyenv
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Nhét đủ 4 cái vào bash_profile, bashrc gì đó, lên docs xem nhé</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>export PYENV_ROOT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.pyenv
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">export PATH=&#34;</span>$PYENV_ROOT/bin:$PATH<span style="color:#e6db74">&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">eval &#34;</span><span style="color:#66d9ef">$(</span>pyenv init --path<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">eval &#34;</span><span style="color:#66d9ef">$(</span>pyenv init -<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Đang xài Python 3.8.12</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; pyenv install 3.8.12
+</span></span><span style="display:flex;"><span>&gt; pyenv global 3.8.12
+</span></span><span style="display:flex;"><span>&gt; python3 --version
+</span></span><span style="display:flex;"><span>Python 3.8.12
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Upgrade pip và cài poetry trước nhé</span>
+</span></span><span style="display:flex;"><span>&gt; pip install --upgrade pip
+</span></span><span style="display:flex;"><span>&gt; pip install poetry
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; brew install direnv
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># config direnv</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;eval &#34;$(direnv hook bash)&#34;&#39;</span> &gt;&gt; ~/.bashrc
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Cài layout poetry cho direnv</span>
+</span></span><span style="display:flex;"><span>&gt; add to ~/.direnvrc
+</span></span><span style="display:flex;"><span>layout_poetry<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> ! -f pyproject.toml <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    log_error <span style="color:#e6db74">&#39;No pyproject.toml found. Use `poetry new` or `poetry init` to create one first.&#39;</span>
+</span></span><span style="display:flex;"><span>    exit <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># create venv if it doesn&#39;t exist</span>
+</span></span><span style="display:flex;"><span>  poetry run true
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  export VIRTUAL_ENV<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>poetry env info --path<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>  export POETRY_ACTIVE<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  PATH_add <span style="color:#e6db74">&#34;</span>$VIRTUAL_ENV<span style="color:#e6db74">/bin&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Thêm một tí là để <code>direnv</code> sẽ tự update <code>PS1</code> khi <code>cd</code> và source code, thì thêm cái này trong <code>.bashrc</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>show_virtual_env<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> -n <span style="color:#e6db74">&#34;</span>$VIRTUAL_ENV<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">&amp;&amp;</span> -n <span style="color:#e6db74">&#34;</span>$DIRENV_DIR<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;(</span><span style="color:#66d9ef">$(</span>basename $VIRTUAL_ENV<span style="color:#66d9ef">)</span><span style="color:#e6db74">)&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>export -f show_virtual_env
+</span></span><span style="display:flex;"><span>PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;$(show_virtual_env)&#39;</span>$PS1
+</span></span></code></pre></div><p>=&gt; Dùng được cho tất cả các dự án Python khác nhé, không phải mỗi Ansible</p>
 <h2 id="2-init-ansible-repo">2. Init Ansible repo</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; cd ~/code/me
-&gt; mkdir -pv gh-infra
-&gt; pyenv local 3.8.12
-&gt; cat .python-version
-3.8.12
-</code></pre></div><p>Sau mấy bước trên, trong thư mục code sinh ra file <code>.python-version</code> chỉ version Python của mã nguồn</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; poetry init
-
-This command will guide you through creating your pyproject.toml config.
-
-Package name <span style="color:#f92672">[</span>gh-infra<span style="color:#f92672">]</span>:
-Version <span style="color:#f92672">[</span>0.1.0<span style="color:#f92672">]</span>:
-Description <span style="color:#f92672">[]</span>:  Ansible demo
-Author <span style="color:#f92672">[</span>xluffy &lt;hi.quang.gg@gmail.com&gt;, n to skip<span style="color:#f92672">]</span>:
-License <span style="color:#f92672">[]</span>:
-Compatible Python versions <span style="color:#f92672">[</span>^3.8<span style="color:#f92672">]</span>:
-
-Would you like to define your main dependencies interactively? <span style="color:#f92672">(</span>yes/no<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>yes<span style="color:#f92672">]</span> yes
-You can specify a package in the following forms:
-  - A single name <span style="color:#f92672">(</span>requests<span style="color:#f92672">)</span>
-  - A name and a constraint <span style="color:#f92672">(</span>requests@^2.23.0<span style="color:#f92672">)</span>
-  - A git url <span style="color:#f92672">(</span>git+https://github.com/python-poetry/poetry.git<span style="color:#f92672">)</span>
-  - A git url with a revision <span style="color:#f92672">(</span>git+https://github.com/python-poetry/poetry.git#develop<span style="color:#f92672">)</span>
-  - A file path <span style="color:#f92672">(</span>../my-package/my-package.whl<span style="color:#f92672">)</span>
-  - A directory <span style="color:#f92672">(</span>../my-package/<span style="color:#f92672">)</span>
-  - A url <span style="color:#f92672">(</span>https://example.com/packages/my-package-0.1.0.tar.gz<span style="color:#f92672">)</span>
-
-Search <span style="color:#66d9ef">for</span> package to add <span style="color:#f92672">(</span>or leave blank to <span style="color:#66d9ef">continue</span><span style="color:#f92672">)</span>: ansible<span style="color:#f92672">=</span>2.9.27
-Adding ansible<span style="color:#f92672">=</span>2.9.27
-
-Add a package: ansible-lint<span style="color:#f92672">=</span>^5.3.2
-Adding ansible-lint<span style="color:#f92672">=</span>^5.3.2
-
-Add a package: flake8<span style="color:#f92672">=</span>^4.0.1
-Adding flake8<span style="color:#f92672">=</span>^4.0.1
-
-Add a package: yamllint<span style="color:#f92672">=</span>^1.26.3
-Adding yamllint<span style="color:#f92672">=</span>^1.26.3
-
-Add a package: prettytable<span style="color:#f92672">=</span>^3.0.0
-Adding prettytable<span style="color:#f92672">=</span>^3.0.0
-
-Add a package: cryptography<span style="color:#f92672">=</span>^36.0.1
-Adding cryptography<span style="color:#f92672">=</span>^36.0.1
-
-Add a package: pytest<span style="color:#f92672">=</span>^6.2.5
-Adding pytest<span style="color:#f92672">=</span>^6.2.5
-
-Add a package: black<span style="color:#f92672">=</span>^21.12b0
-Adding black<span style="color:#f92672">=</span>^21.12b0
-
-Add a package: molecule<span style="color:#f92672">=</span>3.5.2
-Adding molecule<span style="color:#f92672">=</span>3.5.2
-
-Add a package: mitogen<span style="color:#f92672">=</span>0.2.9
-Adding mitogen<span style="color:#f92672">=</span>0.2.9
-
-Add a package: yamlfix<span style="color:#f92672">=</span>^0.8.0
-Adding yamlfix<span style="color:#f92672">=</span>^0.8.0
-
-Add a package: molecule-vagrant<span style="color:#f92672">=</span>^1.0.0
-Adding molecule-vagrant<span style="color:#f92672">=</span>^1.0.0
-
-Add a package: autopep8<span style="color:#f92672">=</span>^1.6.0
-Adding autopep8<span style="color:#f92672">=</span>^1.6.0
-
-Add a package: pytest-testinfra<span style="color:#f92672">=</span>^6.5.0
-Adding pytest-testinfra<span style="color:#f92672">=</span>^6.5.0
-</code></pre></div><p>Khởi tạo và add các thư viện cần thiết, sẽ ra một file <code>pyproject.toml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; cd ~/code/me
+</span></span><span style="display:flex;"><span>&gt; mkdir -pv gh-infra
+</span></span><span style="display:flex;"><span>&gt; pyenv local 3.8.12
+</span></span><span style="display:flex;"><span>&gt; cat .python-version
+</span></span><span style="display:flex;"><span>3.8.12
+</span></span></code></pre></div><p>Sau mấy bước trên, trong thư mục code sinh ra file <code>.python-version</code> chỉ version Python của mã nguồn</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; poetry init
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>This command will guide you through creating your pyproject.toml config.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Package name <span style="color:#f92672">[</span>gh-infra<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span>Version <span style="color:#f92672">[</span>0.1.0<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span>Description <span style="color:#f92672">[]</span>:  Ansible demo
+</span></span><span style="display:flex;"><span>Author <span style="color:#f92672">[</span>xluffy &lt;hi.quang.gg@gmail.com&gt;, n to skip<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span>License <span style="color:#f92672">[]</span>:
+</span></span><span style="display:flex;"><span>Compatible Python versions <span style="color:#f92672">[</span>^3.8<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Would you like to define your main dependencies interactively? <span style="color:#f92672">(</span>yes/no<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>yes<span style="color:#f92672">]</span> yes
+</span></span><span style="display:flex;"><span>You can specify a package in the following forms:
+</span></span><span style="display:flex;"><span>  - A single name <span style="color:#f92672">(</span>requests<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  - A name and a constraint <span style="color:#f92672">(</span>requests@^2.23.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  - A git url <span style="color:#f92672">(</span>git+https://github.com/python-poetry/poetry.git<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  - A git url with a revision <span style="color:#f92672">(</span>git+https://github.com/python-poetry/poetry.git#develop<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  - A file path <span style="color:#f92672">(</span>../my-package/my-package.whl<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  - A directory <span style="color:#f92672">(</span>../my-package/<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  - A url <span style="color:#f92672">(</span>https://example.com/packages/my-package-0.1.0.tar.gz<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Search <span style="color:#66d9ef">for</span> package to add <span style="color:#f92672">(</span>or leave blank to <span style="color:#66d9ef">continue</span><span style="color:#f92672">)</span>: ansible<span style="color:#f92672">=</span>2.9.27
+</span></span><span style="display:flex;"><span>Adding ansible<span style="color:#f92672">=</span>2.9.27
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Add a package: ansible-lint<span style="color:#f92672">=</span>^5.3.2
+</span></span><span style="display:flex;"><span>Adding ansible-lint<span style="color:#f92672">=</span>^5.3.2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Add a package: flake8<span style="color:#f92672">=</span>^4.0.1
+</span></span><span style="display:flex;"><span>Adding flake8<span style="color:#f92672">=</span>^4.0.1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Add a package: yamllint<span style="color:#f92672">=</span>^1.26.3
+</span></span><span style="display:flex;"><span>Adding yamllint<span style="color:#f92672">=</span>^1.26.3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Add a package: prettytable<span style="color:#f92672">=</span>^3.0.0
+</span></span><span style="display:flex;"><span>Adding prettytable<span style="color:#f92672">=</span>^3.0.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Add a package: cryptography<span style="color:#f92672">=</span>^36.0.1
+</span></span><span style="display:flex;"><span>Adding cryptography<span style="color:#f92672">=</span>^36.0.1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Add a package: pytest<span style="color:#f92672">=</span>^6.2.5
+</span></span><span style="display:flex;"><span>Adding pytest<span style="color:#f92672">=</span>^6.2.5
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Add a package: black<span style="color:#f92672">=</span>^21.12b0
+</span></span><span style="display:flex;"><span>Adding black<span style="color:#f92672">=</span>^21.12b0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Add a package: molecule<span style="color:#f92672">=</span>3.5.2
+</span></span><span style="display:flex;"><span>Adding molecule<span style="color:#f92672">=</span>3.5.2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Add a package: mitogen<span style="color:#f92672">=</span>0.2.9
+</span></span><span style="display:flex;"><span>Adding mitogen<span style="color:#f92672">=</span>0.2.9
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Add a package: yamlfix<span style="color:#f92672">=</span>^0.8.0
+</span></span><span style="display:flex;"><span>Adding yamlfix<span style="color:#f92672">=</span>^0.8.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Add a package: molecule-vagrant<span style="color:#f92672">=</span>^1.0.0
+</span></span><span style="display:flex;"><span>Adding molecule-vagrant<span style="color:#f92672">=</span>^1.0.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Add a package: autopep8<span style="color:#f92672">=</span>^1.6.0
+</span></span><span style="display:flex;"><span>Adding autopep8<span style="color:#f92672">=</span>^1.6.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Add a package: pytest-testinfra<span style="color:#f92672">=</span>^6.5.0
+</span></span><span style="display:flex;"><span>Adding pytest-testinfra<span style="color:#f92672">=</span>^6.5.0
+</span></span></code></pre></div><p>Khởi tạo và add các thư viện cần thiết, sẽ ra một file <code>pyproject.toml</code></p>
 <p>Tạo <code>.envrc</code>, file cấu hình trong repo của <code>direnv</code> và allow content</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; cat .envrc
-layout_poetry
-export FORCE_COLOR<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
-export PY_COLORS<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
-
-direnv: error /Users/quanggg/code/me/gh-infra/.envrc is blocked. Run <span style="color:#e6db74">`</span>direnv allow<span style="color:#e6db74">`</span> to approve its content
-
-&gt; direnv allow
-</code></pre></div><p>Sau khi chạy lệnh trên sẽ thấy điều kì diệu của <code>direnv</code>, nó đã tạo cho chúng ta một <code>VIRTUAL_ENV</code> và edit dùm <code>PS1</code>, sau đó chỉ việc xài <code>poetry</code> để cài thư viện đã khai báo ở trên.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; direnv allow
-direnv: loading ~/code/me/gh-infra/.envrc
-Creating virtualenv gh-infra-ckHUeV7x-py3.8 in /Users/quanggg/Library/Caches/pypoetry/virtualenvs
-direnv: export +FORCE_COLOR +POETRY_ACTIVE +PY_COLORS +VIRTUAL_ENV ~PATH
-<span style="color:#f92672">(</span>gh-infra-ckHUeV7x-py3.8<span style="color:#f92672">)</span>:: You are quanggg -at- xluffys-MacBook-Air <span style="color:#f92672">[</span>~/code/me/gh-infra<span style="color:#f92672">]</span>
-
-&gt;  poetry install
-Updating dependencies
-Resolving dependencies... <span style="color:#f92672">(</span>21.0s<span style="color:#f92672">)</span>
-
-Writing lock file
-
-Package operations: <span style="color:#ae81ff">72</span> installs, <span style="color:#ae81ff">0</span> updates, <span style="color:#ae81ff">0</span> removals
-
-  • Installing six <span style="color:#f92672">(</span>1.16.0<span style="color:#f92672">)</span>
-  • Installing markupsafe <span style="color:#f92672">(</span>2.0.1<span style="color:#f92672">)</span>
-  • Installing pycparser <span style="color:#f92672">(</span>2.21<span style="color:#f92672">)</span>
-  • Installing python-dateutil <span style="color:#f92672">(</span>2.8.2<span style="color:#f92672">)</span>
-  • ...
-  
-<span style="color:#75715e"># Sau bước này ra cái file `poetry.lock` lock version</span>
-</code></pre></div><p>Bây giờ mỗi lần <code>cd</code> ra ngoài source code và <code>cd</code> vào source code, <code>direnv</code> sẽ hỗ trợ load/unload ENV variable và môi trường ảo Python giúp, không phải làm thêm gì cả. Cần thêm thư viện gì thì cứ <code>poetry add</code>, ai clone source về thì sau mục #1 phía trên chỉ cần <code>poetry install</code> là xong, đủ đồ chơi.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; cd ~
-direnv: unloading
-
-&gt; cd -
-/Users/quanggg/code/me/gh-infra
-direnv: loading ~/code/me/gh-infra/.envrc
-direnv: export +FORCE_COLOR +POETRY_ACTIVE +PY_COLORS +VIRTUAL_ENV ~PATH
-
-<span style="color:#f92672">(</span>gh-infra-ckHUeV7x-py3.8<span style="color:#f92672">)</span>:: You are quanggg -at- xluffys-MacBook-Air <span style="color:#f92672">[</span>~/code/me/gh-infra<span style="color:#f92672">]</span>
-</code></pre></div><h2 id="3-ansible-orgs-and-tooling">3. Ansible orgs and tooling</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; cat .envrc
+</span></span><span style="display:flex;"><span>layout_poetry
+</span></span><span style="display:flex;"><span>export FORCE_COLOR<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>export PY_COLORS<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>direnv: error /Users/quanggg/code/me/gh-infra/.envrc is blocked. Run <span style="color:#e6db74">`</span>direnv allow<span style="color:#e6db74">`</span> to approve its content
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; direnv allow
+</span></span></code></pre></div><p>Sau khi chạy lệnh trên sẽ thấy điều kì diệu của <code>direnv</code>, nó đã tạo cho chúng ta một <code>VIRTUAL_ENV</code> và edit dùm <code>PS1</code>, sau đó chỉ việc xài <code>poetry</code> để cài thư viện đã khai báo ở trên.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; direnv allow
+</span></span><span style="display:flex;"><span>direnv: loading ~/code/me/gh-infra/.envrc
+</span></span><span style="display:flex;"><span>Creating virtualenv gh-infra-ckHUeV7x-py3.8 in /Users/quanggg/Library/Caches/pypoetry/virtualenvs
+</span></span><span style="display:flex;"><span>direnv: export +FORCE_COLOR +POETRY_ACTIVE +PY_COLORS +VIRTUAL_ENV ~PATH
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>gh-infra-ckHUeV7x-py3.8<span style="color:#f92672">)</span>:: You are quanggg -at- xluffys-MacBook-Air <span style="color:#f92672">[</span>~/code/me/gh-infra<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt;  poetry install
+</span></span><span style="display:flex;"><span>Updating dependencies
+</span></span><span style="display:flex;"><span>Resolving dependencies... <span style="color:#f92672">(</span>21.0s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Writing lock file
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Package operations: <span style="color:#ae81ff">72</span> installs, <span style="color:#ae81ff">0</span> updates, <span style="color:#ae81ff">0</span> removals
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  • Installing six <span style="color:#f92672">(</span>1.16.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  • Installing markupsafe <span style="color:#f92672">(</span>2.0.1<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  • Installing pycparser <span style="color:#f92672">(</span>2.21<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  • Installing python-dateutil <span style="color:#f92672">(</span>2.8.2<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  • ...
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Sau bước này ra cái file `poetry.lock` lock version</span>
+</span></span></code></pre></div><p>Bây giờ mỗi lần <code>cd</code> ra ngoài source code và <code>cd</code> vào source code, <code>direnv</code> sẽ hỗ trợ load/unload ENV variable và môi trường ảo Python giúp, không phải làm thêm gì cả. Cần thêm thư viện gì thì cứ <code>poetry add</code>, ai clone source về thì sau mục #1 phía trên chỉ cần <code>poetry install</code> là xong, đủ đồ chơi.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; cd ~
+</span></span><span style="display:flex;"><span>direnv: unloading
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; cd -
+</span></span><span style="display:flex;"><span>/Users/quanggg/code/me/gh-infra
+</span></span><span style="display:flex;"><span>direnv: loading ~/code/me/gh-infra/.envrc
+</span></span><span style="display:flex;"><span>direnv: export +FORCE_COLOR +POETRY_ACTIVE +PY_COLORS +VIRTUAL_ENV ~PATH
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>gh-infra-ckHUeV7x-py3.8<span style="color:#f92672">)</span>:: You are quanggg -at- xluffys-MacBook-Air <span style="color:#f92672">[</span>~/code/me/gh-infra<span style="color:#f92672">]</span>
+</span></span></code></pre></div><h2 id="3-ansible-orgs-and-tooling">3. Ansible orgs and tooling</h2>
 <ul>
 <li><a href="https://github.com/crate-ci/typos">typos</a> để ource code spell checker, tệp <code>_typos.toml</code></li>
 <li>Molecule và molecule-vagrant để tạo máy ảo test và viết code test, đi kèm là VirtualBox</li>
@@ -404,94 +404,94 @@ direnv: export +FORCE_COLOR +POETRY_ACTIVE +PY_COLORS +VIRTUAL_ENV ~PATH
 <li><code>secrets</code> chứa cái gì cần giữ bí mật, đừng commit lên nhé, nếu không mang tính bí mật thuộc về một cá nhân nào đó thì có thể dùng <code>ansible-vault</code> để encrypt giống <code>id_ed25519.vault</code> cũng được</li>
 </ul>
 <p>Cấu trúc mã nguồn như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; tree
-.
-├── Makefile
-├── _typos.toml
-├── ansible.cfg
-├── ansible_cache
-├── docs
-│   ├── migrations
-│   │   ├── 001-migrate-abc-srv.md
-│   │   └── 001-migrate-redis-srv.md
-│   ├── runbooks
-│   │   ├── ansible-run-specify-tasks.md
-│   │   └── debug-jinja2-render.md
-│   ├── setup.md
-│   └── testing.md
-├── hosts.txt
-├── inventories
-│   ├── 000_cross_env_vars.yml
-│   └── prod
-│       ├── group_vars
-│       │   └── all
-│       │       ├── 000_cross_env_vars.yml -&gt; ../../../000_cross_env_vars.yml
-│       │       └── 001_remote_env_vars.yml
-│       ├── host_vars
-│       └── hosts
-├── poetry.lock
-├── pyproject.toml
-├── roles
-├── run_molecule.py
-└── secrets
-  ├── id_ed25519
-  └── id_ed25519.pub
-  └── id_ed25519.vault
-</code></pre></div><p>Cài VirtualBox và vagrant hỗ trợ tạo máy ảo testing, test <code>x86_64</code> và Ubuntu thôi nhé, tui ko còn ưa CentOS nữa.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; VirtualBox lên trang chủ tải
-&gt; brew install vagrant
-<span style="color:#75715e"># Xài chính Ubuntu 20.04 lên test trên đây, box này y chang VM AWS hoặc các cloud provider khởi tạo nhé</span>
-&gt; vagrant box add ubuntu/focal64
-&gt; vagrant box list
-ubuntu/focal64 <span style="color:#f92672">(</span>virtualbox, 20220208.0.0<span style="color:#f92672">)</span>
-</code></pre></div><h3 id="31-role-common">3.1 Role common</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; tree
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>├── Makefile
+</span></span><span style="display:flex;"><span>├── _typos.toml
+</span></span><span style="display:flex;"><span>├── ansible.cfg
+</span></span><span style="display:flex;"><span>├── ansible_cache
+</span></span><span style="display:flex;"><span>├── docs
+</span></span><span style="display:flex;"><span>│   ├── migrations
+</span></span><span style="display:flex;"><span>│   │   ├── 001-migrate-abc-srv.md
+</span></span><span style="display:flex;"><span>│   │   └── 001-migrate-redis-srv.md
+</span></span><span style="display:flex;"><span>│   ├── runbooks
+</span></span><span style="display:flex;"><span>│   │   ├── ansible-run-specify-tasks.md
+</span></span><span style="display:flex;"><span>│   │   └── debug-jinja2-render.md
+</span></span><span style="display:flex;"><span>│   ├── setup.md
+</span></span><span style="display:flex;"><span>│   └── testing.md
+</span></span><span style="display:flex;"><span>├── hosts.txt
+</span></span><span style="display:flex;"><span>├── inventories
+</span></span><span style="display:flex;"><span>│   ├── 000_cross_env_vars.yml
+</span></span><span style="display:flex;"><span>│   └── prod
+</span></span><span style="display:flex;"><span>│       ├── group_vars
+</span></span><span style="display:flex;"><span>│       │   └── all
+</span></span><span style="display:flex;"><span>│       │       ├── 000_cross_env_vars.yml -&gt; ../../../000_cross_env_vars.yml
+</span></span><span style="display:flex;"><span>│       │       └── 001_remote_env_vars.yml
+</span></span><span style="display:flex;"><span>│       ├── host_vars
+</span></span><span style="display:flex;"><span>│       └── hosts
+</span></span><span style="display:flex;"><span>├── poetry.lock
+</span></span><span style="display:flex;"><span>├── pyproject.toml
+</span></span><span style="display:flex;"><span>├── roles
+</span></span><span style="display:flex;"><span>├── run_molecule.py
+</span></span><span style="display:flex;"><span>└── secrets
+</span></span><span style="display:flex;"><span>  ├── id_ed25519
+</span></span><span style="display:flex;"><span>  └── id_ed25519.pub
+</span></span><span style="display:flex;"><span>  └── id_ed25519.vault
+</span></span></code></pre></div><p>Cài VirtualBox và vagrant hỗ trợ tạo máy ảo testing, test <code>x86_64</code> và Ubuntu thôi nhé, tui ko còn ưa CentOS nữa.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; VirtualBox lên trang chủ tải
+</span></span><span style="display:flex;"><span>&gt; brew install vagrant
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Xài chính Ubuntu 20.04 lên test trên đây, box này y chang VM AWS hoặc các cloud provider khởi tạo nhé</span>
+</span></span><span style="display:flex;"><span>&gt; vagrant box add ubuntu/focal64
+</span></span><span style="display:flex;"><span>&gt; vagrant box list
+</span></span><span style="display:flex;"><span>ubuntu/focal64 <span style="color:#f92672">(</span>virtualbox, 20220208.0.0<span style="color:#f92672">)</span>
+</span></span></code></pre></div><h3 id="31-role-common">3.1 Role common</h3>
 <ul>
 <li>Được include bởi tất cả các playbook, lên tất cả các server đều sẽ có thuộc tính giống nhau nhờ role này (tunning, hardening, security, audit, monitoring &hellip;)</li>
 <li>Hỗ trợ testing với <code>molecule</code></li>
 </ul>
 <p>Cấu trúc lược bớt như sau, cụ thể tí xem source trong repo nhé:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; tree
-.
-├── Makefile
-├── defaults
-│   └── main
-│       ├── main.yml
-│       ├── node_exporter.yml
-│       └── vault.yml
-├── files
-│   └── bench-local-dns
-├── handlers
-│   └── main.yml
-├── molecule
-│   └── default
-│       ├── converge.yml
-│       ├── molecule.yml
-│       ├── prepare.yml
-│       └── tests
-│           ├── __pycache__
-│           │   └── test_default.cpython-38-pytest-6.2.5.pyc
-│           └── test_default.py
-├── tasks
-│   ├── apt.yml
-│   ├── build.yml
-│   ├── ps_mem.yml
-│   ├── resolved.yml
-│   ├── root.yml
-│   ├── sshd.yml
-│   └── utils.yml
-└── templates
-    ├── 00-header.sh.j2
-    ├── 10-network-perf.conf.j2
-    ├── 10-network-security.conf.j2
-    ├── 10-system-memory.conf.j2
-    ├── 10-system-security.conf.j2
-    ├── 20auto-upgrades.j2
-    ├── sshd_config.j2
-    ├── system.conf.j2
-    ├── uptimed.conf.j2
-    ├── user.conf.j2
-    └── vimrc.j2
-</code></pre></div><p>Cách để khởi tạo và các command của <code>molecule</code> thì lên docs coi nhé, không thì copy tương tự cũng chạy được, nói nhanh thì có những thứ sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; tree
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>├── Makefile
+</span></span><span style="display:flex;"><span>├── defaults
+</span></span><span style="display:flex;"><span>│   └── main
+</span></span><span style="display:flex;"><span>│       ├── main.yml
+</span></span><span style="display:flex;"><span>│       ├── node_exporter.yml
+</span></span><span style="display:flex;"><span>│       └── vault.yml
+</span></span><span style="display:flex;"><span>├── files
+</span></span><span style="display:flex;"><span>│   └── bench-local-dns
+</span></span><span style="display:flex;"><span>├── handlers
+</span></span><span style="display:flex;"><span>│   └── main.yml
+</span></span><span style="display:flex;"><span>├── molecule
+</span></span><span style="display:flex;"><span>│   └── default
+</span></span><span style="display:flex;"><span>│       ├── converge.yml
+</span></span><span style="display:flex;"><span>│       ├── molecule.yml
+</span></span><span style="display:flex;"><span>│       ├── prepare.yml
+</span></span><span style="display:flex;"><span>│       └── tests
+</span></span><span style="display:flex;"><span>│           ├── __pycache__
+</span></span><span style="display:flex;"><span>│           │   └── test_default.cpython-38-pytest-6.2.5.pyc
+</span></span><span style="display:flex;"><span>│           └── test_default.py
+</span></span><span style="display:flex;"><span>├── tasks
+</span></span><span style="display:flex;"><span>│   ├── apt.yml
+</span></span><span style="display:flex;"><span>│   ├── build.yml
+</span></span><span style="display:flex;"><span>│   ├── ps_mem.yml
+</span></span><span style="display:flex;"><span>│   ├── resolved.yml
+</span></span><span style="display:flex;"><span>│   ├── root.yml
+</span></span><span style="display:flex;"><span>│   ├── sshd.yml
+</span></span><span style="display:flex;"><span>│   └── utils.yml
+</span></span><span style="display:flex;"><span>└── templates
+</span></span><span style="display:flex;"><span>    ├── 00-header.sh.j2
+</span></span><span style="display:flex;"><span>    ├── 10-network-perf.conf.j2
+</span></span><span style="display:flex;"><span>    ├── 10-network-security.conf.j2
+</span></span><span style="display:flex;"><span>    ├── 10-system-memory.conf.j2
+</span></span><span style="display:flex;"><span>    ├── 10-system-security.conf.j2
+</span></span><span style="display:flex;"><span>    ├── 20auto-upgrades.j2
+</span></span><span style="display:flex;"><span>    ├── sshd_config.j2
+</span></span><span style="display:flex;"><span>    ├── system.conf.j2
+</span></span><span style="display:flex;"><span>    ├── uptimed.conf.j2
+</span></span><span style="display:flex;"><span>    ├── user.conf.j2
+</span></span><span style="display:flex;"><span>    └── vimrc.j2
+</span></span></code></pre></div><p>Cách để khởi tạo và các command của <code>molecule</code> thì lên docs coi nhé, không thì copy tương tự cũng chạy được, nói nhanh thì có những thứ sau:</p>
 <ul>
 <li><code>molecule/default</code> gọi là kịch bản (scenario)</li>
 <li><code>molecule.yml</code> mô tả về môi trường, cách test
@@ -508,80 +508,80 @@ ubuntu/focal64 <span style="color:#f92672">(</span>virtualbox, 20220208.0.0<span
 </ul>
 <p><strong>Ví dụ:</strong></p>
 <p>Có một task tạo user <code>deploy</code> khi server thuộc group <code>web/app/api</code> như sau</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">common | create deployment group</span>
-  <span style="color:#f92672">group</span>:
-    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">deploy</span>
-    <span style="color:#f92672">state</span>: <span style="color:#ae81ff">present</span>
-  <span style="color:#f92672">when</span>: &gt;<span style="color:#e6db74">
-</span><span style="color:#e6db74">    inventory_hostname in groups.app | default([])
-</span><span style="color:#e6db74">    or
-</span><span style="color:#e6db74">    inventory_hostname in groups.api | default([])
-</span><span style="color:#e6db74">    or
-</span><span style="color:#e6db74">    inventory_hostname in groups.web | default([])</span>    
-  <span style="color:#f92672">tags</span>:
-    - <span style="color:#ae81ff">r_common_based</span>
-    - <span style="color:#ae81ff">r_common_users</span>
-
-- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">common | create deployment user</span>
-  <span style="color:#f92672">user</span>:
-    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">deploy</span>
-    <span style="color:#f92672">create_home</span>: <span style="color:#66d9ef">yes</span>
-    <span style="color:#f92672">state</span>: <span style="color:#ae81ff">present</span>
-    <span style="color:#f92672">group</span>: <span style="color:#ae81ff">deploy</span>
-    <span style="color:#f92672">comment</span>: <span style="color:#e6db74">&#34;Deployer user&#34;</span>
-    <span style="color:#f92672">shell</span>: <span style="color:#e6db74">&#34;/bin/bash&#34;</span>
-  <span style="color:#f92672">when</span>: &gt;<span style="color:#e6db74">
-</span><span style="color:#e6db74">    inventory_hostname in groups.app | default([])
-</span><span style="color:#e6db74">    or
-</span><span style="color:#e6db74">    inventory_hostname in groups.api | default([])
-</span><span style="color:#e6db74">    or
-</span><span style="color:#e6db74">    inventory_hostname in groups.web | default([])</span>    
-  <span style="color:#f92672">tags</span>:
-    - <span style="color:#ae81ff">r_common_based</span>
-    - <span style="color:#ae81ff">r_common_users</span>
-</code></pre></div><p>Viết code test bằng <code>testinfra</code> để kiểm tra user đó có thật sự tồn tại sau khi chạy playbook không như sau, cách này hơi phèn vì check group dựa trên hostname, nhưng nó chạy, vì rules tự đặt là trong hostname có services:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_users</span>(host):
-    <span style="color:#e6db74">&#34;&#34;&#34;
-</span><span style="color:#e6db74">    Test create user/group
-</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
-    _hostname <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>uname()[<span style="color:#ae81ff">1</span>]
-
-    <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;app&#34;</span> <span style="color:#f92672">in</span> _hostname <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;api&#34;</span> <span style="color:#f92672">in</span> _hostname <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;web&#34;</span> <span style="color:#f92672">in</span> _hostname:
-        _g_deploy <span style="color:#f92672">=</span> host<span style="color:#f92672">.</span>group(<span style="color:#e6db74">&#34;deploy&#34;</span>)
-        _u_deploy <span style="color:#f92672">=</span> host<span style="color:#f92672">.</span>user(<span style="color:#e6db74">&#34;deploy&#34;</span>)
-
-        <span style="color:#66d9ef">assert</span> _g_deploy<span style="color:#f92672">.</span>exists
-        <span style="color:#66d9ef">assert</span> _u_deploy<span style="color:#f92672">.</span>exists
-        <span style="color:#66d9ef">assert</span> _u_deploy<span style="color:#f92672">.</span>shell <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;/bin/bash&#34;</span>
-</code></pre></div><p>Hoặc muốn test các service sau khi chạy playbook xong sẽ được start và cho phép khởi động khi boot OS</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@pytest</span><span style="color:#f92672">.</span>mark<span style="color:#f92672">.</span>parametrize(<span style="color:#e6db74">&#34;services&#34;</span>, [<span style="color:#e6db74">&#34;sshd&#34;</span>, <span style="color:#e6db74">&#34;rsyslog&#34;</span>, <span style="color:#e6db74">&#34;chrony&#34;</span>, <span style="color:#e6db74">&#34;node_exporter&#34;</span>])
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_services_running</span>(host, services):
-    <span style="color:#e6db74">&#34;&#34;&#34;
-</span><span style="color:#e6db74">    Test services are running + enabled
-</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
-
-    _s_services <span style="color:#f92672">=</span> host<span style="color:#f92672">.</span>service(services)
-    <span style="color:#66d9ef">assert</span> _s_services<span style="color:#f92672">.</span>is_running
-    <span style="color:#66d9ef">assert</span> _s_services<span style="color:#f92672">.</span>is_enabled
-</code></pre></div><p>Xong xuôi, bây giờ chạy test, kịch bản chạy tuần tự sẽ như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; mol matrix test
-INFO     Test matrix
----
-default:
-  - dependency
-  - lint
-  - cleanup
-  - destroy
-  - syntax
-  - create
-  - prepare
-  - converge
-  - idempotence
-  - side_effect
-  - verify
-  - cleanup
-  - destroy
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">common | create deployment group</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">group</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">deploy</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">state</span>: <span style="color:#ae81ff">present</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">when</span>: &gt;<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    inventory_hostname in groups.app | default([])
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    or
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    inventory_hostname in groups.api | default([])
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    or
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    inventory_hostname in groups.web | default([])</span>    
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">tags</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">r_common_based</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">r_common_users</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">common | create deployment user</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">user</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">deploy</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">create_home</span>: <span style="color:#66d9ef">yes</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">state</span>: <span style="color:#ae81ff">present</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">group</span>: <span style="color:#ae81ff">deploy</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">comment</span>: <span style="color:#e6db74">&#34;Deployer user&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">shell</span>: <span style="color:#e6db74">&#34;/bin/bash&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">when</span>: &gt;<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    inventory_hostname in groups.app | default([])
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    or
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    inventory_hostname in groups.api | default([])
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    or
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    inventory_hostname in groups.web | default([])</span>    
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">tags</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">r_common_based</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">r_common_users</span>
+</span></span></code></pre></div><p>Viết code test bằng <code>testinfra</code> để kiểm tra user đó có thật sự tồn tại sau khi chạy playbook không như sau, cách này hơi phèn vì check group dựa trên hostname, nhưng nó chạy, vì rules tự đặt là trong hostname có services:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_users</span>(host):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Test create user/group
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    _hostname <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>uname()[<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;app&#34;</span> <span style="color:#f92672">in</span> _hostname <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;api&#34;</span> <span style="color:#f92672">in</span> _hostname <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;web&#34;</span> <span style="color:#f92672">in</span> _hostname:
+</span></span><span style="display:flex;"><span>        _g_deploy <span style="color:#f92672">=</span> host<span style="color:#f92672">.</span>group(<span style="color:#e6db74">&#34;deploy&#34;</span>)
+</span></span><span style="display:flex;"><span>        _u_deploy <span style="color:#f92672">=</span> host<span style="color:#f92672">.</span>user(<span style="color:#e6db74">&#34;deploy&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">assert</span> _g_deploy<span style="color:#f92672">.</span>exists
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">assert</span> _u_deploy<span style="color:#f92672">.</span>exists
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">assert</span> _u_deploy<span style="color:#f92672">.</span>shell <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;/bin/bash&#34;</span>
+</span></span></code></pre></div><p>Hoặc muốn test các service sau khi chạy playbook xong sẽ được start và cho phép khởi động khi boot OS</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">@pytest</span><span style="color:#f92672">.</span>mark<span style="color:#f92672">.</span>parametrize(<span style="color:#e6db74">&#34;services&#34;</span>, [<span style="color:#e6db74">&#34;sshd&#34;</span>, <span style="color:#e6db74">&#34;rsyslog&#34;</span>, <span style="color:#e6db74">&#34;chrony&#34;</span>, <span style="color:#e6db74">&#34;node_exporter&#34;</span>])
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_services_running</span>(host, services):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Test services are running + enabled
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    _s_services <span style="color:#f92672">=</span> host<span style="color:#f92672">.</span>service(services)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">assert</span> _s_services<span style="color:#f92672">.</span>is_running
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">assert</span> _s_services<span style="color:#f92672">.</span>is_enabled
+</span></span></code></pre></div><p>Xong xuôi, bây giờ chạy test, kịch bản chạy tuần tự sẽ như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; mol matrix test
+</span></span><span style="display:flex;"><span>INFO     Test matrix
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>default:
+</span></span><span style="display:flex;"><span>  - dependency
+</span></span><span style="display:flex;"><span>  - lint
+</span></span><span style="display:flex;"><span>  - cleanup
+</span></span><span style="display:flex;"><span>  - destroy
+</span></span><span style="display:flex;"><span>  - syntax
+</span></span><span style="display:flex;"><span>  - create
+</span></span><span style="display:flex;"><span>  - prepare
+</span></span><span style="display:flex;"><span>  - converge
+</span></span><span style="display:flex;"><span>  - idempotence
+</span></span><span style="display:flex;"><span>  - side_effect
+</span></span><span style="display:flex;"><span>  - verify
+</span></span><span style="display:flex;"><span>  - cleanup
+</span></span><span style="display:flex;"><span>  - destroy
+</span></span></code></pre></div><ul>
 <li>chạy <code>lint</code>, xem code có đúng chuẩn chưa, <code>yml</code> có đúng chuẩn chưa, viết task ansible có theo best practice không (ví dụ ko khuyến khích xài module <code>shell/command</code> nè hoặc có miss attribute gì không, như miss permission của thư mục khi tạo nè)</li>
 <li><code>cleanup/destroy</code>, nếu đã có một VM trước đó, thì xóa đi, làm lại từ đầu, test cho chuẩn (giống xóa cái VM trước đó đã test)</li>
 <li><code>syntax</code> kiểm tra syntax</li>
@@ -593,57 +593,57 @@ default:
 <li>Và xong xuôi, cuối cùng thì <code>cleanup/destroy</code> -&gt; xóa VM instance</li>
 </ul>
 <p>Chạy thử (xóa bớt cho đỡ dài dòng) (cứ clone về, setup đủ là chạy được)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; cd roles/common
-&gt; mol test
-
-INFO     Running default &gt; lint
-COMMAND: set -e
-yamllint .
-ansible-lint --exclude molecule
-flake8
-
-PLAY <span style="color:#f92672">[</span>Destroy<span style="color:#f92672">]</span> ******************************************************************************************************************************************************************************************************************************************
-
-TASK <span style="color:#f92672">[</span>Destroy molecule instance<span style="color:#f92672">(</span>s<span style="color:#f92672">)]</span> *********************************************************************************************************************************************************************************************************************
-Saturday <span style="color:#ae81ff">12</span> February <span style="color:#ae81ff">2022</span>  16:58:18 +0700 <span style="color:#f92672">(</span>0:00:00.015<span style="color:#f92672">)</span>       0:00:00.015 *****
-ok: <span style="color:#f92672">[</span>localhost<span style="color:#f92672">]</span>
-
-TASK <span style="color:#f92672">[</span>Populate instance config<span style="color:#f92672">]</span> *************************************************************************************************************************************************************************************************************************
-Saturday <span style="color:#ae81ff">12</span> February <span style="color:#ae81ff">2022</span>  16:58:20 +0700 <span style="color:#f92672">(</span>0:00:02.370<span style="color:#f92672">)</span>       0:00:02.386 *****
-ok: <span style="color:#f92672">[</span>localhost<span style="color:#f92672">]</span>
-
-TASK <span style="color:#f92672">[</span>Dump instance config<span style="color:#f92672">]</span> *****************************************************************************************************************************************************************************************************************************
-Saturday <span style="color:#ae81ff">12</span> February <span style="color:#ae81ff">2022</span>  16:58:20 +0700 <span style="color:#f92672">(</span>0:00:00.040<span style="color:#f92672">)</span>       0:00:02.426 *****
-skipping: <span style="color:#f92672">[</span>localhost<span style="color:#f92672">]</span>
-
-PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
-localhost                  : ok<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>    changed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>    unreachable<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>    failed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>    skipped<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>    rescued<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>    ignored<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
-
-Saturday <span style="color:#ae81ff">12</span> February <span style="color:#ae81ff">2022</span>  16:58:20 +0700 <span style="color:#f92672">(</span>0:00:00.041<span style="color:#f92672">)</span>       0:00:02.467 *****
-<span style="color:#f92672">===============================================================================</span>
-Destroy molecule instance<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 2.37s
-Dump instance config ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.04s
-Populate instance config ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.04s
-Playbook run took <span style="color:#ae81ff">0</span> days, <span style="color:#ae81ff">0</span> hours, <span style="color:#ae81ff">0</span> minutes, <span style="color:#ae81ff">2</span> seconds
-INFO     Running default &gt; syntax
-
-playbook: /Users/quanggg/code/me/gh-infra/roles/common/molecule/default/converge.yml
-INFO     Running default &gt; create
-
-PLAY <span style="color:#f92672">[</span>Create<span style="color:#f92672">]</span> *******************************************************************************************************************************************************************************************************************************************
-
-TASK <span style="color:#f92672">[</span>Create molecule instance<span style="color:#f92672">(</span>s<span style="color:#f92672">)]</span> **********************************************************************************************************************************************************************************************************************
-Saturday <span style="color:#ae81ff">12</span> February <span style="color:#ae81ff">2022</span>  16:58:21 +0700 <span style="color:#f92672">(</span>0:00:00.015<span style="color:#f92672">)</span>       0:00:00.015 *****
-
-Saturday <span style="color:#ae81ff">12</span> February <span style="color:#ae81ff">2022</span>  16:58:57 +0700 <span style="color:#f92672">(</span>0:00:00.493<span style="color:#f92672">)</span>       0:00:36.103 *****
-<span style="color:#f92672">===============================================================================</span>
-Create molecule instance<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 35.47s
-Dump instance config ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.49s
-Populate instance config dict -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.06s
-Convert instance config dict to a list ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.06s
-Playbook run took <span style="color:#ae81ff">0</span> days, <span style="color:#ae81ff">0</span> hours, <span style="color:#ae81ff">0</span> minutes, <span style="color:#ae81ff">36</span> seconds
-INFO     Running default &gt; prepare
-</code></pre></div><p>Cuối cùng được kết quả như sau</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; cd roles/common
+</span></span><span style="display:flex;"><span>&gt; mol test
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>INFO     Running default &gt; lint
+</span></span><span style="display:flex;"><span>COMMAND: set -e
+</span></span><span style="display:flex;"><span>yamllint .
+</span></span><span style="display:flex;"><span>ansible-lint --exclude molecule
+</span></span><span style="display:flex;"><span>flake8
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PLAY <span style="color:#f92672">[</span>Destroy<span style="color:#f92672">]</span> ******************************************************************************************************************************************************************************************************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>TASK <span style="color:#f92672">[</span>Destroy molecule instance<span style="color:#f92672">(</span>s<span style="color:#f92672">)]</span> *********************************************************************************************************************************************************************************************************************
+</span></span><span style="display:flex;"><span>Saturday <span style="color:#ae81ff">12</span> February <span style="color:#ae81ff">2022</span>  16:58:18 +0700 <span style="color:#f92672">(</span>0:00:00.015<span style="color:#f92672">)</span>       0:00:00.015 *****
+</span></span><span style="display:flex;"><span>ok: <span style="color:#f92672">[</span>localhost<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>TASK <span style="color:#f92672">[</span>Populate instance config<span style="color:#f92672">]</span> *************************************************************************************************************************************************************************************************************************
+</span></span><span style="display:flex;"><span>Saturday <span style="color:#ae81ff">12</span> February <span style="color:#ae81ff">2022</span>  16:58:20 +0700 <span style="color:#f92672">(</span>0:00:02.370<span style="color:#f92672">)</span>       0:00:02.386 *****
+</span></span><span style="display:flex;"><span>ok: <span style="color:#f92672">[</span>localhost<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>TASK <span style="color:#f92672">[</span>Dump instance config<span style="color:#f92672">]</span> *****************************************************************************************************************************************************************************************************************************
+</span></span><span style="display:flex;"><span>Saturday <span style="color:#ae81ff">12</span> February <span style="color:#ae81ff">2022</span>  16:58:20 +0700 <span style="color:#f92672">(</span>0:00:00.040<span style="color:#f92672">)</span>       0:00:02.426 *****
+</span></span><span style="display:flex;"><span>skipping: <span style="color:#f92672">[</span>localhost<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+</span></span><span style="display:flex;"><span>localhost                  : ok<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>    changed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>    unreachable<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>    failed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>    skipped<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>    rescued<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>    ignored<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Saturday <span style="color:#ae81ff">12</span> February <span style="color:#ae81ff">2022</span>  16:58:20 +0700 <span style="color:#f92672">(</span>0:00:00.041<span style="color:#f92672">)</span>       0:00:02.467 *****
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================================</span>
+</span></span><span style="display:flex;"><span>Destroy molecule instance<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 2.37s
+</span></span><span style="display:flex;"><span>Dump instance config ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.04s
+</span></span><span style="display:flex;"><span>Populate instance config ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.04s
+</span></span><span style="display:flex;"><span>Playbook run took <span style="color:#ae81ff">0</span> days, <span style="color:#ae81ff">0</span> hours, <span style="color:#ae81ff">0</span> minutes, <span style="color:#ae81ff">2</span> seconds
+</span></span><span style="display:flex;"><span>INFO     Running default &gt; syntax
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>playbook: /Users/quanggg/code/me/gh-infra/roles/common/molecule/default/converge.yml
+</span></span><span style="display:flex;"><span>INFO     Running default &gt; create
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PLAY <span style="color:#f92672">[</span>Create<span style="color:#f92672">]</span> *******************************************************************************************************************************************************************************************************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>TASK <span style="color:#f92672">[</span>Create molecule instance<span style="color:#f92672">(</span>s<span style="color:#f92672">)]</span> **********************************************************************************************************************************************************************************************************************
+</span></span><span style="display:flex;"><span>Saturday <span style="color:#ae81ff">12</span> February <span style="color:#ae81ff">2022</span>  16:58:21 +0700 <span style="color:#f92672">(</span>0:00:00.015<span style="color:#f92672">)</span>       0:00:00.015 *****
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Saturday <span style="color:#ae81ff">12</span> February <span style="color:#ae81ff">2022</span>  16:58:57 +0700 <span style="color:#f92672">(</span>0:00:00.493<span style="color:#f92672">)</span>       0:00:36.103 *****
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================================</span>
+</span></span><span style="display:flex;"><span>Create molecule instance<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 35.47s
+</span></span><span style="display:flex;"><span>Dump instance config ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.49s
+</span></span><span style="display:flex;"><span>Populate instance config dict -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.06s
+</span></span><span style="display:flex;"><span>Convert instance config dict to a list ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.06s
+</span></span><span style="display:flex;"><span>Playbook run took <span style="color:#ae81ff">0</span> days, <span style="color:#ae81ff">0</span> hours, <span style="color:#ae81ff">0</span> minutes, <span style="color:#ae81ff">36</span> seconds
+</span></span><span style="display:flex;"><span>INFO     Running default &gt; prepare
+</span></span></code></pre></div><p>Cuối cùng được kết quả như sau</p>
 <p><img src="https://github.com/xluffy/assets/blob/master/gh-infra-molecule-test-verify.png?raw=true" alt="gh-infra-molecule-test-verify.png"></p>
 <p>Có một số trick khác hay xài khi development và testing như sau:</p>
 <ul>

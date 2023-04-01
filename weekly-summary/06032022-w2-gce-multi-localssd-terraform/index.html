@@ -202,107 +202,107 @@
     <div class="post-content">
       
       <p>Bắt đầu với một bài toán cơ bản, viết một module hỗ trợ việc tạo Commpute resource trong GCP. Khá đơn giản, code minh họa như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;google_compute_instance&#34; &#34;this&#34;</span> {
-  project             <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">project_id</span>
-  count               <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">enabled</span> <span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#ae81ff">1</span> <span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">0</span>
-  name                <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;${local.name}-${count.index}&#34;</span>
-  machine_type        <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">machine_type</span>
-  zone                <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">zone</span>
-  deletion_protection <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">deletion_protection</span>
-  min_cpu_platform    <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">min_cpu_platform</span>
-  description         <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">description</span>
-
-  allow_stopping_for_update <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">allow_stopping</span>
-
-  <span style="color:#66d9ef">boot_disk</span> {
-    auto_delete <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">auto_delete</span>
-    <span style="color:#66d9ef">initialize_params</span> {
-      image  <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">machine_image</span>
-      size   <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">disk_size_gb</span>
-      type   <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">disk_type</span>
-      labels <span style="color:#f92672">=</span> merge({ &#34;managed_by&#34; <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;terraform&#34;</span> }, <span style="color:#66d9ef">local</span>.<span style="color:#66d9ef">disk_labels</span>)
-    }
-  }
-
-  labels <span style="color:#f92672">=</span> merge({ &#34;managed_by&#34; <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;terraform&#34;</span> }, <span style="color:#66d9ef">local</span>.<span style="color:#66d9ef">default_labels</span>)
-
-  <span style="color:#66d9ef">network_interface</span> {
-    subnetwork         <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">subnetwork</span>
-    subnetwork_project <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">subnetwork_project</span>
-    network_ip         <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">network_ip</span>
-  }
-
-  <span style="color:#66d9ef">lifecycle</span> {
-    create_before_destroy <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span>
-    ignore_changes        <span style="color:#f92672">=</span> [<span style="color:#66d9ef">attached_disk</span>]
-  }
-
-  <span style="color:#66d9ef">scheduling</span> {
-    preemptible         <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">preemptible</span>
-    automatic_restart   <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">!</span><span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">preemptible</span>
-    on_host_maintenance <span style="color:#f92672">=</span> <span style="color:#66d9ef">local</span>.<span style="color:#66d9ef">on_host_maintenance</span>
-  }
-
-  tags <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">tags</span>
-
-  <span style="color:#66d9ef">service_account</span> {
-    email  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tf@gh.local&#34;</span>
-    scopes <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;cloud-platform&#34;</span>]
-  }
-}
-</code></pre></div><p><code>variables.tf</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#75715e">#
-</span><span style="color:#75715e"># General
-</span><span style="color:#75715e">#
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;project_id&#34;</span> {
-  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;The ID of the project in which the resource belongs&#34;</span>
-}
-
-<span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;product&#34;</span> {
-  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;The product of this resource&#34;</span>
-  type        <span style="color:#f92672">=</span> <span style="color:#66d9ef">string</span>
-}
-
-<span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;env&#34;</span> {
-  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Environment of this resource&#34;</span>
-  type        <span style="color:#f92672">=</span> <span style="color:#66d9ef">string</span>
-  default     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;prod&#34;</span>
-}<span style="color:#75715e">
-</span><span style="color:#75715e">
-</span><span style="color:#75715e"># sql/kafka/postgres/redis
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;service&#34;</span> {
-  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;The service name of this resource&#34;</span>
-  type        <span style="color:#f92672">=</span> <span style="color:#66d9ef">string</span>
-}<span style="color:#75715e">
-</span><span style="color:#75715e">
-</span><span style="color:#75715e"># eg:
-</span><span style="color:#75715e"># Redis is a service, but we can use redis as a caching or database
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;role&#34;</span> {
-  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;The Role of service&#34;</span>
-  type        <span style="color:#f92672">=</span> <span style="color:#66d9ef">string</span>
-}
-</code></pre></div><p><code>local.tf</code></p>
-<pre tabindex="0"><code>resource &quot;random_string&quot; &quot;this&quot; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;google_compute_instance&#34; &#34;this&#34;</span> {
+</span></span><span style="display:flex;"><span>  project             <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">project_id</span>
+</span></span><span style="display:flex;"><span>  count               <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">enabled</span> <span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#ae81ff">1</span> <span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  name                <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;${local.name}-${count.index}&#34;</span>
+</span></span><span style="display:flex;"><span>  machine_type        <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">machine_type</span>
+</span></span><span style="display:flex;"><span>  zone                <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">zone</span>
+</span></span><span style="display:flex;"><span>  deletion_protection <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">deletion_protection</span>
+</span></span><span style="display:flex;"><span>  min_cpu_platform    <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">min_cpu_platform</span>
+</span></span><span style="display:flex;"><span>  description         <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">description</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  allow_stopping_for_update <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">allow_stopping</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">boot_disk</span> {
+</span></span><span style="display:flex;"><span>    auto_delete <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">auto_delete</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">initialize_params</span> {
+</span></span><span style="display:flex;"><span>      image  <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">machine_image</span>
+</span></span><span style="display:flex;"><span>      size   <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">disk_size_gb</span>
+</span></span><span style="display:flex;"><span>      type   <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">disk_type</span>
+</span></span><span style="display:flex;"><span>      labels <span style="color:#f92672">=</span> merge({ &#34;managed_by&#34; <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;terraform&#34;</span> }, <span style="color:#66d9ef">local</span>.<span style="color:#66d9ef">disk_labels</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  labels <span style="color:#f92672">=</span> merge({ &#34;managed_by&#34; <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;terraform&#34;</span> }, <span style="color:#66d9ef">local</span>.<span style="color:#66d9ef">default_labels</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">network_interface</span> {
+</span></span><span style="display:flex;"><span>    subnetwork         <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">subnetwork</span>
+</span></span><span style="display:flex;"><span>    subnetwork_project <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">subnetwork_project</span>
+</span></span><span style="display:flex;"><span>    network_ip         <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">network_ip</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">lifecycle</span> {
+</span></span><span style="display:flex;"><span>    create_before_destroy <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span>
+</span></span><span style="display:flex;"><span>    ignore_changes        <span style="color:#f92672">=</span> [<span style="color:#66d9ef">attached_disk</span>]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">scheduling</span> {
+</span></span><span style="display:flex;"><span>    preemptible         <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">preemptible</span>
+</span></span><span style="display:flex;"><span>    automatic_restart   <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">!</span><span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">preemptible</span>
+</span></span><span style="display:flex;"><span>    on_host_maintenance <span style="color:#f92672">=</span> <span style="color:#66d9ef">local</span>.<span style="color:#66d9ef">on_host_maintenance</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  tags <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">tags</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">service_account</span> {
+</span></span><span style="display:flex;"><span>    email  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tf@gh.local&#34;</span>
+</span></span><span style="display:flex;"><span>    scopes <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;cloud-platform&#34;</span>]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>variables.tf</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#75715e">#
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"># General
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;project_id&#34;</span> {
+</span></span><span style="display:flex;"><span>  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;The ID of the project in which the resource belongs&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;product&#34;</span> {
+</span></span><span style="display:flex;"><span>  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;The product of this resource&#34;</span>
+</span></span><span style="display:flex;"><span>  type        <span style="color:#f92672">=</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;env&#34;</span> {
+</span></span><span style="display:flex;"><span>  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Environment of this resource&#34;</span>
+</span></span><span style="display:flex;"><span>  type        <span style="color:#f92672">=</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>  default     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;prod&#34;</span>
+</span></span><span style="display:flex;"><span>}<span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"># sql/kafka/postgres/redis
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;service&#34;</span> {
+</span></span><span style="display:flex;"><span>  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;The service name of this resource&#34;</span>
+</span></span><span style="display:flex;"><span>  type        <span style="color:#f92672">=</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}<span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"># eg:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"># Redis is a service, but we can use redis as a caching or database
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;role&#34;</span> {
+</span></span><span style="display:flex;"><span>  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;The Role of service&#34;</span>
+</span></span><span style="display:flex;"><span>  type        <span style="color:#f92672">=</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>local.tf</code></p>
+<pre tabindex="0"><code>resource &#34;random_string&#34; &#34;this&#34; {
   length           = 5
   special          = true
-  override_special = &quot;/@¬¨¬£$&quot;
+  override_special = &#34;/@¬¨¬£$&#34;
   lower            = true
   min_lower        = 5
 }
 
 locals {
-  host_ip = element(split(&quot;.&quot;, var.network_ip), 3)
-  net_ip  = element(split(&quot;.&quot;, var.private_ip), 2)
-  name    = &quot;${var.product}-${var.env}-${var.service}-${var.role}-${random_string.this.id}-${local.net_ip}-${local.host_ip}&quot;
+  host_ip = element(split(&#34;.&#34;, var.network_ip), 3)
+  net_ip  = element(split(&#34;.&#34;, var.private_ip), 2)
+  name    = &#34;${var.product}-${var.env}-${var.service}-${var.role}-${random_string.this.id}-${local.net_ip}-${local.host_ip}&#34;
 
   on_host_maintenance = (
-    var.preemptible ? &quot;TERMINATE&quot; : var.on_host_maintenance
+    var.preemptible ? &#34;TERMINATE&#34; : var.on_host_maintenance
   )
 
   default_labels = {
     project_id  = var.project_id
     env         = var.env
-    gcp_service = &quot;compute&quot;
+    gcp_service = &#34;compute&#34;
     product     = var.product
     service     = var.service
     role        = var.role
@@ -311,7 +311,7 @@ locals {
   disk_labels = {
     project_id  = var.project_id
     env         = var.env
-    gcp_service = &quot;disk&quot;
+    gcp_service = &#34;disk&#34;
     product     = var.product
     service     = var.service
     role        = var.role
@@ -326,7 +326,7 @@ locals {
 <p>Có một đoạn mã minh họa</p>
 <pre tabindex="0"><code>// Local SSD disk
 scratch_disk {
-  interface = &quot;SCSI&quot;
+  interface = &#34;SCSI&#34;
 }
 </code></pre><p>Phần giải thích về <code>argument</code> này như sau:</p>
 <blockquote>
@@ -340,75 +340,75 @@ scratch_disk {
 </blockquote>
 <p>Ngoài ví dụ minh họa, trong phần giải thích không nhắc gì tới việc đây là thuộc tính của LocalSSD. Nếu thử gắn code vào module, chạy <code>terraform apply</code> thì sẽ thấy compute được tạo có <strong>một LocalSSD với kích thước theo mô tả của GCP là 375GB</strong>.</p>
 <p>Trong đoạn giải thích phía trên có nói có thể gắn nhiều LocalSSD bằng cách <strong>lặp lại nhiều lần</strong>, tức là nếu muốn có 2 LocalSSD, thì code sẽ như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;google_compute_instance&#34; &#34;this&#34;</span> {
-	...
-
-  <span style="color:#66d9ef">scratch_disk</span> {
-    interface <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;NVME&#34;</span>
-  }
-  
-  <span style="color:#66d9ef">scratch_disk</span> {
-    interface <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;NVME&#34;</span>
-  }
-  
-  ...
-}
-</code></pre></div><p>Ở nhiều lần đọc document, tui đã bỏ qua chi tiết <strong>multiple times for multiple scratch disks</strong> và khá là loay hoay trong việc suy nghĩ làm sao để attach nhiều LocalSSD, mặc dù cách đơn giản là lặp lại nhiều lần <code>  scratch_disk {  interface = &quot;NVME&quot;   }</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;google_compute_instance&#34; &#34;this&#34;</span> {
+</span></span><span style="display:flex;"><span>	...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">scratch_disk</span> {
+</span></span><span style="display:flex;"><span>    interface <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;NVME&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">scratch_disk</span> {
+</span></span><span style="display:flex;"><span>    interface <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;NVME&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  ...
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Ở nhiều lần đọc document, tui đã bỏ qua chi tiết <strong>multiple times for multiple scratch disks</strong> và khá là loay hoay trong việc suy nghĩ làm sao để attach nhiều LocalSSD, mặc dù cách đơn giản là lặp lại nhiều lần <code>  scratch_disk {  interface = &quot;NVME&quot;   }</code></p>
 <blockquote>
 <p>Tới đây, coi như giải quyết được chuyện làm thế nào để tạo GCE với LocalSSD, mặc dù cái docs thì hơi xu cà na tí.</p>
 </blockquote>
 <p>Tuy nhiên, nó lại phát sinh ra một bài toán khác. Vì đây là code module, nên khi xài tui sẽ xài kiểu như vầy:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">module</span> <span style="color:#e6db74">&#34;gh-postgresql&#34;</span> {
-  source <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;./modules/gce/&#34;</span>
-
-  env         <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tst&#34;</span>
-  product     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;gh&#34;</span>
-  service     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;postgresql&#34;</span>
-  role        <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;primary&#34;</span>
-  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Self manage PostgreSQL service for gh product&#34;</span>
-
-  enable          <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
-  machine_image   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ubuntu-os-cloud/ubuntu-2004-lts&#34;</span>
-  machine_type    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;n2-highcpu-2&#34;</span>
-  tags            <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;postgresql&#34;, &#34;ssh&#34;, &#34;gh&#34;</span>]
-}
-
-<span style="color:#66d9ef">module</span> <span style="color:#e6db74">&#34;gh-web&#34;</span> {
-  source <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;./modules/gce/&#34;</span>
-
-  env         <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tst&#34;</span>
-  product     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;gh&#34;</span>
-  service     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;web&#34;</span>
-  role        <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http&#34;</span>
-  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HTTP web for gh product&#34;</span>
-
-  enable          <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
-  machine_image   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ubuntu-os-cloud/ubuntu-2004-lts&#34;</span>
-  machine_type    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;n2-highcpu-2&#34;</span>
-  tags            <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;web&#34;, &#34;ssh&#34;, &#34;gh&#34;</span>]
-}
-</code></pre></div><p>Vấn đề ở đây là không phải GCE resource nào tui cũng muốn có LocalSSD, và không phải GCE nào tui cũng muốn 2 LocalSSD. <strong>Tui muốn bật tắt được nó và input vào số lượng tui muốn dựa vào nhu cầu</strong>. Nếu hardcode số lượng <code>scratch_disk</code> trong code module thì sẽ không thể nào truyền argument ở module được.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> <span style="color:#e6db74">&#34;gh-postgresql&#34;</span> {
+</span></span><span style="display:flex;"><span>  source <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;./modules/gce/&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  env         <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tst&#34;</span>
+</span></span><span style="display:flex;"><span>  product     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;gh&#34;</span>
+</span></span><span style="display:flex;"><span>  service     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;postgresql&#34;</span>
+</span></span><span style="display:flex;"><span>  role        <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;primary&#34;</span>
+</span></span><span style="display:flex;"><span>  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Self manage PostgreSQL service for gh product&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  enable          <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  machine_image   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ubuntu-os-cloud/ubuntu-2004-lts&#34;</span>
+</span></span><span style="display:flex;"><span>  machine_type    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;n2-highcpu-2&#34;</span>
+</span></span><span style="display:flex;"><span>  tags            <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;postgresql&#34;, &#34;ssh&#34;, &#34;gh&#34;</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">module</span> <span style="color:#e6db74">&#34;gh-web&#34;</span> {
+</span></span><span style="display:flex;"><span>  source <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;./modules/gce/&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  env         <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tst&#34;</span>
+</span></span><span style="display:flex;"><span>  product     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;gh&#34;</span>
+</span></span><span style="display:flex;"><span>  service     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;web&#34;</span>
+</span></span><span style="display:flex;"><span>  role        <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http&#34;</span>
+</span></span><span style="display:flex;"><span>  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HTTP web for gh product&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  enable          <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  machine_image   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ubuntu-os-cloud/ubuntu-2004-lts&#34;</span>
+</span></span><span style="display:flex;"><span>  machine_type    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;n2-highcpu-2&#34;</span>
+</span></span><span style="display:flex;"><span>  tags            <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;web&#34;, &#34;ssh&#34;, &#34;gh&#34;</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Vấn đề ở đây là không phải GCE resource nào tui cũng muốn có LocalSSD, và không phải GCE nào tui cũng muốn 2 LocalSSD. <strong>Tui muốn bật tắt được nó và input vào số lượng tui muốn dựa vào nhu cầu</strong>. Nếu hardcode số lượng <code>scratch_disk</code> trong code module thì sẽ không thể nào truyền argument ở module được.</p>
 <p>Suy nghĩ đầu tiên là hay thử với cú pháp <code>for_each</code>, tuy nhiên thì <code>for_each</code> phù hợp với việc tạo <strong>nhiều resource</strong>, ví dụ tạo nhiều GCE thì có thể dùng <code>for_each</code> thay cho <code>count</code> =&gt; bỏ, không dùng được</p>
 <p>Suy nghĩ tiếp theo là <code>dynamic</code> block, đọc thử qua <a href="https://www.terraform.io/language/expressions/dynamic-blocks">docs</a> thì nghĩ mãi và thử một vài ví dụ vẫn không chạy được.</p>
 <p>Do không nghĩ ra cách, tui quyết định đọc issues của tất cả các module tương tự như <a href="https://github.com/terraform-google-modules/terraform-google-vm">terraform-google-vm</a> và đọc luôn <a href="https://github.com/hashicorp/terraform-provider-google/issues?q=is%3Aissue+scratch_disk+is%3Aclosed">provider repo</a> (lưu ý là đọc tất cả những gì thấy liên quan bao gồm cả closed issue, các comment, link comment). Và search luôn trên cả Github với từ khóa <code>scratch_disk</code> xem có gì liên quan không (nhưng search của Github không ngon lắm), sau đó search tiếp <a href="https://sourcegraph.com/search?q=context:global+lang:hcl+scratch_disk&amp;patternType=literal">Sourcegraph</a> và cuối cùng cũng ra kết quả.</p>
 <p>Đầu tiên, từ issue <a href="https://github.com/hashicorp/terraform-provider-google/issues/7293">7293</a>, code minh họa như sau:</p>
-<pre tabindex="0"><code>  dynamic &quot;scratch_disk&quot; {
+<pre tabindex="0"><code>  dynamic &#34;scratch_disk&#34; {
     for_each = range(var.local_disk_count)
     content {
-      interface = &quot;NVME&quot;
+      interface = &#34;NVME&#34;
     }
   }
 </code></pre><p>Khai báo biến như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;local_ssd_count&#34;</span> {
-  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Number of LocalSSD attach to this instance&#34;</span>
-  type        <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>
-  default     <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
-}
-</code></pre></div><blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;local_ssd_count&#34;</span> {
+</span></span><span style="display:flex;"><span>  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Number of LocalSSD attach to this instance&#34;</span>
+</span></span><span style="display:flex;"><span>  type        <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>
+</span></span><span style="display:flex;"><span>  default     <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
 <p>Bằng việc khai báo <code>local_ssd_count</code>, tui có thể bật tắt hoặc tùy chọn số lượng LocalSSD mong muốn, tới đây coi như giải quyết được bài toán rồi</p>
 </blockquote>
 <p>Tuy nhiên có thể thấy <code>interface</code> sẽ luôn luôn là <code>NVME</code>, thực ra cũng chẳng ảnh hưởng lắm, vì <code>SCSI</code> hay <code>NVME</code> thì <strong>giá cả</strong> không thay đổi, và nếu giá không thay đổi thì tội gì chọn <code>SCSI</code>. Nhưng vẫn có thể làm tốt hơn từ một ví dụ tui lấy được trên <a href="https://sourcegraph.com/github.com/GoogleCloudPlatform/cloud-foundation-fabric/-/blob/modules/compute-vm/main.tf?L220:12&amp;subtree=true">Sourcegraph</a>. Code minh họa như sau:</p>
-<pre tabindex="0"><code>  dynamic &quot;scratch_disk&quot; {
+<pre tabindex="0"><code>  dynamic &#34;scratch_disk&#34; {
     for_each = [
       for i in range(0, var.scratch_disks.count) : var.scratch_disks.interface
     ]
@@ -418,50 +418,50 @@ scratch_disk {
     }
   }
 </code></pre><p>Khai báo biến như sau:</p>
-<pre tabindex="0"><code>variable &quot;scratch_disks&quot; {
-  description = &quot;Scratch disks configuration.&quot;
+<pre tabindex="0"><code>variable &#34;scratch_disks&#34; {
+  description = &#34;Scratch disks configuration.&#34;
   type = object({
     count     = number
     interface = string
   })
   default = {
     count     = 0
-    interface = &quot;NVME&quot;
+    interface = &#34;NVME&#34;
   }
 }
 </code></pre><p>Khi sử dụng trong code module, chỉ cần pass giá trị như sau:</p>
-<pre tabindex="0"><code>module &quot;gh-postgresql&quot; {
-  source = &quot;./modules/gce/&quot;
+<pre tabindex="0"><code>module &#34;gh-postgresql&#34; {
+  source = &#34;./modules/gce/&#34;
 
-  env         = &quot;tst&quot;
-  product     = &quot;gh&quot;
-  service     = &quot;postgresql&quot;
-  role        = &quot;primary&quot;
-  description = &quot;Self manage PostgreSQL service for gh product&quot;
+  env         = &#34;tst&#34;
+  product     = &#34;gh&#34;
+  service     = &#34;postgresql&#34;
+  role        = &#34;primary&#34;
+  description = &#34;Self manage PostgreSQL service for gh product&#34;
 
   enable          = true
-  machine_image   = &quot;ubuntu-os-cloud/ubuntu-2004-lts&quot;
-  machine_type    = &quot;n2-highcpu-2&quot;
-  tags            = [&quot;postgresql&quot;, &quot;ssh&quot;, &quot;gh&quot;]
+  machine_image   = &#34;ubuntu-os-cloud/ubuntu-2004-lts&#34;
+  machine_type    = &#34;n2-highcpu-2&#34;
+  tags            = [&#34;postgresql&#34;, &#34;ssh&#34;, &#34;gh&#34;]
   
-  scratch_disks = { count = 2, interface = &quot;NVME&quot; }
+  scratch_disks = { count = 2, interface = &#34;NVME&#34; }
 }
 
-module &quot;gh-web&quot; {
-  source = &quot;./modules/gce/&quot;
+module &#34;gh-web&#34; {
+  source = &#34;./modules/gce/&#34;
 
-  env         = &quot;tst&quot;
-  product     = &quot;gh&quot;
-  service     = &quot;web&quot;
-  role        = &quot;http&quot;
-  description = &quot;HTTP web for gh product&quot;
+  env         = &#34;tst&#34;
+  product     = &#34;gh&#34;
+  service     = &#34;web&#34;
+  role        = &#34;http&#34;
+  description = &#34;HTTP web for gh product&#34;
 
   enable          = true
-  machine_image   = &quot;ubuntu-os-cloud/ubuntu-2004-lts&quot;
-  machine_type    = &quot;n2-highcpu-2&quot;
-  tags            = [&quot;web&quot;, &quot;ssh&quot;, &quot;gh&quot;]
+  machine_image   = &#34;ubuntu-os-cloud/ubuntu-2004-lts&#34;
+  machine_type    = &#34;n2-highcpu-2&#34;
+  tags            = [&#34;web&#34;, &#34;ssh&#34;, &#34;gh&#34;]
   
-  scratch_disks = { count = 0, interface = &quot;NVME&quot; }
+  scratch_disks = { count = 0, interface = &#34;NVME&#34; }
 }
 </code></pre><p>Vậy là xong, mất 2 ngày để giải quyết vấn đề này 🥺, trong đầu chỉ có một suy nghĩ là syntax của Terraform thật &ldquo;kỳ lạ&rdquo;, và khá khó để biết là nó phù hợp với vấn đề gì hoặc khi gặp một vấn đề, không biết bắt đầu với keyword gì. Thực ra, tui vẫn chưa hiểu là cú pháp đó nó làm gì đâu =)) nhưng thôi, để coi sau, cứ biết là nó chạy đúng nhu cầu đã. :v</p>
 

@@ -253,32 +253,32 @@
 </ul>
 <p align="center"><img src="https://www.cloudflare.com/resources/images/slt3lc6tev37/49gHcPDvyg0AcS4sy6qWao/e890866ea6582fb7a63f30e0ed34bdb9/rate-limiting-rules.png" alt="rate-limit" style="width:53%;" /></p>
 <p>Nếu bạn xài terraform 0.11 thì nó sẽ như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;cloudflare_rate_limit&#34; &#34;rl_login&#34;</span> {
-  zone <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;${var.domain}&#34;</span>
-
-  threshold <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
-  period <span style="color:#f92672">=</span> <span style="color:#ae81ff">60</span>
-  
-  <span style="color:#66d9ef">match</span> {
-    <span style="color:#66d9ef">request</span> {
-      url_pattern <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;${var.domain}/login&#34;</span>
-      schemes <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;HTTP&#34;, &#34;HTTPS&#34;</span>]
-      methods <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;POST&#34;</span>]
-    }
-    <span style="color:#66d9ef">response</span> {
-      statuses <span style="color:#f92672">=</span> [<span style="color:#ae81ff">401</span>, <span style="color:#ae81ff">403</span>]
-      origin_traffic <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
-    }
-  }
-  
-  <span style="color:#66d9ef">action</span> {
-    mode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ban&#34;</span>
-    timeout <span style="color:#f92672">=</span> <span style="color:#ae81ff">3600</span>
-  }
-  disabled <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
-  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Block IPs exceeding 20 request per minutes (20 in 60) for 1 hour to login pattern.&#34;</span>
-}
-</code></pre></div><p><strong>Update cực mạnh:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;cloudflare_rate_limit&#34; &#34;rl_login&#34;</span> {
+</span></span><span style="display:flex;"><span>  zone <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;${var.domain}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  threshold <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>  period <span style="color:#f92672">=</span> <span style="color:#ae81ff">60</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">match</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">request</span> {
+</span></span><span style="display:flex;"><span>      url_pattern <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;${var.domain}/login&#34;</span>
+</span></span><span style="display:flex;"><span>      schemes <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;HTTP&#34;, &#34;HTTPS&#34;</span>]
+</span></span><span style="display:flex;"><span>      methods <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;POST&#34;</span>]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">response</span> {
+</span></span><span style="display:flex;"><span>      statuses <span style="color:#f92672">=</span> [<span style="color:#ae81ff">401</span>, <span style="color:#ae81ff">403</span>]
+</span></span><span style="display:flex;"><span>      origin_traffic <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">action</span> {
+</span></span><span style="display:flex;"><span>    mode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ban&#34;</span>
+</span></span><span style="display:flex;"><span>    timeout <span style="color:#f92672">=</span> <span style="color:#ae81ff">3600</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  disabled <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Block IPs exceeding 20 request per minutes (20 in 60) for 1 hour to login pattern.&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Update cực mạnh:</strong></p>
 <ul>
 <li>Với tính năng rate-limit như mô tả ở trên, có vẻ là một giải pháp hoàn hảo khi giới hạn khả năng gửi request của attacker ngay lại level proxy. NHƯNG <strong>toy đã lầm</strong> khi nhìn thấy billing của Cloudflare.</li>
 </ul>
@@ -370,68 +370,68 @@
 <p>Mục tiêu của việc xài Cloudflare proxy là để ẩn IP của origin server và không cho kẻ tấn công biết được origin server, tránh trường hợp bị attack trực tiếp vào server thay vì đi qua bộ lọc của Cloudflare (hoặc crawler bypass bộ lọc). Thế nên khi Cloudflare gặp sự cố, bạn tắt Proxy đi nghĩa là đã tạo ra một lỗ hổng để attacker tấn công trực tiếp vào hệ thống, lúc này việc có Cloudflare cũng không còn mấy tác dụng.</p>
 <p>Đứng ở góc độ attacker, nếu site đã xài Cloudflare proxy thì có cách nào để biết được IP của orgin server hay không?</p>
 <p>Việc xác định một site có sử dụng dịch vụ Cloudflare cũng khá dễ dàng, ta có thể:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; curl -I https://medium.com
-HTTP/2 <span style="color:#ae81ff">200</span>
-date: Fri, <span style="color:#ae81ff">12</span> Jul <span style="color:#ae81ff">2019</span> 05:55:11 GMT
-content-type: text/html; charset<span style="color:#f92672">=</span>utf-8
-set-cookie: __cfduid<span style="color:#f92672">=</span>dd3119117ce323927a453c7b298401b0e1562910911; expires<span style="color:#f92672">=</span>Sat, 11-Jul-20 05:55:11 GMT; path<span style="color:#f92672">=</span>/; domain<span style="color:#f92672">=</span>.medium.com; HttpOnly
-content-security-policy: default-src <span style="color:#e6db74">&#39;self&#39;</span>; connect-src https://localhost https://*.instapaper.com https://*.stripe.com https://glyph.medium.com https://*.paypal.com https://getpocket.com https://medium.com https://*.medium.com https://*.medium.com https://medium.com https://*.medium.com https://*.algolia.net https://cdn-static-1.medium.com https://dnqgz544uhbo8.cloudfront.net https://cdn-videos-1.medium.com https://cdn-audio-1.medium.com https://*.lightstep.com https://*.branch.io https://app.zencoder.com <span style="color:#e6db74">&#39;self&#39;</span>; font-src data: https://*.amazonaws.com https://*.medium.com https://glyph.medium.com https://medium.com https://*.gstatic.com https://dnqgz544uhbo8.cloudfront.net https://use.typekit.net https://cdn-static-1.medium.com <span style="color:#e6db74">&#39;self&#39;</span>; frame-src chromenull: https: webviewprogressproxy: medium: <span style="color:#e6db74">&#39;self&#39;</span>; img-src blob: data: https: <span style="color:#e6db74">&#39;self&#39;</span>; media-src https://*.cdn.vine.co https://d1fcbxp97j4nb2.cloudfront.net https://d262ilb51hltx0.cloudfront.net https://*.medium.com https://gomiro.medium.com https://miro.medium.com https://pbs.twimg.com <span style="color:#e6db74">&#39;self&#39;</span> blob:; object-src <span style="color:#e6db74">&#39;self&#39;</span>; script-src <span style="color:#e6db74">&#39;unsafe-eval&#39;</span> <span style="color:#e6db74">&#39;unsafe-inline&#39;</span> about: https: <span style="color:#e6db74">&#39;self&#39;</span>; style-src <span style="color:#e6db74">&#39;unsafe-inline&#39;</span> data: https: <span style="color:#e6db74">&#39;self&#39;</span>; report-uri https://csp.medium.com
-x-frame-options: sameorigin
-x-content-type-options: nosniff
-x-xss-protection: 1; mode<span style="color:#f92672">=</span>block
-x-ua-compatible: IE<span style="color:#f92672">=</span>edge, Chrome<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
-x-powered-by: Medium
-x-obvious-tid: 1562910911357:c3d601539378
-x-obvious-info: 38086-f2efc7b,f2efc7bd3f5
-link: &lt;https://medium.com/humans.txt&gt;; rel<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;humans&#34;</span>
-cache-control: no-cache, no-store, max-age<span style="color:#f92672">=</span>0, must-revalidate
-expires: Thu, <span style="color:#ae81ff">09</span> Sep <span style="color:#ae81ff">1999</span> 09:09:09 GMT
-pragma: no-cache
-tk: T
-strict-transport-security: max-age<span style="color:#f92672">=</span>15552000; includeSubDomains; preload
-set-cookie: uid<span style="color:#f92672">=</span>lo_L3g8wBpz5tvb; Expires<span style="color:#f92672">=</span>Sat, 11-Jul-20 05:55:11 GMT; Domain<span style="color:#f92672">=</span>.medium.com; Path<span style="color:#f92672">=</span>/; Secure; HttpOnly
-set-cookie: sid<span style="color:#f92672">=</span>1:5/Xr4XX2PjlG2TtQTn1ERsmMMjpOJ71eZvf4NMZMLbseEW3NrI5Yb2WFRlOsXXe8; path<span style="color:#f92672">=</span>/; expires<span style="color:#f92672">=</span>Sat, <span style="color:#ae81ff">11</span> Jul <span style="color:#ae81ff">2020</span> 05:55:11 GMT; domain<span style="color:#f92672">=</span>.medium.com; secure; httponly
-set-cookie: __cfruid<span style="color:#f92672">=</span>0b37c1d5c8324ea472c0072a4c6f285ffc596078-1562910911; path<span style="color:#f92672">=</span>/; domain<span style="color:#f92672">=</span>.medium.com; HttpOnly
-expect-ct: max-age<span style="color:#f92672">=</span>604800, report-uri<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct&#34;</span>
-server: cloudflare
-cf-ray: 4f50c44b398ad1e7-HKG
-</code></pre></div><p>Một số header dùng để xác định như <code>cf-ray</code>, <code>__cfduid</code> hoặc check IP phân giải có thuộc lớp mạng của Cloudflare hay không:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; dig +short medium.com
-104.16.121.127
-104.16.124.127
-104.16.122.127
-104.16.120.127
-104.16.123.127
-</code></pre></div><h4 id="341-ssl-certificate">3.4.1 SSL certificate</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; curl -I https://medium.com
+</span></span><span style="display:flex;"><span>HTTP/2 <span style="color:#ae81ff">200</span>
+</span></span><span style="display:flex;"><span>date: Fri, <span style="color:#ae81ff">12</span> Jul <span style="color:#ae81ff">2019</span> 05:55:11 GMT
+</span></span><span style="display:flex;"><span>content-type: text/html; charset<span style="color:#f92672">=</span>utf-8
+</span></span><span style="display:flex;"><span>set-cookie: __cfduid<span style="color:#f92672">=</span>dd3119117ce323927a453c7b298401b0e1562910911; expires<span style="color:#f92672">=</span>Sat, 11-Jul-20 05:55:11 GMT; path<span style="color:#f92672">=</span>/; domain<span style="color:#f92672">=</span>.medium.com; HttpOnly
+</span></span><span style="display:flex;"><span>content-security-policy: default-src <span style="color:#e6db74">&#39;self&#39;</span>; connect-src https://localhost https://*.instapaper.com https://*.stripe.com https://glyph.medium.com https://*.paypal.com https://getpocket.com https://medium.com https://*.medium.com https://*.medium.com https://medium.com https://*.medium.com https://*.algolia.net https://cdn-static-1.medium.com https://dnqgz544uhbo8.cloudfront.net https://cdn-videos-1.medium.com https://cdn-audio-1.medium.com https://*.lightstep.com https://*.branch.io https://app.zencoder.com <span style="color:#e6db74">&#39;self&#39;</span>; font-src data: https://*.amazonaws.com https://*.medium.com https://glyph.medium.com https://medium.com https://*.gstatic.com https://dnqgz544uhbo8.cloudfront.net https://use.typekit.net https://cdn-static-1.medium.com <span style="color:#e6db74">&#39;self&#39;</span>; frame-src chromenull: https: webviewprogressproxy: medium: <span style="color:#e6db74">&#39;self&#39;</span>; img-src blob: data: https: <span style="color:#e6db74">&#39;self&#39;</span>; media-src https://*.cdn.vine.co https://d1fcbxp97j4nb2.cloudfront.net https://d262ilb51hltx0.cloudfront.net https://*.medium.com https://gomiro.medium.com https://miro.medium.com https://pbs.twimg.com <span style="color:#e6db74">&#39;self&#39;</span> blob:; object-src <span style="color:#e6db74">&#39;self&#39;</span>; script-src <span style="color:#e6db74">&#39;unsafe-eval&#39;</span> <span style="color:#e6db74">&#39;unsafe-inline&#39;</span> about: https: <span style="color:#e6db74">&#39;self&#39;</span>; style-src <span style="color:#e6db74">&#39;unsafe-inline&#39;</span> data: https: <span style="color:#e6db74">&#39;self&#39;</span>; report-uri https://csp.medium.com
+</span></span><span style="display:flex;"><span>x-frame-options: sameorigin
+</span></span><span style="display:flex;"><span>x-content-type-options: nosniff
+</span></span><span style="display:flex;"><span>x-xss-protection: 1; mode<span style="color:#f92672">=</span>block
+</span></span><span style="display:flex;"><span>x-ua-compatible: IE<span style="color:#f92672">=</span>edge, Chrome<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>x-powered-by: Medium
+</span></span><span style="display:flex;"><span>x-obvious-tid: 1562910911357:c3d601539378
+</span></span><span style="display:flex;"><span>x-obvious-info: 38086-f2efc7b,f2efc7bd3f5
+</span></span><span style="display:flex;"><span>link: &lt;https://medium.com/humans.txt&gt;; rel<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;humans&#34;</span>
+</span></span><span style="display:flex;"><span>cache-control: no-cache, no-store, max-age<span style="color:#f92672">=</span>0, must-revalidate
+</span></span><span style="display:flex;"><span>expires: Thu, <span style="color:#ae81ff">09</span> Sep <span style="color:#ae81ff">1999</span> 09:09:09 GMT
+</span></span><span style="display:flex;"><span>pragma: no-cache
+</span></span><span style="display:flex;"><span>tk: T
+</span></span><span style="display:flex;"><span>strict-transport-security: max-age<span style="color:#f92672">=</span>15552000; includeSubDomains; preload
+</span></span><span style="display:flex;"><span>set-cookie: uid<span style="color:#f92672">=</span>lo_L3g8wBpz5tvb; Expires<span style="color:#f92672">=</span>Sat, 11-Jul-20 05:55:11 GMT; Domain<span style="color:#f92672">=</span>.medium.com; Path<span style="color:#f92672">=</span>/; Secure; HttpOnly
+</span></span><span style="display:flex;"><span>set-cookie: sid<span style="color:#f92672">=</span>1:5/Xr4XX2PjlG2TtQTn1ERsmMMjpOJ71eZvf4NMZMLbseEW3NrI5Yb2WFRlOsXXe8; path<span style="color:#f92672">=</span>/; expires<span style="color:#f92672">=</span>Sat, <span style="color:#ae81ff">11</span> Jul <span style="color:#ae81ff">2020</span> 05:55:11 GMT; domain<span style="color:#f92672">=</span>.medium.com; secure; httponly
+</span></span><span style="display:flex;"><span>set-cookie: __cfruid<span style="color:#f92672">=</span>0b37c1d5c8324ea472c0072a4c6f285ffc596078-1562910911; path<span style="color:#f92672">=</span>/; domain<span style="color:#f92672">=</span>.medium.com; HttpOnly
+</span></span><span style="display:flex;"><span>expect-ct: max-age<span style="color:#f92672">=</span>604800, report-uri<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct&#34;</span>
+</span></span><span style="display:flex;"><span>server: cloudflare
+</span></span><span style="display:flex;"><span>cf-ray: 4f50c44b398ad1e7-HKG
+</span></span></code></pre></div><p>Một số header dùng để xác định như <code>cf-ray</code>, <code>__cfduid</code> hoặc check IP phân giải có thuộc lớp mạng của Cloudflare hay không:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; dig +short medium.com
+</span></span><span style="display:flex;"><span>104.16.121.127
+</span></span><span style="display:flex;"><span>104.16.124.127
+</span></span><span style="display:flex;"><span>104.16.122.127
+</span></span><span style="display:flex;"><span>104.16.120.127
+</span></span><span style="display:flex;"><span>104.16.123.127
+</span></span></code></pre></div><h4 id="341-ssl-certificate">3.4.1 SSL certificate</h4>
 <p>Mỗi Domain Validation SSL certificate mà bạn mua sẽ valid với một domain name. Ý tưởng là bạn cần scan toàn bộ internet để tìm một địa chỉ IP nào đó trên cổng 443 có SSL certificate match với domain-name mà bạn đang tìm kiếm.</p>
 <p><a href="https://censys.io/">Censys</a> là một dịch vụ cho phép query các dữ liệu kiểu như vậy. Miễn phí 10 query cho un-login user và 200 query/tháng cho free user.</p>
 <p>Ví dụ với site <a href="https://viblo.asia">https://viblo.asia</a>, domain của họ phân giải thành địa chỉ của Cloudflare</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; dig +short viblo.asia
-104.27.188.151
-104.27.189.151
-</code></pre></div><p>Tuy nhiên khi query trên Censys <code>(443.https.tls.certificate.parsed.names: viblo.asia OR 443.https.tls.certificate.parsed.subject.common_name: viblo.asia)</code> thì kết quả là:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; dig +short viblo.asia
+</span></span><span style="display:flex;"><span>104.27.188.151
+</span></span><span style="display:flex;"><span>104.27.189.151
+</span></span></code></pre></div><p>Tuy nhiên khi query trên Censys <code>(443.https.tls.certificate.parsed.names: viblo.asia OR 443.https.tls.certificate.parsed.subject.common_name: viblo.asia)</code> thì kết quả là:</p>
 <p><img src="https://raw.githubusercontent.com/xluffy/assets/master/censys_viblo.png" alt="censys_viblo"></p>
 <p>Trông có vẻ họ có 3 server phía sau Cloudflare và host trên Linode, ngoài ra họ cũng mở cổng 22 và 8080 trên các node.</p>
 <p>Một ví dụ khác là Medium, bạn có thể xem kết quả search từ Censys từ file <a href="https://raw.githubusercontent.com/xluffy/assets/master/medium.txt">medium.txt</a>. Một điểm thú vị ở đây là mình nhìn thấy có 17 node EC2 từ dịch vụ AWS public ra ngoài Internet, không rõ mục đích của họ khi thiết kế Infra như vậy là có dụng ý gì, mình đoán là họ đang xài Global Load Balancing của Cloudflare thay vì ALB của AWS, nhưng khó hiểu là các EC2 này đều nằm ở 1 AS và cùng một region là Ashburn, Virginia 🤔.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; grep <span style="color:#e6db74">&#39;.amazonaws&#39;</span> medium.txt
- 52.1.147.205 <span style="color:#f92672">(</span>ec2-52-1-147-205.compute-1.amazonaws.com<span style="color:#f92672">)</span>
- 52.6.3.192 <span style="color:#f92672">(</span>ec2-52-6-3-192.compute-1.amazonaws.com<span style="color:#f92672">)</span>
- 54.167.232.247 <span style="color:#f92672">(</span>ec2-54-167-232-247.compute-1.amazonaws.com<span style="color:#f92672">)</span>
- 52.4.175.111 <span style="color:#f92672">(</span>ec2-52-4-175-111.compute-1.amazonaws.com<span style="color:#f92672">)</span>
- 3.94.121.79 <span style="color:#f92672">(</span>ec2-3-94-121-79.compute-1.amazonaws.com<span style="color:#f92672">)</span>
- 52.5.181.79 <span style="color:#f92672">(</span>ec2-52-5-181-79.compute-1.amazonaws.com<span style="color:#f92672">)</span>
- 52.1.173.203 <span style="color:#f92672">(</span>ec2-52-1-173-203.compute-1.amazonaws.com<span style="color:#f92672">)</span>
- 52.4.145.119 <span style="color:#f92672">(</span>ec2-52-4-145-119.compute-1.amazonaws.com<span style="color:#f92672">)</span>
- 52.6.46.142 <span style="color:#f92672">(</span>ec2-52-6-46-142.compute-1.amazonaws.com<span style="color:#f92672">)</span>
- 52.0.16.118 <span style="color:#f92672">(</span>ec2-52-0-16-118.compute-1.amazonaws.com<span style="color:#f92672">)</span>
- 52.4.225.124 <span style="color:#f92672">(</span>ec2-52-4-225-124.compute-1.amazonaws.com<span style="color:#f92672">)</span>
- 52.6.25.83 <span style="color:#f92672">(</span>ec2-52-6-25-83.compute-1.amazonaws.com<span style="color:#f92672">)</span>
- 52.206.109.232 <span style="color:#f92672">(</span>ec2-52-206-109-232.compute-1.amazonaws.com<span style="color:#f92672">)</span>
- 54.208.127.235 <span style="color:#f92672">(</span>ec2-54-208-127-235.compute-1.amazonaws.com<span style="color:#f92672">)</span>
- 52.4.38.70 <span style="color:#f92672">(</span>ec2-52-4-38-70.compute-1.amazonaws.com<span style="color:#f92672">)</span>
- 34.204.47.92 <span style="color:#f92672">(</span>ec2-34-204-47-92.compute-1.amazonaws.com<span style="color:#f92672">)</span>
- 52.1.119.170 <span style="color:#f92672">(</span>ec2-52-1-119-170.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</code></pre></div><p>Nói chung có thể search nhiều thứ với Censys, ngoài domain-name validate với certificate, ta cũng có thể search fingerprint của SSL certificate.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; grep <span style="color:#e6db74">&#39;.amazonaws&#39;</span> medium.txt
+</span></span><span style="display:flex;"><span> 52.1.147.205 <span style="color:#f92672">(</span>ec2-52-1-147-205.compute-1.amazonaws.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> 52.6.3.192 <span style="color:#f92672">(</span>ec2-52-6-3-192.compute-1.amazonaws.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> 54.167.232.247 <span style="color:#f92672">(</span>ec2-54-167-232-247.compute-1.amazonaws.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> 52.4.175.111 <span style="color:#f92672">(</span>ec2-52-4-175-111.compute-1.amazonaws.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> 3.94.121.79 <span style="color:#f92672">(</span>ec2-3-94-121-79.compute-1.amazonaws.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> 52.5.181.79 <span style="color:#f92672">(</span>ec2-52-5-181-79.compute-1.amazonaws.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> 52.1.173.203 <span style="color:#f92672">(</span>ec2-52-1-173-203.compute-1.amazonaws.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> 52.4.145.119 <span style="color:#f92672">(</span>ec2-52-4-145-119.compute-1.amazonaws.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> 52.6.46.142 <span style="color:#f92672">(</span>ec2-52-6-46-142.compute-1.amazonaws.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> 52.0.16.118 <span style="color:#f92672">(</span>ec2-52-0-16-118.compute-1.amazonaws.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> 52.4.225.124 <span style="color:#f92672">(</span>ec2-52-4-225-124.compute-1.amazonaws.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> 52.6.25.83 <span style="color:#f92672">(</span>ec2-52-6-25-83.compute-1.amazonaws.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> 52.206.109.232 <span style="color:#f92672">(</span>ec2-52-206-109-232.compute-1.amazonaws.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> 54.208.127.235 <span style="color:#f92672">(</span>ec2-54-208-127-235.compute-1.amazonaws.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> 52.4.38.70 <span style="color:#f92672">(</span>ec2-52-4-38-70.compute-1.amazonaws.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> 34.204.47.92 <span style="color:#f92672">(</span>ec2-34-204-47-92.compute-1.amazonaws.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> 52.1.119.170 <span style="color:#f92672">(</span>ec2-52-1-119-170.compute-1.amazonaws.com<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Nói chung có thể search nhiều thứ với Censys, ngoài domain-name validate với certificate, ta cũng có thể search fingerprint của SSL certificate.</p>
 <h4 id="342-dns-records">3.4.2 DNS records</h4>
 <p>Sau một vài đợt chống chọi với các cuộc tấn công, bạn quá mệt mỏi và quyết định chuyển sang xài Cloudflare. Vấn đề là history về DNS records của bạn vẫn còn lưu đâu đó trên Internet và <a href="https://securitytrails.com/">SecurityTrails</a> là dịch vụ cho phép query history của DNS record.</p>
 <p><img src="https://raw.githubusercontent.com/xluffy/assets/master/security_trails_medimum.jpg" alt="security_trails_medium"></p>
@@ -442,10 +442,10 @@ cf-ray: 4f50c44b398ad1e7-HKG
 </ul>
 <h4 id="343-http-header-hoặc-content">3.4.3 HTTP header hoặc Content</h4>
 <p>Ví dụ search với <strong>title</strong> của Medium bằng Censys.</p>
-<pre tabindex="0"><code>443.https.get.title: &quot;Medium – a place to read and write big ideas and important stories&quot;
+<pre tabindex="0"><code>443.https.get.title: &#34;Medium – a place to read and write big ideas and important stories&#34;
 </code></pre><p>Hoặc các content unique trên website như Google Analytics tracking code:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">googleAnalyticsTrackingCode<span style="color:#e6db74">&#34;:&#34;</span>UA-24232453-2<span style="color:#e6db74">&#34;
-</span></code></pre></div><p>Công cụ như <a href="https://www.shodan.io">https://www.shodan.io</a> cho phép search các thông tin như vậy tuy nhiên nó yêu cầu bạn phải trả phí để truy cập các dữ liệu trên.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>googleAnalyticsTrackingCode<span style="color:#e6db74">&#34;:&#34;</span>UA-24232453-2<span style="color:#e6db74">&#34;
+</span></span></span></code></pre></div><p>Công cụ như <a href="https://www.shodan.io">https://www.shodan.io</a> cho phép search các thông tin như vậy tuy nhiên nó yêu cầu bạn phải trả phí để truy cập các dữ liệu trên.</p>
 <h2 id="4-prevention">4. Prevention</h2>
 <p>Câu hỏi bây giờ là làm thế nào để ẩn danh IP origin server bởi các công cụ tìm kiếm hoặc historical DNS record? Và cách cấu hình Cloudflare để chống lại các tấn công vào origin server là như thế nào?</p>
 <ul>
@@ -456,40 +456,40 @@ cf-ray: 4f50c44b398ad1e7-HKG
 <li>Whitelist các request từ hệ thống Cloudflare (<a href="https://www.cloudflare.com/ips-v4">IPv4</a> và <a href="https://www.cloudflare.com/ips-v6">IPv6</a>) và các IP từ hệ thống của bạn (nếu có nhu cầu testing), phần còn lại nên block.</li>
 </ul>
 <p>Có thể block ở tầng firewall như security group hoặc transport layer (iptables) hoặc block ở nginx của site, ví dụ với iptables.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -I INPUT <span style="color:#ae81ff">1</span> -i lo -j ACCEPT
-sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-
-sudo iptables -A INPUT -p tcp -s 103.21.244.0/22 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-sudo iptables -A INPUT -p tcp -s 103.22.200.0/22 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-sudo iptables -A INPUT -p tcp -s 103.31.4.0/22 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-sudo iptables -A INPUT -p tcp -s 104.16.0.0/12 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-sudo iptables -A INPUT -p tcp -s 108.162.192.0/18 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-sudo iptables -A INPUT -p tcp -s 131.0.72.0/22 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-sudo iptables -A INPUT -p tcp -s 141.101.64.0/18 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-sudo iptables -A INPUT -p tcp -s 162.158.0.0/15 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-sudo iptables -A INPUT -p tcp -s 172.64.0.0/13 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-sudo iptables -A INPUT -p tcp -s 173.245.48.0/20 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-sudo iptables -A INPUT -p tcp -s 188.114.96.0/20 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-sudo iptables -A INPUT -p tcp -s 190.93.240.0/20 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-sudo iptables -A INPUT -p tcp -s 197.234.240.0/22 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-sudo iptables -A INPUT -p tcp -s 198.41.128.0/17 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-sudo iptables -A INPUT -p tcp -s 199.27.128.0/21 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-
-sudo iptables -A INPUT -p tcp --dport <span style="color:#ae81ff">22</span> -j ACCEPT
-sudo iptables -A INPUT -j REJECT
-</code></pre></div><p>Với nginx có thể block như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">map $remote_addr $bad_ip <span style="color:#f92672">{</span>
-  default 1;
-  cloudflare_ip_v4 0;
-  cloudflare_ip_v6 0;
-<span style="color:#f92672">}</span>
-
-server <span style="color:#f92672">{</span>
-  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>$bad_ip<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">return</span> 499;
-  <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><p>Ngoài các giải pháp trên, Cloudflare cung cấp một dịch vụ gọi là <a href="https://www.cloudflare.com/products/argo-tunnel">Argo tunnel</a>, hiểu một cách đơn giản thì argo-tunnel sẽ tạo một encrypted-tunnel giữa origin server tới Cloudflare data-center gần nhất (kèm theo smart routing), mọi kết nối từ client được Cloudflare pass qua origin server sẽ đi qua tunnel này, tất cả các request còn lại sẽ bị block.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo iptables -I INPUT <span style="color:#ae81ff">1</span> -i lo -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 103.21.244.0/22 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 103.22.200.0/22 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 103.31.4.0/22 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 104.16.0.0/12 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 108.162.192.0/18 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 131.0.72.0/22 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 141.101.64.0/18 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 162.158.0.0/15 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 172.64.0.0/13 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 173.245.48.0/20 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 188.114.96.0/20 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 190.93.240.0/20 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 197.234.240.0/22 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 198.41.128.0/17 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 199.27.128.0/21 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp --dport <span style="color:#ae81ff">22</span> -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -j REJECT
+</span></span></code></pre></div><p>Với nginx có thể block như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>map $remote_addr $bad_ip <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  default 1;
+</span></span><span style="display:flex;"><span>  cloudflare_ip_v4 0;
+</span></span><span style="display:flex;"><span>  cloudflare_ip_v6 0;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>server <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>$bad_ip<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> 499;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Ngoài các giải pháp trên, Cloudflare cung cấp một dịch vụ gọi là <a href="https://www.cloudflare.com/products/argo-tunnel">Argo tunnel</a>, hiểu một cách đơn giản thì argo-tunnel sẽ tạo một encrypted-tunnel giữa origin server tới Cloudflare data-center gần nhất (kèm theo smart routing), mọi kết nối từ client được Cloudflare pass qua origin server sẽ đi qua tunnel này, tất cả các request còn lại sẽ bị block.</p>
 <h2 id="5-end">5. End</h2>
 <p>Yeah, quá nhiều câu hỏi, quá nhiều chữ rồi, vậy nếu lỡ Cloudflare tạch proxy thì phải làm sao? Thật ra toy cũng đíu biết ae ạ 🖕🏽🖕🏽🖕🏽, lên Twitter xem dân tình chửi nhau và nằm chờ Cloudflare sống dậy thôi.</p>
 <p align="center"><img src="https://raw.githubusercontent.com/xluffy/assets/master/notlikethis.png" alt="notlikethis" style="width:33%;" /></p>

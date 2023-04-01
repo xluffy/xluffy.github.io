@@ -208,20 +208,20 @@
 </ul>
 <h2 id="1-rebuild-new-slave-with-mysqldump">1. Rebuild new slave with mysqldump</h2>
 <p>Rebuild lại một slave cũng tương tự như cách chúng ta setup một hệ thống MySQL replication từ đầu, chỉ khác một điểm đó là <strong>hệ thống hiện tại đang online</strong> và bất cứ hành đồng nào tác động đến Master server đều ảnh hưởng trực tiếp tới người dùng. Với phương pháp này ta cần dùng <code>mysqldump</code> để dump dữ liệu ra sql file và đồng bộ dữ liệu, mình tóm gọn nó trong vào bước như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">## Master</span>
-mysql&gt; FLUSH TABLES WITH READ LOCK;
-mysql&gt; SHOW MASTER STATUS;
-
-&gt; mysqldump -uroot -p dwh_prod &gt; dwh_prod_03072015.sql
-&gt; rsync -avz -P -e<span style="color:#e6db74">&#39;ssh&#39;</span> dwh_prod_03072015.sql root@172.17.0.2:/root/
-
-<span style="color:#75715e">## New Slave</span>
-&gt; mysql -uroot -p dwh_prod &lt; /root/dwh_prod_03072015.sql
-
-mysql&gt; CHANGE MASTER TO MASTER_HOST<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;172.17.0.1&#39;</span>,MASTER_USER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;slave_user&#39;</span>, MASTER_PASSWORD<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;p@ssword&#39;</span>, MASTER_LOG_FILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;m01-bin.000001&#39;</span>, MASTER_LOG_POS<span style="color:#f92672">=</span>827;
-mysql&gt; START SLAVE
-mysql&gt; SHOW SLAVE STATUS<span style="color:#ae81ff">\G</span>
-</code></pre></div><p>Điểm lưu ý duy nhất như mình nói ở trên là việc lock table ở master sẽ ảnh hưởng trực tiếp tới người dùng nên phương pháp này chỉ nên sử dụng trong thời gian bảo trì hệ thống và <strong>nếu dữ liệu càng lớn, thời gian dump càng lâu thì hệ thống càng phải bảo trì lâu</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">## Master</span>
+</span></span><span style="display:flex;"><span>mysql&gt; FLUSH TABLES WITH READ LOCK;
+</span></span><span style="display:flex;"><span>mysql&gt; SHOW MASTER STATUS;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; mysqldump -uroot -p dwh_prod &gt; dwh_prod_03072015.sql
+</span></span><span style="display:flex;"><span>&gt; rsync -avz -P -e<span style="color:#e6db74">&#39;ssh&#39;</span> dwh_prod_03072015.sql root@172.17.0.2:/root/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## New Slave</span>
+</span></span><span style="display:flex;"><span>&gt; mysql -uroot -p dwh_prod &lt; /root/dwh_prod_03072015.sql
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mysql&gt; CHANGE MASTER TO MASTER_HOST<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;172.17.0.1&#39;</span>,MASTER_USER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;slave_user&#39;</span>, MASTER_PASSWORD<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;p@ssword&#39;</span>, MASTER_LOG_FILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;m01-bin.000001&#39;</span>, MASTER_LOG_POS<span style="color:#f92672">=</span>827;
+</span></span><span style="display:flex;"><span>mysql&gt; START SLAVE
+</span></span><span style="display:flex;"><span>mysql&gt; SHOW SLAVE STATUS<span style="color:#ae81ff">\G</span>
+</span></span></code></pre></div><p>Điểm lưu ý duy nhất như mình nói ở trên là việc lock table ở master sẽ ảnh hưởng trực tiếp tới người dùng nên phương pháp này chỉ nên sử dụng trong thời gian bảo trì hệ thống và <strong>nếu dữ liệu càng lớn, thời gian dump càng lâu thì hệ thống càng phải bảo trì lâu</strong>.</p>
 <h2 id="2-rebuild-new-slave-with-xtrabackup">2. Rebuild new slave with xtrabackup</h2>
 <p><code>xtrabackup</code> là một công cụ viết bằng C của Percona, thường được dùng để hotbackup MySQL, ưu/nhược điểm của nó so với <code>mysqldump</code> là:</p>
 <ul>
@@ -239,52 +239,52 @@ mysql&gt; SHOW SLAVE STATUS<span style="color:#ae81ff">\G</span>
 <pre tabindex="0"><code>&gt; xtrabackup --backup --target-dir=/backup/data
 </code></pre><p>=&gt; ở đây mình đã cấu hình user/pass của root user trong file <code>~/.my.cnf</code> nên không cần phải pass thông tin này khi chạy <code>xtrabackup</code>, và có thể chạy với tùy chọn <code>--compact</code> để giảm kích thước khi backup.</p>
 <p>Sync data qua slave và chạy prepare data:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; xtrabackup --prepare --rebuild-indexes --target-dir<span style="color:#f92672">=</span>/backup/data/
-
-InnoDB: Starting shutdown...
-InnoDB: Shutdown completed; log sequence number <span style="color:#ae81ff">22528643996</span>
-<span style="color:#ae81ff">180329</span> 14:48:04 completed OK!
-</code></pre></div><p>=&gt; trong quá trình backup, có thể có những uncommited transaction không hoàn thành hoặc các transaction trong log cần phải được relay -&gt; quá trình này nhằm đảm bảo tính nhất quán của dữ liệu. Cũng có thể sử dụng thêm tùy chọn <code>--rebuild-threads=16</code> để tạo nhiều worker-theard để rebuild-index tại cùng một thời điểm.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; xtrabackup --prepare --rebuild-indexes --target-dir<span style="color:#f92672">=</span>/backup/data/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>InnoDB: Starting shutdown...
+</span></span><span style="display:flex;"><span>InnoDB: Shutdown completed; log sequence number <span style="color:#ae81ff">22528643996</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">180329</span> 14:48:04 completed OK!
+</span></span></code></pre></div><p>=&gt; trong quá trình backup, có thể có những uncommited transaction không hoàn thành hoặc các transaction trong log cần phải được relay -&gt; quá trình này nhằm đảm bảo tính nhất quán của dữ liệu. Cũng có thể sử dụng thêm tùy chọn <code>--rebuild-threads=16</code> để tạo nhiều worker-theard để rebuild-index tại cùng một thời điểm.</p>
 <p>Restore dữ liệu và start mysql</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; service mysql stop
-&gt; rm -rf /var/lib/mysql/
-&gt; xtrabackup --copy-back --target-dir<span style="color:#f92672">=</span>/backup/data/
-
-&gt; chown -R mysql: /var/lib/mysql
-</code></pre></div><p>=&gt; Đây là quá trình chép ngược data backup vào datadir, cần lưu ý là datadir phải rỗng hoàn toàn trước khi copy-back.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; service mysql stop
+</span></span><span style="display:flex;"><span>&gt; rm -rf /var/lib/mysql/
+</span></span><span style="display:flex;"><span>&gt; xtrabackup --copy-back --target-dir<span style="color:#f92672">=</span>/backup/data/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; chown -R mysql: /var/lib/mysql
+</span></span></code></pre></div><p>=&gt; Đây là quá trình chép ngược data backup vào datadir, cần lưu ý là datadir phải rỗng hoàn toàn trước khi copy-back.</p>
 <p>Sau 3 bước trên là quá trình backup và restore dữ liệu đã hoàn thành, việc còn lại là đồng bộ hóa dữ liệu với master để thực hiện quá trình sync.</p>
 <p>Sau khi copy-back xong, trong thư mục <code>/var/lib/mysql</code> sẽ có 1 file <code>xtrabackup_binlog_info</code>, file này chứa thông tin về binlog và position cần dùng để sync.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; cat /var/lib/mysql/xtrabackup_binlog_info
-
-mysql-bin.000209    <span style="color:#ae81ff">713297953</span>
-</code></pre></div><p>Và cấu hình sync từ master như cách bình thường trong <code>mysqldump</code> là được</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; CHANGE MASTER TO MASTER_HOST<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;172.17.0.1&#39;</span>,MASTER_USER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;slave_user&#39;</span>, MASTER_PASSWORD<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;p@ssword&#39;</span>, MASTER_LOG_FILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;mysql-bin.000209&#39;</span>, MASTER_LOG_POS<span style="color:#f92672">=</span> 713297953;
-&gt; START SLAVE
-&gt; SHOW SLAVE STATUS<span style="color:#ae81ff">\G</span>
-</code></pre></div><p>Lưu ý là <code>xtrabackup</code> được viết bằng C, <code>innobackupex</code> là một Perl script được symlink tới <code>xtrabackup</code>, hiện tại Percona khuyến khích chúng ta chuyển qua <code>xtrabackup</code> vì <code>innobackupex</code> không còn được phát triển nữa, tuy nhiên trong một số trường hợp ta sẽ vẫn cần tới nó.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; cat /var/lib/mysql/xtrabackup_binlog_info
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mysql-bin.000209    <span style="color:#ae81ff">713297953</span>
+</span></span></code></pre></div><p>Và cấu hình sync từ master như cách bình thường trong <code>mysqldump</code> là được</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; CHANGE MASTER TO MASTER_HOST<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;172.17.0.1&#39;</span>,MASTER_USER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;slave_user&#39;</span>, MASTER_PASSWORD<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;p@ssword&#39;</span>, MASTER_LOG_FILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;mysql-bin.000209&#39;</span>, MASTER_LOG_POS<span style="color:#f92672">=</span> 713297953;
+</span></span><span style="display:flex;"><span>&gt; START SLAVE
+</span></span><span style="display:flex;"><span>&gt; SHOW SLAVE STATUS<span style="color:#ae81ff">\G</span>
+</span></span></code></pre></div><p>Lưu ý là <code>xtrabackup</code> được viết bằng C, <code>innobackupex</code> là một Perl script được symlink tới <code>xtrabackup</code>, hiện tại Percona khuyến khích chúng ta chuyển qua <code>xtrabackup</code> vì <code>innobackupex</code> không còn được phát triển nữa, tuy nhiên trong một số trường hợp ta sẽ vẫn cần tới nó.</p>
 <h3 id="21-một-số-tips-với-xtrabackup">2.1 Một số tips với xtrabackup</h3>
 <p>Nếu chịu đào xới documentt của <code>xtrabackup</code> bạn có thể tìm thấy khá nhiều thứ hữu ích trong nhiều tình huống khác nhau. Thực tế mình cũng đã gặp những tình huống đó và mới thấy sự powerful của <code>xtrabackup</code>.</p>
 <p><strong>Backup và stream qua network</strong></p>
 <p>Một tình huống đó là ổ cứng của server master có kích thước là 1TB, dữ liệu trong MySQL là &gt;500GB, nghĩa là để backup ra ổ hiện tại là <strong>không đủ chỗ chứa</strong>, việc gắn thêm ổ cứng sẽ rất mất thời gian với hệ thống bare-metal. Đơn giản ta có thể stream trực tiếp bản backup qua server slave như sau.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">## New slave</span>
-&gt; nc -l <span style="color:#ae81ff">9999</span> | cat - &gt; /data/backups/backup.tar
-</code></pre></div><p>=&gt; sẽ mở một port 9999 và output ra một file archive.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">## Master</span>
-&gt; innobackupex --stream<span style="color:#f92672">=</span>tar ./ | nc 172.17.0.2 <span style="color:#ae81ff">9999</span>
-</code></pre></div><p>=&gt; backup và gửi trực tiếp qua slave.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">## New slave</span>
+</span></span><span style="display:flex;"><span>&gt; nc -l <span style="color:#ae81ff">9999</span> | cat - &gt; /data/backups/backup.tar
+</span></span></code></pre></div><p>=&gt; sẽ mở một port 9999 và output ra một file archive.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">## Master</span>
+</span></span><span style="display:flex;"><span>&gt; innobackupex --stream<span style="color:#f92672">=</span>tar ./ | nc 172.17.0.2 <span style="color:#ae81ff">9999</span>
+</span></span></code></pre></div><p>=&gt; backup và gửi trực tiếp qua slave.</p>
 <p>Như ta thấy, sau khi backup xong ta sẽ có một file archive trên slave, và việc còn lại chỉ là unarchive và restore data. NHƯNG ta cũng có thể giải nén luôn trong quá trình stream.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">## New Slave</span>
-&gt; nc -l <span style="color:#ae81ff">9999</span> | tar -ivxf -
-
-<span style="color:#75715e">## Master</span>
-&gt; innobackupex --stream<span style="color:#f92672">=</span>tar ./ | nc 172.17.0.2 <span style="color:#ae81ff">9999</span>
-</code></pre></div><p><strong>Tạo newslave mới từ slave cũ</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">## New Slave</span>
+</span></span><span style="display:flex;"><span>&gt; nc -l <span style="color:#ae81ff">9999</span> | tar -ivxf -
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Master</span>
+</span></span><span style="display:flex;"><span>&gt; innobackupex --stream<span style="color:#f92672">=</span>tar ./ | nc 172.17.0.2 <span style="color:#ae81ff">9999</span>
+</span></span></code></pre></div><p><strong>Tạo newslave mới từ slave cũ</strong></p>
 <p>Giả sử ta có một server Master, một server slave, nhưng vì lý do nào đó mà server slave cần bảo trì, ta sẽ cần build slave mới thay thế. Nhưng ta lại không muốn đụng tới server Master, ta có thể dễ dàng tạo slave mới từ server slave sắp bảo trì với <code>xtrabackup</code> như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">## Old slave</span>
-&gt; xtrabackup --backup --slave-info --target-dir<span style="color:#f92672">=</span>/backup/data
-</code></pre></div><p>Hoặc stream</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; innobackupex --slave-info --stream<span style="color:#f92672">=</span>tar ./ | nc 172.17.0.2 <span style="color:#ae81ff">9999</span>
-</code></pre></div><p>Điểm khác biệt duy nhất là binlog và position thay vì được lưu trên <code>xtrabackup_binlog_info </code> thì sẽ được lưu trong <code>xtrabackup_slave_info</code>, ta chỉ cần thực hiện prepare-data, restore và point slave mới tới master với thông tin trong file <code>xtrabackup_slave_info</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">## Old slave</span>
+</span></span><span style="display:flex;"><span>&gt; xtrabackup --backup --slave-info --target-dir<span style="color:#f92672">=</span>/backup/data
+</span></span></code></pre></div><p>Hoặc stream</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; innobackupex --slave-info --stream<span style="color:#f92672">=</span>tar ./ | nc 172.17.0.2 <span style="color:#ae81ff">9999</span>
+</span></span></code></pre></div><p>Điểm khác biệt duy nhất là binlog và position thay vì được lưu trên <code>xtrabackup_binlog_info </code> thì sẽ được lưu trong <code>xtrabackup_slave_info</code>, ta chỉ cần thực hiện prepare-data, restore và point slave mới tới master với thông tin trong file <code>xtrabackup_slave_info</code>.</p>
 <h3 id="22-một-số-thông-tin-thực-tế">2.2 Một số thông tin thực tế</h3>
 <ul>
 <li>Data 500GB, dùng <code>xtrabackup</code> stream qua network tốn 93 phút, unachive file tar 420GB tốn 39 phút, <code>--prepare</code> tốn cỡ 60ph.</li>
@@ -293,8 +293,8 @@ mysql-bin.000209    <span style="color:#ae81ff">713297953</span>
 </ul>
 <h2 id="3-phân-tích-binlog-và-fix-trên-quá-trình-sync-dữ-liệu">3. Phân tích binlog và fix trên quá trình sync dữ liệu</h2>
 <p>Nếu tìm kiếm trên Internet ta sẽ thấy có một số blog hướng dẫn fix replication data giữa M-S như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mysql&gt; STOP SLAVE; SET GLOBAL SQL_SLAVE_SKIP_COUNTER<span style="color:#f92672">=</span>1; START SLAVE; 
-</code></pre></div><p>Tuy nhiên đây là một ý tưởng khá là tệ và tốt nhất là nên tránh sử dụng phương pháp này. Với câu lệnh trên, Slave sẽ bỏ qua lỗi đó và next tới transaction tiếp theo để apply binlog =&gt; mất tính nhất quán của dữ liệu.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mysql&gt; STOP SLAVE; SET GLOBAL SQL_SLAVE_SKIP_COUNTER<span style="color:#f92672">=</span>1; START SLAVE; 
+</span></span></code></pre></div><p>Tuy nhiên đây là một ý tưởng khá là tệ và tốt nhất là nên tránh sử dụng phương pháp này. Với câu lệnh trên, Slave sẽ bỏ qua lỗi đó và next tới transaction tiếp theo để apply binlog =&gt; mất tính nhất quán của dữ liệu.</p>
 <p>Ví dụ:</p>
 <ul>
 <li>Ứng dụng quản lý tồn kho, các query read được đẩy vào Slave.</li>
@@ -311,22 +311,22 @@ mysql-bin.000209    <span style="color:#ae81ff">713297953</span>
 </ul>
 <p>=&gt; những lỗi này thực ra chủ yếu do con người tạo ra, nhưng việc fix nhanh chóng vẫn là điều cần thiết.</p>
 <p>Ví dụ 1:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">                Relay_Log_Pos: <span style="color:#ae81ff">619131881</span>
-        Relay_Master_Log_File: mysql-bin.000569
-             Slave_IO_Running: Yes
-            Slave_SQL_Running: No 
-                   Last_Errno: <span style="color:#ae81ff">1061</span>
-                   Last_Error: Error <span style="color:#e6db74">&#39;Duplicate key name &#39;</span>users_id_photo_idx<span style="color:#e6db74">&#39;&#39;</span> ON query. DEFAULT DATABASE: <span style="color:#e6db74">&#39;facebook&#39;</span>. Query: <span style="color:#e6db74">&#39;CREATE INDEX `users_id_photo_idx` ON `users`(`id`, `photo_id`) USING BTREE&#39;</span>
-</code></pre></div><p>=&gt; như ở trên báo lỗi ở file binlog là <code>mysql-bin.000569</code>, vị trí 619131881, ta sẽ cần decode binlog.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; mysqlbinlog --base64-output<span style="color:#f92672">=</span>DECODE-ROWS --verbose mysql-bin.000569 &gt; mysql-bin.000569.decode.sql
-&gt; grep --color<span style="color:#f92672">=</span>always -A <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">619131881</span> decode.sql
-</code></pre></div><p>=&gt; bản chất là không hiểu bằng cách nào đó, <code>users_id_photo_idx</code> đã tồn tại trên slave, và khi ta đánh index trên master, index này đc sync qua slave và apply thì báo lỗi đã tồn tại.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>                Relay_Log_Pos: <span style="color:#ae81ff">619131881</span>
+</span></span><span style="display:flex;"><span>        Relay_Master_Log_File: mysql-bin.000569
+</span></span><span style="display:flex;"><span>             Slave_IO_Running: Yes
+</span></span><span style="display:flex;"><span>            Slave_SQL_Running: No 
+</span></span><span style="display:flex;"><span>                   Last_Errno: <span style="color:#ae81ff">1061</span>
+</span></span><span style="display:flex;"><span>                   Last_Error: Error <span style="color:#e6db74">&#39;Duplicate key name &#39;</span>users_id_photo_idx<span style="color:#e6db74">&#39;&#39;</span> ON query. DEFAULT DATABASE: <span style="color:#e6db74">&#39;facebook&#39;</span>. Query: <span style="color:#e6db74">&#39;CREATE INDEX `users_id_photo_idx` ON `users`(`id`, `photo_id`) USING BTREE&#39;</span>
+</span></span></code></pre></div><p>=&gt; như ở trên báo lỗi ở file binlog là <code>mysql-bin.000569</code>, vị trí 619131881, ta sẽ cần decode binlog.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; mysqlbinlog --base64-output<span style="color:#f92672">=</span>DECODE-ROWS --verbose mysql-bin.000569 &gt; mysql-bin.000569.decode.sql
+</span></span><span style="display:flex;"><span>&gt; grep --color<span style="color:#f92672">=</span>always -A <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">619131881</span> decode.sql
+</span></span></code></pre></div><p>=&gt; bản chất là không hiểu bằng cách nào đó, <code>users_id_photo_idx</code> đã tồn tại trên slave, và khi ta đánh index trên master, index này đc sync qua slave và apply thì báo lỗi đã tồn tại.</p>
 <p>Cách fix đơn giản là xóa index <code>users_id_photo_idx</code> trên slave và slave lại replication là có thể fix.</p>
 <p>Ví dụ 2:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> 				  Last_SQL_Errno: <span style="color:#ae81ff">1062</span>
-               Last_SQL_Error: Error <span style="color:#e6db74">&#39;Duplicate entry &#39;</span>5<span style="color:#e6db74">&#39; for key &#39;</span>PRIMARY<span style="color:#e6db74">&#39;&#39;</span> on query. Default database: <span style="color:#e6db74">&#39;facebook&#39;</span>. <span style="color:#ae81ff">\ </span>
-               Query: <span style="color:#e6db74">&#39;INSERT INTO t VALUES (5,2)&#39;</span>
-</code></pre></div><p>=&gt; Trên bảng <code>t</code> của slave đã tồn tại một record có <code>id</code> bằng 5, dẫn tới khi sync lệnh <code>INSERT</code> qua slave thì bị duplicate, đơn giản chỉ cần xóa record match đó đi <code>DELETE FROM t WHERE id = 5 AND pid = 2</code> và start lại slave.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> 				  Last_SQL_Errno: <span style="color:#ae81ff">1062</span>
+</span></span><span style="display:flex;"><span>               Last_SQL_Error: Error <span style="color:#e6db74">&#39;Duplicate entry &#39;</span>5<span style="color:#e6db74">&#39; for key &#39;</span>PRIMARY<span style="color:#e6db74">&#39;&#39;</span> on query. Default database: <span style="color:#e6db74">&#39;facebook&#39;</span>. <span style="color:#ae81ff">\ </span>
+</span></span><span style="display:flex;"><span>               Query: <span style="color:#e6db74">&#39;INSERT INTO t VALUES (5,2)&#39;</span>
+</span></span></code></pre></div><p>=&gt; Trên bảng <code>t</code> của slave đã tồn tại một record có <code>id</code> bằng 5, dẫn tới khi sync lệnh <code>INSERT</code> qua slave thì bị duplicate, đơn giản chỉ cần xóa record match đó đi <code>DELETE FROM t WHERE id = 5 AND pid = 2</code> và start lại slave.</p>
 <p><strong>Tóm lại</strong> với cách này, việc fix slave là vô cùng nhanh chóng, chỉ tốn khoảng vài giây, vài phút và slave có thể quay trở lại hoạt động và bạn cũng không phải mất thời gian build lại slave và chờ sync kịp dữ liệu.</p>
 
     </div>

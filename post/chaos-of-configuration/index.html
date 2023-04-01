@@ -206,43 +206,43 @@
 <h3 id="1-what-the-fuck-are-u-doing-now">1. What the fuck are u doing now?</h3>
 <p>Lấy ví dụ là ứng dụng Rails, cách quản lý config hiện tại được mô tả như sau:</p>
 <p>Sử dụng gem <a href="https://github.com/laserlemon/figaro">Figaro</a> để quản lý config: Ví dụ khi sử dụng Pusher (một 3rd service để push notification in-app về cho mobile) như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># config/application.yml</span>
-<span style="color:#f92672">defaults</span>: <span style="color:#75715e">&amp;defaults</span>
-  <span style="color:#f92672">PUSHER_APP_ID</span>: <span style="color:#e6db74">&#34;2954&#34;</span>
-  <span style="color:#f92672">PUSHER_KEY</span>: <span style="color:#e6db74">&#34;7381a978f7dd7f9a1117&#34;</span>
-  <span style="color:#f92672">PUSHER_SECRET</span>: <span style="color:#e6db74">&#34;abdc3b896a0ffb85d373&#34;</span>
-  <span style="color:#f92672">PUSHER_CLUSTER</span>: <span style="color:#e6db74">&#34;mt1&#34;</span>
-
-<span style="color:#f92672">development</span>:
-  <span style="color:#f92672">&lt;</span>: <span style="color:#75715e">*defaults</span>
-
-<span style="color:#f92672">production</span>:
-  <span style="color:#f92672">&lt;</span>: <span style="color:#75715e">*defaults</span>
-  <span style="color:#f92672">PUSHER_APP_ID</span>: <span style="color:#e6db74">&#34;1234&#34;</span>
-  <span style="color:#f92672">PUSHER_KEY</span>: <span style="color:#e6db74">&#34;7381a978f7dd7f9a1117&#34;</span>
-  <span style="color:#f92672">PUSHER_SECRET</span>: <span style="color:#e6db74">&#34;abdc3b896a0ffb85d373&#34;</span>
-  <span style="color:#f92672">PUSHER_CLUSTER</span>: <span style="color:#e6db74">&#34;mt1&#34;</span>
-</code></pre></div><p>Config pusher trong initializer như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rubY" data-lang="rubY"><span style="color:#75715e"># initializers/pusher.rb</span>
-
-<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>app_id <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;PUSHER_APP_ID&#39;</span><span style="color:#f92672">]</span>
-<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>key <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;PUSHER_KEY&#39;</span><span style="color:#f92672">]</span>
-<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>secret <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;PUSHER_SECRET&#39;</span><span style="color:#f92672">]</span>
-<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>cluster <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;PUSHER_CLUSTER&#39;</span><span style="color:#f92672">]</span>
-</code></pre></div><p>Ta sẽ lưu thông tin cấu hình là một cặp key/value vào một tập tin <code>yaml</code> và load cấu hình thông qua initializers. Một initializer đơn giản là một tập tin Ruby được đặt tại <code>config/initializers</code>. Initializers thường được dùng để <strong>lưu cấu hình mà muốn load sau cùng</strong>, khi framework và tất cả các gem (thư viện trong ruby) được load.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># config/application.yml</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">defaults</span>: <span style="color:#75715e">&amp;defaults</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">PUSHER_APP_ID</span>: <span style="color:#e6db74">&#34;2954&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">PUSHER_KEY</span>: <span style="color:#e6db74">&#34;7381a978f7dd7f9a1117&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">PUSHER_SECRET</span>: <span style="color:#e6db74">&#34;abdc3b896a0ffb85d373&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">PUSHER_CLUSTER</span>: <span style="color:#e6db74">&#34;mt1&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">development</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span>: <span style="color:#75715e">*defaults</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">production</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span>: <span style="color:#75715e">*defaults</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">PUSHER_APP_ID</span>: <span style="color:#e6db74">&#34;1234&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">PUSHER_KEY</span>: <span style="color:#e6db74">&#34;7381a978f7dd7f9a1117&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">PUSHER_SECRET</span>: <span style="color:#e6db74">&#34;abdc3b896a0ffb85d373&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">PUSHER_CLUSTER</span>: <span style="color:#e6db74">&#34;mt1&#34;</span>
+</span></span></code></pre></div><p>Config pusher trong initializer như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rubY" data-lang="rubY"><span style="display:flex;"><span><span style="color:#75715e"># initializers/pusher.rb</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>app_id <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;PUSHER_APP_ID&#39;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>key <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;PUSHER_KEY&#39;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>secret <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;PUSHER_SECRET&#39;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>cluster <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;PUSHER_CLUSTER&#39;</span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Ta sẽ lưu thông tin cấu hình là một cặp key/value vào một tập tin <code>yaml</code> và load cấu hình thông qua initializers. Một initializer đơn giản là một tập tin Ruby được đặt tại <code>config/initializers</code>. Initializers thường được dùng để <strong>lưu cấu hình mà muốn load sau cùng</strong>, khi framework và tất cả các gem (thư viện trong ruby) được load.</p>
 <p>Về cơ bản, vậy là xong. Tuy nhiên nếu ta muốn ràng buộc chặt chẽ hơn, yêu cầu là các thông tin cấu hình bắt buộc phải tồn tại, nếu thiếu sẽ không cho khởi tạo ứng dụng. Figaro hỗ trợ 2 phương thức là proactively và lazily.</p>
 <p>Proactively nghĩa là ứng dụng sẽ raise một exception nếu có bất cứ giá trị config nào ràng buộc nhưng không được thiết lập <strong>ngay khi ứng dụng khởi tạo</strong> (initialization).</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># config/initializers/figaro.rb</span>
-
-<span style="color:#66d9ef">Figaro</span><span style="color:#f92672">.</span>require_keys(<span style="color:#e6db74">&#34;PUSHER_APP_ID&#34;</span>, <span style="color:#e6db74">&#34;PUSHER_KEY&#34;</span>, <span style="color:#e6db74">&#34;PUSHER_SECRET&#34;</span>, <span style="color:#e6db74">&#34;PUSHER_CLUSTER&#34;</span>)
-</code></pre></div><p>Trong khi lazily không raise exception khi khởi tạo, nên dẫn tới các lỗi không mong đợi trong runtime (khi nào cần dùng mới kiểm tra và nếu thiếu sẽ raise exception).</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># config/initializers/pusher.rb</span>
-
-<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>app_id <span style="color:#f92672">=</span> <span style="color:#66d9ef">Figaro</span><span style="color:#f92672">.</span>env<span style="color:#f92672">.</span>PUSHER_APP_ID!
-<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>key    <span style="color:#f92672">=</span> <span style="color:#66d9ef">Figaro</span><span style="color:#f92672">.</span>env<span style="color:#f92672">.</span>PUSHER_KEY!
-<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>secret <span style="color:#f92672">=</span> <span style="color:#66d9ef">Figaro</span><span style="color:#f92672">.</span>env<span style="color:#f92672">.</span>PUSHER_SECRET!
-<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>cluster <span style="color:#f92672">=</span> <span style="color:#66d9ef">Figaro</span><span style="color:#f92672">.</span>env<span style="color:#f92672">.</span>PUSHER_CLUSTER!
-</code></pre></div><p>Ngoài Figaro, có một số gem khác tương tự, ví dụ <a href="https://github.com/bkeepers/dotenv">dotenv</a>. Về cơ bản, cách tiếp cận giữa Figaro và <a href="https://github.com/bkeepers/dotenv">dotenv</a> là như nhau, cùng được phát triển tại một thời điểm và giải quyết các vấn đề tương tự nhau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#75715e"># config/initializers/figaro.rb</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Figaro</span><span style="color:#f92672">.</span>require_keys(<span style="color:#e6db74">&#34;PUSHER_APP_ID&#34;</span>, <span style="color:#e6db74">&#34;PUSHER_KEY&#34;</span>, <span style="color:#e6db74">&#34;PUSHER_SECRET&#34;</span>, <span style="color:#e6db74">&#34;PUSHER_CLUSTER&#34;</span>)
+</span></span></code></pre></div><p>Trong khi lazily không raise exception khi khởi tạo, nên dẫn tới các lỗi không mong đợi trong runtime (khi nào cần dùng mới kiểm tra và nếu thiếu sẽ raise exception).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#75715e"># config/initializers/pusher.rb</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>app_id <span style="color:#f92672">=</span> <span style="color:#66d9ef">Figaro</span><span style="color:#f92672">.</span>env<span style="color:#f92672">.</span>PUSHER_APP_ID!
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>key    <span style="color:#f92672">=</span> <span style="color:#66d9ef">Figaro</span><span style="color:#f92672">.</span>env<span style="color:#f92672">.</span>PUSHER_KEY!
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>secret <span style="color:#f92672">=</span> <span style="color:#66d9ef">Figaro</span><span style="color:#f92672">.</span>env<span style="color:#f92672">.</span>PUSHER_SECRET!
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>cluster <span style="color:#f92672">=</span> <span style="color:#66d9ef">Figaro</span><span style="color:#f92672">.</span>env<span style="color:#f92672">.</span>PUSHER_CLUSTER!
+</span></span></code></pre></div><p>Ngoài Figaro, có một số gem khác tương tự, ví dụ <a href="https://github.com/bkeepers/dotenv">dotenv</a>. Về cơ bản, cách tiếp cận giữa Figaro và <a href="https://github.com/bkeepers/dotenv">dotenv</a> là như nhau, cùng được phát triển tại một thời điểm và giải quyết các vấn đề tương tự nhau:</p>
 <p><strong>Tương đồng:</strong></p>
 <ul>
 <li>Hỗ trợ tốt cho các ứng dụng Ruby.</li>
@@ -286,20 +286,20 @@
 <li>Cần có một cách để quản lý version của cấu hình trên production. Dễ dàng thêm mới, delivery lên production.</li>
 </ul>
 <p><strong>Nguyên tắc số 1:</strong>  Quản lý tất cả cấu hình qua biến môi trường (<code>ENV</code>), thông qua thư viện, không <strong>hard-code</strong> bất cứ chỗ nào trong ứng dụng. Nghĩa là không chơi như vầy:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># initializers/pusher.rb</span>
-
-<span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>secret <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bX5kuRUuVJlP1AD&#34;</span>
-</code></pre></div><p><strong>Nguyên tắc số 2:</strong> Không commit bất kỳ tập tin cấu hình nào vào git, không lưu trữ các credentials info vào git. Nghĩa là không được tồn tại các tập tin như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; tree config/
-├── config
-│   ├── application.yml
-│   ├── database.yml
-│   ├── mongoid.yml
-│   ├── newrelic.yml
-│   ├── redis.yml
-│   ├── secrets.yml
-│   └── sidekiq.yml
-</code></pre></div><p><strong>Nguyên tắc số 3:</strong>  Để đảm bảo consistensy của giá trị cấu hình giữa các môi trường (có ở production mà thiếu ở development) và để dễ dàng cho developer mới khi tham gia dự án, commit vào git một tập tin example của từng tập tin cấu hình. Ví dụ:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#75715e"># initializers/pusher.rb</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Pusher</span><span style="color:#f92672">.</span>secret <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bX5kuRUuVJlP1AD&#34;</span>
+</span></span></code></pre></div><p><strong>Nguyên tắc số 2:</strong> Không commit bất kỳ tập tin cấu hình nào vào git, không lưu trữ các credentials info vào git. Nghĩa là không được tồn tại các tập tin như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; tree config/
+</span></span><span style="display:flex;"><span>├── config
+</span></span><span style="display:flex;"><span>│   ├── application.yml
+</span></span><span style="display:flex;"><span>│   ├── database.yml
+</span></span><span style="display:flex;"><span>│   ├── mongoid.yml
+</span></span><span style="display:flex;"><span>│   ├── newrelic.yml
+</span></span><span style="display:flex;"><span>│   ├── redis.yml
+</span></span><span style="display:flex;"><span>│   ├── secrets.yml
+</span></span><span style="display:flex;"><span>│   └── sidekiq.yml
+</span></span></code></pre></div><p><strong>Nguyên tắc số 3:</strong>  Để đảm bảo consistensy của giá trị cấu hình giữa các môi trường (có ở production mà thiếu ở development) và để dễ dàng cho developer mới khi tham gia dự án, commit vào git một tập tin example của từng tập tin cấu hình. Ví dụ:</p>
 <pre tabindex="0"><code>&gt; tree config/
 ├── config
 │   ├── application.example.yml
@@ -333,15 +333,15 @@
 <ul>
 <li>
 <p>Cấu trúc thư mục của node deployment như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; tree /fk
-/fk
-└── predeploy
-    └── fk-service-hs
-        ├── current -&gt; releases/20200104193548
-        ├── fk-service-hs_master <span style="color:#75715e"># git-repo_branch</span>
-        ├── override-latest/config
-        └── releases/20200104193548
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; tree /fk
+</span></span><span style="display:flex;"><span>/fk
+</span></span><span style="display:flex;"><span>└── predeploy
+</span></span><span style="display:flex;"><span>    └── fk-service-hs
+</span></span><span style="display:flex;"><span>        ├── current -&gt; releases/20200104193548
+</span></span><span style="display:flex;"><span>        ├── fk-service-hs_master <span style="color:#75715e"># git-repo_branch</span>
+</span></span><span style="display:flex;"><span>        ├── override-latest/config
+</span></span><span style="display:flex;"><span>        └── releases/20200104193548
+</span></span></code></pre></div></li>
 <li>
 <p>Với predeploy là nơi code sẽ được chuẩn bị để deployment.</p>
 </li>
@@ -388,10 +388,10 @@
 </ul>
 <p>Với cách cuối, có thể dùng một secret_key (mã hoá bất đối xứng) để mã hoá và validate trước khi push lên github nhưng lại mất đi tính năng quản lý version (vim và git diff) nên cơ bản cũng không xài được.</p>
 <p>Đại khái bạn sẽ muốn quản lý version của config như vầy:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#f92672">- PUSHER_KEY: &#34;7381a978f7dd7f9a1117&#34;
-</span><span style="color:#f92672"></span><span style="color:#a6e22e">+ PUSHER_KEY: &#34;7381a9sjd7dd7f9a1117&#34;
-</span><span style="color:#a6e22e"></span>  PUSHER_SECRET: &#34;abdc3b896a0ffb85d373&#34;
-</code></pre></div><h3 id="2-what-next">2. What next?</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span><span style="color:#f92672">- PUSHER_KEY: &#34;7381a978f7dd7f9a1117&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+ PUSHER_KEY: &#34;7381a9sjd7dd7f9a1117&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>  PUSHER_SECRET: &#34;abdc3b896a0ffb85d373&#34;
+</span></span></code></pre></div><h3 id="2-what-next">2. What next?</h3>
 <p>Có bạn sẽ hỏi sao không xài <a href="https://www.vaultproject.io">Vault</a>? Về cơ bản cũng gặp các vấn đề trên, chỉ khác là lưu vào file thì giờ thêm con server nữa, lưu trữ biến môi trường dùng cho cấu hình trên con server Vault. Nhà thì bao việc, thêm con server nữa, lại phải HA con server này, gắn monitoring các kiểu, nghĩ thôi cũng đã hết ngày.</p>
 <blockquote>
 <p>Tuân theo một method là <a href="https://12factor.net/config">12factor</a> ta coi như việc dùng <del><strong>biến môi trường</strong></del> để lưu config là <del><strong>chuyện hiển nhiên</strong> không cần phải giải thích</del>.</p>

@@ -202,19 +202,19 @@
     <div class="post-content">
       
       <p>Một đồng nghiệp trong công ti giới thiệu cho mình <a href="https://github.com/IntellexApps/blcheck">blcheck</a>, tool này dùng để check một IP có nằm trong mail blacklist hay không bằng cách check qua một <a href="https://github.com/IntellexApps/blcheck/blob/master/blcheck#L45">danh sách các tổ chức</a>. Về cơ bản nó tương tự <a href="https://mxtoolbox.com/blacklists.aspx">mxtoolbox</a> nhưng nó là command-line tool.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./blcheck 1.2.3.4
-
-----------------------------------------------------------
-Results <span style="color:#66d9ef">for</span> 1.2.3.4
-
-Tested:        <span style="color:#ae81ff">3</span>
-Passed:        <span style="color:#ae81ff">3</span>
-Invalid:       <span style="color:#ae81ff">0</span>
-Blacklisted:   <span style="color:#ae81ff">0</span>
-----------------------------------------------------------
-</code></pre></div><p>Sẵn tò mò nên thử đọc code và xem cách nó hoạt động như thế nào, phương pháp rất đơn giản là xoá code và đọc từng phần và chạy thử.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; bash -x ./blcheck 1.2.3.4
-</code></pre></div><p>Sau một hồi lò mò thì đại khái cũng hiểu cách hoạt động, cơ bản thì:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./blcheck 1.2.3.4
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>----------------------------------------------------------
+</span></span><span style="display:flex;"><span>Results <span style="color:#66d9ef">for</span> 1.2.3.4
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Tested:        <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>Passed:        <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>Invalid:       <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>Blacklisted:   <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>----------------------------------------------------------
+</span></span></code></pre></div><p>Sẵn tò mò nên thử đọc code và xem cách nó hoạt động như thế nào, phương pháp rất đơn giản là xoá code và đọc từng phần và chạy thử.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; bash -x ./blcheck 1.2.3.4
+</span></span></code></pre></div><p>Sau một hồi lò mò thì đại khái cũng hiểu cách hoạt động, cơ bản thì:</p>
 <ul>
 <li>Reversed địa chỉ IP</li>
 <li>Dùng <code>dig</code> để check DNS của <code>${REVERSED_IP}.blacklist_domain.</code>, dạng dạng như command <code>/usr/bin/dig +short -t a +time=3 +tries=2 4.3.2.1.zen.spamhaus.org.</code></li>
@@ -223,7 +223,7 @@ Blacklisted:   <span style="color:#ae81ff">0</span>
 <h2 id="overview">Overview</h2>
 <p>Trước tiên câu hỏi đặt ra là <em>các tổ chức trong danh sách làm sao có bộ dữ liệu IP để đánh giá IP đó là xấu?  và dữ liệu có đáng tin cậy hay không?</em></p>
 <p>Mình để ý, để có bộ data thì thường người ta hay sử dụng phương pháp đặt bẫy (trap) hoặc đặt các honey pot. Rất nhiều trap và honey pot được tạo ra để <em>dụ spammer</em>. Spammer tất nhiên không thể bỏ qua một miếng mồi ngon như vậy được, nên sẽ ra sức để spam hoặc tìm cách tấn công/khai thác. Từ các trap/honey pot này, dữ liệu sẽ được thu thập và dùng để đánh giá. Bộ dữ liệu từ các trap/honey pot này sẽ được cập nhật liên tục để tránh dữ liệu sai, ngoài ra họ cũng cho phép bạn submit một địa chỉ IP là spam nếu bạn biết chắc chắn hoặc ngược lại gửi yêu cầu gỡ một IP ra khỏi danh sách spam.</p>
-<p>Nên đôi khi trên Internet, bạn thấy một <em>miếng mồi ngon</em> thì chưa chắc nó đã thực sự ngon :troll:, đôi khi nó chỉ là một cái bẫy để dụ bạn mà thôi.</p>
+<p>Nên đôi khi trên Internet, bạn thấy một <em>miếng mồi ngon</em> thì chưa chắc nó đã thực sự ngon 🧌, đôi khi nó chỉ là một cái bẫy để dụ bạn mà thôi.</p>
 <p>Nếu một địa chỉ IP của mail server bị dính blacklist, khi bạn gửi email tới người khác, email sẽ bị vô <em>Spam</em> hoặc tới người nhận chậm hoặc không thể tới được người nhận. (Email OTP mà chậm thì expired mất tiêu).</p>
 <p>Tương tự như email, cũng có các tổ chức bảo trì một bộ dữ liệu cho web traffic, dựa vào dữ liệu này, có thể biết được có nên chặn/cản lọc request từ các IP này hay không. Phương pháp thu thập dữ liệu là tương tự với email.</p>
 <h2 id="dns-query-format">DNS Query Format</h2>
@@ -235,18 +235,18 @@ Blacklisted:   <span style="color:#ae81ff">0</span>
 <li>List-domains là danh sách các tổ chức cung cấp bộ dữ liệu cho chúng ta truy vấn, ví dụ <code>cbl.abuseat.org</code>, <code>sbl-xbl.spamhaus.org</code> &hellip; bạn có thể kiếm một danh sách về email ở <a href="https://mxtoolbox.com/problem/blacklist.">mxtoolbox</a>.</li>
 </ul>
 <p>Ví dụ muốn kiểm tra địa chỉ IP <code>85.117.61.186</code> tại thời điểm mình viết bài này:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; dig +short 186.61.117.85.cbl.abuseat.org.
-127.0.0.2
-
-&gt;  dig +short 186.61.117.85.bl.spamcannibal.org.
-103.224.212.22
-
-&gt; dig +short 186.61.117.85.b.barracudacentral.org.
-127.0.0.2
-
-&gt; dig +short 186.61.117.85.korea.services.net.
-<span style="color:#f92672">=</span>&gt; nil
-</code></pre></div><p>Ở đây mình kiểm tra thông qua 4 blacklist mình lấy bất kỳ để ra 4 kết quả khác nhau.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; dig +short 186.61.117.85.cbl.abuseat.org.
+</span></span><span style="display:flex;"><span>127.0.0.2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt;  dig +short 186.61.117.85.bl.spamcannibal.org.
+</span></span><span style="display:flex;"><span>103.224.212.22
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; dig +short 186.61.117.85.b.barracudacentral.org.
+</span></span><span style="display:flex;"><span>127.0.0.2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; dig +short 186.61.117.85.korea.services.net.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=</span>&gt; nil
+</span></span></code></pre></div><p>Ở đây mình kiểm tra thông qua 4 blacklist mình lấy bất kỳ để ra 4 kết quả khác nhau.</p>
 <h2 id="query-responses">Query Responses</h2>
 <p>Phương pháp truy vấn thì rất đơn giản, giờ ta sẽ cần biết kết quả trả về phía trên có ý nghĩa như thế nào trong việc xác định thông tin về một IP có là spammer hay không.</p>
 <p>Đâu tiên, ta có 2 kết quả là <code>103.224.212.22</code> và <code>nil</code> (không có kết quả trả về). Hai kết quả này không có ý nghĩa trong việc xác định thông tin của một IP. Coi như 2 blacklist mình lấy không có thông tin gì về IP này. Nên sẽ bỏ qua.</p>
