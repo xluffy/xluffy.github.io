@@ -2,6 +2,18 @@
 <html lang="en">
   <head>
     
+      
+<script async src="https://www.googletagmanager.com/gtag/js?id=GTM-5JDKMG4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'GTM-5JDKMG4');
+</script>
+
+    
+    
       <title>
         12/02/2022 - Week 1 - Setup Ansible repo ::
         /home/xluffy
@@ -56,8 +68,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://taoquangne.com/weekly-summary/12022022-w1-setup-ansible-repo/" /><meta property="article:section" content="weekly-summary" />
 <meta property="article:published_time" content="2022-02-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-02-12T00:00:00+00:00" /><meta property="og:site_name" content="/home/xluffy" />
-
+<meta property="article:modified_time" content="2022-02-12T00:00:00+00:00" />
 
 
 
@@ -554,7 +565,7 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">assert</span> _u_deploy<span style="color:#f92672">.</span>exists
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">assert</span> _u_deploy<span style="color:#f92672">.</span>shell <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;/bin/bash&#34;</span>
 </span></span></code></pre></div><p>Hoặc muốn test các service sau khi chạy playbook xong sẽ được start và cho phép khởi động khi boot OS</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">@pytest</span><span style="color:#f92672">.</span>mark<span style="color:#f92672">.</span>parametrize(<span style="color:#e6db74">&#34;services&#34;</span>, [<span style="color:#e6db74">&#34;sshd&#34;</span>, <span style="color:#e6db74">&#34;rsyslog&#34;</span>, <span style="color:#e6db74">&#34;chrony&#34;</span>, <span style="color:#e6db74">&#34;node_exporter&#34;</span>])
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">@pytest.mark.parametrize</span>(<span style="color:#e6db74">&#34;services&#34;</span>, [<span style="color:#e6db74">&#34;sshd&#34;</span>, <span style="color:#e6db74">&#34;rsyslog&#34;</span>, <span style="color:#e6db74">&#34;chrony&#34;</span>, <span style="color:#e6db74">&#34;node_exporter&#34;</span>])
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_services_running</span>(host, services):
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Test services are running + enabled
