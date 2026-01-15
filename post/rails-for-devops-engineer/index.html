@@ -1,477 +1,150 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    
-      
-<script async src="https://www.googletagmanager.com/gtag/js?id=GTM-5JDKMG4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'GTM-5JDKMG4');
-</script>
-
-    
-    
-      <title>
-        Rails for DevOps engineer ::
-        /home/xluffy
-      </title>
-    
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta
-  name="description"
-  content="Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer."
-/>
-<meta
-  name="keywords"
-  content=""
-/>
-<meta name="robots" content="noodp" />
-<link rel="canonical" href="https://taoquangne.com/post/rails-for-devops-engineer/" />
-
-
-
-
-
-<link rel="stylesheet" href="https://taoquangne.com/assets/style.css" />
-
-<link rel="stylesheet" href="https://taoquangne.com/style.css" />
-
-
-<link
-  rel="apple-touch-icon-precomposed"
-  sizes="144x144"
-  href="https://taoquangne.com/img/apple-touch-icon-144-precomposed.png"
-/>
-<link rel="shortcut icon" href="https://taoquangne.com/img/favicon.png" />
-
-
-<link href="https://taoquangne.com/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-<link href="https://taoquangne.com/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-<link href="https://taoquangne.com/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-<link href="https://taoquangne.com/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-<link href="https://taoquangne.com/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-<link href="https://taoquangne.com/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Rails for DevOps engineer"/>
-<meta name="twitter:description" content="Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer."/>
-
-
-
-<meta property="og:title" content="Rails for DevOps engineer" />
-<meta property="og:description" content="Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://taoquangne.com/post/rails-for-devops-engineer/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2018-07-25T00:00:00+00:00" />
-<meta property="article:modified_time" content="2018-07-25T00:00:00+00:00" />
-
-
-
-
-
-
-  </head>
-  <body class="">
-    <div class="container">
-      <header class="header">
-  <span class="header__inner">
-    <a
-  href="/"
-  class="logo"
-  style="text-decoration: none;"
->
-  
-    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
-  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
-</svg>
-</span>
-    <span class="logo__text"
-      >/home/xluffy ft 🍄</span
-    >
-    <span class="logo__cursor"></span>
-  
-</a>
-
-    <span class="header__right">
-      
-        <nav class="menu">
-  <ul class="menu__inner menu__inner--desktop">
-    
-      
-        
-          <li><a href="/about">about</a></li>
-        
-      
-        
-          <li><a href="/tags">tags</a></li>
-        
-      
-        
-          <li><a href="https://github.com/xluffy/til/issues">til</a></li>
-        
-      
-        
-          <li><a href="/weekly-summary">weekly-summary</a></li>
-        
-      
-    
-  </ul>
-
-  <ul class="menu__inner menu__inner--mobile">
-    
-      
-        <li><a href="/about">about</a></li>
-      
-    
-      
-        <li><a href="/tags">tags</a></li>
-      
-    
-      
-        <li><a href="https://github.com/xluffy/til/issues">til</a></li>
-      
-    
-      
-        <li><a href="/weekly-summary">weekly-summary</a></li>
-      
-    
-  </ul>
-</nav>
-
-        <span class="menu-trigger">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M0 0h24v24H0z" fill="none" />
-            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
-          </svg>
-        </span>
-      
-      <span class="theme-toggle">
-        <svg
-  class="theme-toggler"
-  width="24"
-  height="24"
-  viewBox="0 0 48 48"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <path
-    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
-  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
-  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
-  />
-</svg>
-
-      </span>
-    </span>
-  </span>
-</header>
-
-
-      <div class="content">
-        
-  
-  
-
-  <div class="post">
-    <h1 class="post-title">Rails for DevOps engineer</h1>
-    <div class="post-meta">
-      
-        <span class="post-date">
-          2018-07-25
-        </span>
-
-        
-          
-        
-      
-
-      
-
-
-      
-    </div>
-
-    
-      <span class="post-tags">
-        
-          <a href="https://taoquangne.com/tags/rails/">#rails</a>&nbsp;
-        
-          <a href="https://taoquangne.com/tags/active-record/">#active-record</a>&nbsp;
-        
-      </span>
-    
-
-    
-
-    <div class="post-content">
-      
-      <p>Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer.</p>
-<h2 id="1-basic-active-record">1. Basic Active Record</h2>
-<h3 id="11-find">1.1 find</h3>
-<p>Tham số truyền vào của <code>find</code> là primary-key, ví dụ <code>User.find(1)</code> tương đương với <code>SELECT * FROM users WHERE id = 1 LIMIT 1</code></p>
-<p>Cũng có thể nhận nhiều giá trị kiểu <code>User.find(1, 10)</code> hoặc <code>User.find([1, 10])</code> sẽ tương đương với <code>SELECT * FROM users WHERE id IN (1, 10)</code></p>
-<h3 id="12-takefirstlast">1.2 take/first/last</h3>
-<ul>
-<li><code>take</code> trả về một hoặc nhiều record tùy vào giá trị truyền vào nhưng KHÔNG SẮP XẾP</li>
-<li><code>first</code> mặc định trả về một record và SẮP XẾP GIẢM DẦN dựa trên primary key <code>ORDER BY id ASC</code>, cũng có thể trả về nhiều giá trị</li>
-<li><code>last</code> giống <code>first</code>, chỉ khác là sắp xếp tăng dần.</li>
-</ul>
-<p>Theo thứ tự active record và sql sẽ như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>take
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>take(<span style="color:#ae81ff">20</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">20</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>first
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>first(<span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> id <span style="color:#66d9ef">ASC</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> id <span style="color:#66d9ef">ASC</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>last
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> id <span style="color:#66d9ef">DESC</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>
-</span></span></code></pre></div><h3 id="13-find_by-và-wheretake">1.3 <code>find_by</code> và <code>where().take</code></h3>
-<ul>
-<li><code>find_by</code> trả về một record match với điều kiện.</li>
-<li><code>where</code> trả về record theo điều kiện.</li>
-</ul>
-<p>Ví dụ 2 query sau sẽ như nhau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>find_by name: <span style="color:#e6db74">&#39;Quang&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(name: <span style="color:#e6db74">&#39;Quang&#39;</span>)<span style="color:#f92672">.</span>take
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Quang&#39;</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>;
-</span></span></code></pre></div><h3 id="14-unscope-và-only">1.4 <code>unscope</code> và <code>only</code></h3>
-<p><code>unscope</code> dùng để xóa một số <strong>điều kiện</strong> cụ thể nào đó, <code>only</code> thì ngược lại, chỉ định các <strong>điều kiện</strong> sẽ được giữ lại, ví dụ:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">&#34;email LIKE &#39;%@gmail%&#39;&#34;</span>)<span style="color:#f92672">.</span>order(<span style="color:#e6db74">:id</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>  <span style="color:#e6db74">`users`</span><span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">`users`</span> <span style="color:#66d9ef">WHERE</span> (email <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%@gmail%&#39;</span>) <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">`users`</span><span style="color:#f92672">.</span>`id<span style="color:#e6db74">` ASC;
-</span></span></span></code></pre></div><p>Nhưng giờ mình muốn xóa điều kiện sắp xếp theo <code>id</code> thì dùng method <code>unscope</code> như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">&#34;email LIKE &#39;%@gmail%&#39;&#34;</span>)<span style="color:#f92672">.</span>order(<span style="color:#e6db74">:id</span>)<span style="color:#f92672">.</span>unscope(<span style="color:#e6db74">:order</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>  <span style="color:#e6db74">`users`</span><span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">`users`</span> <span style="color:#66d9ef">WHERE</span> (email <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%@gmail%&#39;</span>);
-</span></span></code></pre></div><h2 id="2-some-active-record-tips">2. Some Active-Record tips</h2>
-<h3 id="21-include-và-n--1-query">2.1. <code>include</code> và n + 1 query</h3>
-<p>Giả sử ta có model User như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">User</span>
-</span></span><span style="display:flex;"><span>  has_many <span style="color:#e6db74">:posts</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span></code></pre></div><p>=&gt; một user có thể có nhiều post</p>
-<p>Với cách query thông thường trong active-record</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>users <span style="color:#f92672">=</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>all
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>users<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>user<span style="color:#f92672">|</span>
-</span></span><span style="display:flex;"><span>  user<span style="color:#f92672">.</span>posts
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span></code></pre></div><p>Đoạn trên sẽ generate ra n + 1 query như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> users<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> users;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> posts<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> posts <span style="color:#66d9ef">WHERE</span> posts<span style="color:#f92672">.</span>user_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> posts<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> posts <span style="color:#66d9ef">WHERE</span> posts<span style="color:#f92672">.</span>user_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> posts<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> posts <span style="color:#66d9ef">WHERE</span> posts<span style="color:#f92672">.</span>user_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> posts<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> posts <span style="color:#66d9ef">WHERE</span> posts<span style="color:#f92672">.</span>user_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> posts<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> posts <span style="color:#66d9ef">WHERE</span> posts<span style="color:#f92672">.</span>user_id <span style="color:#f92672">=</span> n;
-</span></span></code></pre></div><p>=&gt; nếu có bao nhiêu user thì generate ra bằng đó + 1 user nên gọi là n + 1</p>
-<p>Nếu ta dùng <code>includes</code> thì sẽ chỉ generate ra 2 query, 1 là load tất cả users và 1 là load tất cả các posts liên quan đến các users đó.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>users <span style="color:#f92672">=</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>includes(<span style="color:#e6db74">:posts</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>users<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>user<span style="color:#f92672">|</span>
-</span></span><span style="display:flex;"><span>  user<span style="color:#f92672">.</span>posts
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> users<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> users;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> posts<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> posts <span style="color:#66d9ef">WHERE</span> posts<span style="color:#f92672">.</span>user_id <span style="color:#66d9ef">IN</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span> <span style="color:#f92672">...</span> n);
-</span></span></code></pre></div><p>Ngoài <code>include</code> cũng có thể sử dụng <code>preload</code> hoặc <code>eager_load</code> để tránh n + 1 query</p>
-<h3 id="22-find_each-khi-load-một-lượng-lớn-record">2.2. <code>find_each</code> khi load một lượng lớn record</h3>
-<p>Tương tự như việc dùng <code>LIMIT</code> trong SQL</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>all<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>user<span style="color:#f92672">|</span>
-</span></span><span style="display:flex;"><span>  puts users
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># SQL generate</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> users<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> users;
-</span></span></code></pre></div><p>Thay vì load tất cả các user thì ta có thể LIMIT lượng user hiển thị ra bằng cách dùng <code>find_each</code> như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>all<span style="color:#f92672">.</span>find_each(<span style="color:#e6db74">batch_size</span>: <span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>u<span style="color:#f92672">|</span>
-</span></span><span style="display:flex;"><span>  puts u
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># SQL query</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> users<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> users<span style="color:#f92672">.</span>id <span style="color:#66d9ef">ASC</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">100</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> users<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> users<span style="color:#f92672">.</span>id <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">100</span> <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> users<span style="color:#f92672">.</span>id <span style="color:#66d9ef">ASC</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">100</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> users<span style="color:#f92672">.</span>* <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> users<span style="color:#f92672">.</span>id <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">200</span> <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> users<span style="color:#f92672">.</span>id <span style="color:#66d9ef">ASC</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">100</span>;
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
-</span></span></code></pre></div><p>Chú ý là các query sau sẽ có thêm điều kiện <code>users.id &gt; batch_size</code></p>
-<h3 id="23-chỉ-lấy-field-cần-với-pluck-hoặc-select">2.3. Chỉ lấy field cần với <code>pluck</code> hoặc <code>select</code></h3>
-<p>Tương tự trong SQL, không phải lúc nào ta cũng cần tất cả thuộc tính của model, thay vì:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users;
-</span></span></code></pre></div><p>Ta chỉ lấy các thuộc tính cần thiết bằng câu query:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> email <span style="color:#66d9ef">FROM</span> users;
-</span></span></code></pre></div><p>Trong active-record thì thay vì dùng</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>user_emails <span style="color:#f92672">=</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">status</span>: <span style="color:#e6db74">&#34;active&#34;</span>)<span style="color:#f92672">.</span>map(<span style="color:#f92672">&amp;</span><span style="color:#e6db74">:email</span>)
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># SELECT * FROM users;</span>
-</span></span></code></pre></div><p>Ta sẽ chỉ lấy thuộc tính email của user như sau:</p>
-<pre tabindex="0"><code>user_emails = User.where(status: &#34;active&#34;).pluck(:email)
+<!doctype html><html lang=en><head><script async src="https://www.googletagmanager.com/gtag/js?id=GTM-5JDKMG4"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","GTM-5JDKMG4")</script><title>Rails for DevOps engineer ::
+/home/xluffy
+</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=keywords content><meta name=robots content="noodp"><link rel=canonical href=https://taoquangne.com/post/rails-for-devops-engineer/><link rel=stylesheet href=https://taoquangne.com/assets/style.css><link rel=stylesheet href=https://taoquangne.com/style.css><link rel=apple-touch-icon-precomposed sizes=144x144 href=https://taoquangne.com/img/apple-touch-icon-144-precomposed.png><link rel="shortcut icon" href=https://taoquangne.com/img/favicon.png><link href=https://taoquangne.com/assets/fonts/Inter-Italic.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-Regular.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-Medium.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-MediumItalic.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-Bold.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-BoldItalic.woff2 rel=preload type=font/woff2 as=font crossorigin><meta name=twitter:card content="summary"><meta name=twitter:title content="Rails for DevOps engineer"><meta property="og:url" content="https://taoquangne.com/post/rails-for-devops-engineer/"><meta property="og:site_name" content="/home/xluffy"><meta property="og:title" content="Rails for DevOps engineer"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="post"><meta property="article:published_time" content="2018-07-25T00:00:00+00:00"><meta property="article:modified_time" content="2018-07-25T00:00:00+00:00"><meta property="article:tag" content="Rails"><meta property="article:tag" content="Active-Record"></head><body><div class=container><header class=header><span class=header__inner><a href=/ class=logo style=text-decoration:none><span class=logo__mark><svg class="greater-icon" viewBox="0 0 44 44"><path fill="none" d="M15 8l14.729 14.382L15 35.367"/></svg>
+</span><span class=logo__text>/home/xluffy ft 🍄</span>
+<span class=logo__cursor></span>
+</a><span class=header__right><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=/about>about</a></li><li><a href=/tags>tags</a></li><li><a href=https://github.com/xluffy/til/issues>til</a></li><li><a href=/weekly-summary>weekly-summary</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=/about>about</a></li><li><a href=/tags>tags</a></li><li><a href=https://github.com/xluffy/til/issues>til</a></li><li><a href=/weekly-summary>weekly-summary</a></li></ul></nav><span class=menu-trigger><svg viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+</span><span class=theme-toggle><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none"><path d="M22 41c10.4934.0 19-8.5066 19-19C41 11.5066 32.4934 3 22 3 11.5066 3 3 11.5066 3 22s8.5066 19 19 19zM7 22C7 13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22z"/></svg></span></span></span></header><div class=content><div class=post><h1 class=post-title>Rails for DevOps engineer</h1><div class=post-meta><span class=post-date>2018-07-25</span></div><span class=post-tags><a href=https://taoquangne.com/tags/rails/>#rails</a>&nbsp;
+<a href=https://taoquangne.com/tags/active-record/>#active-record</a>&nbsp;</span><div class=post-content><p>Một số cú pháp, best practice khi sử dụng Active Record cơ bản cho mấy bạn dép-ộp engineer.</p><h2 id=1-basic-active-record>1. Basic Active Record</h2><h3 id=11-find>1.1 find</h3><p>Tham số truyền vào của <code>find</code> là primary-key, ví dụ <code>User.find(1)</code> tương đương với <code>SELECT * FROM users WHERE id = 1 LIMIT 1</code></p><p>Cũng có thể nhận nhiều giá trị kiểu <code>User.find(1, 10)</code> hoặc <code>User.find([1, 10])</code> sẽ tương đương với <code>SELECT * FROM users WHERE id IN (1, 10)</code></p><h3 id=12-takefirstlast>1.2 take/first/last</h3><ul><li><code>take</code> trả về một hoặc nhiều record tùy vào giá trị truyền vào nhưng KHÔNG SẮP XẾP</li><li><code>first</code> mặc định trả về một record và SẮP XẾP GIẢM DẦN dựa trên primary key <code>ORDER BY id ASC</code>, cũng có thể trả về nhiều giá trị</li><li><code>last</code> giống <code>first</code>, chỉ khác là sắp xếp tăng dần.</li></ul><p>Theo thứ tự active record và sql sẽ như sau:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span><span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>take
+</span></span><span style=display:flex><span><span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>take(<span style=color:#ae81ff>20</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>FROM</span> users <span style=color:#66d9ef>LIMIT</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>FROM</span> users <span style=color:#66d9ef>LIMIT</span> <span style=color:#ae81ff>20</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>first
+</span></span><span style=display:flex><span><span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>first(<span style=color:#ae81ff>2</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>FROM</span> users <span style=color:#66d9ef>ORDER</span> <span style=color:#66d9ef>BY</span> id <span style=color:#66d9ef>ASC</span> <span style=color:#66d9ef>LIMIT</span> <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>FROM</span> users <span style=color:#66d9ef>ORDER</span> <span style=color:#66d9ef>BY</span> id <span style=color:#66d9ef>ASC</span> <span style=color:#66d9ef>LIMIT</span> <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>last
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>FROM</span> users <span style=color:#66d9ef>ORDER</span> <span style=color:#66d9ef>BY</span> id <span style=color:#66d9ef>DESC</span> <span style=color:#66d9ef>LIMIT</span> <span style=color:#ae81ff>1</span>
+</span></span></code></pre></div><h3 id=13-find_by-và-wheretake>1.3 <code>find_by</code> và <code>where().take</code></h3><ul><li><code>find_by</code> trả về một record match với điều kiện.</li><li><code>where</code> trả về record theo điều kiện.</li></ul><p>Ví dụ 2 query sau sẽ như nhau:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span><span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>find_by name: <span style=color:#e6db74>&#39;Quang&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>where(name: <span style=color:#e6db74>&#39;Quang&#39;</span>)<span style=color:#f92672>.</span>take
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>FROM</span> users <span style=color:#66d9ef>WHERE</span> name <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;Quang&#39;</span> <span style=color:#66d9ef>LIMIT</span> <span style=color:#ae81ff>1</span>;
+</span></span></code></pre></div><h3 id=14-unscope-và-only>1.4 <code>unscope</code> và <code>only</code></h3><p><code>unscope</code> dùng để xóa một số <strong>điều kiện</strong> cụ thể nào đó, <code>only</code> thì ngược lại, chỉ định các <strong>điều kiện</strong> sẽ được giữ lại, ví dụ:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span><span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>where(<span style=color:#e6db74>&#34;email LIKE &#39;%@gmail%&#39;&#34;</span>)<span style=color:#f92672>.</span>order(<span style=color:#e6db74>:id</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span>  <span style=color:#e6db74>`users`</span><span style=color:#f92672>.</span>* <span style=color:#66d9ef>FROM</span> <span style=color:#e6db74>`users`</span> <span style=color:#66d9ef>WHERE</span> (email <span style=color:#66d9ef>LIKE</span> <span style=color:#e6db74>&#39;%@gmail%&#39;</span>) <span style=color:#66d9ef>ORDER</span> <span style=color:#66d9ef>BY</span> <span style=color:#e6db74>`users`</span><span style=color:#f92672>.</span>`id<span style=color:#e6db74>` ASC;
+</span></span></span></code></pre></div><p>Nhưng giờ mình muốn xóa điều kiện sắp xếp theo <code>id</code> thì dùng method <code>unscope</code> như sau:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span><span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>where(<span style=color:#e6db74>&#34;email LIKE &#39;%@gmail%&#39;&#34;</span>)<span style=color:#f92672>.</span>order(<span style=color:#e6db74>:id</span>)<span style=color:#f92672>.</span>unscope(<span style=color:#e6db74>:order</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span>  <span style=color:#e6db74>`users`</span><span style=color:#f92672>.</span>* <span style=color:#66d9ef>FROM</span> <span style=color:#e6db74>`users`</span> <span style=color:#66d9ef>WHERE</span> (email <span style=color:#66d9ef>LIKE</span> <span style=color:#e6db74>&#39;%@gmail%&#39;</span>);
+</span></span></code></pre></div><h2 id=2-some-active-record-tips>2. Some Active-Record tips</h2><h3 id=21-include-và-n--1-query>2.1. <code>include</code> và n + 1 query</h3><p>Giả sử ta có model User như sau:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>User</span>
+</span></span><span style=display:flex><span>  has_many <span style=color:#e6db74>:posts</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>end</span>
+</span></span></code></pre></div><p>=> một user có thể có nhiều post</p><p>Với cách query thông thường trong active-record</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span>users <span style=color:#f92672>=</span> <span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>all
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>users<span style=color:#f92672>.</span>each <span style=color:#66d9ef>do</span> <span style=color:#f92672>|</span>user<span style=color:#f92672>|</span>
+</span></span><span style=display:flex><span>  user<span style=color:#f92672>.</span>posts
+</span></span><span style=display:flex><span><span style=color:#66d9ef>end</span>
+</span></span></code></pre></div><p>Đoạn trên sẽ generate ra n + 1 query như sau:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> users<span style=color:#f92672>.</span>* <span style=color:#66d9ef>FROM</span> users;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> posts<span style=color:#f92672>.</span>* <span style=color:#66d9ef>FROM</span> posts <span style=color:#66d9ef>WHERE</span> posts<span style=color:#f92672>.</span>user_id <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> posts<span style=color:#f92672>.</span>* <span style=color:#66d9ef>FROM</span> posts <span style=color:#66d9ef>WHERE</span> posts<span style=color:#f92672>.</span>user_id <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> posts<span style=color:#f92672>.</span>* <span style=color:#66d9ef>FROM</span> posts <span style=color:#66d9ef>WHERE</span> posts<span style=color:#f92672>.</span>user_id <span style=color:#f92672>=</span> <span style=color:#ae81ff>3</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> posts<span style=color:#f92672>.</span>* <span style=color:#66d9ef>FROM</span> posts <span style=color:#66d9ef>WHERE</span> posts<span style=color:#f92672>.</span>user_id <span style=color:#f92672>=</span> <span style=color:#ae81ff>4</span>;
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> posts<span style=color:#f92672>.</span>* <span style=color:#66d9ef>FROM</span> posts <span style=color:#66d9ef>WHERE</span> posts<span style=color:#f92672>.</span>user_id <span style=color:#f92672>=</span> n;
+</span></span></code></pre></div><p>=> nếu có bao nhiêu user thì generate ra bằng đó + 1 user nên gọi là n + 1</p><p>Nếu ta dùng <code>includes</code> thì sẽ chỉ generate ra 2 query, 1 là load tất cả users và 1 là load tất cả các posts liên quan đến các users đó.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span>users <span style=color:#f92672>=</span> <span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>includes(<span style=color:#e6db74>:posts</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>users<span style=color:#f92672>.</span>each <span style=color:#66d9ef>do</span> <span style=color:#f92672>|</span>user<span style=color:#f92672>|</span>
+</span></span><span style=display:flex><span>  user<span style=color:#f92672>.</span>posts
+</span></span><span style=display:flex><span><span style=color:#66d9ef>end</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> users<span style=color:#f92672>.</span>* <span style=color:#66d9ef>FROM</span> users;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> posts<span style=color:#f92672>.</span>* <span style=color:#66d9ef>FROM</span> posts <span style=color:#66d9ef>WHERE</span> posts<span style=color:#f92672>.</span>user_id <span style=color:#66d9ef>IN</span> (<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span> <span style=color:#f92672>...</span> n);
+</span></span></code></pre></div><p>Ngoài <code>include</code> cũng có thể sử dụng <code>preload</code> hoặc <code>eager_load</code> để tránh n + 1 query</p><h3 id=22-find_each-khi-load-một-lượng-lớn-record>2.2. <code>find_each</code> khi load một lượng lớn record</h3><p>Tương tự như việc dùng <code>LIMIT</code> trong SQL</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span><span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>all<span style=color:#f92672>.</span>each <span style=color:#66d9ef>do</span> <span style=color:#f92672>|</span>user<span style=color:#f92672>|</span>
+</span></span><span style=display:flex><span>  puts users
+</span></span><span style=display:flex><span><span style=color:#66d9ef>end</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># SQL generate</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> users<span style=color:#f92672>.</span>* <span style=color:#66d9ef>FROM</span> users;
+</span></span></code></pre></div><p>Thay vì load tất cả các user thì ta có thể LIMIT lượng user hiển thị ra bằng cách dùng <code>find_each</code> như sau:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span><span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>all<span style=color:#f92672>.</span>find_each(<span style=color:#e6db74>batch_size</span>: <span style=color:#ae81ff>100</span>) <span style=color:#66d9ef>do</span> <span style=color:#f92672>|</span>u<span style=color:#f92672>|</span>
+</span></span><span style=display:flex><span>  puts u
+</span></span><span style=display:flex><span><span style=color:#66d9ef>end</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># SQL query</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> users<span style=color:#f92672>.</span>* <span style=color:#66d9ef>FROM</span> users <span style=color:#66d9ef>ORDER</span> <span style=color:#66d9ef>BY</span> users<span style=color:#f92672>.</span>id <span style=color:#66d9ef>ASC</span> <span style=color:#66d9ef>LIMIT</span> <span style=color:#ae81ff>100</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> users<span style=color:#f92672>.</span>* <span style=color:#66d9ef>FROM</span> users <span style=color:#66d9ef>WHERE</span> users<span style=color:#f92672>.</span>id <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>100</span> <span style=color:#66d9ef>ORDER</span> <span style=color:#66d9ef>BY</span> users<span style=color:#f92672>.</span>id <span style=color:#66d9ef>ASC</span> <span style=color:#66d9ef>LIMIT</span> <span style=color:#ae81ff>100</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> users<span style=color:#f92672>.</span>* <span style=color:#66d9ef>FROM</span> users <span style=color:#66d9ef>WHERE</span> users<span style=color:#f92672>.</span>id <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>200</span> <span style=color:#66d9ef>ORDER</span> <span style=color:#66d9ef>BY</span> users<span style=color:#f92672>.</span>id <span style=color:#66d9ef>ASC</span> <span style=color:#66d9ef>LIMIT</span> <span style=color:#ae81ff>100</span>;
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>
+</span></span></code></pre></div><p>Chú ý là các query sau sẽ có thêm điều kiện <code>users.id > batch_size</code></p><h3 id=23-chỉ-lấy-field-cần-với-pluck-hoặc-select>2.3. Chỉ lấy field cần với <code>pluck</code> hoặc <code>select</code></h3><p>Tương tự trong SQL, không phải lúc nào ta cũng cần tất cả thuộc tính của model, thay vì:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>FROM</span> users;
+</span></span></code></pre></div><p>Ta chỉ lấy các thuộc tính cần thiết bằng câu query:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> email <span style=color:#66d9ef>FROM</span> users;
+</span></span></code></pre></div><p>Trong active-record thì thay vì dùng</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span>user_emails <span style=color:#f92672>=</span> <span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>where(<span style=color:#e6db74>status</span>: <span style=color:#e6db74>&#34;active&#34;</span>)<span style=color:#f92672>.</span>map(<span style=color:#f92672>&amp;</span><span style=color:#e6db74>:email</span>)
+</span></span><span style=display:flex><span><span style=color:#75715e># SELECT * FROM users;</span>
+</span></span></code></pre></div><p>Ta sẽ chỉ lấy thuộc tính email của user như sau:</p><pre tabindex=0><code>user_emails = User.where(status: &#34;active&#34;).pluck(:email)
 # SELECT users.email FROM users;
-</code></pre><p>Hoặc xài <code>select</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>select(<span style="color:#e6db74">:name</span>)
-</span></span><span style="display:flex;"><span><span style="color:#f92672">or</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>select(<span style="color:#e6db74">&#34;name&#34;</span>)
-</span></span></code></pre></div><h3 id="24-kiểm-tra-sự-tồn-tại-của-dữ-liệu-với-exist-thay-vì-present">2.4. Kiểm tra sự tồn tại của dữ liệu với <code>exist?</code> thay vì <code>present?</code></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">email</span>: <span style="color:#e6db74">&#34;a@bc.d&#34;</span>)<span style="color:#f92672">.</span>present?
-</span></span><span style="display:flex;"><span>  puts <span style="color:#e6db74">&#34;There is a user with email address a@bc.d&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span>  puts <span style="color:#e6db74">&#34;There is no user with email address a@bc.d&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span></code></pre></div><p>Câu query SQL sẽ generate thành:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> email <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;a@bc.d&#39;</span>;
-</span></span></code></pre></div><p>Câu query trên sẽ lãng phí bởi ví ta không cần load hết thuộc tính của user để kiểm tra user với email đó có tồn tại hay không. Thay vào đó có thể dùng như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">email</span>: <span style="color:#e6db74">&#34;a@bc.d&#34;</span>)<span style="color:#f92672">.</span>exist?
-</span></span><span style="display:flex;"><span>  puts <span style="color:#e6db74">&#34;There is a user with email address a@bc.d&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span>  puts <span style="color:#e6db74">&#34;There is no user with email address a@bc.d&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span></code></pre></div><p>Query SQL sẽ thành:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> email <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;a@bc.d&#39;</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>;
-</span></span></code></pre></div><p>Kết quả chỉ trả về 1 record và không bao gồm bất kỳ thuộc tính nào.</p>
-<h3 id="25-bulk">2.5 Bulk</h3>
-<p>Ví dụ ta phải INSERT/UPDATE/DELETE một lượng lớn dữ liệu, thì bulk INSERT/UPDATE/DELETE sẽ nhanh hơn là thao tác với từng record dữ liệu.</p>
-<p>Ví dụ với tạo dữ liệu:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>new_users <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>
-</span></span><span style="display:flex;"><span>  {name: <span style="color:#e6db74">&#34;A&#34;</span>, <span style="color:#e6db74">email</span>: <span style="color:#e6db74">&#34;a@bc.d&#34;</span>},
-</span></span><span style="display:flex;"><span>  {name: <span style="color:#e6db74">&#34;B&#34;</span>, <span style="color:#e6db74">email</span>: <span style="color:#e6db74">&#34;b@bc.d&#34;</span>},
-</span></span><span style="display:flex;"><span>  {name: <span style="color:#e6db74">&#34;C&#34;</span>, <span style="color:#e6db74">email</span>: <span style="color:#e6db74">&#34;c@bc.d&#34;</span> },
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">...</span>
-</span></span><span style="display:flex;"><span>  {name: <span style="color:#e6db74">&#34;Z&#34;</span>, <span style="color:#e6db74">email</span>: <span style="color:#e6db74">&#34;z@bc.d&#34;</span> },
-</span></span><span style="display:flex;"><span><span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>new_users<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>u<span style="color:#f92672">|</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>create(u)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">-----------------------------------------</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> users <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#34;A&#34;</span>, <span style="color:#e6db74">&#34;a@bc.d&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> users <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#34;B&#34;</span>, <span style="color:#e6db74">&#34;b@bc.d&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> users <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#34;C&#34;</span>, <span style="color:#e6db74">&#34;c@bc.d&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> users <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#34;Z&#34;</span>, <span style="color:#e6db74">&#34;z@bc.d&#34;</span>);
-</span></span></code></pre></div><p>Ta có thể bulk INSERT bằng cách:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>create(new_users)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">-------------------------------------------------------------------------------------------</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> users <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#34;A&#34;</span>, <span style="color:#e6db74">&#34;a@bc.d&#34;</span>), (<span style="color:#e6db74">&#34;B&#34;</span>, <span style="color:#e6db74">&#34;b@bc.d&#34;</span>), (<span style="color:#e6db74">&#34;C&#34;</span>, <span style="color:#e6db74">&#34;c@bc.d&#34;</span>), (<span style="color:#e6db74">&#34;Z&#34;</span>, <span style="color:#e6db74">&#34;z@bc.d&#34;</span>);
-</span></span></code></pre></div><p>Ví dụ với cập nhật dữ liệu:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>update_users <span style="color:#f92672">=</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">user_status</span>: <span style="color:#66d9ef">nil</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>update_users<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>u<span style="color:#f92672">|</span>
-</span></span><span style="display:flex;"><span>  u<span style="color:#f92672">.</span>updute(<span style="color:#e6db74">user_status</span>: <span style="color:#e6db74">&#34;new_user&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span></code></pre></div><p>Ta có thể bulk UPDATE bằng cách:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>update_users <span style="color:#f92672">=</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">user_status</span>: <span style="color:#66d9ef">nil</span>)
-</span></span><span style="display:flex;"><span>update_users<span style="color:#f92672">.</span>update_all(<span style="color:#e6db74">user_status</span>: <span style="color:#e6db74">&#34;new_user&#34;</span>)
-</span></span></code></pre></div><p>Ví dụ với xóa dữ liệu:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>banned_users <span style="color:#f92672">=</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">user_status</span>: <span style="color:#e6db74">&#34;banned&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>banned_users<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>u<span style="color:#f92672">|</span>
-</span></span><span style="display:flex;"><span>  u<span style="color:#f92672">.</span>destroy
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">-------------------------------------------------------</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> users<span style="color:#f92672">.</span>user_status <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;banned&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
-</span></span></code></pre></div><p>=&gt; Lấy tất cả các user cần DELETE sau đó sinh ra n query DELETE từng user dựa trên id của user. Thay vì vậy ta có thể xài bulk DELETE như sau</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>banned_users <span style="color:#f92672">=</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>where(<span style="color:#e6db74">user_status</span>: <span style="color:#e6db74">&#34;banned&#34;</span>)
-</span></span><span style="display:flex;"><span>banned_users<span style="color:#f92672">.</span>delete_all
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">-----------------------------------------------------</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> users <span style="color:#66d9ef">WHERE</span> users<span style="color:#f92672">.</span>user_status <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;banned&#34;</span>;
-</span></span></code></pre></div><h3 id="26-map-vs-select">2.6. Map vs Select</h3>
-<p>Kết quả trả về của <code>map</code> sẽ là một mảng bằng mảng đầu vào, kết quả của <code>map</code> là mảng chứa kết quả của từng phần tử đối chiếu với điều kiện trong block.</p>
-<p><code>select</code> chỉ trả về các kết quả thỏa mãn với điều kiện trong block, <code>select</code> có thể xem như <code>map</code> + <code>compact</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> an_array <span style="color:#f92672">=</span> <span style="color:#f92672">[</span><span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span><span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> m_array <span style="color:#f92672">=</span> an_array<span style="color:#f92672">.</span>map { <span style="color:#f92672">|</span>e<span style="color:#f92672">|</span> e <span style="color:#66d9ef">if</span> e<span style="color:#f92672">.</span>even? }
-</span></span><span style="display:flex;"><span><span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span><span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">nil</span>, <span style="color:#ae81ff">2</span>, <span style="color:#66d9ef">nil</span>, <span style="color:#ae81ff">4</span>, <span style="color:#66d9ef">nil</span><span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> m_array<span style="color:#f92672">.</span>compact
-</span></span><span style="display:flex;"><span><span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span><span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span><span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> s_array <span style="color:#f92672">=</span> an_array<span style="color:#f92672">.</span>select { <span style="color:#f92672">|</span>e<span style="color:#f92672">|</span> e <span style="color:#66d9ef">if</span> e<span style="color:#f92672">.</span>even? }
-</span></span><span style="display:flex;"><span><span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span><span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span><span style="color:#f92672">]</span>
-</span></span></code></pre></div><h2 id="3-other">3. Other</h2>
-<h3 id="31-">3.1. <code>||=</code></h3>
-<p>Ví dụ <code>x ||= y</code> có nghĩa là <code>x || x = y</code>. Nếu <code>x = nil</code> hoặc <code>x = false</code> gán <code>x = y</code></p>
-<h2 id="4-ref">4. Ref</h2>
-<ul>
-<li><a href="https://medium.com/@User3141592/active-record-query-performance-tips-a3c3947b968">https://medium.com/@User3141592/active-record-query-performance-tips-a3c3947b968</a></li>
-<li><a href="https://www.netguru.co/codestories/activerecord-tips-2">https://www.netguru.co/codestories/activerecord-tips-2</a></li>
-</ul>
-
-    </div>
-    
-      
-        <div class="pagination">
-          <div class="pagination__title">
-            <span class="pagination__title-h"
-              >Read other posts</span
-            >
-            <hr />
-          </div>
-          <div class="pagination__buttons">
-            
-              <span class="button previous">
-                <a href="https://taoquangne.com/post/sidekiq-how-to-reliability/">
-                  <span class="button__icon">←</span>
-                  <span class="button__text">Sidekiq, how to reliability?</span>
-                </a>
-              </span>
-            
-            
-              <span class="button next">
-                <a href="https://taoquangne.com/post/how-to-setup-our-networking/">
-                  <span class="button__text">Setup hệ thống mạng cho cty vừa và nhỏ</span>
-                  <span class="button__icon">→</span>
-                </a>
-              </span>
-            
-          </div>
-        </div>
-      
-    
-
-    
-      
-        
-
-      
-    
-  </div>
-
-      </div>
-
-      
-        <footer class="footer">
-  <div class="footer__inner">
-    
-      <div class="copyright copyright--user"><span> hàng nhà trồng 🌴 theo <a href="https://creativecommons.org/licenses/by-nc/4.0">giấy phép CC BY-NC 4.0</a></span><span>Themes created by <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span></div>
-      
-  </div>
-</footer>
-
-<script src="https://taoquangne.com/assets/main.js"></script>
-<script src="https://taoquangne.com/assets/prism.js"></script>
-
-
-      
-    </div>
-
-    
-  </body>
-</html>
+</code></pre><p>Hoặc xài <code>select</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span><span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>select(<span style=color:#e6db74>:name</span>)
+</span></span><span style=display:flex><span><span style=color:#f92672>or</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>select(<span style=color:#e6db74>&#34;name&#34;</span>)
+</span></span></code></pre></div><h3 id=24-kiểm-tra-sự-tồn-tại-của-dữ-liệu-với-exist-thay-vì-present>2.4. Kiểm tra sự tồn tại của dữ liệu với <code>exist?</code> thay vì <code>present?</code></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span><span style=color:#66d9ef>if</span> <span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>where(<span style=color:#e6db74>email</span>: <span style=color:#e6db74>&#34;a@bc.d&#34;</span>)<span style=color:#f92672>.</span>present?
+</span></span><span style=display:flex><span>  puts <span style=color:#e6db74>&#34;There is a user with email address a@bc.d&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>  puts <span style=color:#e6db74>&#34;There is no user with email address a@bc.d&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>end</span>
+</span></span></code></pre></div><p>Câu query SQL sẽ generate thành:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>FROM</span> users <span style=color:#66d9ef>WHERE</span> email <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;a@bc.d&#39;</span>;
+</span></span></code></pre></div><p>Câu query trên sẽ lãng phí bởi ví ta không cần load hết thuộc tính của user để kiểm tra user với email đó có tồn tại hay không. Thay vào đó có thể dùng như sau:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span><span style=color:#66d9ef>if</span> <span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>where(<span style=color:#e6db74>email</span>: <span style=color:#e6db74>&#34;a@bc.d&#34;</span>)<span style=color:#f92672>.</span>exist?
+</span></span><span style=display:flex><span>  puts <span style=color:#e6db74>&#34;There is a user with email address a@bc.d&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>  puts <span style=color:#e6db74>&#34;There is no user with email address a@bc.d&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>end</span>
+</span></span></code></pre></div><p>Query SQL sẽ thành:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> <span style=color:#ae81ff>1</span> <span style=color:#66d9ef>FROM</span> users <span style=color:#66d9ef>WHERE</span> email <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;a@bc.d&#39;</span> <span style=color:#66d9ef>LIMIT</span> <span style=color:#ae81ff>1</span>;
+</span></span></code></pre></div><p>Kết quả chỉ trả về 1 record và không bao gồm bất kỳ thuộc tính nào.</p><h3 id=25-bulk>2.5 Bulk</h3><p>Ví dụ ta phải INSERT/UPDATE/DELETE một lượng lớn dữ liệu, thì bulk INSERT/UPDATE/DELETE sẽ nhanh hơn là thao tác với từng record dữ liệu.</p><p>Ví dụ với tạo dữ liệu:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span>new_users <span style=color:#f92672>=</span> <span style=color:#f92672>[</span>
+</span></span><span style=display:flex><span>  {name: <span style=color:#e6db74>&#34;A&#34;</span>, <span style=color:#e6db74>email</span>: <span style=color:#e6db74>&#34;a@bc.d&#34;</span>},
+</span></span><span style=display:flex><span>  {name: <span style=color:#e6db74>&#34;B&#34;</span>, <span style=color:#e6db74>email</span>: <span style=color:#e6db74>&#34;b@bc.d&#34;</span>},
+</span></span><span style=display:flex><span>  {name: <span style=color:#e6db74>&#34;C&#34;</span>, <span style=color:#e6db74>email</span>: <span style=color:#e6db74>&#34;c@bc.d&#34;</span> },
+</span></span><span style=display:flex><span>  <span style=color:#f92672>...</span>
+</span></span><span style=display:flex><span>  {name: <span style=color:#e6db74>&#34;Z&#34;</span>, <span style=color:#e6db74>email</span>: <span style=color:#e6db74>&#34;z@bc.d&#34;</span> },
+</span></span><span style=display:flex><span><span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>new_users<span style=color:#f92672>.</span>each <span style=color:#66d9ef>do</span> <span style=color:#f92672>|</span>u<span style=color:#f92672>|</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>create(u)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>end</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>-----------------------------------------</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>INSERT</span> <span style=color:#66d9ef>INTO</span> users <span style=color:#66d9ef>VALUES</span> (<span style=color:#e6db74>&#34;A&#34;</span>, <span style=color:#e6db74>&#34;a@bc.d&#34;</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>INSERT</span> <span style=color:#66d9ef>INTO</span> users <span style=color:#66d9ef>VALUES</span> (<span style=color:#e6db74>&#34;B&#34;</span>, <span style=color:#e6db74>&#34;b@bc.d&#34;</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>INSERT</span> <span style=color:#66d9ef>INTO</span> users <span style=color:#66d9ef>VALUES</span> (<span style=color:#e6db74>&#34;C&#34;</span>, <span style=color:#e6db74>&#34;c@bc.d&#34;</span>);
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>INSERT</span> <span style=color:#66d9ef>INTO</span> users <span style=color:#66d9ef>VALUES</span> (<span style=color:#e6db74>&#34;Z&#34;</span>, <span style=color:#e6db74>&#34;z@bc.d&#34;</span>);
+</span></span></code></pre></div><p>Ta có thể bulk INSERT bằng cách:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span><span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>create(new_users)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>-------------------------------------------------------------------------------------------</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>INSERT</span> <span style=color:#66d9ef>INTO</span> users <span style=color:#66d9ef>VALUES</span> (<span style=color:#e6db74>&#34;A&#34;</span>, <span style=color:#e6db74>&#34;a@bc.d&#34;</span>), (<span style=color:#e6db74>&#34;B&#34;</span>, <span style=color:#e6db74>&#34;b@bc.d&#34;</span>), (<span style=color:#e6db74>&#34;C&#34;</span>, <span style=color:#e6db74>&#34;c@bc.d&#34;</span>), (<span style=color:#e6db74>&#34;Z&#34;</span>, <span style=color:#e6db74>&#34;z@bc.d&#34;</span>);
+</span></span></code></pre></div><p>Ví dụ với cập nhật dữ liệu:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span>update_users <span style=color:#f92672>=</span> <span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>where(<span style=color:#e6db74>user_status</span>: <span style=color:#66d9ef>nil</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>update_users<span style=color:#f92672>.</span>each <span style=color:#66d9ef>do</span> <span style=color:#f92672>|</span>u<span style=color:#f92672>|</span>
+</span></span><span style=display:flex><span>  u<span style=color:#f92672>.</span>updute(<span style=color:#e6db74>user_status</span>: <span style=color:#e6db74>&#34;new_user&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>end</span>
+</span></span></code></pre></div><p>Ta có thể bulk UPDATE bằng cách:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span>update_users <span style=color:#f92672>=</span> <span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>where(<span style=color:#e6db74>user_status</span>: <span style=color:#66d9ef>nil</span>)
+</span></span><span style=display:flex><span>update_users<span style=color:#f92672>.</span>update_all(<span style=color:#e6db74>user_status</span>: <span style=color:#e6db74>&#34;new_user&#34;</span>)
+</span></span></code></pre></div><p>Ví dụ với xóa dữ liệu:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span>banned_users <span style=color:#f92672>=</span> <span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>where(<span style=color:#e6db74>user_status</span>: <span style=color:#e6db74>&#34;banned&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>banned_users<span style=color:#f92672>.</span>each <span style=color:#66d9ef>do</span> <span style=color:#f92672>|</span>u<span style=color:#f92672>|</span>
+</span></span><span style=display:flex><span>  u<span style=color:#f92672>.</span>destroy
+</span></span><span style=display:flex><span><span style=color:#66d9ef>end</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>-------------------------------------------------------</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>FROM</span> users <span style=color:#66d9ef>WHERE</span> users<span style=color:#f92672>.</span>user_status <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;banned&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>DELETE</span> <span style=color:#66d9ef>FROM</span> users <span style=color:#66d9ef>WHERE</span> id <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>DELETE</span> <span style=color:#66d9ef>FROM</span> users <span style=color:#66d9ef>WHERE</span> id <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>DELETE</span> <span style=color:#66d9ef>FROM</span> users <span style=color:#66d9ef>WHERE</span> id <span style=color:#f92672>=</span> <span style=color:#ae81ff>3</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>DELETE</span> <span style=color:#66d9ef>FROM</span> users <span style=color:#66d9ef>WHERE</span> id <span style=color:#f92672>=</span> <span style=color:#ae81ff>4</span>;
+</span></span></code></pre></div><p>=> Lấy tất cả các user cần DELETE sau đó sinh ra n query DELETE từng user dựa trên id của user. Thay vì vậy ta có thể xài bulk DELETE như sau</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span>banned_users <span style=color:#f92672>=</span> <span style=color:#66d9ef>User</span><span style=color:#f92672>.</span>where(<span style=color:#e6db74>user_status</span>: <span style=color:#e6db74>&#34;banned&#34;</span>)
+</span></span><span style=display:flex><span>banned_users<span style=color:#f92672>.</span>delete_all
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>-----------------------------------------------------</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>DELETE</span> <span style=color:#66d9ef>FROM</span> users <span style=color:#66d9ef>WHERE</span> users<span style=color:#f92672>.</span>user_status <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;banned&#34;</span>;
+</span></span></code></pre></div><h3 id=26-map-vs-select>2.6. Map vs Select</h3><p>Kết quả trả về của <code>map</code> sẽ là một mảng bằng mảng đầu vào, kết quả của <code>map</code> là mảng chứa kết quả của từng phần tử đối chiếu với điều kiện trong block.</p><p><code>select</code> chỉ trả về các kết quả thỏa mãn với điều kiện trong block, <code>select</code> có thể xem như <code>map</code> + <code>compact</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=display:flex><span><span style=color:#f92672>&gt;</span> an_array <span style=color:#f92672>=</span> <span style=color:#f92672>[</span><span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span><span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;</span> m_array <span style=color:#f92672>=</span> an_array<span style=color:#f92672>.</span>map { <span style=color:#f92672>|</span>e<span style=color:#f92672>|</span> e <span style=color:#66d9ef>if</span> e<span style=color:#f92672>.</span>even? }
+</span></span><span style=display:flex><span><span style=color:#f92672>=&gt;</span> <span style=color:#f92672>[</span><span style=color:#ae81ff>0</span>, <span style=color:#66d9ef>nil</span>, <span style=color:#ae81ff>2</span>, <span style=color:#66d9ef>nil</span>, <span style=color:#ae81ff>4</span>, <span style=color:#66d9ef>nil</span><span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;</span> m_array<span style=color:#f92672>.</span>compact
+</span></span><span style=display:flex><span><span style=color:#f92672>=&gt;</span> <span style=color:#f92672>[</span><span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>4</span><span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;</span> s_array <span style=color:#f92672>=</span> an_array<span style=color:#f92672>.</span>select { <span style=color:#f92672>|</span>e<span style=color:#f92672>|</span> e <span style=color:#66d9ef>if</span> e<span style=color:#f92672>.</span>even? }
+</span></span><span style=display:flex><span><span style=color:#f92672>=&gt;</span> <span style=color:#f92672>[</span><span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>4</span><span style=color:#f92672>]</span>
+</span></span></code></pre></div><h2 id=3-other>3. Other</h2><h3 id=31->3.1. <code>||=</code></h3><p>Ví dụ <code>x ||= y</code> có nghĩa là <code>x || x = y</code>. Nếu <code>x = nil</code> hoặc <code>x = false</code> gán <code>x = y</code></p><h2 id=4-ref>4. Ref</h2><ul><li><a href=https://medium.com/@User3141592/active-record-query-performance-tips-a3c3947b968>https://medium.com/@User3141592/active-record-query-performance-tips-a3c3947b968</a></li><li><a href=https://www.netguru.co/codestories/activerecord-tips-2>https://www.netguru.co/codestories/activerecord-tips-2</a></li></ul></div><div class=pagination><div class=pagination__title><span class=pagination__title-h>Read other posts</span><hr></div><div class=pagination__buttons><span class="button previous"><a href=https://taoquangne.com/post/sidekiq-how-to-reliability/><span class=button__icon>←</span>
+<span class=button__text>Sidekiq, how to reliability?</span>
+</a></span><span class="button next"><a href=https://taoquangne.com/post/how-to-setup-our-networking/><span class=button__text>Setup hệ thống mạng cho cty vừa và nhỏ</span>
+<span class=button__icon>→</span></a></span></div></div></div></div><footer class=footer><div class=footer__inner><div class="copyright copyright--user"><span>hàng nhà trồng 🌴 theo <a href=https://creativecommons.org/licenses/by-nc/4.0>giấy phép CC BY-NC 4.0</a></span><span>Themes created by <a href=https://twitter.com/panr target=_blank rel=noopener>panr</a></span></div></div></footer><script src=https://taoquangne.com/assets/main.js></script><script src=https://taoquangne.com/assets/prism.js></script></div></body></html>

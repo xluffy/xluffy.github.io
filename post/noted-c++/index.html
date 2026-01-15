@@ -1,528 +1,208 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    
-      
-<script async src="https://www.googletagmanager.com/gtag/js?id=GTM-5JDKMG4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'GTM-5JDKMG4');
-</script>
-
-    
-    
-      <title>
-        Tham chiếu và con trỏ trong C&#43;&#43; ::
-        /home/xluffy
-      </title>
-    
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta
-  name="description"
-  content="Tại sao hôm nay có bài này?"
-/>
-<meta
-  name="keywords"
-  content=""
-/>
-<meta name="robots" content="noodp" />
-<link rel="canonical" href="https://taoquangne.com/post/noted-c&#43;&#43;/" />
-
-
-
-
-
-<link rel="stylesheet" href="https://taoquangne.com/assets/style.css" />
-
-<link rel="stylesheet" href="https://taoquangne.com/style.css" />
-
-
-<link
-  rel="apple-touch-icon-precomposed"
-  sizes="144x144"
-  href="https://taoquangne.com/img/apple-touch-icon-144-precomposed.png"
-/>
-<link rel="shortcut icon" href="https://taoquangne.com/img/favicon.png" />
-
-
-<link href="https://taoquangne.com/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-<link href="https://taoquangne.com/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-<link href="https://taoquangne.com/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-<link href="https://taoquangne.com/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-<link href="https://taoquangne.com/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-<link href="https://taoquangne.com/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Tham chiếu và con trỏ trong C&#43;&#43;"/>
-<meta name="twitter:description" content="Tại sao hôm nay có bài này?"/>
-
-
-
-<meta property="og:title" content="Tham chiếu và con trỏ trong C&#43;&#43;" />
-<meta property="og:description" content="Tại sao hôm nay có bài này?" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://taoquangne.com/post/noted-c&#43;&#43;/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2018-07-06T00:00:00+00:00" />
-<meta property="article:modified_time" content="2018-07-06T00:00:00+00:00" />
-
-
-
-
-
-
-  </head>
-  <body class="">
-    <div class="container">
-      <header class="header">
-  <span class="header__inner">
-    <a
-  href="/"
-  class="logo"
-  style="text-decoration: none;"
->
-  
-    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
-  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
-</svg>
-</span>
-    <span class="logo__text"
-      >/home/xluffy ft 🍄</span
-    >
-    <span class="logo__cursor"></span>
-  
-</a>
-
-    <span class="header__right">
-      
-        <nav class="menu">
-  <ul class="menu__inner menu__inner--desktop">
-    
-      
-        
-          <li><a href="/about">about</a></li>
-        
-      
-        
-          <li><a href="/tags">tags</a></li>
-        
-      
-        
-          <li><a href="https://github.com/xluffy/til/issues">til</a></li>
-        
-      
-        
-          <li><a href="/weekly-summary">weekly-summary</a></li>
-        
-      
-    
-  </ul>
-
-  <ul class="menu__inner menu__inner--mobile">
-    
-      
-        <li><a href="/about">about</a></li>
-      
-    
-      
-        <li><a href="/tags">tags</a></li>
-      
-    
-      
-        <li><a href="https://github.com/xluffy/til/issues">til</a></li>
-      
-    
-      
-        <li><a href="/weekly-summary">weekly-summary</a></li>
-      
-    
-  </ul>
-</nav>
-
-        <span class="menu-trigger">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M0 0h24v24H0z" fill="none" />
-            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
-          </svg>
-        </span>
-      
-      <span class="theme-toggle">
-        <svg
-  class="theme-toggler"
-  width="24"
-  height="24"
-  viewBox="0 0 48 48"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <path
-    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
-  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
-  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
-  />
-</svg>
-
-      </span>
-    </span>
-  </span>
-</header>
-
-
-      <div class="content">
-        
-  
-  
-
-  <div class="post">
-    <h1 class="post-title">Tham chiếu và con trỏ trong C++</h1>
-    <div class="post-meta">
-      
-        <span class="post-date">
-          2018-07-06
-        </span>
-
-        
-          
-        
-      
-
-      
-
-
-      
-    </div>
-
-    
-      <span class="post-tags">
-        
-          <a href="https://taoquangne.com/tags/programming/">#programming</a>&nbsp;
-        
-          <a href="https://taoquangne.com/tags/c&#43;&#43;/">#c&#43;&#43;</a>&nbsp;
-        
-      </span>
-    
-
-    
-
-    <div class="post-content">
-      
-      <p>Tại sao hôm nay có bài này?</p>
-<p>Mình chẳng bao giờ code C, C++ nên chẳng bao giờ nhớ được các khái niệm về con trỏ. Nên mình không thích con trỏ tí nào cả. Nhưng khổ cái này trong một số trường hợp mình lại vẫn muốn hiểu nó, mà do không làm việc với C, C++ (và sau này có Golang) nên mình lại rất hay &ldquo;quên&rdquo;. Nên tổng hợp lại để khi nào quên thì vô đọc lại.</p>
-<h2 id="1-hàm-đối-số-tham-số">1. Hàm, đối số, tham số</h2>
-<p>Ví dụ ta có 1 hàm</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">foo</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b){
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><p>Ta có 2 tham số (parameters) là a và b. Giả sử trong hàm main, gọi hàm foo</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>  foo(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>);
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Ta có 2 đối số (arguments) là 1 và 2. Ta nói giá trị <strong>1</strong> và <strong>2</strong> được lưu tạm trong 2 tham số là <strong>a</strong> và <strong>b</strong>.</p>
-<p>Trong C++ hỗ trợ nhiều kiểu truyền đối số khác nhau, tương ứng khai báo tham số trong hàm sẽ khác nhau:</p>
-<ul>
-<li>Truyền đối số là giá trị như phía trên.</li>
-<li>Truyền đố số là tham chiếu.</li>
-<li>Truyền đối số là địa chỉ.</li>
-</ul>
-<h3 id="11-truyền-đối-số-là-giá-trị">1.1 Truyền đối số là giá trị</h3>
-<p>Đối số trong hàm con <code>foo(int a, int b)</code> là <strong>a</strong> và <strong>b</strong> có vai trò là biến cục bộ, chỉ hoạt động bên trong hàm <code>foo()</code>, khi hàm này kết thúc các tham số này sẽ bị hủy và giá trị truyền vào sẽ không tồn tại.</p>
-<p>Mọi thay đổi của tham số bên trong hàm, không có tác động gì đến giá trị gốc được truyền vào ngoài hàm. Ví dụ</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>(<span style="color:#66d9ef">int</span> p) {
-</span></span><span style="display:flex;"><span>  p <span style="color:#f92672">=</span> p <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>  cout <span style="color:#f92672">&lt;&lt;</span> p <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
-</span></span><span style="display:flex;"><span>  foo(a);
-</span></span><span style="display:flex;"><span>  cout <span style="color:#f92672">&lt;&lt;</span> a <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Ta được kết quả, như ta thấy giá trị của đối số <strong>a</strong> không thay đổi sau khi gọi hàm <code>foo()</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Press ENTER or type command to <span style="color:#66d9ef">continue</span>
-</span></span></code></pre></div><p>Điều này có nghĩa là cái mà tham số <strong>p</strong> tiếp nhận chỉ là bản sao giá trị của đối số <strong>a</strong>. Thử in địa chỉ của đối số và tham số:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>voin <span style="color:#a6e22e">print_addr_of_parameter</span>(<span style="color:#66d9ef">int</span> p) {
-</span></span><span style="display:flex;"><span>  cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;addr of parameter is: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">&amp;</span>p <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> a;
-</span></span><span style="display:flex;"><span>  print_addr_of_parameter(a);
-</span></span><span style="display:flex;"><span>  cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;addr of argument is: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">&amp;</span>a <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Ta được kết quả:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>addr of parameter is: 0x7ffee28615bc
-</span></span><span style="display:flex;"><span>addr of argument is: 0x7ffee28615ec
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Press ENTER or type command to <span style="color:#66d9ef">continue</span>
-</span></span></code></pre></div><p>Như ta thấy, đối số và tham số có địa chỉ khác nhau, dù có cùng giá trị.</p>
-<h3 id="12-truyền-đối-số-cho-hàm-là-tham-chiếu">1.2 Truyền đối số cho hàm là tham chiếu</h3>
-<p>Nhược điểm của truyền đối số cho hàm là giá trị là</p>
-<ul>
-<li>Cách duy nhất để có được đầu ra là phải trả về giá trị thông qua từ khóa <code>return</code>.</li>
-<li>Hàm chỉ trả về một giá trị duy nhất cho mỗi lần gọi hàm.</li>
-</ul>
-<p>Trong khi các ngôn ngữ bậc cao như python thì việc trả về nhiều giá trị rất đơn giản. Thực hiện truyền đối số cho hàm là tham chiếu giúp ta khắc phục nhược điểm trên.</p>
-<p>Biến tham chiếu (reference variable) được xem như một tên khác của một biến nào đó có cùng kiểu dữ liệu. Sau khi được khai báo và khởi tạo, nó <strong>dùng chung vùng nhớ</strong> với biến mà nó tham chiếu tới.</p>
-<p>Đặc điểm của biến tham chiếu là khi một trong hai biến bị hủy (biến tham chiếu hoặc biến gốc) do ra khỏi khối lệnh được khai báo, vùng nhớ của 2 biến này vẫn <strong>chưa bị hủy</strong> nếu còn ít nhất 1 biến quản lý.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>ref <span style="color:#f92672">=</span> n;
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> temp <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
-</span></span><span style="display:flex;"><span>    ref <span style="color:#f92672">=</span> temp;
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>  cout <span style="color:#f92672">&lt;&lt;</span> ref <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>  cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Như ở ví dụ trên, biến <code>temp</code> sau khi ra khỏi khối lệnh đã bị hủy, tuy nhiên vẫn tồn tại biến <code>ref</code> kiểm soát vùng nhớ của biến <code>temp</code> nên kết quả sẽ là:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Press ENTER or type command to <span style="color:#66d9ef">continue</span>
-</span></span></code></pre></div><p>Bây giờ ta có thể định nghĩa một hàm không có gía trị trả về (không có <code>return</code>) tương tự như hàm có kết quả trả về.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">add_one</span>(<span style="color:#66d9ef">int</span> value) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> value <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">9</span>;
-</span></span><span style="display:flex;"><span>  n <span style="color:#f92672">=</span> add_one(n);
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add_one</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>value) {
-</span></span><span style="display:flex;"><span>  value<span style="color:#f92672">++</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">9</span>;
-</span></span><span style="display:flex;"><span>  add_one(n);
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Đều có kết quả trả về là:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Press ENTER or type command to <span style="color:#66d9ef">continue</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
-</span></span></code></pre></div><p>Bây giờ lợi dụng đặc điểm này, ta có thể viết một hàm trả về hai giá trị mà không dùng <code>return</code>, ví dụ tính diện tích và chu vi hình tròn với đầu vào là bán kính.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">circle</span>(<span style="color:#66d9ef">float</span> r, <span style="color:#66d9ef">float</span> <span style="color:#f92672">&amp;</span>perimeter, <span style="color:#66d9ef">float</span> <span style="color:#f92672">&amp;</span>area) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> PI <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.14</span>;
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  perimeter <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> r <span style="color:#f92672">*</span> PI;
-</span></span><span style="display:flex;"><span>  area <span style="color:#f92672">=</span> r <span style="color:#f92672">*</span> r <span style="color:#f92672">*</span> PI;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">float</span> r <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">float</span> perimeter, area;
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  circle(r, perimeter, area);
-</span></span><span style="display:flex;"><span>  cout <span style="color:#f92672">&lt;&lt;</span> perimeter <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>  cout <span style="color:#f92672">&lt;&lt;</span> area <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="2-con-trỏ">2. Con trỏ</h2>
-<p>Variable (biến) là một ô nhớ hoặc một vùng nhớ được hệ điều hành cấp phát cho chương trình dùng để lưu giá trị vào ô nhớ.</p>
-<p>Để truy xuất giá trị của biến đang nắm giữ, chương trình cần tìm tới <strong>địa chỉ</strong> của biến và đọc giá trị. Thông thường ta không cần quan tâm tới địa chỉ vùng nhớ, ta chỉ cần gọi <strong>định danh</strong> của biến để lấy ra giá trị cần.</p>
-<p>Chương trình không thể truy xuất trực tiếp vào vùng nhớ vật lý mà chỉ truy xuất trên địa chỉ của vùng nhớ ảo, hệ điều hành sẽ quản lý một page-table để mapping một địa chỉ ảo sang địa chỉ vật lý. Còn việc truy xuất tới vùng nhớ vật lý từ vùng nhớ ảo sẽ do phần cứng <strong>MMU (memory management unit)</strong> quản lý.</p>
-<p><img src="https://pbs.twimg.com/media/DbURcekXkAALzV2.jpg" alt="virtual-memory"></p>
-<p>Ví dụ giá trị của biến và địa chỉ của biến</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  cout <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>  cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">&amp;</span>x <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span>0x7ffee427d5d8
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Press ENTER or type command to <span style="color:#66d9ef">continue</span>
-</span></span></code></pre></div><p>Tham chiếu thì sao nhỉ?</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>ref <span style="color:#f92672">=</span> x;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">&amp;</span>x <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>  cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">&amp;</span>ref <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>  
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>0x7ffeecb835c8
-</span></span><span style="display:flex;"><span>0x7ffeecb835c8
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Press ENTER or type command to <span style="color:#66d9ef">continue</span>
-</span></span></code></pre></div><h3 id="21-toán-tử-trỏ-đến">2.1 Toán tử trỏ đến</h3>
-<p>Ta có toán tử trỏ đến (dereference operator) được kí hiệu bởi dấu <code>*</code> cho phép lấy giá trị của vùng nhớ có địa chỉ cụ thế. Ví dụ ta biết địa chỉ của biến x là <code>0x7ffeecb835c8</code>, giờ thay vì gọi định danh để lấy giá trị, ta gọi địa chỉ để lấy giá trị.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// binh thuong lay gia tri qua dinh danh
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  cout <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// lay gia tri qua dia chi &amp;x
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>(<span style="color:#f92672">&amp;</span>x) <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Kết quả đều giống nhau</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Press ENTER or type command to <span style="color:#66d9ef">continue</span>
-</span></span></code></pre></div><p>Ngoài việc dùng để truy xuất giá trị trong vùng nhớ có địa chỉ cụ thể, toán tử trỏ đến còn dùng để thay đổi giá trị của vùng nhớ như cách ta xài định danh</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">// binh thuong
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
-</span></span><span style="display:flex;"><span>cout <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span>cout <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// dung toan tu tro den
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> y <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
-</span></span><span style="display:flex;"><span>cout <span style="color:#f92672">&lt;&lt;</span> y <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span><span style="color:#f92672">*</span>(<span style="color:#f92672">&amp;</span>y) <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span>cout <span style="color:#f92672">&lt;&lt;</span> y <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// or
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>(<span style="color:#f92672">&amp;</span>y) <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span></code></pre></div><h3 id="22-con-trỏ">2.2 Con trỏ</h3>
-<p>Nhắc lại là biến tham chiếu thì <strong>có cùng địa chỉ</strong> với biến mà nó tham chiếu tới. Địa chỉ của <code>&amp;x</code> giống địa chỉ của <code>x</code>.</p>
-<p>Con trỏ khác với biến tham chiếu là nó là biến độc lập nên có <strong>địa chỉ khác</strong> với vùng nhớ mà nó trỏ tới. Nhưng giá trị bên trong của con trỏ lại chính là <strong>địa chỉ</strong> của biến mà nó trỏ tới.</p>
-<ul>
-<li>Địa chỉ của con trỏ là <code>&amp;(*x)</code> sẽ khác địa chỉ của biến x là <code>&amp;(x)</code>.</li>
-<li>Giá trị của con trỏ <code>*x</code> chính là địa chỉ của biến x là <code>&amp;(x)</code>.</li>
-</ul>
-<p>Khai báo và sử dụng</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>ptr;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>ptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>value
-</span></span></code></pre></div><p>Ở trên ta khai báo kiểu dữ liệu của con trỏ chính là kiểu dữ liệu của biến mà ta muốn trỏ tới, và vì con trỏ lưu địa chỉ vùng nhớ của biến mà nó trỏ tới nên ta cần dùng <strong>address-of operator</strong> để lấy địa chỉ của biến <code>value</code> trước khi gán cho con trỏ.</p>
-<p>Bây giờ ta thử in ra địa chỉ vùng nhớ của con trỏ và địa chỉ vùng nhớ của biến mà con trỏ trỏ tới sẽ thấy là 2 giá trị khác nhau, như lúc đầu tiên nói.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>ptr;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  ptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>(x);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">&amp;</span>x <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>  cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">&amp;</span>ptr <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>0x7ffee9df85d8
-</span></span><span style="display:flex;"><span>0x7ffee9df85d0
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Press ENTER or type command to <span style="color:#66d9ef">continue</span>
-</span></span></code></pre></div><p>Ok, cuối cùng quay trở lại với phép toán <strong>dereference operator</strong>, phép toán cho phép truy xuất <strong>giá trị</strong> của biến thông qua <strong>địa chỉ vùng nhớ</strong> của biến đó thay vì sử dụng định danh.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>ptr;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  ptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>(x);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// truy xuat gia tri bien thong qua dinh danh
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  cout <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// truy xuat gia tri cua bien thong qua dia chi cua bien, phep toan address-of operator
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>(<span style="color:#f92672">&amp;</span>x) <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// truy xuat gia tri bien thong qua dia chi cua bien luu trong con tro, tro toi bien
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>ptr <span style="color:#f92672">&lt;&lt;</span> endl;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Kết quả tất nhiên là như nhau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Press ENTER or type command to <span style="color:#66d9ef">continue</span>
-</span></span></code></pre></div><h1 id="3-ref">3. Ref</h1>
-<p>Bài viết tham khảo rất nhiều từ khóa học C++ Free của <a href="https://cpp.daynhauhoc.com">https://cpp.daynhauhoc.com</a>, tuy nhiên với một người không làm chuyên về C++, mình lược bỏ một số phần theo mình là không cần thiết với mình cho đơn giản, dễ hiểu.</p>
-
-    </div>
-    
-      
-        <div class="pagination">
-          <div class="pagination__title">
-            <span class="pagination__title-h"
-              >Read other posts</span
-            >
-            <hr />
-          </div>
-          <div class="pagination__buttons">
-            
-              <span class="button previous">
-                <a href="https://taoquangne.com/post/how-to-setup-our-networking/">
-                  <span class="button__icon">←</span>
-                  <span class="button__text">Setup hệ thống mạng cho cty vừa và nhỏ</span>
-                </a>
-              </span>
-            
-            
-              <span class="button next">
-                <a href="https://taoquangne.com/post/how-to-hash-store-password/">
-                  <span class="button__text">Băm và lưu password đúng cách</span>
-                  <span class="button__icon">→</span>
-                </a>
-              </span>
-            
-          </div>
-        </div>
-      
-    
-
-    
-      
-        
-
-      
-    
-  </div>
-
-      </div>
-
-      
-        <footer class="footer">
-  <div class="footer__inner">
-    
-      <div class="copyright copyright--user"><span> hàng nhà trồng 🌴 theo <a href="https://creativecommons.org/licenses/by-nc/4.0">giấy phép CC BY-NC 4.0</a></span><span>Themes created by <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span></div>
-      
-  </div>
-</footer>
-
-<script src="https://taoquangne.com/assets/main.js"></script>
-<script src="https://taoquangne.com/assets/prism.js"></script>
-
-
-      
-    </div>
-
-    
-  </body>
-</html>
+<!doctype html><html lang=en><head><script async src="https://www.googletagmanager.com/gtag/js?id=GTM-5JDKMG4"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","GTM-5JDKMG4")</script><title>Tham chiếu và con trỏ trong C++ ::
+/home/xluffy
+</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=keywords content><meta name=robots content="noodp"><link rel=canonical href=https://taoquangne.com/post/noted-c++/><link rel=stylesheet href=https://taoquangne.com/assets/style.css><link rel=stylesheet href=https://taoquangne.com/style.css><link rel=apple-touch-icon-precomposed sizes=144x144 href=https://taoquangne.com/img/apple-touch-icon-144-precomposed.png><link rel="shortcut icon" href=https://taoquangne.com/img/favicon.png><link href=https://taoquangne.com/assets/fonts/Inter-Italic.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-Regular.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-Medium.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-MediumItalic.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-Bold.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-BoldItalic.woff2 rel=preload type=font/woff2 as=font crossorigin><meta name=twitter:card content="summary"><meta name=twitter:title content="Tham chiếu và con trỏ trong C++"><meta property="og:url" content="https://taoquangne.com/post/noted-c++/"><meta property="og:site_name" content="/home/xluffy"><meta property="og:title" content="Tham chiếu và con trỏ trong C++"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="post"><meta property="article:published_time" content="2018-07-06T00:00:00+00:00"><meta property="article:modified_time" content="2018-07-06T00:00:00+00:00"><meta property="article:tag" content="Programming"><meta property="article:tag" content="C++"></head><body><div class=container><header class=header><span class=header__inner><a href=/ class=logo style=text-decoration:none><span class=logo__mark><svg class="greater-icon" viewBox="0 0 44 44"><path fill="none" d="M15 8l14.729 14.382L15 35.367"/></svg>
+</span><span class=logo__text>/home/xluffy ft 🍄</span>
+<span class=logo__cursor></span>
+</a><span class=header__right><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=/about>about</a></li><li><a href=/tags>tags</a></li><li><a href=https://github.com/xluffy/til/issues>til</a></li><li><a href=/weekly-summary>weekly-summary</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=/about>about</a></li><li><a href=/tags>tags</a></li><li><a href=https://github.com/xluffy/til/issues>til</a></li><li><a href=/weekly-summary>weekly-summary</a></li></ul></nav><span class=menu-trigger><svg viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+</span><span class=theme-toggle><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none"><path d="M22 41c10.4934.0 19-8.5066 19-19C41 11.5066 32.4934 3 22 3 11.5066 3 3 11.5066 3 22s8.5066 19 19 19zM7 22C7 13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22z"/></svg></span></span></span></header><div class=content><div class=post><h1 class=post-title>Tham chiếu và con trỏ trong C++</h1><div class=post-meta><span class=post-date>2018-07-06</span></div><span class=post-tags><a href=https://taoquangne.com/tags/programming/>#programming</a>&nbsp;
+<a href=https://taoquangne.com/tags/c++/>#c++</a>&nbsp;</span><div class=post-content><p>Tại sao hôm nay có bài này?</p><p>Mình chẳng bao giờ code C, C++ nên chẳng bao giờ nhớ được các khái niệm về con trỏ. Nên mình không thích con trỏ tí nào cả. Nhưng khổ cái này trong một số trường hợp mình lại vẫn muốn hiểu nó, mà do không làm việc với C, C++ (và sau này có Golang) nên mình lại rất hay &ldquo;quên&rdquo;. Nên tổng hợp lại để khi nào quên thì vô đọc lại.</p><h2 id=1-hàm-đối-số-tham-số>1. Hàm, đối số, tham số</h2><p>Ví dụ ta có 1 hàm</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>foo</span>(<span style=color:#66d9ef>int</span> a, <span style=color:#66d9ef>int</span> b){
+</span></span><span style=display:flex><span>  <span style=color:#75715e>//
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>}
+</span></span></code></pre></div><p>Ta có 2 tham số (parameters) là a và b. Giả sử trong hàm main, gọi hàm foo</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  foo(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Ta có 2 đối số (arguments) là 1 và 2. Ta nói giá trị <strong>1</strong> và <strong>2</strong> được lưu tạm trong 2 tham số là <strong>a</strong> và <strong>b</strong>.</p><p>Trong C++ hỗ trợ nhiều kiểu truyền đối số khác nhau, tương ứng khai báo tham số trong hàm sẽ khác nhau:</p><ul><li>Truyền đối số là giá trị như phía trên.</li><li>Truyền đố số là tham chiếu.</li><li>Truyền đối số là địa chỉ.</li></ul><h3 id=11-truyền-đối-số-là-giá-trị>1.1 Truyền đối số là giá trị</h3><p>Đối số trong hàm con <code>foo(int a, int b)</code> là <strong>a</strong> và <strong>b</strong> có vai trò là biến cục bộ, chỉ hoạt động bên trong hàm <code>foo()</code>, khi hàm này kết thúc các tham số này sẽ bị hủy và giá trị truyền vào sẽ không tồn tại.</p><p>Mọi thay đổi của tham số bên trong hàm, không có tác động gì đến giá trị gốc được truyền vào ngoài hàm. Ví dụ</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;iostream&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>using</span> <span style=color:#66d9ef>namespace</span> std;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>foo</span>(<span style=color:#66d9ef>int</span> p) {
+</span></span><span style=display:flex><span>  p <span style=color:#f92672>=</span> p <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>  cout <span style=color:#f92672>&lt;&lt;</span> p <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>int</span> a <span style=color:#f92672>=</span> <span style=color:#ae81ff>10</span>;
+</span></span><span style=display:flex><span>  foo(a);
+</span></span><span style=display:flex><span>  cout <span style=color:#f92672>&lt;&lt;</span> a <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Ta được kết quả, như ta thấy giá trị của đối số <strong>a</strong> không thay đổi sau khi gọi hàm <code>foo()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#ae81ff>11</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Press ENTER or type command to <span style=color:#66d9ef>continue</span>
+</span></span></code></pre></div><p>Điều này có nghĩa là cái mà tham số <strong>p</strong> tiếp nhận chỉ là bản sao giá trị của đối số <strong>a</strong>. Thử in địa chỉ của đối số và tham số:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;iostream&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>using</span> <span style=color:#66d9ef>namespace</span> std;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>voin <span style=color:#a6e22e>print_addr_of_parameter</span>(<span style=color:#66d9ef>int</span> p) {
+</span></span><span style=display:flex><span>  cout <span style=color:#f92672>&lt;&lt;</span> <span style=color:#e6db74>&#34;addr of parameter is: &#34;</span> <span style=color:#f92672>&lt;&lt;</span> <span style=color:#f92672>&amp;</span>p <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>int</span> a;
+</span></span><span style=display:flex><span>  print_addr_of_parameter(a);
+</span></span><span style=display:flex><span>  cout <span style=color:#f92672>&lt;&lt;</span> <span style=color:#e6db74>&#34;addr of argument is: &#34;</span> <span style=color:#f92672>&lt;&lt;</span> <span style=color:#f92672>&amp;</span>a <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Ta được kết quả:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>addr of parameter is: 0x7ffee28615bc
+</span></span><span style=display:flex><span>addr of argument is: 0x7ffee28615ec
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Press ENTER or type command to <span style=color:#66d9ef>continue</span>
+</span></span></code></pre></div><p>Như ta thấy, đối số và tham số có địa chỉ khác nhau, dù có cùng giá trị.</p><h3 id=12-truyền-đối-số-cho-hàm-là-tham-chiếu>1.2 Truyền đối số cho hàm là tham chiếu</h3><p>Nhược điểm của truyền đối số cho hàm là giá trị là</p><ul><li>Cách duy nhất để có được đầu ra là phải trả về giá trị thông qua từ khóa <code>return</code>.</li><li>Hàm chỉ trả về một giá trị duy nhất cho mỗi lần gọi hàm.</li></ul><p>Trong khi các ngôn ngữ bậc cao như python thì việc trả về nhiều giá trị rất đơn giản. Thực hiện truyền đối số cho hàm là tham chiếu giúp ta khắc phục nhược điểm trên.</p><p>Biến tham chiếu (reference variable) được xem như một tên khác của một biến nào đó có cùng kiểu dữ liệu. Sau khi được khai báo và khởi tạo, nó <strong>dùng chung vùng nhớ</strong> với biến mà nó tham chiếu tới.</p><p>Đặc điểm của biến tham chiếu là khi một trong hai biến bị hủy (biến tham chiếu hoặc biến gốc) do ra khỏi khối lệnh được khai báo, vùng nhớ của 2 biến này vẫn <strong>chưa bị hủy</strong> nếu còn ít nhất 1 biến quản lý.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>int</span> n <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span>ref <span style=color:#f92672>=</span> n;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>  {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> temp <span style=color:#f92672>=</span> <span style=color:#ae81ff>5</span>;
+</span></span><span style=display:flex><span>    ref <span style=color:#f92672>=</span> temp;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>  cout <span style=color:#f92672>&lt;&lt;</span> ref <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>  cout <span style=color:#f92672>&lt;&lt;</span> n <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Như ở ví dụ trên, biến <code>temp</code> sau khi ra khỏi khối lệnh đã bị hủy, tuy nhiên vẫn tồn tại biến <code>ref</code> kiểm soát vùng nhớ của biến <code>temp</code> nên kết quả sẽ là:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Press ENTER or type command to <span style=color:#66d9ef>continue</span>
+</span></span></code></pre></div><p>Bây giờ ta có thể định nghĩa một hàm không có gía trị trả về (không có <code>return</code>) tương tự như hàm có kết quả trả về.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>add_one</span>(<span style=color:#66d9ef>int</span> value) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> value <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>int</span> n <span style=color:#f92672>=</span> <span style=color:#ae81ff>9</span>;
+</span></span><span style=display:flex><span>  n <span style=color:#f92672>=</span> add_one(n);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  cout <span style=color:#f92672>&lt;&lt;</span> n <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>add_one</span>(<span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span>value) {
+</span></span><span style=display:flex><span>  value<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>int</span> n <span style=color:#f92672>=</span> <span style=color:#ae81ff>9</span>;
+</span></span><span style=display:flex><span>  add_one(n);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  cout <span style=color:#f92672>&lt;&lt;</span> n <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Đều có kết quả trả về là:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Press ENTER or type command to <span style=color:#66d9ef>continue</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>10</span>
+</span></span></code></pre></div><p>Bây giờ lợi dụng đặc điểm này, ta có thể viết một hàm trả về hai giá trị mà không dùng <code>return</code>, ví dụ tính diện tích và chu vi hình tròn với đầu vào là bán kính.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>circle</span>(<span style=color:#66d9ef>float</span> r, <span style=color:#66d9ef>float</span> <span style=color:#f92672>&amp;</span>perimeter, <span style=color:#66d9ef>float</span> <span style=color:#f92672>&amp;</span>area) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>float</span> PI <span style=color:#f92672>=</span> <span style=color:#ae81ff>3.14</span>;
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  perimeter <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span> <span style=color:#f92672>*</span> r <span style=color:#f92672>*</span> PI;
+</span></span><span style=display:flex><span>  area <span style=color:#f92672>=</span> r <span style=color:#f92672>*</span> r <span style=color:#f92672>*</span> PI;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>float</span> r <span style=color:#f92672>=</span> <span style=color:#ae81ff>5</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>float</span> perimeter, area;
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  circle(r, perimeter, area);
+</span></span><span style=display:flex><span>  cout <span style=color:#f92672>&lt;&lt;</span> perimeter <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>  cout <span style=color:#f92672>&lt;&lt;</span> area <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=2-con-trỏ>2. Con trỏ</h2><p>Variable (biến) là một ô nhớ hoặc một vùng nhớ được hệ điều hành cấp phát cho chương trình dùng để lưu giá trị vào ô nhớ.</p><p>Để truy xuất giá trị của biến đang nắm giữ, chương trình cần tìm tới <strong>địa chỉ</strong> của biến và đọc giá trị. Thông thường ta không cần quan tâm tới địa chỉ vùng nhớ, ta chỉ cần gọi <strong>định danh</strong> của biến để lấy ra giá trị cần.</p><p>Chương trình không thể truy xuất trực tiếp vào vùng nhớ vật lý mà chỉ truy xuất trên địa chỉ của vùng nhớ ảo, hệ điều hành sẽ quản lý một page-table để mapping một địa chỉ ảo sang địa chỉ vật lý. Còn việc truy xuất tới vùng nhớ vật lý từ vùng nhớ ảo sẽ do phần cứng <strong>MMU (memory management unit)</strong> quản lý.</p><p><img src=https://pbs.twimg.com/media/DbURcekXkAALzV2.jpg alt=virtual-memory></p><p>Ví dụ giá trị của biến và địa chỉ của biến</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>int</span> x <span style=color:#f92672>=</span> <span style=color:#ae81ff>5</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  cout <span style=color:#f92672>&lt;&lt;</span> x <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>  cout <span style=color:#f92672>&lt;&lt;</span> <span style=color:#f92672>&amp;</span>x <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span>0x7ffee427d5d8
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Press ENTER or type command to <span style=color:#66d9ef>continue</span>
+</span></span></code></pre></div><p>Tham chiếu thì sao nhỉ?</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>int</span> x <span style=color:#f92672>=</span> <span style=color:#ae81ff>5</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span>ref <span style=color:#f92672>=</span> x;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  cout <span style=color:#f92672>&lt;&lt;</span> <span style=color:#f92672>&amp;</span>x <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>  cout <span style=color:#f92672>&lt;&lt;</span> <span style=color:#f92672>&amp;</span>ref <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>  
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>0x7ffeecb835c8
+</span></span><span style=display:flex><span>0x7ffeecb835c8
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Press ENTER or type command to <span style=color:#66d9ef>continue</span>
+</span></span></code></pre></div><h3 id=21-toán-tử-trỏ-đến>2.1 Toán tử trỏ đến</h3><p>Ta có toán tử trỏ đến (dereference operator) được kí hiệu bởi dấu <code>*</code> cho phép lấy giá trị của vùng nhớ có địa chỉ cụ thế. Ví dụ ta biết địa chỉ của biến x là <code>0x7ffeecb835c8</code>, giờ thay vì gọi định danh để lấy giá trị, ta gọi địa chỉ để lấy giá trị.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>int</span> x <span style=color:#f92672>=</span> <span style=color:#ae81ff>5</span>;
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// binh thuong lay gia tri qua dinh danh
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  cout <span style=color:#f92672>&lt;&lt;</span> x <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// lay gia tri qua dia chi &amp;x
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  cout <span style=color:#f92672>&lt;&lt;</span> <span style=color:#f92672>*</span>(<span style=color:#f92672>&amp;</span>x) <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Kết quả đều giống nhau</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Press ENTER or type command to <span style=color:#66d9ef>continue</span>
+</span></span></code></pre></div><p>Ngoài việc dùng để truy xuất giá trị trong vùng nhớ có địa chỉ cụ thể, toán tử trỏ đến còn dùng để thay đổi giá trị của vùng nhớ như cách ta xài định danh</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#75715e>// binh thuong
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> x <span style=color:#f92672>=</span> <span style=color:#ae81ff>5</span>;
+</span></span><span style=display:flex><span>cout <span style=color:#f92672>&lt;&lt;</span> x <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>x <span style=color:#f92672>=</span> <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>cout <span style=color:#f92672>&lt;&lt;</span> x <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// dung toan tu tro den
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> y <span style=color:#f92672>=</span> <span style=color:#ae81ff>5</span>;
+</span></span><span style=display:flex><span>cout <span style=color:#f92672>&lt;&lt;</span> y <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span><span style=color:#f92672>*</span>(<span style=color:#f92672>&amp;</span>y) <span style=color:#f92672>=</span> <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>cout <span style=color:#f92672>&lt;&lt;</span> y <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span><span style=color:#75715e>// or
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>cout <span style=color:#f92672>&lt;&lt;</span> <span style=color:#f92672>*</span>(<span style=color:#f92672>&amp;</span>y) <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span></code></pre></div><h3 id=22-con-trỏ>2.2 Con trỏ</h3><p>Nhắc lại là biến tham chiếu thì <strong>có cùng địa chỉ</strong> với biến mà nó tham chiếu tới. Địa chỉ của <code>&amp;x</code> giống địa chỉ của <code>x</code>.</p><p>Con trỏ khác với biến tham chiếu là nó là biến độc lập nên có <strong>địa chỉ khác</strong> với vùng nhớ mà nó trỏ tới. Nhưng giá trị bên trong của con trỏ lại chính là <strong>địa chỉ</strong> của biến mà nó trỏ tới.</p><ul><li>Địa chỉ của con trỏ là <code>&(*x)</code> sẽ khác địa chỉ của biến x là <code>&(x)</code>.</li><li>Giá trị của con trỏ <code>*x</code> chính là địa chỉ của biến x là <code>&(x)</code>.</li></ul><p>Khai báo và sử dụng</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#f92672>*</span>ptr;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> value <span style=color:#f92672>=</span> <span style=color:#ae81ff>5</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ptr <span style=color:#f92672>=</span> <span style=color:#f92672>&amp;</span>value
+</span></span></code></pre></div><p>Ở trên ta khai báo kiểu dữ liệu của con trỏ chính là kiểu dữ liệu của biến mà ta muốn trỏ tới, và vì con trỏ lưu địa chỉ vùng nhớ của biến mà nó trỏ tới nên ta cần dùng <strong>address-of operator</strong> để lấy địa chỉ của biến <code>value</code> trước khi gán cho con trỏ.</p><p>Bây giờ ta thử in ra địa chỉ vùng nhớ của con trỏ và địa chỉ vùng nhớ của biến mà con trỏ trỏ tới sẽ thấy là 2 giá trị khác nhau, như lúc đầu tiên nói.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>int</span> x <span style=color:#f92672>=</span> <span style=color:#ae81ff>5</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>int</span> <span style=color:#f92672>*</span>ptr;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  ptr <span style=color:#f92672>=</span> <span style=color:#f92672>&amp;</span>(x);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  cout <span style=color:#f92672>&lt;&lt;</span> <span style=color:#f92672>&amp;</span>x <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>  cout <span style=color:#f92672>&lt;&lt;</span> <span style=color:#f92672>&amp;</span>ptr <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>0x7ffee9df85d8
+</span></span><span style=display:flex><span>0x7ffee9df85d0
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Press ENTER or type command to <span style=color:#66d9ef>continue</span>
+</span></span></code></pre></div><p>Ok, cuối cùng quay trở lại với phép toán <strong>dereference operator</strong>, phép toán cho phép truy xuất <strong>giá trị</strong> của biến thông qua <strong>địa chỉ vùng nhớ</strong> của biến đó thay vì sử dụng định danh.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>int</span> x <span style=color:#f92672>=</span> <span style=color:#ae81ff>5</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>int</span> <span style=color:#f92672>*</span>ptr;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  ptr <span style=color:#f92672>=</span> <span style=color:#f92672>&amp;</span>(x);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// truy xuat gia tri bien thong qua dinh danh
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  cout <span style=color:#f92672>&lt;&lt;</span> x <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// truy xuat gia tri cua bien thong qua dia chi cua bien, phep toan address-of operator
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  cout <span style=color:#f92672>&lt;&lt;</span> <span style=color:#f92672>*</span>(<span style=color:#f92672>&amp;</span>x) <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// truy xuat gia tri bien thong qua dia chi cua bien luu trong con tro, tro toi bien
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  cout <span style=color:#f92672>&lt;&lt;</span> <span style=color:#f92672>*</span>ptr <span style=color:#f92672>&lt;&lt;</span> endl;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Kết quả tất nhiên là như nhau:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Press ENTER or type command to <span style=color:#66d9ef>continue</span>
+</span></span></code></pre></div><h1 id=3-ref>3. Ref</h1><p>Bài viết tham khảo rất nhiều từ khóa học C++ Free của <a href=https://cpp.daynhauhoc.com>https://cpp.daynhauhoc.com</a>, tuy nhiên với một người không làm chuyên về C++, mình lược bỏ một số phần theo mình là không cần thiết với mình cho đơn giản, dễ hiểu.</p></div><div class=pagination><div class=pagination__title><span class=pagination__title-h>Read other posts</span><hr></div><div class=pagination__buttons><span class="button previous"><a href=https://taoquangne.com/post/how-to-setup-our-networking/><span class=button__icon>←</span>
+<span class=button__text>Setup hệ thống mạng cho cty vừa và nhỏ</span>
+</a></span><span class="button next"><a href=https://taoquangne.com/post/how-to-hash-store-password/><span class=button__text>Băm và lưu password đúng cách</span>
+<span class=button__icon>→</span></a></span></div></div></div></div><footer class=footer><div class=footer__inner><div class="copyright copyright--user"><span>hàng nhà trồng 🌴 theo <a href=https://creativecommons.org/licenses/by-nc/4.0>giấy phép CC BY-NC 4.0</a></span><span>Themes created by <a href=https://twitter.com/panr target=_blank rel=noopener>panr</a></span></div></div></footer><script src=https://taoquangne.com/assets/main.js></script><script src=https://taoquangne.com/assets/prism.js></script></div></body></html>

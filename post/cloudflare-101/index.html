@@ -1,578 +1,125 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    
-      
-<script async src="https://www.googletagmanager.com/gtag/js?id=GTM-5JDKMG4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'GTM-5JDKMG4');
-</script>
-
-    
-    
-      <title>
-        Cloudflare 101 ::
-        /home/xluffy
-      </title>
-    
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta
-  name="description"
-  content="1. DDoS 101 Về DDoS dù mục đích cuối cùng là làm cho dịch vụ của bạn không thể cung cấp tới người dùng nhưng nó có thể được chia thành 3 nhóm:"
-/>
-<meta
-  name="keywords"
-  content=""
-/>
-<meta name="robots" content="noodp" />
-<link rel="canonical" href="https://taoquangne.com/post/cloudflare-101/" />
-
-
-
-
-
-<link rel="stylesheet" href="https://taoquangne.com/assets/style.css" />
-
-<link rel="stylesheet" href="https://taoquangne.com/style.css" />
-
-
-<link
-  rel="apple-touch-icon-precomposed"
-  sizes="144x144"
-  href="https://taoquangne.com/img/apple-touch-icon-144-precomposed.png"
-/>
-<link rel="shortcut icon" href="https://taoquangne.com/img/favicon.png" />
-
-
-<link href="https://taoquangne.com/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-<link href="https://taoquangne.com/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-<link href="https://taoquangne.com/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-<link href="https://taoquangne.com/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-<link href="https://taoquangne.com/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-<link href="https://taoquangne.com/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
-
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Cloudflare 101"/>
-<meta name="twitter:description" content="1. DDoS 101 Về DDoS dù mục đích cuối cùng là làm cho dịch vụ của bạn không thể cung cấp tới người dùng nhưng nó có thể được chia thành 3 nhóm:"/>
-
-
-
-<meta property="og:title" content="Cloudflare 101" />
-<meta property="og:description" content="1. DDoS 101 Về DDoS dù mục đích cuối cùng là làm cho dịch vụ của bạn không thể cung cấp tới người dùng nhưng nó có thể được chia thành 3 nhóm:" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://taoquangne.com/post/cloudflare-101/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2019-07-11T00:00:00+00:00" />
-<meta property="article:modified_time" content="2019-07-11T00:00:00+00:00" />
-
-
-
-
-
-
-  </head>
-  <body class="">
-    <div class="container">
-      <header class="header">
-  <span class="header__inner">
-    <a
-  href="/"
-  class="logo"
-  style="text-decoration: none;"
->
-  
-    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
-  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
-</svg>
-</span>
-    <span class="logo__text"
-      >/home/xluffy ft 🍄</span
-    >
-    <span class="logo__cursor"></span>
-  
-</a>
-
-    <span class="header__right">
-      
-        <nav class="menu">
-  <ul class="menu__inner menu__inner--desktop">
-    
-      
-        
-          <li><a href="/about">about</a></li>
-        
-      
-        
-          <li><a href="/tags">tags</a></li>
-        
-      
-        
-          <li><a href="https://github.com/xluffy/til/issues">til</a></li>
-        
-      
-        
-          <li><a href="/weekly-summary">weekly-summary</a></li>
-        
-      
-    
-  </ul>
-
-  <ul class="menu__inner menu__inner--mobile">
-    
-      
-        <li><a href="/about">about</a></li>
-      
-    
-      
-        <li><a href="/tags">tags</a></li>
-      
-    
-      
-        <li><a href="https://github.com/xluffy/til/issues">til</a></li>
-      
-    
-      
-        <li><a href="/weekly-summary">weekly-summary</a></li>
-      
-    
-  </ul>
-</nav>
-
-        <span class="menu-trigger">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M0 0h24v24H0z" fill="none" />
-            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
-          </svg>
-        </span>
-      
-      <span class="theme-toggle">
-        <svg
-  class="theme-toggler"
-  width="24"
-  height="24"
-  viewBox="0 0 48 48"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <path
-    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
-  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
-  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
-  />
-</svg>
-
-      </span>
-    </span>
-  </span>
-</header>
-
-
-      <div class="content">
-        
-  
-  
-
-  <div class="post">
-    <h1 class="post-title">Cloudflare 101</h1>
-    <div class="post-meta">
-      
-        <span class="post-date">
-          2019-07-11
-        </span>
-
-        
-          
-        
-      
-
-      
-
-
-      
-    </div>
-
-    
-      <span class="post-tags">
-        
-          <a href="https://taoquangne.com/tags/cloudflare/">#cloudflare</a>&nbsp;
-        
-          <a href="https://taoquangne.com/tags/security/">#security</a>&nbsp;
-        
-          <a href="https://taoquangne.com/tags/proxy/">#proxy</a>&nbsp;
-        
-      </span>
-    
-
-    
-
-    <div class="post-content">
-      
-      <h2 id="1-ddos-101">1. DDoS 101</h2>
-<p>Về DDoS dù mục đích cuối cùng là làm cho dịch vụ của bạn không thể cung cấp tới người dùng nhưng nó có thể được chia thành 3 nhóm:</p>
-<ul>
-<li><strong>Application Layer Attacks</strong>: mục tiêu là khiến ứng dụng phải xử lý một lượng lớn các request <em>có vẻ hợp lệ</em>, làm cạn kiệt tài nguyên của ứng dụng, khiến ứng dụng không thể phục vụ các user hợp lệ khác. Ví dụ trong ứng dụng TMĐT, một API đọc database trả về một danh sách chi tiết của các sản phẩm thuộc một nhóm ngành. Attacker có thể viết một tools để crawl hết dữ liệu của từng ngành hàng, khiến server không đủ tài nguyên để phục vụ. Việc cản lọc request thuộc nhóm này không dễ vì nó sẽ khá giống với request của user thông thường và có thể cản lọc nhầm những user hợp lệ.</li>
-<li><strong>Protocol Attacks</strong>: tương tự application layer attack nhưng nhắm vào layer 3 và layer 4 trong mô hình OSI. Ví dụ điển hình là SYN Flood, lợi dụng việc bắt-tay-3-bước trong giao thức TCP, attacker sẽ gửi một một gói SYN để thiết lập kết nối TCP, server sẽ trả về một gói SYN-ACK và chờ đợi một gói ACK để kết thúc quá trình bắt tay. Nhưng sau đó attacker sẽ không bao giờ trả về ACK, khiến server phải tiêu tốn tài nguyên cho việc chờ đợi phản hồi.</li>
-<li><strong>Volumetric Attacks</strong>: Hai loại trên đều nhắm tới việc bắt ứng dụng, hệ điều hành phải tiêu tốn tài nguyên xử lý. Riêng volumetric attack nhắm tới băng thông của hệ thống victim. Ví dụ khách hàng chỉ có khả năng thuê một đường truyền có băng thông 100Mbps, attacker sẽ tìm cách flood một lượng lớn traffic lớn hơn 100Mbps, khiến con đường tới server của victim bị nghẽn (tương tự đường 2 làn, nhưng có tới 10 làn xe cùng vào một lúc sẽ gây ngẽn và những xe cần đi thật sẽ không thể di chuyển). Ví dụ <a href="https://blog.cloudflare.com/memcrashed-major-amplification-attacks-from-port-11211">Memcrashed</a>, lợi dụng các memcached server mở UDP port ra ngoài public, attacker gửi một gói tin với <code>source_ip </code> được giả mạo thành <code>source_ip</code> của victim tới các server memcached zoombie này. Một request gửi đi chỉ với 15 bytes nhưng memcached trả về 134KB dữ liệu, và khuếch đại lên thì Cloudflare ghi nhận peak tới <strong>260Gbps</strong> UDP traffic, đủ là nghẽn network của bất cứ hệ thống nào.</li>
-</ul>
-<p>Để chống lại một cuộc tấn công DDoS thì tùy vào loại attack. Tuy nhiên đứng ở góc độ làm sản phẩm thì luôn cố gắng phục vụ tất cả các request kể cả bất hợp lệ thay vì <strong>block</strong> request vì nếu block nhầm user hợp lệ cũng coi như từ chối phục vụ dịch vụ cho khách hàng -&gt; giúp kẻ tấn công đạt được mục đích là ứng dụng của chúng ta không thể cung cấp dịch vụ tới khách hàng. Tất nhiên ta cũng phải đánh đổi giữa việc bảo vệ phần lớn user hay cản lọc nhầm các user hợp lệ để đưa ra quyết định đúng đắn.</p>
-<p>Một số phương pháp được đề xuất để giảm thiểu hoặc cản lọc DDoS attack như sau:</p>
-<ul>
-<li><strong>Black Hole Routing</strong>: tương tự như <code>&amp;&gt; /dev/null</code> đẩy toàn bộ traffic cả hợp lệ lẫn không hợp lệ vào hố đen. Nói cho vui, chứ méo ai lại làm như vầy, chẳng khác gì anh Quảng nổ rút dây điện, tắt server.</li>
-<li><strong>Rate limit request</strong>: giới hạn số lượng request mà server chấp nhận xử lý trong một khung thời gian. Hữu ích khi chống crawler hoặc brute-force login.</li>
-<li><strong>WAF (Web Application Firewall)</strong>: bảo vệ server, ứng dụng bởi các lỗ hổng thông thường như SQL injection, XSS&hellip;</li>
-<li><strong>Anycast Network Diffusion</strong>: một giải thích khá là dễ hiểu từ anh <a href="https://github.com/lebinh">lebinh</a>, bạn có thể đọc thêm nó ở đây <a href="https://discuss.grokking.org/t/dung-trang-tinh-d-ngan-ch-n-ddos/271/5">https://discuss.grokking.org/t/dung-trang-tinh-d-ngan-ch-n-ddos/271/5</a>.</li>
-</ul>
-<h2 id="2-rate-limit">2. Rate Limit</h2>
-<p>Cloudflare cung cấp một tính năng cho phép control và block các traffic đáng ngờ. Tính năng này giúp <strong>tự động</strong> bảo vệ website của bạn khỏi:</p>
-<ul>
-<li>DDoS attack.</li>
-<li>brute-force login.</li>
-<li>….</li>
-</ul>
-<p>Câu hỏi đặt ra là tại sao tui phải trả tiền Cloudflare để xài tính năng này? Có giải pháp nào thay thế miễn phí, đơn giản hay không?</p>
-<p>Tính năng limit request/minute hoặc block request không có gì mới. Ta có thể giải quyết bằng các giải pháp sau:</p>
-<ul>
-<li>Limit request ở tầng application, ví dụ <a href="https://github.com/kickstarter/rack-attack">rack-attack</a>.</li>
-<li><a href="https://nginx.org/en/docs/http/ngx_http_limit_req_module.html">ngx_http_limit_req_module</a>, block ip, limit request dựa trên ngưỡng và thời gian. Có một nhược điểm của phương pháp này, dẫn tới có thể dễ dàng bypass đó là nếu sau LB có nhiều nginx, mỗi nginx sẽ có một vùng nhớ để lưu các IP block riêng, dẫn tới có thể block trên server này nhưng không block trên server kia. Đó là lý do cần một nơi lưu chung như redis ở cách tiếp cận tiếp theo.</li>
-<li>nginx + lua + redis, tương tự như trên, nhưng ta có thể tận dụng expire/ttl của redis để ban/block một IP và sau đó unban IP đó theo expire của một key trong redis. Một ưu điểm khác là ta có thể query dữ liệu trong redis để report. <strong><a href="https://github.com/leandromoreira/nginx-lua-redis-rate-measuring">nginx-lua-redis-rate-measuring</a></strong> là một ví dụ về việc share counter trong redis và block bằng nginx, repo này inspired từ Cloudflare&rsquo;s post <a href="https://blog.cloudflare.com/counting-things-a-lot-of-different-things/">How we built rate limiting capable of scaling to millions of domains.</a></li>
-<li>Host-based firewall như iptables/ufw -&gt; block/limit request ở các layer thấp hơn application layer:
-<ul>
-<li>Ưu điểm là block ở các layer thấp như transport layer trở xuống, request sẽ chưa kịp tới application layer, giảm tải cho web server.</li>
-<li>Với limit request, ta sẽ cần load thêm một số module hỗ trợ iptable -&gt; firewall stateful -&gt; bạn có thể đọc thêm một bài rất hay về <a href="https://making.pusher.com/per-ip-rate-limiting-with-iptables">rate-limit với iptables từ Pusher</a>.</li>
-<li>Nhược điểm là không tự động cập nhật danh sách IP mới bị ban/block/limit. Để giải quyết việc cập nhật tự động có thể <a href="https://vnhacker.blogspot.com/2009/12/giam-sat-ninh-mang-hay-la-lam-nao-e.html">build một hệ thống offline để phân tích và update lại vào hệ thống firewall</a>. Ưu điểm của việc build một hệ thống offline là impact tới hệ thống không lớn, quá trình phân tích diễn ra ở một cụm máy tính khác, nhược điểm là bạn phải có traffic và ăn một vài đợt tấn công để có đủ dữ liệu để tính toán.</li>
-</ul>
-</li>
-<li>Network-based firewall: các firewall nằm ngoài host như hardware firewall hoặc security group của AWS (nhưng về lý thuyết nó không được xếp vào network-based firewall). Cũng tương tự host-based firewall là việc cập nhật danh sách IP sẽ khó khăn. Và với security group của AWS thì không thể limit request (chỉ có chặn).</li>
-</ul>
-<p><strong>Nhược điểm</strong> của tất cả các phương pháp trên là:</p>
-<ul>
-<li>Request của attacker <strong>đã tới hệ thống</strong> của bạn, nếu xài network-base firewall thì request đã vào tới router/hardware-firewall, nếu xài host-based firewall (iptables) thì request đã tới server (OS đã phải handle), nếu bạn limit ở tầng application thì web server (nginx hoặc Apache) đã phải xử lý (tuy nhiên nếu xài nginx như một proxy thì cũng không tốn thêm bao nhiêu resource) và nếu bạn xài một thư viện như <a href="https://github.com/kickstarter/rack-attack">rack-attack</a> thì Rails phải handle thêm việc giới hạn request.</li>
-<li>Thêm thiết bị, máy tính, software để xử lý vấn đề (sẽ không phù hợp với hệ thống nhỏ).</li>
-</ul>
-<p>Vậy nếu xài rate-limit của Cloudflare thì có lợi gì?</p>
-<ul>
-<li>Cloudflare sẽ hoạt động như một reverse proxy, mọi request trước khi đi tới origin server của bạn đều sẽ đi qua Cloudflare.</li>
-<li>Băng thông của Cloudflare là <strong>30Tbps</strong>, gấp <strong>15 lần</strong> cuộc tấn công DDoS lớn nhất từng được ghi nhận (chắc là memcrashed), với sổ hộ nghèo, bạn chỉ thuê được băng thông 100Mbps. Cloudflare sẽ hoạt động như BOT (trạm thu phí) giữa quốc lộ và đường làng, giúp bóp nhỏ / cản lọc bớt traffic trước khi tới server của bạn, không làm overload network của bạn (thông thường nếu bạn host server ở DC, khi gặp một cuộc tấn công volumetric attacks, bạn cũng có thể nhờ DC tăng băng thông để chống chọi hoặc nhờ Firewall/Router của DC cản lọc bớt traffic trước khi vào server của bạn, tương tự như Cloudflare).</li>
-<li>Dễ cấu hình ngưỡng, URL và có report để xem.</li>
-<li>Thông minh, tự động nhận biết các request không hợp lệ, có thể expire sau một khoảng thời gian (tương tự lua+redis), cho phép user tự bypass bằng cách pass <em>challenge</em> hoặc <em>js challenge</em> thay vì block ngay.</li>
-<li><strong>Nhược điểm</strong> là phải trả tiền cho tính năng này và Cloudflare offer số lượng rule khá thấp (Pro là 10 rule, Business 15 rule và Enterprise rule), nên cần nhiều rule limit thì Cloudflare là một lựa chọn khá đắt đỏ.s</li>
-</ul>
-<p align="center"><img src="https://www.cloudflare.com/resources/images/slt3lc6tev37/49gHcPDvyg0AcS4sy6qWao/e890866ea6582fb7a63f30e0ed34bdb9/rate-limiting-rules.png" alt="rate-limit" style="width:53%;" /></p>
-<p>Nếu bạn xài terraform 0.11 thì nó sẽ như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;cloudflare_rate_limit&#34; &#34;rl_login&#34;</span> {
-</span></span><span style="display:flex;"><span>  zone <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;${var.domain}&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  threshold <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
-</span></span><span style="display:flex;"><span>  period <span style="color:#f92672">=</span> <span style="color:#ae81ff">60</span>
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">match</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">request</span> {
-</span></span><span style="display:flex;"><span>      url_pattern <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;${var.domain}/login&#34;</span>
-</span></span><span style="display:flex;"><span>      schemes <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;HTTP&#34;, &#34;HTTPS&#34;</span>]
-</span></span><span style="display:flex;"><span>      methods <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;POST&#34;</span>]
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">response</span> {
-</span></span><span style="display:flex;"><span>      statuses <span style="color:#f92672">=</span> [<span style="color:#ae81ff">401</span>, <span style="color:#ae81ff">403</span>]
-</span></span><span style="display:flex;"><span>      origin_traffic <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">action</span> {
-</span></span><span style="display:flex;"><span>    mode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ban&#34;</span>
-</span></span><span style="display:flex;"><span>    timeout <span style="color:#f92672">=</span> <span style="color:#ae81ff">3600</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  disabled <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Block IPs exceeding 20 request per minutes (20 in 60) for 1 hour to login pattern.&#34;</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><strong>Update cực mạnh:</strong></p>
-<ul>
-<li>Với tính năng rate-limit như mô tả ở trên, có vẻ là một giải pháp hoàn hảo khi giới hạn khả năng gửi request của attacker ngay lại level proxy. NHƯNG <strong>toy đã lầm</strong> khi nhìn thấy billing của Cloudflare.</li>
-</ul>
-<p align="center"><img src="https://raw.githubusercontent.com/xluffy/assets/master/cf_billing.png" alt="cf_billing" style="width:70%;" /></p>
-<ul>
-<li>Theo mô tả về giá của Cloudflare thì &ldquo;<strong><a href="https://www.cloudflare.com/rate-limiting/">Only Pay for Good Traffic. Not Bad</a></strong>&rdquo;, nghĩa là với các rule được định nghĩa, thì tiền sẽ chỉ tính trên các request match với rule và không bị chặn bởi Cloudflare. Free cho 10_000 good request đầu tiên và mỗi  $0.05 cho 10_000 good request tiếp theo.</li>
-<li>Giả sử toy mà biết ông nào xài tính năng này của Cloudflare, đặc biệt các request đơn giản không yêu cầu header/method gì đặc biệt, toy làm một cụm proxy để rotate-ip, send slow request thì tháng đó công ti đó chắc cũng toangggg 😑😑😑.</li>
-</ul>
-<h2 id="3-proxy">3. Proxy</h2>
-<h3 id="31-proxy-101">3.1 Proxy 101</h3>
-<p>Để xài được tính năng như <strong>rate-limit</strong> thì bạn phải cho phép request của user đi qua hệ thống Cloudflare trước khi tới server của bạn, đó chính là Proxy trong Cloudflare.</p>
-<p>Proxy có thể được chia làm 2 loại, khác nhau ở vị trí đặt và mục đích sử dụng:</p>
-<p><strong>Forward Proxy</strong>:</p>
-<pre tabindex="0"><code class="language-asciiarmor" data-lang="asciiarmor">{clientA, clientB, clientC} ——&gt; forward proxy (F) ——&gt; Internet (I) ——&gt; {origin-serverA, origin-serverB}
-</code></pre><ul>
-<li>Với người dùng, dùng forward proxy giúp họ bypass được các giới hạn truy cập website. Nó hơi giống với VPN, forward proxy sẽ thay người dùng gửi request tới website bạn muốn truy cập thay vì kết nối trực tiếp.</li>
-<li>Với người quản trị hệ thống, họ có thể đặt một forward proxy trong mạng nội bộ của họ và <strong>ép</strong> tất cả các client phải đi qua forward proxy này trước khi kết nối ra Internet. Việc này đem lại 2 lợi ích, thứ nhất đó là caching các dữ liệu mà người dùng thường xuyên truy cập và thứ hai là có thể cản lọc, chặn truy cập một số website, ứng dụng (ví dụ chặn không có user trong mạng nội bộ truy cập Facebook.com).</li>
-<li>Ẩn danh, tương tự như VPN.</li>
-</ul>
-<p><strong>Reverse proxy</strong></p>
-<pre tabindex="0"><code class="language-asciiarmor" data-lang="asciiarmor">{clientA, clientB, clientC} ——&gt; Internet (I) ——&gt; reverse proxy (R)——&gt; {origin-serverA, origin-serverB}
-</code></pre><p>Một ví dụ quen thuộc của reverse proxy đó là bạn xài nginx upstream trước các backend server. Lợi điểm của việc dùng reverse proxy đó là:</p>
-<ul>
-<li><strong>Load balancing</strong> -&gt; chia request từ client tới nhiều backend server với các thuật toán khác nhau. Giúp điều tiết lượng request tới backend server.</li>
-<li><strong>Protection from attack</strong> -&gt; mọi request từ client sẽ phải đi qua reverse proxy, bạn có thể apply các rule trên reverse proxy để cản lọc request trước khi tới backend server (tương tự như rate-limit/WAF ở trên). Bản chất của proxy là nhận và pass request đi nên các xử lý trên proxy là khá nhẹ nhàng.</li>
-<li><strong>Global Server Load Balancing</strong> -&gt; tương tự như load balacing nhưng ở cấp độ global, reverse proxy sẽ nhận biết được là backend server nào gần với client và chuyển hướng request của client tới backend server gần nhất để giảm latency, load time.</li>
-<li><strong>Caching</strong> -&gt; request của client vẫn phải tới infra của site, tuy nhiên việc caching sẽ nằm ở infra của site (khác với caching ở forward proxy nằm ở network của client), mục đích cũng tương tự là giảm response time.</li>
-<li><strong>SSL encryption</strong> -&gt; đẩy phần encrypt/decrypt ra reverse proxy, kết nối từ reverse proxy tới backend server là HTTP.</li>
-</ul>
-<p>Ở đây ta sẽ chỉ nói tới reverse proxy, thứ mà rất quen thuộc khi vận hành một hệ thống website/api. Tuy nhiên điểm khác biệt là bạn thường đặt reverse proxy <strong>trong hệ thống mạng của bạn</strong>, còn với Cloudflare thì chức năng tương tự, nhưng proxy nằm bên ngoài hệ thống mạng của bạn và với băng thông 30Tbps, Cloudflare đủ sức hứng mọi đợt tấn công trước khi tới origin server của bạn.</p>
-<p align="center"><img src="https://blog.cloudflare.com/content/images/ddos-illustrations-2.png" alt="ddos-illustrations-2" style="width:70%;" /></p>
-<p>Ví dụ website của bạn có địa chỉ IP là <a href="1.2.3.4">1.2.3.4</a>, khi bật tính năng proxy, domain website của bạn sẽ được phân giải IP thành một địa chỉ IP thuộc lớp mạng của Cloudflare như <a href="104.20.148.78">104.20.148.78</a>, và user/attacker sẽ không biết được địa chỉ origin server của bạn.</p>
-<h3 id="32-ssltls">3.2 SSL/TLS</h3>
-<p>Đi kèm với Proxy, Cloudflare cung cấp một giải pháp SSL/TLS miễn phí cho các khách hàng nhỏ giúp tăng cường bảo mật cho website. <strong>Traffic từ client tới Cloudflare sẽ luôn luôn được mã hóa</strong>, traffic từ Cloudflare tới Origin server thì phụ thuộc vào cấu hình với các tùy chọn như sau:</p>
-<ul>
-<li>Flexible SSL</li>
-<li>Full SSL
-<ul>
-<li>Strict (cert issued by Certificate Authority).</li>
-<li>Full (cert issued by Cloudflare (Origin CA)).</li>
-<li>Self-signed certificate.</li>
-</ul>
-</li>
-</ul>
-<p><strong>Flexible SSL</strong> sẽ mã hóa traffic từ Cloudflare tới end-user, nhưng không mã hóa traffic từ Cloudflare tới origin server của bạn. Ưu điểm là dễ dàng cài đặt HTTPs cho user nhưng không yêu cầu phải cài đặt SSL certificate trên server của bạn. Mặc dù không an toàn như các tùy chọn khác nhưng Flexsible SSL là cách nhanh chóng, dễ dàng để bảo vệ user khỏi các mối nguy hiểm từ public Wifi hoặc ad injection over HTTP. Về traffic từ Cloudflare tới origin server của bạn, đặt niềm tin hoàn toàn vào Cloudflare rằng traffic của bạn sẽ không bị lộ ra bên ngoài (capture traffic khi vừa ra khỏi Cloudflare).</p>
-<p><img src="https://www.cloudflare.com/resources/images/slt3lc6tev37/3G3ciVwoNO4YmqiWaUwi8e/be14a50ee11f34204c831c824eb5fcb6/flexible-ssl.svg" alt="flexible-ssl"></p>
-<p><strong>Full SSL</strong> sẽ mã hóa traffic ở cả 2 đầu là từ Cloudflare tới end-user và từ Cloudflare tới origin server của bạn, có ba tùy chọn khác nhau cho việc cài đặt cerfiticate trên server của bạn là:</p>
-<ul>
-<li>Full SSL Strict -&gt; certificate cài đặt trên origin server của bạn được cấp bởi một public Certificate Authority (ví dụ Verisign, Digicert hoặc Comodo).</li>
-<li>Full SSL, Origin CA -&gt; certificate cài đặt trên origin server của bạn được cấp bởi Cloudflare.</li>
-<li>Full SSL, self-signed certificate -&gt; certificate tự gen.</li>
-</ul>
-<p><img src="https://www.cloudflare.com/resources/images/slt3lc6tev37/13hJjEZmQGA6ukiIw2iIEA/ea5b30e43d76ceed34a79e25837f76c9/full-ssl-strict.svg" alt="full-ssl"></p>
-<p>Với Strict, certificate được cấp bởi CA cần tốn chi phí để mua và gia hạn. Với Origin CA, cert được cấp bởi Cloudflare, miễn phí và có expire time khá lâu, dễ dàng rotate nên Cloudflare recomment xài Origin CA.</p>
-<h3 id="33-cloudflarefuck">3.3 Cloudflarefuck?</h3>
-<p>Nếu bạn từng vào trang tuyển dụng của Cloudflare, đọc thử một job description, bạn sẽ thấy một câu <strong>Cloudflare powers Internet requests for ~10% of the Fortune 1,000 for more than 1 billion unique IP addresses per day.</strong></p>
-<p><img src="https://www.cloudflare.com/img/learning/what-is-cloudflare/cloudflare-stats-01.svg" alt="cloudflare-stats"></p>
-<p>Vậy câu hỏi là <strong>nếu Cloudflare sập</strong> thì chuyện gì xảy ra 😳 🔥 🚒, sẽ <strong>chỉ có 10% traffic</strong> trên toàn thế giới bị ảnh hưởng. Nghe mà đã rụng cmn rời.</p>
-<p>Trong tầm khoảng 10 ngày, Cloudflare xảy ra 2 network issues lớn:</p>
-<ul>
-<li><a href="https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/">Massive route leak</a>: theo post-mortem từ Cloudflare thì lỗi là do Verizon (một nhà mạng rất lớn), ảnh hưởng tới rất nhiều provider lớn như <a href="https://twitter.com/atoonk/status/1143143943531454464">Amazon,  Linode and Cloudflare</a>. Sự cố này mất <a href="https://www.cloudflarestatus.com/incidents/46z55mdhg0t5">2 tiếng đồng hồ</a> để giải quyết.</li>
-<li><a href="https://blog.cloudflare.com/cloudflare-outage/">Cloudflare outage caused by bad software deploy</a>: issue này được Cloudflare mô tả là do:
-<ul>
-<li>Deploy một bộ rule cho dịch vụ WAF để tối ưu việc block inline Javascript thường được sử dụng trong các cuộc tấn công.</li>
-<li>Có một rule xài regular expression khiến CPU spike lên 100%.</li>
-<li>Drop 82% traffic của Cloudflare và ảnh hưởng tới rất rất nhiều region trên toàn thế giới.</li>
-<li>Một lượng lớn các công ty lớn bị ảnh hưởng như <a href="https://twitter.com/JacobCanfield/status/1146057756400504837">Coinbase, Authy, Discord, Medium, Zendesk …</a>.</li>
-<li>Đã test ở một môi trường giả định, nhưng không có đủ traffic để đánh giá impact trên production.</li>
-<li>Giải pháp là rollback lại bản deployment, nhưng sự cố này cũng mất <a href="https://www.cloudflarestatus.com/incidents/tx4pgxs6zxdr">1 tiếng để điều tra và giải quyết</a>.</li>
-</ul>
-</li>
-</ul>
-<p>Ảnh hưởng của 2 sự cố trên là <strong>request từ user đi qua Cloudflare không thể tới được origin server</strong> (tính năng proxy của Cloudflare). Riêng với issue thứ hai, do hệ thống của chính Cloudflare cũng sập nên người dùng cũng không thể access được dashboard của Cloudflare.</p>
-<p>Vậy <strong>giải pháp</strong> là gì khi gặp tình huống như trên?</p>
-<ul>
-<li>Nằm chịu chết, chờ cho tới khi dịch vụ Cloudflare phục hồi.</li>
-<li>Nếu xài SSL/TLS <strong>Full Strict</strong> thì có thể <strong>tắt tính năng proxy</strong> của Cloudflare đi
-<ul>
-<li>Traffic sẽ đi trực tiếp từ user tới origin server của bạn.</li>
-<li>Các rule về cản lọc bad request trên Cloudflare sẽ không còn tác dụng.</li>
-<li>Sẽ không thể thực hiện nếu bản thân dashboard của Cloudflare cũng chết 😑.</li>
-<li>Liệu hạ tầng DNS của Cloudflare có chết luôn hay không? 😑</li>
-<li>Và bắt buộc bạn ko được xài Flexsible SSL hoặc self-sign cert vì khi bạn tắt proxy, HTTPS trên site của bạn sẽ không đáng tin cậy và dịch vụ của bạn cũng không thể cung cấp.</li>
-</ul>
-</li>
-</ul>
-<p>Vấn đề tiếp theo là liệu <strong>TẮT PROXY</strong> có phải là giải pháp?</p>
-<h3 id="34-find-ip-origin-server">3.4 Find IP origin server</h3>
-<p>Mục tiêu của việc xài Cloudflare proxy là để ẩn IP của origin server và không cho kẻ tấn công biết được origin server, tránh trường hợp bị attack trực tiếp vào server thay vì đi qua bộ lọc của Cloudflare (hoặc crawler bypass bộ lọc). Thế nên khi Cloudflare gặp sự cố, bạn tắt Proxy đi nghĩa là đã tạo ra một lỗ hổng để attacker tấn công trực tiếp vào hệ thống, lúc này việc có Cloudflare cũng không còn mấy tác dụng.</p>
-<p>Đứng ở góc độ attacker, nếu site đã xài Cloudflare proxy thì có cách nào để biết được IP của orgin server hay không?</p>
-<p>Việc xác định một site có sử dụng dịch vụ Cloudflare cũng khá dễ dàng, ta có thể:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; curl -I https://medium.com
-</span></span><span style="display:flex;"><span>HTTP/2 <span style="color:#ae81ff">200</span>
-</span></span><span style="display:flex;"><span>date: Fri, <span style="color:#ae81ff">12</span> Jul <span style="color:#ae81ff">2019</span> 05:55:11 GMT
-</span></span><span style="display:flex;"><span>content-type: text/html; charset<span style="color:#f92672">=</span>utf-8
-</span></span><span style="display:flex;"><span>set-cookie: __cfduid<span style="color:#f92672">=</span>dd3119117ce323927a453c7b298401b0e1562910911; expires<span style="color:#f92672">=</span>Sat, 11-Jul-20 05:55:11 GMT; path<span style="color:#f92672">=</span>/; domain<span style="color:#f92672">=</span>.medium.com; HttpOnly
-</span></span><span style="display:flex;"><span>content-security-policy: default-src <span style="color:#e6db74">&#39;self&#39;</span>; connect-src https://localhost https://*.instapaper.com https://*.stripe.com https://glyph.medium.com https://*.paypal.com https://getpocket.com https://medium.com https://*.medium.com https://*.medium.com https://medium.com https://*.medium.com https://*.algolia.net https://cdn-static-1.medium.com https://dnqgz544uhbo8.cloudfront.net https://cdn-videos-1.medium.com https://cdn-audio-1.medium.com https://*.lightstep.com https://*.branch.io https://app.zencoder.com <span style="color:#e6db74">&#39;self&#39;</span>; font-src data: https://*.amazonaws.com https://*.medium.com https://glyph.medium.com https://medium.com https://*.gstatic.com https://dnqgz544uhbo8.cloudfront.net https://use.typekit.net https://cdn-static-1.medium.com <span style="color:#e6db74">&#39;self&#39;</span>; frame-src chromenull: https: webviewprogressproxy: medium: <span style="color:#e6db74">&#39;self&#39;</span>; img-src blob: data: https: <span style="color:#e6db74">&#39;self&#39;</span>; media-src https://*.cdn.vine.co https://d1fcbxp97j4nb2.cloudfront.net https://d262ilb51hltx0.cloudfront.net https://*.medium.com https://gomiro.medium.com https://miro.medium.com https://pbs.twimg.com <span style="color:#e6db74">&#39;self&#39;</span> blob:; object-src <span style="color:#e6db74">&#39;self&#39;</span>; script-src <span style="color:#e6db74">&#39;unsafe-eval&#39;</span> <span style="color:#e6db74">&#39;unsafe-inline&#39;</span> about: https: <span style="color:#e6db74">&#39;self&#39;</span>; style-src <span style="color:#e6db74">&#39;unsafe-inline&#39;</span> data: https: <span style="color:#e6db74">&#39;self&#39;</span>; report-uri https://csp.medium.com
-</span></span><span style="display:flex;"><span>x-frame-options: sameorigin
-</span></span><span style="display:flex;"><span>x-content-type-options: nosniff
-</span></span><span style="display:flex;"><span>x-xss-protection: 1; mode<span style="color:#f92672">=</span>block
-</span></span><span style="display:flex;"><span>x-ua-compatible: IE<span style="color:#f92672">=</span>edge, Chrome<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>x-powered-by: Medium
-</span></span><span style="display:flex;"><span>x-obvious-tid: 1562910911357:c3d601539378
-</span></span><span style="display:flex;"><span>x-obvious-info: 38086-f2efc7b,f2efc7bd3f5
-</span></span><span style="display:flex;"><span>link: &lt;https://medium.com/humans.txt&gt;; rel<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;humans&#34;</span>
-</span></span><span style="display:flex;"><span>cache-control: no-cache, no-store, max-age<span style="color:#f92672">=</span>0, must-revalidate
-</span></span><span style="display:flex;"><span>expires: Thu, <span style="color:#ae81ff">09</span> Sep <span style="color:#ae81ff">1999</span> 09:09:09 GMT
-</span></span><span style="display:flex;"><span>pragma: no-cache
-</span></span><span style="display:flex;"><span>tk: T
-</span></span><span style="display:flex;"><span>strict-transport-security: max-age<span style="color:#f92672">=</span>15552000; includeSubDomains; preload
-</span></span><span style="display:flex;"><span>set-cookie: uid<span style="color:#f92672">=</span>lo_L3g8wBpz5tvb; Expires<span style="color:#f92672">=</span>Sat, 11-Jul-20 05:55:11 GMT; Domain<span style="color:#f92672">=</span>.medium.com; Path<span style="color:#f92672">=</span>/; Secure; HttpOnly
-</span></span><span style="display:flex;"><span>set-cookie: sid<span style="color:#f92672">=</span>1:5/Xr4XX2PjlG2TtQTn1ERsmMMjpOJ71eZvf4NMZMLbseEW3NrI5Yb2WFRlOsXXe8; path<span style="color:#f92672">=</span>/; expires<span style="color:#f92672">=</span>Sat, <span style="color:#ae81ff">11</span> Jul <span style="color:#ae81ff">2020</span> 05:55:11 GMT; domain<span style="color:#f92672">=</span>.medium.com; secure; httponly
-</span></span><span style="display:flex;"><span>set-cookie: __cfruid<span style="color:#f92672">=</span>0b37c1d5c8324ea472c0072a4c6f285ffc596078-1562910911; path<span style="color:#f92672">=</span>/; domain<span style="color:#f92672">=</span>.medium.com; HttpOnly
-</span></span><span style="display:flex;"><span>expect-ct: max-age<span style="color:#f92672">=</span>604800, report-uri<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct&#34;</span>
-</span></span><span style="display:flex;"><span>server: cloudflare
-</span></span><span style="display:flex;"><span>cf-ray: 4f50c44b398ad1e7-HKG
-</span></span></code></pre></div><p>Một số header dùng để xác định như <code>cf-ray</code>, <code>__cfduid</code> hoặc check IP phân giải có thuộc lớp mạng của Cloudflare hay không:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; dig +short medium.com
-</span></span><span style="display:flex;"><span>104.16.121.127
-</span></span><span style="display:flex;"><span>104.16.124.127
-</span></span><span style="display:flex;"><span>104.16.122.127
-</span></span><span style="display:flex;"><span>104.16.120.127
-</span></span><span style="display:flex;"><span>104.16.123.127
-</span></span></code></pre></div><h4 id="341-ssl-certificate">3.4.1 SSL certificate</h4>
-<p>Mỗi Domain Validation SSL certificate mà bạn mua sẽ valid với một domain name. Ý tưởng là bạn cần scan toàn bộ internet để tìm một địa chỉ IP nào đó trên cổng 443 có SSL certificate match với domain-name mà bạn đang tìm kiếm.</p>
-<p><a href="https://censys.io/">Censys</a> là một dịch vụ cho phép query các dữ liệu kiểu như vậy. Miễn phí 10 query cho un-login user và 200 query/tháng cho free user.</p>
-<p>Ví dụ với site <a href="https://viblo.asia">https://viblo.asia</a>, domain của họ phân giải thành địa chỉ của Cloudflare</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; dig +short viblo.asia
-</span></span><span style="display:flex;"><span>104.27.188.151
-</span></span><span style="display:flex;"><span>104.27.189.151
-</span></span></code></pre></div><p>Tuy nhiên khi query trên Censys <code>(443.https.tls.certificate.parsed.names: viblo.asia OR 443.https.tls.certificate.parsed.subject.common_name: viblo.asia)</code> thì kết quả là:</p>
-<p><img src="https://raw.githubusercontent.com/xluffy/assets/master/censys_viblo.png" alt="censys_viblo"></p>
-<p>Trông có vẻ họ có 3 server phía sau Cloudflare và host trên Linode, ngoài ra họ cũng mở cổng 22 và 8080 trên các node.</p>
-<p>Một ví dụ khác là Medium, bạn có thể xem kết quả search từ Censys từ file <a href="https://raw.githubusercontent.com/xluffy/assets/master/medium.txt">medium.txt</a>. Một điểm thú vị ở đây là mình nhìn thấy có 17 node EC2 từ dịch vụ AWS public ra ngoài Internet, không rõ mục đích của họ khi thiết kế Infra như vậy là có dụng ý gì, mình đoán là họ đang xài Global Load Balancing của Cloudflare thay vì ALB của AWS, nhưng khó hiểu là các EC2 này đều nằm ở 1 AS và cùng một region là Ashburn, Virginia 🤔.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; grep <span style="color:#e6db74">&#39;.amazonaws&#39;</span> medium.txt
-</span></span><span style="display:flex;"><span> 52.1.147.205 <span style="color:#f92672">(</span>ec2-52-1-147-205.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span> 52.6.3.192 <span style="color:#f92672">(</span>ec2-52-6-3-192.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span> 54.167.232.247 <span style="color:#f92672">(</span>ec2-54-167-232-247.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span> 52.4.175.111 <span style="color:#f92672">(</span>ec2-52-4-175-111.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span> 3.94.121.79 <span style="color:#f92672">(</span>ec2-3-94-121-79.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span> 52.5.181.79 <span style="color:#f92672">(</span>ec2-52-5-181-79.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span> 52.1.173.203 <span style="color:#f92672">(</span>ec2-52-1-173-203.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span> 52.4.145.119 <span style="color:#f92672">(</span>ec2-52-4-145-119.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span> 52.6.46.142 <span style="color:#f92672">(</span>ec2-52-6-46-142.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span> 52.0.16.118 <span style="color:#f92672">(</span>ec2-52-0-16-118.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span> 52.4.225.124 <span style="color:#f92672">(</span>ec2-52-4-225-124.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span> 52.6.25.83 <span style="color:#f92672">(</span>ec2-52-6-25-83.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span> 52.206.109.232 <span style="color:#f92672">(</span>ec2-52-206-109-232.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span> 54.208.127.235 <span style="color:#f92672">(</span>ec2-54-208-127-235.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span> 52.4.38.70 <span style="color:#f92672">(</span>ec2-52-4-38-70.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span> 34.204.47.92 <span style="color:#f92672">(</span>ec2-34-204-47-92.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span> 52.1.119.170 <span style="color:#f92672">(</span>ec2-52-1-119-170.compute-1.amazonaws.com<span style="color:#f92672">)</span>
-</span></span></code></pre></div><p>Nói chung có thể search nhiều thứ với Censys, ngoài domain-name validate với certificate, ta cũng có thể search fingerprint của SSL certificate.</p>
-<h4 id="342-dns-records">3.4.2 DNS records</h4>
-<p>Sau một vài đợt chống chọi với các cuộc tấn công, bạn quá mệt mỏi và quyết định chuyển sang xài Cloudflare. Vấn đề là history về DNS records của bạn vẫn còn lưu đâu đó trên Internet và <a href="https://securitytrails.com/">SecurityTrails</a> là dịch vụ cho phép query history của DNS record.</p>
-<p><img src="https://raw.githubusercontent.com/xluffy/assets/master/security_trails_medimum.jpg" alt="security_trails_medium"></p>
-<p>Ngoài thông tin về history DNS record, còn có các thông tin khác như:</p>
-<ul>
-<li>Subdomain -&gt; có thể sẽ có những subdomain không đi qua Cloudflare nhưng chung origin server.</li>
-<li>Các history của các record khác như MX (mail), NS (máy chủ DNS)</li>
-</ul>
-<h4 id="343-http-header-hoặc-content">3.4.3 HTTP header hoặc Content</h4>
-<p>Ví dụ search với <strong>title</strong> của Medium bằng Censys.</p>
-<pre tabindex="0"><code>443.https.get.title: &#34;Medium – a place to read and write big ideas and important stories&#34;
-</code></pre><p>Hoặc các content unique trên website như Google Analytics tracking code:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>googleAnalyticsTrackingCode<span style="color:#e6db74">&#34;:&#34;</span>UA-24232453-2<span style="color:#e6db74">&#34;
-</span></span></span></code></pre></div><p>Công cụ như <a href="https://www.shodan.io">https://www.shodan.io</a> cho phép search các thông tin như vậy tuy nhiên nó yêu cầu bạn phải trả phí để truy cập các dữ liệu trên.</p>
-<h2 id="4-prevention">4. Prevention</h2>
-<p>Câu hỏi bây giờ là làm thế nào để ẩn danh IP origin server bởi các công cụ tìm kiếm hoặc historical DNS record? Và cách cấu hình Cloudflare để chống lại các tấn công vào origin server là như thế nào?</p>
-<ul>
-<li>Log real client-ip của user khi đi qua Cloudflare.</li>
-<li>Remove tất cả các DNS record không còn sử dụng (tránh để lộ origin server cũ).</li>
-<li>Chạy email trên các server hoặc dịch vụ riêng (gsuite, sendgrid).</li>
-<li>Sau khi chuyển sang Cloudflare, nên đổi tất cả các IP server cũ.</li>
-<li>Whitelist các request từ hệ thống Cloudflare (<a href="https://www.cloudflare.com/ips-v4">IPv4</a> và <a href="https://www.cloudflare.com/ips-v6">IPv6</a>) và các IP từ hệ thống của bạn (nếu có nhu cầu testing), phần còn lại nên block.</li>
-</ul>
-<p>Có thể block ở tầng firewall như security group hoặc transport layer (iptables) hoặc block ở nginx của site, ví dụ với iptables.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo iptables -I INPUT <span style="color:#ae81ff">1</span> -i lo -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 103.21.244.0/22 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 103.22.200.0/22 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 103.31.4.0/22 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 104.16.0.0/12 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 108.162.192.0/18 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 131.0.72.0/22 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 141.101.64.0/18 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 162.158.0.0/15 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 172.64.0.0/13 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 173.245.48.0/20 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 188.114.96.0/20 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 190.93.240.0/20 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 197.234.240.0/22 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 198.41.128.0/17 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp -s 199.27.128.0/21 --dport <span style="color:#ae81ff">443</span> -j ACCEPT
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp --dport <span style="color:#ae81ff">22</span> -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -j REJECT
-</span></span></code></pre></div><p>Với nginx có thể block như sau:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>map $remote_addr $bad_ip <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>  default 1;
-</span></span><span style="display:flex;"><span>  cloudflare_ip_v4 0;
-</span></span><span style="display:flex;"><span>  cloudflare_ip_v6 0;
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>server <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>$bad_ip<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> 499;
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span></code></pre></div><p>Ngoài các giải pháp trên, Cloudflare cung cấp một dịch vụ gọi là <a href="https://www.cloudflare.com/products/argo-tunnel">Argo tunnel</a>, hiểu một cách đơn giản thì argo-tunnel sẽ tạo một encrypted-tunnel giữa origin server tới Cloudflare data-center gần nhất (kèm theo smart routing), mọi kết nối từ client được Cloudflare pass qua origin server sẽ đi qua tunnel này, tất cả các request còn lại sẽ bị block.</p>
-<h2 id="5-end">5. End</h2>
-<p>Yeah, quá nhiều câu hỏi, quá nhiều chữ rồi, vậy nếu lỡ Cloudflare tạch proxy thì phải làm sao? Thật ra toy cũng đíu biết ae ạ 🖕🏽🖕🏽🖕🏽, lên Twitter xem dân tình chửi nhau và nằm chờ Cloudflare sống dậy thôi.</p>
-<p align="center"><img src="https://raw.githubusercontent.com/xluffy/assets/master/notlikethis.png" alt="notlikethis" style="width:33%;" /></p>
-<h2 id="6-ref">6. Ref</h2>
-<ul>
-<li><a href="https://www.cloudflare.com/learning/ddos/what-is-a-ddos-attacks">https://www.cloudflare.com/learning/ddos/what-is-a-ddos-attacks</a></li>
-<li><a href="https://www.cloudflare.com/rate-limiting">https://www.cloudflare.com/rate-limiting</a></li>
-<li><a href="https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy">https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy</a></li>
-<li><a href="https://www.secjuice.com/finding-real-ips-of-origin-servers-behind-cloudflare-or-tor">https://www.secjuice.com/finding-real-ips-of-origin-servers-behind-cloudflare-or-tor</a></li>
-<li><a href="https://blog.christophetd.fr/bypassing-cloudflare-using-internet-wide-scan-data">https://blog.christophetd.fr/bypassing-cloudflare-using-internet-wide-scan-data</a></li>
-<li><a href="https://chris-knight.net/blog/2017/02/effectively-hiding-behind-cloudflare">https://chris-knight.net/blog/2017/02/effectively-hiding-behind-cloudflare</a></li>
-<li><a href="https://citadelo.com/en/blog/cloudflare-how-to-do-it-right-and-do-not-reveal-your-real-ip/">https://citadelo.com/en/blog/cloudflare-how-to-do-it-right-and-do-not-reveal-your-real-ip/</a></li>
-</ul>
-
-    </div>
-    
-      
-        <div class="pagination">
-          <div class="pagination__title">
-            <span class="pagination__title-h"
-              >Read other posts</span
-            >
-            <hr />
-          </div>
-          <div class="pagination__buttons">
-            
-              <span class="button previous">
-                <a href="https://taoquangne.com/post/change-schema-of-huge-table-in-mysql/">
-                  <span class="button__icon">←</span>
-                  <span class="button__text">Change schema of huge table in MySQL</span>
-                </a>
-              </span>
-            
-            
-              <span class="button next">
-                <a href="https://taoquangne.com/post/vpc-architecture/">
-                  <span class="button__text">VPC architecture</span>
-                  <span class="button__icon">→</span>
-                </a>
-              </span>
-            
-          </div>
-        </div>
-      
-    
-
-    
-      
-        
-
-      
-    
-  </div>
-
-      </div>
-
-      
-        <footer class="footer">
-  <div class="footer__inner">
-    
-      <div class="copyright copyright--user"><span> hàng nhà trồng 🌴 theo <a href="https://creativecommons.org/licenses/by-nc/4.0">giấy phép CC BY-NC 4.0</a></span><span>Themes created by <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span></div>
-      
-  </div>
-</footer>
-
-<script src="https://taoquangne.com/assets/main.js"></script>
-<script src="https://taoquangne.com/assets/prism.js"></script>
-
-
-      
-    </div>
-
-    
-  </body>
-</html>
+<!doctype html><html lang=en><head><script async src="https://www.googletagmanager.com/gtag/js?id=GTM-5JDKMG4"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","GTM-5JDKMG4")</script><title>Cloudflare 101 ::
+/home/xluffy
+</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=keywords content><meta name=robots content="noodp"><link rel=canonical href=https://taoquangne.com/post/cloudflare-101/><link rel=stylesheet href=https://taoquangne.com/assets/style.css><link rel=stylesheet href=https://taoquangne.com/style.css><link rel=apple-touch-icon-precomposed sizes=144x144 href=https://taoquangne.com/img/apple-touch-icon-144-precomposed.png><link rel="shortcut icon" href=https://taoquangne.com/img/favicon.png><link href=https://taoquangne.com/assets/fonts/Inter-Italic.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-Regular.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-Medium.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-MediumItalic.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-Bold.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-BoldItalic.woff2 rel=preload type=font/woff2 as=font crossorigin><meta name=twitter:card content="summary"><meta name=twitter:title content="Cloudflare 101"><meta property="og:url" content="https://taoquangne.com/post/cloudflare-101/"><meta property="og:site_name" content="/home/xluffy"><meta property="og:title" content="Cloudflare 101"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="post"><meta property="article:published_time" content="2019-07-11T00:00:00+00:00"><meta property="article:modified_time" content="2019-07-11T00:00:00+00:00"><meta property="article:tag" content="Cloudflare"><meta property="article:tag" content="Security"><meta property="article:tag" content="Proxy"></head><body><div class=container><header class=header><span class=header__inner><a href=/ class=logo style=text-decoration:none><span class=logo__mark><svg class="greater-icon" viewBox="0 0 44 44"><path fill="none" d="M15 8l14.729 14.382L15 35.367"/></svg>
+</span><span class=logo__text>/home/xluffy ft 🍄</span>
+<span class=logo__cursor></span>
+</a><span class=header__right><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=/about>about</a></li><li><a href=/tags>tags</a></li><li><a href=https://github.com/xluffy/til/issues>til</a></li><li><a href=/weekly-summary>weekly-summary</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=/about>about</a></li><li><a href=/tags>tags</a></li><li><a href=https://github.com/xluffy/til/issues>til</a></li><li><a href=/weekly-summary>weekly-summary</a></li></ul></nav><span class=menu-trigger><svg viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+</span><span class=theme-toggle><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none"><path d="M22 41c10.4934.0 19-8.5066 19-19C41 11.5066 32.4934 3 22 3 11.5066 3 3 11.5066 3 22s8.5066 19 19 19zM7 22C7 13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22z"/></svg></span></span></span></header><div class=content><div class=post><h1 class=post-title>Cloudflare 101</h1><div class=post-meta><span class=post-date>2019-07-11</span></div><span class=post-tags><a href=https://taoquangne.com/tags/cloudflare/>#cloudflare</a>&nbsp;
+<a href=https://taoquangne.com/tags/security/>#security</a>&nbsp;
+<a href=https://taoquangne.com/tags/proxy/>#proxy</a>&nbsp;</span><div class=post-content><h2 id=1-ddos-101>1. DDoS 101</h2><p>Về DDoS dù mục đích cuối cùng là làm cho dịch vụ của bạn không thể cung cấp tới người dùng nhưng nó có thể được chia thành 3 nhóm:</p><ul><li><strong>Application Layer Attacks</strong>: mục tiêu là khiến ứng dụng phải xử lý một lượng lớn các request <em>có vẻ hợp lệ</em>, làm cạn kiệt tài nguyên của ứng dụng, khiến ứng dụng không thể phục vụ các user hợp lệ khác. Ví dụ trong ứng dụng TMĐT, một API đọc database trả về một danh sách chi tiết của các sản phẩm thuộc một nhóm ngành. Attacker có thể viết một tools để crawl hết dữ liệu của từng ngành hàng, khiến server không đủ tài nguyên để phục vụ. Việc cản lọc request thuộc nhóm này không dễ vì nó sẽ khá giống với request của user thông thường và có thể cản lọc nhầm những user hợp lệ.</li><li><strong>Protocol Attacks</strong>: tương tự application layer attack nhưng nhắm vào layer 3 và layer 4 trong mô hình OSI. Ví dụ điển hình là SYN Flood, lợi dụng việc bắt-tay-3-bước trong giao thức TCP, attacker sẽ gửi một một gói SYN để thiết lập kết nối TCP, server sẽ trả về một gói SYN-ACK và chờ đợi một gói ACK để kết thúc quá trình bắt tay. Nhưng sau đó attacker sẽ không bao giờ trả về ACK, khiến server phải tiêu tốn tài nguyên cho việc chờ đợi phản hồi.</li><li><strong>Volumetric Attacks</strong>: Hai loại trên đều nhắm tới việc bắt ứng dụng, hệ điều hành phải tiêu tốn tài nguyên xử lý. Riêng volumetric attack nhắm tới băng thông của hệ thống victim. Ví dụ khách hàng chỉ có khả năng thuê một đường truyền có băng thông 100Mbps, attacker sẽ tìm cách flood một lượng lớn traffic lớn hơn 100Mbps, khiến con đường tới server của victim bị nghẽn (tương tự đường 2 làn, nhưng có tới 10 làn xe cùng vào một lúc sẽ gây ngẽn và những xe cần đi thật sẽ không thể di chuyển). Ví dụ <a href=https://blog.cloudflare.com/memcrashed-major-amplification-attacks-from-port-11211>Memcrashed</a>, lợi dụng các memcached server mở UDP port ra ngoài public, attacker gửi một gói tin với <code>source_ip </code>được giả mạo thành <code>source_ip</code> của victim tới các server memcached zoombie này. Một request gửi đi chỉ với 15 bytes nhưng memcached trả về 134KB dữ liệu, và khuếch đại lên thì Cloudflare ghi nhận peak tới <strong>260Gbps</strong> UDP traffic, đủ là nghẽn network của bất cứ hệ thống nào.</li></ul><p>Để chống lại một cuộc tấn công DDoS thì tùy vào loại attack. Tuy nhiên đứng ở góc độ làm sản phẩm thì luôn cố gắng phục vụ tất cả các request kể cả bất hợp lệ thay vì <strong>block</strong> request vì nếu block nhầm user hợp lệ cũng coi như từ chối phục vụ dịch vụ cho khách hàng -> giúp kẻ tấn công đạt được mục đích là ứng dụng của chúng ta không thể cung cấp dịch vụ tới khách hàng. Tất nhiên ta cũng phải đánh đổi giữa việc bảo vệ phần lớn user hay cản lọc nhầm các user hợp lệ để đưa ra quyết định đúng đắn.</p><p>Một số phương pháp được đề xuất để giảm thiểu hoặc cản lọc DDoS attack như sau:</p><ul><li><strong>Black Hole Routing</strong>: tương tự như <code>&> /dev/null</code> đẩy toàn bộ traffic cả hợp lệ lẫn không hợp lệ vào hố đen. Nói cho vui, chứ méo ai lại làm như vầy, chẳng khác gì anh Quảng nổ rút dây điện, tắt server.</li><li><strong>Rate limit request</strong>: giới hạn số lượng request mà server chấp nhận xử lý trong một khung thời gian. Hữu ích khi chống crawler hoặc brute-force login.</li><li><strong>WAF (Web Application Firewall)</strong>: bảo vệ server, ứng dụng bởi các lỗ hổng thông thường như SQL injection, XSS&mldr;</li><li><strong>Anycast Network Diffusion</strong>: một giải thích khá là dễ hiểu từ anh <a href=https://github.com/lebinh>lebinh</a>, bạn có thể đọc thêm nó ở đây <a href=https://discuss.grokking.org/t/dung-trang-tinh-d-ngan-ch-n-ddos/271/5>https://discuss.grokking.org/t/dung-trang-tinh-d-ngan-ch-n-ddos/271/5</a>.</li></ul><h2 id=2-rate-limit>2. Rate Limit</h2><p>Cloudflare cung cấp một tính năng cho phép control và block các traffic đáng ngờ. Tính năng này giúp <strong>tự động</strong> bảo vệ website của bạn khỏi:</p><ul><li>DDoS attack.</li><li>brute-force login.</li><li>….</li></ul><p>Câu hỏi đặt ra là tại sao tui phải trả tiền Cloudflare để xài tính năng này? Có giải pháp nào thay thế miễn phí, đơn giản hay không?</p><p>Tính năng limit request/minute hoặc block request không có gì mới. Ta có thể giải quyết bằng các giải pháp sau:</p><ul><li>Limit request ở tầng application, ví dụ <a href=https://github.com/kickstarter/rack-attack>rack-attack</a>.</li><li><a href=https://nginx.org/en/docs/http/ngx_http_limit_req_module.html>ngx_http_limit_req_module</a>, block ip, limit request dựa trên ngưỡng và thời gian. Có một nhược điểm của phương pháp này, dẫn tới có thể dễ dàng bypass đó là nếu sau LB có nhiều nginx, mỗi nginx sẽ có một vùng nhớ để lưu các IP block riêng, dẫn tới có thể block trên server này nhưng không block trên server kia. Đó là lý do cần một nơi lưu chung như redis ở cách tiếp cận tiếp theo.</li><li>nginx + lua + redis, tương tự như trên, nhưng ta có thể tận dụng expire/ttl của redis để ban/block một IP và sau đó unban IP đó theo expire của một key trong redis. Một ưu điểm khác là ta có thể query dữ liệu trong redis để report. <strong><a href=https://github.com/leandromoreira/nginx-lua-redis-rate-measuring>nginx-lua-redis-rate-measuring</a></strong> là một ví dụ về việc share counter trong redis và block bằng nginx, repo này inspired từ Cloudflare&rsquo;s post <a href=https://blog.cloudflare.com/counting-things-a-lot-of-different-things/>How we built rate limiting capable of scaling to millions of domains.</a></li><li>Host-based firewall như iptables/ufw -> block/limit request ở các layer thấp hơn application layer:<ul><li>Ưu điểm là block ở các layer thấp như transport layer trở xuống, request sẽ chưa kịp tới application layer, giảm tải cho web server.</li><li>Với limit request, ta sẽ cần load thêm một số module hỗ trợ iptable -> firewall stateful -> bạn có thể đọc thêm một bài rất hay về <a href=https://making.pusher.com/per-ip-rate-limiting-with-iptables>rate-limit với iptables từ Pusher</a>.</li><li>Nhược điểm là không tự động cập nhật danh sách IP mới bị ban/block/limit. Để giải quyết việc cập nhật tự động có thể <a href=https://vnhacker.blogspot.com/2009/12/giam-sat-ninh-mang-hay-la-lam-nao-e.html>build một hệ thống offline để phân tích và update lại vào hệ thống firewall</a>. Ưu điểm của việc build một hệ thống offline là impact tới hệ thống không lớn, quá trình phân tích diễn ra ở một cụm máy tính khác, nhược điểm là bạn phải có traffic và ăn một vài đợt tấn công để có đủ dữ liệu để tính toán.</li></ul></li><li>Network-based firewall: các firewall nằm ngoài host như hardware firewall hoặc security group của AWS (nhưng về lý thuyết nó không được xếp vào network-based firewall). Cũng tương tự host-based firewall là việc cập nhật danh sách IP sẽ khó khăn. Và với security group của AWS thì không thể limit request (chỉ có chặn).</li></ul><p><strong>Nhược điểm</strong> của tất cả các phương pháp trên là:</p><ul><li>Request của attacker <strong>đã tới hệ thống</strong> của bạn, nếu xài network-base firewall thì request đã vào tới router/hardware-firewall, nếu xài host-based firewall (iptables) thì request đã tới server (OS đã phải handle), nếu bạn limit ở tầng application thì web server (nginx hoặc Apache) đã phải xử lý (tuy nhiên nếu xài nginx như một proxy thì cũng không tốn thêm bao nhiêu resource) và nếu bạn xài một thư viện như <a href=https://github.com/kickstarter/rack-attack>rack-attack</a> thì Rails phải handle thêm việc giới hạn request.</li><li>Thêm thiết bị, máy tính, software để xử lý vấn đề (sẽ không phù hợp với hệ thống nhỏ).</li></ul><p>Vậy nếu xài rate-limit của Cloudflare thì có lợi gì?</p><ul><li>Cloudflare sẽ hoạt động như một reverse proxy, mọi request trước khi đi tới origin server của bạn đều sẽ đi qua Cloudflare.</li><li>Băng thông của Cloudflare là <strong>30Tbps</strong>, gấp <strong>15 lần</strong> cuộc tấn công DDoS lớn nhất từng được ghi nhận (chắc là memcrashed), với sổ hộ nghèo, bạn chỉ thuê được băng thông 100Mbps. Cloudflare sẽ hoạt động như BOT (trạm thu phí) giữa quốc lộ và đường làng, giúp bóp nhỏ / cản lọc bớt traffic trước khi tới server của bạn, không làm overload network của bạn (thông thường nếu bạn host server ở DC, khi gặp một cuộc tấn công volumetric attacks, bạn cũng có thể nhờ DC tăng băng thông để chống chọi hoặc nhờ Firewall/Router của DC cản lọc bớt traffic trước khi vào server của bạn, tương tự như Cloudflare).</li><li>Dễ cấu hình ngưỡng, URL và có report để xem.</li><li>Thông minh, tự động nhận biết các request không hợp lệ, có thể expire sau một khoảng thời gian (tương tự lua+redis), cho phép user tự bypass bằng cách pass <em>challenge</em> hoặc <em>js challenge</em> thay vì block ngay.</li><li><strong>Nhược điểm</strong> là phải trả tiền cho tính năng này và Cloudflare offer số lượng rule khá thấp (Pro là 10 rule, Business 15 rule và Enterprise rule), nên cần nhiều rule limit thì Cloudflare là một lựa chọn khá đắt đỏ.s</li></ul><p align=center><img src=https://www.cloudflare.com/resources/images/slt3lc6tev37/49gHcPDvyg0AcS4sy6qWao/e890866ea6582fb7a63f30e0ed34bdb9/rate-limiting-rules.png alt=rate-limit style=width:53%></p><p>Nếu bạn xài terraform 0.11 thì nó sẽ như sau:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=display:flex><span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;cloudflare_rate_limit&#34; &#34;rl_login&#34;</span> {
+</span></span><span style=display:flex><span>  zone <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;${var.domain}&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  threshold <span style=color:#f92672>=</span> <span style=color:#ae81ff>20</span>
+</span></span><span style=display:flex><span>  period <span style=color:#f92672>=</span> <span style=color:#ae81ff>60</span>
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>match</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>request</span> {
+</span></span><span style=display:flex><span>      url_pattern <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;${var.domain}/login&#34;</span>
+</span></span><span style=display:flex><span>      schemes <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;HTTP&#34;, &#34;HTTPS&#34;</span>]
+</span></span><span style=display:flex><span>      methods <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;POST&#34;</span>]
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>response</span> {
+</span></span><span style=display:flex><span>      statuses <span style=color:#f92672>=</span> [<span style=color:#ae81ff>401</span>, <span style=color:#ae81ff>403</span>]
+</span></span><span style=display:flex><span>      origin_traffic <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>action</span> {
+</span></span><span style=display:flex><span>    mode <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;ban&#34;</span>
+</span></span><span style=display:flex><span>    timeout <span style=color:#f92672>=</span> <span style=color:#ae81ff>3600</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  disabled <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  description <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Block IPs exceeding 20 request per minutes (20 in 60) for 1 hour to login pattern.&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><strong>Update cực mạnh:</strong></p><ul><li>Với tính năng rate-limit như mô tả ở trên, có vẻ là một giải pháp hoàn hảo khi giới hạn khả năng gửi request của attacker ngay lại level proxy. NHƯNG <strong>toy đã lầm</strong> khi nhìn thấy billing của Cloudflare.</li></ul><p align=center><img src=https://raw.githubusercontent.com/xluffy/assets/master/cf_billing.png alt=cf_billing style=width:70%></p><ul><li>Theo mô tả về giá của Cloudflare thì &ldquo;<strong><a href=https://www.cloudflare.com/rate-limiting/>Only Pay for Good Traffic. Not Bad</a></strong>&rdquo;, nghĩa là với các rule được định nghĩa, thì tiền sẽ chỉ tính trên các request match với rule và không bị chặn bởi Cloudflare. Free cho 10_000 good request đầu tiên và mỗi $0.05 cho 10_000 good request tiếp theo.</li><li>Giả sử toy mà biết ông nào xài tính năng này của Cloudflare, đặc biệt các request đơn giản không yêu cầu header/method gì đặc biệt, toy làm một cụm proxy để rotate-ip, send slow request thì tháng đó công ti đó chắc cũng toangggg 😑😑😑.</li></ul><h2 id=3-proxy>3. Proxy</h2><h3 id=31-proxy-101>3.1 Proxy 101</h3><p>Để xài được tính năng như <strong>rate-limit</strong> thì bạn phải cho phép request của user đi qua hệ thống Cloudflare trước khi tới server của bạn, đó chính là Proxy trong Cloudflare.</p><p>Proxy có thể được chia làm 2 loại, khác nhau ở vị trí đặt và mục đích sử dụng:</p><p><strong>Forward Proxy</strong>:</p><pre tabindex=0><code class=language-asciiarmor data-lang=asciiarmor>{clientA, clientB, clientC} ——&gt; forward proxy (F) ——&gt; Internet (I) ——&gt; {origin-serverA, origin-serverB}
+</code></pre><ul><li>Với người dùng, dùng forward proxy giúp họ bypass được các giới hạn truy cập website. Nó hơi giống với VPN, forward proxy sẽ thay người dùng gửi request tới website bạn muốn truy cập thay vì kết nối trực tiếp.</li><li>Với người quản trị hệ thống, họ có thể đặt một forward proxy trong mạng nội bộ của họ và <strong>ép</strong> tất cả các client phải đi qua forward proxy này trước khi kết nối ra Internet. Việc này đem lại 2 lợi ích, thứ nhất đó là caching các dữ liệu mà người dùng thường xuyên truy cập và thứ hai là có thể cản lọc, chặn truy cập một số website, ứng dụng (ví dụ chặn không có user trong mạng nội bộ truy cập Facebook.com).</li><li>Ẩn danh, tương tự như VPN.</li></ul><p><strong>Reverse proxy</strong></p><pre tabindex=0><code class=language-asciiarmor data-lang=asciiarmor>{clientA, clientB, clientC} ——&gt; Internet (I) ——&gt; reverse proxy (R)——&gt; {origin-serverA, origin-serverB}
+</code></pre><p>Một ví dụ quen thuộc của reverse proxy đó là bạn xài nginx upstream trước các backend server. Lợi điểm của việc dùng reverse proxy đó là:</p><ul><li><strong>Load balancing</strong> -> chia request từ client tới nhiều backend server với các thuật toán khác nhau. Giúp điều tiết lượng request tới backend server.</li><li><strong>Protection from attack</strong> -> mọi request từ client sẽ phải đi qua reverse proxy, bạn có thể apply các rule trên reverse proxy để cản lọc request trước khi tới backend server (tương tự như rate-limit/WAF ở trên). Bản chất của proxy là nhận và pass request đi nên các xử lý trên proxy là khá nhẹ nhàng.</li><li><strong>Global Server Load Balancing</strong> -> tương tự như load balacing nhưng ở cấp độ global, reverse proxy sẽ nhận biết được là backend server nào gần với client và chuyển hướng request của client tới backend server gần nhất để giảm latency, load time.</li><li><strong>Caching</strong> -> request của client vẫn phải tới infra của site, tuy nhiên việc caching sẽ nằm ở infra của site (khác với caching ở forward proxy nằm ở network của client), mục đích cũng tương tự là giảm response time.</li><li><strong>SSL encryption</strong> -> đẩy phần encrypt/decrypt ra reverse proxy, kết nối từ reverse proxy tới backend server là HTTP.</li></ul><p>Ở đây ta sẽ chỉ nói tới reverse proxy, thứ mà rất quen thuộc khi vận hành một hệ thống website/api. Tuy nhiên điểm khác biệt là bạn thường đặt reverse proxy <strong>trong hệ thống mạng của bạn</strong>, còn với Cloudflare thì chức năng tương tự, nhưng proxy nằm bên ngoài hệ thống mạng của bạn và với băng thông 30Tbps, Cloudflare đủ sức hứng mọi đợt tấn công trước khi tới origin server của bạn.</p><p align=center><img src=https://blog.cloudflare.com/content/images/ddos-illustrations-2.png alt=ddos-illustrations-2 style=width:70%></p><p>Ví dụ website của bạn có địa chỉ IP là <a href=1.2.3.4>1.2.3.4</a>, khi bật tính năng proxy, domain website của bạn sẽ được phân giải IP thành một địa chỉ IP thuộc lớp mạng của Cloudflare như <a href=104.20.148.78>104.20.148.78</a>, và user/attacker sẽ không biết được địa chỉ origin server của bạn.</p><h3 id=32-ssltls>3.2 SSL/TLS</h3><p>Đi kèm với Proxy, Cloudflare cung cấp một giải pháp SSL/TLS miễn phí cho các khách hàng nhỏ giúp tăng cường bảo mật cho website. <strong>Traffic từ client tới Cloudflare sẽ luôn luôn được mã hóa</strong>, traffic từ Cloudflare tới Origin server thì phụ thuộc vào cấu hình với các tùy chọn như sau:</p><ul><li>Flexible SSL</li><li>Full SSL<ul><li>Strict (cert issued by Certificate Authority).</li><li>Full (cert issued by Cloudflare (Origin CA)).</li><li>Self-signed certificate.</li></ul></li></ul><p><strong>Flexible SSL</strong> sẽ mã hóa traffic từ Cloudflare tới end-user, nhưng không mã hóa traffic từ Cloudflare tới origin server của bạn. Ưu điểm là dễ dàng cài đặt HTTPs cho user nhưng không yêu cầu phải cài đặt SSL certificate trên server của bạn. Mặc dù không an toàn như các tùy chọn khác nhưng Flexsible SSL là cách nhanh chóng, dễ dàng để bảo vệ user khỏi các mối nguy hiểm từ public Wifi hoặc ad injection over HTTP. Về traffic từ Cloudflare tới origin server của bạn, đặt niềm tin hoàn toàn vào Cloudflare rằng traffic của bạn sẽ không bị lộ ra bên ngoài (capture traffic khi vừa ra khỏi Cloudflare).</p><p><img src=https://www.cloudflare.com/resources/images/slt3lc6tev37/3G3ciVwoNO4YmqiWaUwi8e/be14a50ee11f34204c831c824eb5fcb6/flexible-ssl.svg alt=flexible-ssl></p><p><strong>Full SSL</strong> sẽ mã hóa traffic ở cả 2 đầu là từ Cloudflare tới end-user và từ Cloudflare tới origin server của bạn, có ba tùy chọn khác nhau cho việc cài đặt cerfiticate trên server của bạn là:</p><ul><li>Full SSL Strict -> certificate cài đặt trên origin server của bạn được cấp bởi một public Certificate Authority (ví dụ Verisign, Digicert hoặc Comodo).</li><li>Full SSL, Origin CA -> certificate cài đặt trên origin server của bạn được cấp bởi Cloudflare.</li><li>Full SSL, self-signed certificate -> certificate tự gen.</li></ul><p><img src=https://www.cloudflare.com/resources/images/slt3lc6tev37/13hJjEZmQGA6ukiIw2iIEA/ea5b30e43d76ceed34a79e25837f76c9/full-ssl-strict.svg alt=full-ssl></p><p>Với Strict, certificate được cấp bởi CA cần tốn chi phí để mua và gia hạn. Với Origin CA, cert được cấp bởi Cloudflare, miễn phí và có expire time khá lâu, dễ dàng rotate nên Cloudflare recomment xài Origin CA.</p><h3 id=33-cloudflarefuck>3.3 Cloudflarefuck?</h3><p>Nếu bạn từng vào trang tuyển dụng của Cloudflare, đọc thử một job description, bạn sẽ thấy một câu <strong>Cloudflare powers Internet requests for ~10% of the Fortune 1,000 for more than 1 billion unique IP addresses per day.</strong></p><p><img src=https://www.cloudflare.com/img/learning/what-is-cloudflare/cloudflare-stats-01.svg alt=cloudflare-stats></p><p>Vậy câu hỏi là <strong>nếu Cloudflare sập</strong> thì chuyện gì xảy ra 😳 🔥 🚒, sẽ <strong>chỉ có 10% traffic</strong> trên toàn thế giới bị ảnh hưởng. Nghe mà đã rụng cmn rời.</p><p>Trong tầm khoảng 10 ngày, Cloudflare xảy ra 2 network issues lớn:</p><ul><li><a href=https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/>Massive route leak</a>: theo post-mortem từ Cloudflare thì lỗi là do Verizon (một nhà mạng rất lớn), ảnh hưởng tới rất nhiều provider lớn như <a href=https://twitter.com/atoonk/status/1143143943531454464>Amazon, Linode and Cloudflare</a>. Sự cố này mất <a href=https://www.cloudflarestatus.com/incidents/46z55mdhg0t5>2 tiếng đồng hồ</a> để giải quyết.</li><li><a href=https://blog.cloudflare.com/cloudflare-outage/>Cloudflare outage caused by bad software deploy</a>: issue này được Cloudflare mô tả là do:<ul><li>Deploy một bộ rule cho dịch vụ WAF để tối ưu việc block inline Javascript thường được sử dụng trong các cuộc tấn công.</li><li>Có một rule xài regular expression khiến CPU spike lên 100%.</li><li>Drop 82% traffic của Cloudflare và ảnh hưởng tới rất rất nhiều region trên toàn thế giới.</li><li>Một lượng lớn các công ty lớn bị ảnh hưởng như <a href=https://twitter.com/JacobCanfield/status/1146057756400504837>Coinbase, Authy, Discord, Medium, Zendesk …</a>.</li><li>Đã test ở một môi trường giả định, nhưng không có đủ traffic để đánh giá impact trên production.</li><li>Giải pháp là rollback lại bản deployment, nhưng sự cố này cũng mất <a href=https://www.cloudflarestatus.com/incidents/tx4pgxs6zxdr>1 tiếng để điều tra và giải quyết</a>.</li></ul></li></ul><p>Ảnh hưởng của 2 sự cố trên là <strong>request từ user đi qua Cloudflare không thể tới được origin server</strong> (tính năng proxy của Cloudflare). Riêng với issue thứ hai, do hệ thống của chính Cloudflare cũng sập nên người dùng cũng không thể access được dashboard của Cloudflare.</p><p>Vậy <strong>giải pháp</strong> là gì khi gặp tình huống như trên?</p><ul><li>Nằm chịu chết, chờ cho tới khi dịch vụ Cloudflare phục hồi.</li><li>Nếu xài SSL/TLS <strong>Full Strict</strong> thì có thể <strong>tắt tính năng proxy</strong> của Cloudflare đi<ul><li>Traffic sẽ đi trực tiếp từ user tới origin server của bạn.</li><li>Các rule về cản lọc bad request trên Cloudflare sẽ không còn tác dụng.</li><li>Sẽ không thể thực hiện nếu bản thân dashboard của Cloudflare cũng chết 😑.</li><li>Liệu hạ tầng DNS của Cloudflare có chết luôn hay không? 😑</li><li>Và bắt buộc bạn ko được xài Flexsible SSL hoặc self-sign cert vì khi bạn tắt proxy, HTTPS trên site của bạn sẽ không đáng tin cậy và dịch vụ của bạn cũng không thể cung cấp.</li></ul></li></ul><p>Vấn đề tiếp theo là liệu <strong>TẮT PROXY</strong> có phải là giải pháp?</p><h3 id=34-find-ip-origin-server>3.4 Find IP origin server</h3><p>Mục tiêu của việc xài Cloudflare proxy là để ẩn IP của origin server và không cho kẻ tấn công biết được origin server, tránh trường hợp bị attack trực tiếp vào server thay vì đi qua bộ lọc của Cloudflare (hoặc crawler bypass bộ lọc). Thế nên khi Cloudflare gặp sự cố, bạn tắt Proxy đi nghĩa là đã tạo ra một lỗ hổng để attacker tấn công trực tiếp vào hệ thống, lúc này việc có Cloudflare cũng không còn mấy tác dụng.</p><p>Đứng ở góc độ attacker, nếu site đã xài Cloudflare proxy thì có cách nào để biết được IP của orgin server hay không?</p><p>Việc xác định một site có sử dụng dịch vụ Cloudflare cũng khá dễ dàng, ta có thể:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>&gt; curl -I https://medium.com
+</span></span><span style=display:flex><span>HTTP/2 <span style=color:#ae81ff>200</span>
+</span></span><span style=display:flex><span>date: Fri, <span style=color:#ae81ff>12</span> Jul <span style=color:#ae81ff>2019</span> 05:55:11 GMT
+</span></span><span style=display:flex><span>content-type: text/html; charset<span style=color:#f92672>=</span>utf-8
+</span></span><span style=display:flex><span>set-cookie: __cfduid<span style=color:#f92672>=</span>dd3119117ce323927a453c7b298401b0e1562910911; expires<span style=color:#f92672>=</span>Sat, 11-Jul-20 05:55:11 GMT; path<span style=color:#f92672>=</span>/; domain<span style=color:#f92672>=</span>.medium.com; HttpOnly
+</span></span><span style=display:flex><span>content-security-policy: default-src <span style=color:#e6db74>&#39;self&#39;</span>; connect-src https://localhost https://*.instapaper.com https://*.stripe.com https://glyph.medium.com https://*.paypal.com https://getpocket.com https://medium.com https://*.medium.com https://*.medium.com https://medium.com https://*.medium.com https://*.algolia.net https://cdn-static-1.medium.com https://dnqgz544uhbo8.cloudfront.net https://cdn-videos-1.medium.com https://cdn-audio-1.medium.com https://*.lightstep.com https://*.branch.io https://app.zencoder.com <span style=color:#e6db74>&#39;self&#39;</span>; font-src data: https://*.amazonaws.com https://*.medium.com https://glyph.medium.com https://medium.com https://*.gstatic.com https://dnqgz544uhbo8.cloudfront.net https://use.typekit.net https://cdn-static-1.medium.com <span style=color:#e6db74>&#39;self&#39;</span>; frame-src chromenull: https: webviewprogressproxy: medium: <span style=color:#e6db74>&#39;self&#39;</span>; img-src blob: data: https: <span style=color:#e6db74>&#39;self&#39;</span>; media-src https://*.cdn.vine.co https://d1fcbxp97j4nb2.cloudfront.net https://d262ilb51hltx0.cloudfront.net https://*.medium.com https://gomiro.medium.com https://miro.medium.com https://pbs.twimg.com <span style=color:#e6db74>&#39;self&#39;</span> blob:; object-src <span style=color:#e6db74>&#39;self&#39;</span>; script-src <span style=color:#e6db74>&#39;unsafe-eval&#39;</span> <span style=color:#e6db74>&#39;unsafe-inline&#39;</span> about: https: <span style=color:#e6db74>&#39;self&#39;</span>; style-src <span style=color:#e6db74>&#39;unsafe-inline&#39;</span> data: https: <span style=color:#e6db74>&#39;self&#39;</span>; report-uri https://csp.medium.com
+</span></span><span style=display:flex><span>x-frame-options: sameorigin
+</span></span><span style=display:flex><span>x-content-type-options: nosniff
+</span></span><span style=display:flex><span>x-xss-protection: 1; mode<span style=color:#f92672>=</span>block
+</span></span><span style=display:flex><span>x-ua-compatible: IE<span style=color:#f92672>=</span>edge, Chrome<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>x-powered-by: Medium
+</span></span><span style=display:flex><span>x-obvious-tid: 1562910911357:c3d601539378
+</span></span><span style=display:flex><span>x-obvious-info: 38086-f2efc7b,f2efc7bd3f5
+</span></span><span style=display:flex><span>link: &lt;https://medium.com/humans.txt&gt;; rel<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;humans&#34;</span>
+</span></span><span style=display:flex><span>cache-control: no-cache, no-store, max-age<span style=color:#f92672>=</span>0, must-revalidate
+</span></span><span style=display:flex><span>expires: Thu, <span style=color:#ae81ff>09</span> Sep <span style=color:#ae81ff>1999</span> 09:09:09 GMT
+</span></span><span style=display:flex><span>pragma: no-cache
+</span></span><span style=display:flex><span>tk: T
+</span></span><span style=display:flex><span>strict-transport-security: max-age<span style=color:#f92672>=</span>15552000; includeSubDomains; preload
+</span></span><span style=display:flex><span>set-cookie: uid<span style=color:#f92672>=</span>lo_L3g8wBpz5tvb; Expires<span style=color:#f92672>=</span>Sat, 11-Jul-20 05:55:11 GMT; Domain<span style=color:#f92672>=</span>.medium.com; Path<span style=color:#f92672>=</span>/; Secure; HttpOnly
+</span></span><span style=display:flex><span>set-cookie: sid<span style=color:#f92672>=</span>1:5/Xr4XX2PjlG2TtQTn1ERsmMMjpOJ71eZvf4NMZMLbseEW3NrI5Yb2WFRlOsXXe8; path<span style=color:#f92672>=</span>/; expires<span style=color:#f92672>=</span>Sat, <span style=color:#ae81ff>11</span> Jul <span style=color:#ae81ff>2020</span> 05:55:11 GMT; domain<span style=color:#f92672>=</span>.medium.com; secure; httponly
+</span></span><span style=display:flex><span>set-cookie: __cfruid<span style=color:#f92672>=</span>0b37c1d5c8324ea472c0072a4c6f285ffc596078-1562910911; path<span style=color:#f92672>=</span>/; domain<span style=color:#f92672>=</span>.medium.com; HttpOnly
+</span></span><span style=display:flex><span>expect-ct: max-age<span style=color:#f92672>=</span>604800, report-uri<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct&#34;</span>
+</span></span><span style=display:flex><span>server: cloudflare
+</span></span><span style=display:flex><span>cf-ray: 4f50c44b398ad1e7-HKG
+</span></span></code></pre></div><p>Một số header dùng để xác định như <code>cf-ray</code>, <code>__cfduid</code> hoặc check IP phân giải có thuộc lớp mạng của Cloudflare hay không:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>&gt; dig +short medium.com
+</span></span><span style=display:flex><span>104.16.121.127
+</span></span><span style=display:flex><span>104.16.124.127
+</span></span><span style=display:flex><span>104.16.122.127
+</span></span><span style=display:flex><span>104.16.120.127
+</span></span><span style=display:flex><span>104.16.123.127
+</span></span></code></pre></div><h4 id=341-ssl-certificate>3.4.1 SSL certificate</h4><p>Mỗi Domain Validation SSL certificate mà bạn mua sẽ valid với một domain name. Ý tưởng là bạn cần scan toàn bộ internet để tìm một địa chỉ IP nào đó trên cổng 443 có SSL certificate match với domain-name mà bạn đang tìm kiếm.</p><p><a href=https://censys.io/>Censys</a> là một dịch vụ cho phép query các dữ liệu kiểu như vậy. Miễn phí 10 query cho un-login user và 200 query/tháng cho free user.</p><p>Ví dụ với site <a href=https://viblo.asia>https://viblo.asia</a>, domain của họ phân giải thành địa chỉ của Cloudflare</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>&gt; dig +short viblo.asia
+</span></span><span style=display:flex><span>104.27.188.151
+</span></span><span style=display:flex><span>104.27.189.151
+</span></span></code></pre></div><p>Tuy nhiên khi query trên Censys <code>(443.https.tls.certificate.parsed.names: viblo.asia OR 443.https.tls.certificate.parsed.subject.common_name: viblo.asia)</code> thì kết quả là:</p><p><img src=https://raw.githubusercontent.com/xluffy/assets/master/censys_viblo.png alt=censys_viblo></p><p>Trông có vẻ họ có 3 server phía sau Cloudflare và host trên Linode, ngoài ra họ cũng mở cổng 22 và 8080 trên các node.</p><p>Một ví dụ khác là Medium, bạn có thể xem kết quả search từ Censys từ file <a href=https://raw.githubusercontent.com/xluffy/assets/master/medium.txt>medium.txt</a>. Một điểm thú vị ở đây là mình nhìn thấy có 17 node EC2 từ dịch vụ AWS public ra ngoài Internet, không rõ mục đích của họ khi thiết kế Infra như vậy là có dụng ý gì, mình đoán là họ đang xài Global Load Balancing của Cloudflare thay vì ALB của AWS, nhưng khó hiểu là các EC2 này đều nằm ở 1 AS và cùng một region là Ashburn, Virginia 🤔.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>&gt; grep <span style=color:#e6db74>&#39;.amazonaws&#39;</span> medium.txt
+</span></span><span style=display:flex><span> 52.1.147.205 <span style=color:#f92672>(</span>ec2-52-1-147-205.compute-1.amazonaws.com<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span> 52.6.3.192 <span style=color:#f92672>(</span>ec2-52-6-3-192.compute-1.amazonaws.com<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span> 54.167.232.247 <span style=color:#f92672>(</span>ec2-54-167-232-247.compute-1.amazonaws.com<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span> 52.4.175.111 <span style=color:#f92672>(</span>ec2-52-4-175-111.compute-1.amazonaws.com<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span> 3.94.121.79 <span style=color:#f92672>(</span>ec2-3-94-121-79.compute-1.amazonaws.com<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span> 52.5.181.79 <span style=color:#f92672>(</span>ec2-52-5-181-79.compute-1.amazonaws.com<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span> 52.1.173.203 <span style=color:#f92672>(</span>ec2-52-1-173-203.compute-1.amazonaws.com<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span> 52.4.145.119 <span style=color:#f92672>(</span>ec2-52-4-145-119.compute-1.amazonaws.com<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span> 52.6.46.142 <span style=color:#f92672>(</span>ec2-52-6-46-142.compute-1.amazonaws.com<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span> 52.0.16.118 <span style=color:#f92672>(</span>ec2-52-0-16-118.compute-1.amazonaws.com<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span> 52.4.225.124 <span style=color:#f92672>(</span>ec2-52-4-225-124.compute-1.amazonaws.com<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span> 52.6.25.83 <span style=color:#f92672>(</span>ec2-52-6-25-83.compute-1.amazonaws.com<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span> 52.206.109.232 <span style=color:#f92672>(</span>ec2-52-206-109-232.compute-1.amazonaws.com<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span> 54.208.127.235 <span style=color:#f92672>(</span>ec2-54-208-127-235.compute-1.amazonaws.com<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span> 52.4.38.70 <span style=color:#f92672>(</span>ec2-52-4-38-70.compute-1.amazonaws.com<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span> 34.204.47.92 <span style=color:#f92672>(</span>ec2-34-204-47-92.compute-1.amazonaws.com<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span> 52.1.119.170 <span style=color:#f92672>(</span>ec2-52-1-119-170.compute-1.amazonaws.com<span style=color:#f92672>)</span>
+</span></span></code></pre></div><p>Nói chung có thể search nhiều thứ với Censys, ngoài domain-name validate với certificate, ta cũng có thể search fingerprint của SSL certificate.</p><h4 id=342-dns-records>3.4.2 DNS records</h4><p>Sau một vài đợt chống chọi với các cuộc tấn công, bạn quá mệt mỏi và quyết định chuyển sang xài Cloudflare. Vấn đề là history về DNS records của bạn vẫn còn lưu đâu đó trên Internet và <a href=https://securitytrails.com/>SecurityTrails</a> là dịch vụ cho phép query history của DNS record.</p><p><img src=https://raw.githubusercontent.com/xluffy/assets/master/security_trails_medimum.jpg alt=security_trails_medium></p><p>Ngoài thông tin về history DNS record, còn có các thông tin khác như:</p><ul><li>Subdomain -> có thể sẽ có những subdomain không đi qua Cloudflare nhưng chung origin server.</li><li>Các history của các record khác như MX (mail), NS (máy chủ DNS)</li></ul><h4 id=343-http-header-hoặc-content>3.4.3 HTTP header hoặc Content</h4><p>Ví dụ search với <strong>title</strong> của Medium bằng Censys.</p><pre tabindex=0><code>443.https.get.title: &#34;Medium – a place to read and write big ideas and important stories&#34;
+</code></pre><p>Hoặc các content unique trên website như Google Analytics tracking code:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>googleAnalyticsTrackingCode<span style=color:#e6db74>&#34;:&#34;</span>UA-24232453-2<span style=color:#e6db74>&#34;
+</span></span></span></code></pre></div><p>Công cụ như <a href=https://www.shodan.io>https://www.shodan.io</a> cho phép search các thông tin như vậy tuy nhiên nó yêu cầu bạn phải trả phí để truy cập các dữ liệu trên.</p><h2 id=4-prevention>4. Prevention</h2><p>Câu hỏi bây giờ là làm thế nào để ẩn danh IP origin server bởi các công cụ tìm kiếm hoặc historical DNS record? Và cách cấu hình Cloudflare để chống lại các tấn công vào origin server là như thế nào?</p><ul><li>Log real client-ip của user khi đi qua Cloudflare.</li><li>Remove tất cả các DNS record không còn sử dụng (tránh để lộ origin server cũ).</li><li>Chạy email trên các server hoặc dịch vụ riêng (gsuite, sendgrid).</li><li>Sau khi chuyển sang Cloudflare, nên đổi tất cả các IP server cũ.</li><li>Whitelist các request từ hệ thống Cloudflare (<a href=https://www.cloudflare.com/ips-v4>IPv4</a> và <a href=https://www.cloudflare.com/ips-v6>IPv6</a>) và các IP từ hệ thống của bạn (nếu có nhu cầu testing), phần còn lại nên block.</li></ul><p>Có thể block ở tầng firewall như security group hoặc transport layer (iptables) hoặc block ở nginx của site, ví dụ với iptables.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo iptables -I INPUT <span style=color:#ae81ff>1</span> -i lo -j ACCEPT
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp -s 103.21.244.0/22 --dport <span style=color:#ae81ff>443</span> -j ACCEPT
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp -s 103.22.200.0/22 --dport <span style=color:#ae81ff>443</span> -j ACCEPT
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp -s 103.31.4.0/22 --dport <span style=color:#ae81ff>443</span> -j ACCEPT
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp -s 104.16.0.0/12 --dport <span style=color:#ae81ff>443</span> -j ACCEPT
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp -s 108.162.192.0/18 --dport <span style=color:#ae81ff>443</span> -j ACCEPT
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp -s 131.0.72.0/22 --dport <span style=color:#ae81ff>443</span> -j ACCEPT
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp -s 141.101.64.0/18 --dport <span style=color:#ae81ff>443</span> -j ACCEPT
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp -s 162.158.0.0/15 --dport <span style=color:#ae81ff>443</span> -j ACCEPT
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp -s 172.64.0.0/13 --dport <span style=color:#ae81ff>443</span> -j ACCEPT
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp -s 173.245.48.0/20 --dport <span style=color:#ae81ff>443</span> -j ACCEPT
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp -s 188.114.96.0/20 --dport <span style=color:#ae81ff>443</span> -j ACCEPT
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp -s 190.93.240.0/20 --dport <span style=color:#ae81ff>443</span> -j ACCEPT
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp -s 197.234.240.0/22 --dport <span style=color:#ae81ff>443</span> -j ACCEPT
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp -s 198.41.128.0/17 --dport <span style=color:#ae81ff>443</span> -j ACCEPT
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp -s 199.27.128.0/21 --dport <span style=color:#ae81ff>443</span> -j ACCEPT
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp --dport <span style=color:#ae81ff>22</span> -j ACCEPT
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -j REJECT
+</span></span></code></pre></div><p>Với nginx có thể block như sau:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>map $remote_addr $bad_ip <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>  default 1;
+</span></span><span style=display:flex><span>  cloudflare_ip_v4 0;
+</span></span><span style=display:flex><span>  cloudflare_ip_v6 0;
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>server <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> <span style=color:#f92672>(</span>$bad_ip<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> 499;
+</span></span><span style=display:flex><span>  <span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span></code></pre></div><p>Ngoài các giải pháp trên, Cloudflare cung cấp một dịch vụ gọi là <a href=https://www.cloudflare.com/products/argo-tunnel>Argo tunnel</a>, hiểu một cách đơn giản thì argo-tunnel sẽ tạo một encrypted-tunnel giữa origin server tới Cloudflare data-center gần nhất (kèm theo smart routing), mọi kết nối từ client được Cloudflare pass qua origin server sẽ đi qua tunnel này, tất cả các request còn lại sẽ bị block.</p><h2 id=5-end>5. End</h2><p>Yeah, quá nhiều câu hỏi, quá nhiều chữ rồi, vậy nếu lỡ Cloudflare tạch proxy thì phải làm sao? Thật ra toy cũng đíu biết ae ạ 🖕🏽🖕🏽🖕🏽, lên Twitter xem dân tình chửi nhau và nằm chờ Cloudflare sống dậy thôi.</p><p align=center><img src=https://raw.githubusercontent.com/xluffy/assets/master/notlikethis.png alt=notlikethis style=width:33%></p><h2 id=6-ref>6. Ref</h2><ul><li><a href=https://www.cloudflare.com/learning/ddos/what-is-a-ddos-attacks>https://www.cloudflare.com/learning/ddos/what-is-a-ddos-attacks</a></li><li><a href=https://www.cloudflare.com/rate-limiting>https://www.cloudflare.com/rate-limiting</a></li><li><a href=https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy>https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy</a></li><li><a href=https://www.secjuice.com/finding-real-ips-of-origin-servers-behind-cloudflare-or-tor>https://www.secjuice.com/finding-real-ips-of-origin-servers-behind-cloudflare-or-tor</a></li><li><a href=https://blog.christophetd.fr/bypassing-cloudflare-using-internet-wide-scan-data>https://blog.christophetd.fr/bypassing-cloudflare-using-internet-wide-scan-data</a></li><li><a href=https://chris-knight.net/blog/2017/02/effectively-hiding-behind-cloudflare>https://chris-knight.net/blog/2017/02/effectively-hiding-behind-cloudflare</a></li><li><a href=https://citadelo.com/en/blog/cloudflare-how-to-do-it-right-and-do-not-reveal-your-real-ip/>https://citadelo.com/en/blog/cloudflare-how-to-do-it-right-and-do-not-reveal-your-real-ip/</a></li></ul></div><div class=pagination><div class=pagination__title><span class=pagination__title-h>Read other posts</span><hr></div><div class=pagination__buttons><span class="button previous"><a href=https://taoquangne.com/post/change-schema-of-huge-table-in-mysql/><span class=button__icon>←</span>
+<span class=button__text>Change schema of huge table in MySQL</span>
+</a></span><span class="button next"><a href=https://taoquangne.com/post/vpc-architecture/><span class=button__text>VPC architecture</span>
+<span class=button__icon>→</span></a></span></div></div></div></div><footer class=footer><div class=footer__inner><div class="copyright copyright--user"><span>hàng nhà trồng 🌴 theo <a href=https://creativecommons.org/licenses/by-nc/4.0>giấy phép CC BY-NC 4.0</a></span><span>Themes created by <a href=https://twitter.com/panr target=_blank rel=noopener>panr</a></span></div></div></footer><script src=https://taoquangne.com/assets/main.js></script><script src=https://taoquangne.com/assets/prism.js></script></div></body></html>
