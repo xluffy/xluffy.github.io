@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+  
+  <title>
+    OS Page Cache ::
+    /home/xluffy
+  </title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content=""
+/>
+<meta
+  name="keywords"
+  content=""
+/>
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://localhost:1313/post/os-page-cache/" />
+
+
+
+
+
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css" />
+
+<link rel="stylesheet" href="http://localhost:1313/style.css" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+
+<link
+  rel="apple-touch-icon-precomposed"
+  sizes="144x144"
+  href="http://localhost:1313/img/apple-touch-icon-144-precomposed.png"
+/>
+<link rel="shortcut icon" href="http://localhost:1313/img/favicon.png" />
+
+
+<link href="http://localhost:1313/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="http://localhost:1313/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="http://localhost:1313/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="http://localhost:1313/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="http://localhost:1313/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="http://localhost:1313/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="OS Page Cache">
+
+
+
+<meta property="og:url" content="http://localhost:1313/post/os-page-cache/">
+  <meta property="og:site_name" content="/home/xluffy">
+  <meta property="og:title" content="OS Page Cache">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2026-01-26T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-01-26T00:00:00+00:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Page-Cache">
+
+
+
+
+
+
+</head>
+
+<body class="dark-theme">
+  <div class="container">
+    <header class="header">
+  <span class="header__inner">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
+</svg>
+</span>
+    <span class="logo__text"
+      >/home/xluffy ft 🍄</span
+    >
+    <span class="logo__cursor"></span>
+  
+</a>
+
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">about</a></li>
+        
+      
+        
+          <li><a href="/tags">tags</a></li>
+        
+      
+        
+          <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+        
+      
+        
+          <li><a href="/weekly-summary">weekly-summary</a></li>
+        
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about</a></li>
+      
+    
+      
+        <li><a href="/tags">tags</a></li>
+      
+    
+      
+        <li><a href="https://github.com/xluffy/til/issues">til</a></li>
+      
+    
+      
+        <li><a href="/weekly-summary">weekly-summary</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg
+  class="theme-toggler"
+  width="24"
+  height="24"
+  viewBox="0 0 48 48"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+    <div class="content">
+      
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">OS Page Cache</h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2026-01-26
+        </span>
+
+        
+          
+        
+      
+
+      
+
+
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          <a href="http://localhost:1313/tags/linux/">#linux</a>&nbsp;
+        
+          <a href="http://localhost:1313/tags/page-cache/">#page-cache</a>&nbsp;
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+      <h1 id="1-os-page-cache-overview">1. OS Page Cache overview</h1>
+<p>Chúng ta đều biết có một <strong>sự chênh lệch rất lớn</strong> về tốc độ truy cập giữa ổ đĩa (HDD/SSD) và CPU/RAM. Dữ liệu trên RAM sẽ mất đi khi mất điện, nên để lưu trữ lâu dài, dữ liệu buộc phải để trên ổ đĩa. Nếu mỗi lệnh đọc/ghi dữ liệu của ứng dụng, đều phải đợi đĩa quay (HDD) hoặc chờ chip nhớ flash phản hồi, hệ thống sẽ cực kỳ chậm.</p>
+<p>OS Page Cache (hay còn gọi là disk cache), là một vùng nhớ in-memory được sử dụng bởi hệ điều hành để lưu trữ các dữ liệu thường xuyên truy cập từ ổ đĩa.</p>
+<p>Bản thân dữ liệu cũng thường có xu hướng được truy cập lại nhiều lần hoặc các dữ liệu nằm gần nhau thường được truy cập cùng lúc, nên nếu dữ liệu được <em>warm</em> sẵn từ đĩa lên RAM và tồn tại trên RAM, thì việc truy xuất sẽ rất nhanh.</p>
+<p>Linux coi &ldquo;RAM nhàn rồi là RAM lãng phí&rdquo;. Vì vậy nhân Linux cần một cách nào đó để tối ưu lượng RAM nhàn dỗi này, và Page Cache là kỹ thuật tận dụng gần như toàn bộ phần RAM còn trống để tối ưu hóa quá trình đọc ghi dữ liệu từ các thiết bị lưu trữ. <a href="https://www.linuxatemyram.com"><code>[1]</code></a></p>
+<p>Nhân Linux quản lí vùng nhớ theo từng page thay vì từng byte (OS chia RAM thành các khối có kích thước cố định gọi là <strong>page</strong> 4KB, do việc quản lý, theo dõi theo từng byte rất khó khăn). Điều đó dẫn tới một thực tế quan trọng đó là dù có ghi dữ liệu nhỏ hơn 4KB, kernel cũng sẽ phải đọc hết một page 4KB trước khi ghi dữ liệu.</p>
+<p>Trên Linux, để kiểm tra memory, dùng lệnh <code>free -m</code>, sẽ có output như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; free -m
+</span></span><span style="display:flex;"><span>               total        used        free      shared  buff/cache   available
+</span></span><span style="display:flex;"><span>Mem:           <span style="color:#ae81ff">32102</span>        <span style="color:#ae81ff">9026</span>         <span style="color:#ae81ff">646</span>           <span style="color:#ae81ff">0</span>       <span style="color:#ae81ff">22429</span>       <span style="color:#ae81ff">22430</span>
+</span></span></code></pre></div><ul>
+<li><strong>buff/cache</strong>: đây chính là phần RAM đang được dùng cho Page Cache</li>
+<li>Cột <strong>free</strong> rất thấp, nhưng cột <strong>available</strong> cao, có thể hiểu rằng Linux đã dùng phần lớn memory cho  Page Cache và không cần lo lắng vì Linux sẽ tự động giải phóng Page Cache ngay lập tức khi các ứng dụng khác cần thêm RAM.</li>
+</ul>
+<h2 id="2-đọc-ghi-dữ-liệu-thông-qua-page-cache">2. Đọc ghi dữ liệu thông qua Page Cache</h2>
+<p><strong>Luồng đọc dữ liệu:</strong> Khi có bất kỳ một ứng dụng nào đó ở user-space muốn đọc dữ liệu từ ổ cứng. Nó sẽ yêu cầu kernel cung cấp dữ liệu bằng cách sử dụng các system call như <code>read()</code>, <code>pread()</code>, <code>vread()</code> &hellip;</p>
+<ul>
+<li><strong>Cache Hit</strong>: Kernel linux sẽ kiểm tra xem page dữ liệu có tồn tại trên Page Cache hay không. Nếu có, dữ liệu sẽ được trả về ngay lập tức mà ko yêu cầu truy xuất vào đĩa (0 disk operation).</li>
+<li><strong>Cache Miss</strong>: Nếu page dữ liệu không có trên Page Cache, OS sẽ phải load dữ liệu từ đĩa cứng vào Page Cache. Theo thứ tự kernel sẽ tìm một chỗ trống trên Page Cache, nếu không còn chỗ trống, một tiến trình reclaim memory sẽ được thực thi để giải phóng bộ nhớ. Sau đó, kernel sẽ lập lịch một thao tác đọc đĩa (read I/O), lưu page dữ liệu vào Page Cache và trả về dữ liệu cho ứng dụng.</li>
+</ul>
+<p><strong>Luồng ghi dữ liệu</strong>, tương tự như luồng đọc, Linux sẽ không ghi ngay dữ liệu xuống đĩa ngay (vì rất chậm) (ví dụ mở tệp văn bản, ghi nội dung và bấm Save), thay vào đó:</p>
+<ul>
+<li>Dữ liệu được chép từ ứng dụng vào Page Cache.</li>
+<li>Page đó sẽ được đánh dấu là <strong>dirty</strong> trên Page Cache - tức là dữ liệu trên RAM khác dữ liệu trên đĩa.</li>
+<li>Ứng dụng nhận được thông báo là &ldquo;ghi dữ liệu thành công&rdquo; ngay lập tức dù thực tế dữ liệu vẫn nằm trên RAM chứ chưa lưu xuống đĩa, kết thúc quá trình ghi.</li>
+</ul>
+<p><strong>Câu hỏi đặt ra là:</strong> Nếu mất điện đột ngột, dữ liệu trong <strong>dirty</strong> page sẽ bị mất, vậy làm sao để đồng bộ dữ liệu <strong>dirty</strong> xuống đĩa, bao lâu đồng bộ một lần và có cách nào để điểu chỉnh thời gian hoặc khi nào thì đồng bộ dữ liệu từ Page Cache vào đĩa?</p>
+<h2 id="3-đồng-bộ-dữ-liệu">3. Đồng bộ dữ liệu</h2>
+<p>Hệ điều hành kiểm soát việc đồng bộ dữ liệu từ Page Cache vào ổ đĩa bằng 3 phương pháp:</p>
+<p><strong>Đồng bộ tự động</strong>: Nhân Linux sẽ có các tiến trình chạy ngầm (<code>pdflush</code> <a href=""><code>[2]</code></a>) để dọn dẹp các dirty page, các tiến trình này sẽ ghi dữ liệu xuống đĩa khi:</p>
+<ul>
+<li>Dữ liệu <strong>dirty</strong> quá cũ</li>
+<li>Lượng dữ liệu <strong>dirty</strong> chiếm quá bao nhiêu phần trăm của RAM</li>
+</ul>
+<p>Thông thường ta có thể chỉnh sửa các thông số của kernel (gọi là writeback parameters) để quyết định khi nào dữ liệu được <code>flush</code> xuống đĩa:</p>
+<ul>
+<li><code>vm.dirty_bytes/vm.dirty_ratio</code>: Khi đạt mức byte hoặc % này, kernel sẽ bất đầu ghi dữ liệu xuống đĩa và <strong>chặn</strong> luôn mọi lệnh ghi tiếp theo của ứng dụng cho tới khi dữ liệu được an toàn #TODO: check lại xem có chặn không?  (chỉ dùng một trong hai param tại một thời điểm)</li>
+<li><code>vm.dirty_background_bytes/vm.dirty_background_ratio</code>: Khi lượng dữ liệu <strong>dirty</strong> đạt mức % này trên tổng RAM, kernel sẽ bắt đầu ghi ngầm dữ liệu xuống đĩa (ko chặn)  (chỉ dùng một trong hai param tại một thời điểm)</li>
+<li><code>vm.dirty_expire_centisecs</code>: Thời gian tối đa một trang dữ liệu được phép ở trạng thái <strong>dirty</strong> (mặc định là 3000/100 -&gt; Tức 30s)</li>
+<li><code>vm.dirty_writeback_centisecs</code>: Tần suất Linux kernel sẽ wake-ups để kiểm tra xem có dữ liệu nào cần flush không? (mặc định là 500/100 -&gt; Tức 5 giây)</li>
+</ul>
+<p><strong>Kiểm soát bằng system call</strong>: Thay vì để nhân Linux tự động dọn dẹp dirty page, các ứng dụng có thể <strong>chủ động yêu cầu OS</strong> ghi xuống đĩa thông qua các system call:</p>
+<ul>
+<li><code>fsync(fd)</code>: Ép buộc tất cả dữ liệu và metada của một file cụ thể PHẢI được ghi xuống đĩa.</li>
+<li><code>fdatasync(fd)</code>: Chỉ ép ghi dữ liệu, bỏ qua metadata.</li>
+<li><code>sync(fd)</code>: Ép ghi toàn bộ các trang dirty của cả hệ thống xuống đĩa (ví dụ <code>os.sync()</code> trong Python)</li>
+<li>Lệnh <code>sync</code> không có param, buộc data từ Page Cache phải được ghi vào đĩa, và signal 3 drop_cached là lệnh dùng để xóa tất dữ liệu trong Page Cache. Đó là lí do mà cột <code>buff/cache</code> giảm.</li>
+</ul>
+<pre tabindex="0"><code>&gt; free -m &amp;&amp; sync &amp;&amp; echo 3 &gt; /proc/sys/vm/drop_caches &amp;&amp; free -m
+               total        used        free      shared  buff/cache   available
+Mem:           15703         708        8720          11        6628       14994
+Swap:           4095           0        4095
+
+               total        used        free      shared  buff/cache   available
+Mem:           15703         513       15304          11         127       15189
+Swap:           4095           0        4095
+</code></pre><p><strong>Bỏ qua Page Cache (Direct I/O)</strong>: Nhiều CSDL không tin tưởng cách quản lý của OS và muốn tự quản lý bộ nhớ đệm (buffer pool) riêng, khi đó chúng sẽ mở file với cờ <code>O_DIRECT</code>, lợi ích là:</p>
+<ul>
+<li>Dữ liệu sẽ đi thẳng từ ứng dụng vào đĩa, không qua Page Cache, chủ động trong việc kiểm soát dữ liệu cache.</li>
+<li>Tránh dữ liệu bị lưu hai lần (double buffering) - một lần ở buffer pool của DB, một lần ở Page Cache của OS.</li>
+</ul>
+<p>Điều này cũng dễ hiểu vì Page Cache được thiết kế một cách tổng quát, không đặc thù cho một ứng dụng nào, dẫn tới kernel sẽ không có sự hiểu biết về dữ liệu của một ứng dụng cụ thể trong Page Cache, dẫn tới có thể evict sai, schedule sai thứ tự cần thiết &hellip; (túm lại không tối ưu cụ thể cho một ứng dụng nào đó)</p>
+<h2 id="4-page-reclaiming">4. Page Reclaiming</h2>
+<p>Khi cần &hellip;</p>
+<p>LRU (Least Recently Used) là thuật toán cache eviction khá thông dụng, hiểu đơn giản là <strong>cái gì lâu rồi không dùng, thì khả năng cao là tương lai cũng không cần dùng tới</strong>. Thuật toán này chỉ sử dụng một danh sách, hãy nghĩ danh sách này như một cái kệ sách đặt được 3 quyển sách:</p>
+<ul>
+<li>Lấy quyển A từ thùng sách: Đọc A và bỏ vào kệ sách <code>[A]</code></li>
+<li>Lấy lần lượt B, C từ thùng sách: Đặt B và C vào kệ sách <code>[C, B, A]</code> -&gt; Lúc này A là quyển sách cũ nhất được đọc</li>
+<li>Đọc lại quyển A: vì quyển A vừa được dùng, nó sẽ được đẩy lên đầu kệ sách <code>[A, C, B]</code></li>
+<li>Và giờ nếu chúng ta lấy ra thêm một quyển sách D từ thùng, ta sẽ cần loại bỏ <strong>quyển lâu nhất chưa dùng</strong> là B, để lấy chỗ cho D -&gt; <code>[D, A, C]</code></li>
+</ul>
+<p>=&gt; Nhược điểm của LRU là nếu ta cần một ad-hoc operation (ví dụ nén một file 10GB), file 10GB này sẽ đẩy toàn bộ các dữ liệu đang được cache ra khỏi Page Cache dù nó chỉ đọc đúng một lần duy nhất.</p>
+<p>Nhân Linux implement một biến thể của thuật toán LRU, gọi là <code>two-list strategy</code> để tránh trường hợp trên. Linux chia Page Cache thành 2 danh sách:</p>
+<ul>
+<li>Active List: chứa các trang được truy cập thường xuyên</li>
+<li>Inactive List: chứa các trang có khả năng bị loại bỏ
+Cơ chế hoạt động như sau:</li>
+<li>Khi một trang được nạp lần đầu, nó sẽ được đặt vào đầu của Inactive list (lưu ý đây là file-base</li>
+<li>Nếu nó được truy cập lần thứ hai khi vẫn ở Inactive list, trang sẽ được thăng hạng lên Active</li>
+</ul>
+<h2 id="5-thao-tác-file">5. Thao tác file</h2>
+<p>Trên Linux có sẵn các công cụ, giúp kiểm tra, xác minh Page Cache (<code>cat /proc/meminfo</code>, <code>vmtouch</code>, <code>strace</code>), chúng ta sẽ thử một vài file operation để kiểm chứng các lý thuyết trên.</p>
+<ul>
+<li>Có một file <code>words.txt</code> 4.7MB dữ liệu, tải ngẫu nhiên từ trên Internet</li>
+<li>Chạy lệnh <code>sync</code> và empty Page Cache trước khi test</li>
+<li>Check thử bằng <code>vmtouch</code> xem file đã được cache chưa (hàng <code>Resident Pages: 0/1188  0/4M  0%</code> thể hiện tệp này chưa được cache vì chưa có thao tác gì trên file</li>
+</ul>
+<pre tabindex="0"><code>&gt; ls -larth
+-rw-r--r--  1 root         root         4.7M Jan 19 06:35 words.txt
+
+&gt; sync &amp;&amp; echo 3 &gt; /proc/sys/vm/drop_caches
+
+&gt; vmtouch words.txt
+           Files: 1
+     Directories: 0
+  Resident Pages: 0/1188  0/4M  0%
+         Elapsed: 0.001477 seconds
+</code></pre><ul>
+<li>Chương trình Python đọc 2 bytes đầu tiên từ file <code>words.txt</code> và kiểm tra lại bằng lệnh <code>vmtouch</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>with open<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;./words.txt&#34;</span>, <span style="color:#e6db74">&#34;br&#34;</span><span style="color:#f92672">)</span> as f:
+</span></span><span style="display:flex;"><span>    print<span style="color:#f92672">(</span>f.read<span style="color:#f92672">(</span>2<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>&gt; strace python3 2bytes.py
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>openat<span style="color:#f92672">(</span>AT_FDCWD, <span style="color:#e6db74">&#34;./words.txt&#34;</span>, O_RDONLY|O_CLOEXEC<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>read<span style="color:#f92672">(</span>3, <span style="color:#e6db74">&#34;2\n1080\n&amp;c\n10-point\n10th\n11-point&#34;</span>..., 4096<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4096</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; vmtouch words.txt
+</span></span><span style="display:flex;"><span>           Files: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>     Directories: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  Resident Pages: 4/1188  16K/4M  0.337%
+</span></span><span style="display:flex;"><span>         Elapsed: 0.000164 second
+</span></span></code></pre></div><ul>
+<li>Như ta thấy, mặc dù chỉ request 2 bytes, nhưng <code>read()</code> system-call vẫn trả về 4096 (một page, đơn vị tối thiểu mà kernel quản lý). Nhưng nếu nhìn vào lệnh <code>vmtouch</code> ta thấy có 16KB dữ liệu ~ 4 pages được load vào Page Cache, vậy tại sao request 2 bytes mà lại dư ra 3 pages? Đây là một ví dụ về một tính năng tuyệt vời của kernel đó là <strong>read ahead</strong> (controll qua <code>sys/block/_&lt;bdev&gt;_/queue/read_ahead_kb</code>, mặc định là 512KB, đại ý là kernel sẽ dự đoán là kiểu gì chương trình cũng sẽ cần đọc thêm dữ liệu, nên nó đọc trước, để giảm tối đa số lần quay đĩa (disk seeks)</li>
+</ul>
+<h2 id="5-lập-trình">5. Lập trình</h2>
+<p>Chúng ta sẽ thử viết một chương trình Python đơn giản để hiểu về cách OS kiểm soát việc đồng bộ dữ liệu từ Page Cache vào đĩa:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">write_test</span>(filename, iterations, manual_flush<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>):
+</span></span><span style="display:flex;"><span>    fd <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>open(filename, os<span style="color:#f92672">.</span>O_WRONLY <span style="color:#f92672">|</span> os<span style="color:#f92672">.</span>O_CREAT <span style="color:#f92672">|</span> os<span style="color:#f92672">.</span>O_TRUNC)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;Du lieu mau de kiem tra Page Cache flush logic. &#34;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">20</span> <span style="color:#75715e"># Khoảng 1KB</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    start_time <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Bat dau ghi </span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;(Manual Flush)&#39;</span> <span style="color:#66d9ef">if</span> manual_flush <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;(OS Managed)&#39;</span><span style="color:#e6db74">}</span><span style="color:#e6db74">...&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(iterations):
+</span></span><span style="display:flex;"><span>            os<span style="color:#f92672">.</span>write(fd, data)
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> manual_flush:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># system call ep OS flush Page Cache xuong disk</span>
+</span></span><span style="display:flex;"><span>                os<span style="color:#f92672">.</span>fsync(fd) 
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Hoan thanh </span><span style="color:#e6db74">{</span>iterations<span style="color:#e6db74">}</span><span style="color:#e6db74"> lan ghi.&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">finally</span>:
+</span></span><span style="display:flex;"><span>        os<span style="color:#f92672">.</span>close(fd)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    end_time <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> end_time <span style="color:#f92672">-</span> start_time
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Chạy thử nghiệm ---</span>
+</span></span><span style="display:flex;"><span>FILENAME <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;test_cache.dat&#34;</span>
+</span></span><span style="display:flex;"><span>ITERS <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Để OS quản lý (Default)</span>
+</span></span><span style="display:flex;"><span>time_os <span style="color:#f92672">=</span> write_test(FILENAME, ITERS, manual_flush<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. App tự gọi fsync</span>
+</span></span><span style="display:flex;"><span>time_manual <span style="color:#f92672">=</span> write_test(FILENAME, ITERS, manual_flush<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">--- KET QUA ---&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Thoi gian OS quan ly: </span><span style="color:#e6db74">{</span>time_os<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> giay&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Thoi gian App tu flush (fsync): </span><span style="color:#e6db74">{</span>time_manual<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> giay&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Chenh lech: </span><span style="color:#e6db74">{</span>time_manual <span style="color:#f92672">/</span> time_os<span style="color:#e6db74">:</span><span style="color:#e6db74">.1f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> lan&#34;</span>)
+</span></span></code></pre></div><p>Kết quả:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Bat dau ghi <span style="color:#f92672">(</span>OS Managed<span style="color:#f92672">)</span>...
+</span></span><span style="display:flex;"><span>Hoan thanh <span style="color:#ae81ff">5000</span> lan ghi.
+</span></span><span style="display:flex;"><span>Bat dau ghi <span style="color:#f92672">(</span>Manual Flush<span style="color:#f92672">)</span>...
+</span></span><span style="display:flex;"><span>Hoan thanh <span style="color:#ae81ff">5000</span> lan ghi.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- KET QUA ---
+</span></span><span style="display:flex;"><span>Thoi gian OS quan ly: 0.0065 giay
+</span></span><span style="display:flex;"><span>Thoi gian App tu flush <span style="color:#f92672">(</span>fsync<span style="color:#f92672">)</span>: 10.0904 giay
+</span></span><span style="display:flex;"><span>Chenh lech: 1556.9 lan
+</span></span></code></pre></div><p>So sánh các chế độ:</p>
+<ul>
+<li><strong>Chế độ để OS quản lý:</strong> Chương trình chỉ gọi lệnh <code>write()</code> là có thể gọi tiếp sang lệnh khác, dữ liệu nằm trong Page Cache (các dirty page), OS sẽ tự quyết định khi nào đẩy xuống đĩa, chương trình không quan tâm.</li>
+<li><strong>Chế độ để chương trình tự quản lý:</strong> Chương trình sau khi gọi lệnh <code>write()</code>, ngay lập tức gọi system call là <code>fsync()</code>, việc này ép OS phải đẩy dữ liệu dirty từ Page Cache xuống đĩa, chờ đĩa xác nhận đã lưu rồi mới tiếp tục lệnh <code>write()</code> tiếp theo.</li>
+<li>Như nói ở trên, nếu ta muốn dữ liệu đi thẳng từ chương trình xuống đĩa KHÔNG thông qua Page Cache ta cần dùng flag <code>os.O_DIRECT</code> khi mở file, và khi dùng lệnh <code>write()</code> dữ liệu sẽ đi thẳng từ chương trình xuống đĩa và bỏ qua Page Cache. Tuy nhiên nó yêu cầu dữ liệu ghi phải được căn lề (độ dài dữ liệu bội số của 512 - sector-size hoặc 4096 bytes - page size, trong Python cần dùng <code>mmap</code> để căn chỉnh), nên với các ứng dụng thông thường, lập trình viên có xu hướng để hệ điều hành quản lý Page Cache cho đơn giản.</li>
+</ul>
+<p>Một câu hỏi đặt ra là nếu tôi đã mở file với cờ <code>os.O_DIRECT</code> và gọi lệnh <code>os.write()</code> thì tôi có <strong>bắt buộc</strong> phải gọi <code>fsync()</code> hay không. Vì như lý thuyết thì khi <code>os.write()</code>, dữ liệu bỏ qua Page Cache xuống đĩa thì chắc chắn là dữ liệu đã đi ra khỏi RAM rồi? Đây là lúc cần kiến thức về phần cứng.</p>
+<p>Bản thân ổ cứng, ngoài các lá đĩa vật lý (HDD) hoặc các chíp nhớ NAND flash (SSD) nó còn có một bộ nhớ đệm (RAM internal của ổ cứng, keyword internal system architecture of SSDs) và thường có kích thước nhỏ (HDD từ 8MB - 256MB, SSD có thể tới 4GB, <a href="https://en.wikipedia.org/wiki/Disk_buffer"><code>[3]</code></a>). Khi file được mở với cờ <code>os.O_DIRECT</code> và gọi lệnh <code>os.write()</code>, thực chất dữ liệu mới tới RAM của đĩa (nhưng lúc này <code>os.write()</code> đã return ngay lập tức. Sau đó bộ điều khiển của đĩa cứng mới thực sự ghi dữ liệu từ RAM của đĩa vào lá đĩa hoặc chíp NAND flash. Nói đơn giản, hàm <code>os.write()</code> chạy xong, thì dữ liệu nằm ở RAM của ổ cứng, chứ ko còn nằm ở RAM của hệ điều hành.</p>
+<ul>
+<li>Nếu chương trình bị crash, dữ liệu an toàn (vì nó đã nằm ở ổ cứng rồi)</li>
+<li>Nếu OS bị crash (kernel panic), dữ liệu vẫn an toàn (vì điện vẫn có và ổ cứng vẫn chạy)</li>
+<li>Nếu server bị cúp điện đột ngột, thì tỉ lệ mất dữ liệu sẽ có, vì RAM của ổ cứng cũng hoạt động như RAM của máy tính, cần điện để duy trì</li>
+</ul>
+<p>Do đó, dù đã mở file với cờ <code>os.O_DIRECT</code> thì sau lệnh <code>os.write()</code> ta vẫn cần gọi <code>fsync()</code> đặc biệt với nhu cầu ACID, lúc đó mới đảm bảo dữ liệu đã nằm trên các lá đĩa/chíp flash.</p>
+<p>%% Chúng ta sẽ thử viết chương trình với Go để xem các phương thức này ở các ngôn ngữ khác như thế nào nhé:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;os&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;strings&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">writeTest</span>(<span style="color:#a6e22e">filename</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">iterations</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">manualFlush</span> <span style="color:#66d9ef">bool</span>) <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Mở file với các cờ tương đương os.O_WRONLY | os.O_CREAT | os.O_TRUNC</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">OpenFile</span>(<span style="color:#a6e22e">filename</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">O_WRONLY</span>|<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">O_CREATE</span>|<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">O_TRUNC</span>, <span style="color:#ae81ff">0644</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> []byte(<span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Repeat</span>(<span style="color:#e6db74">&#34;Du lieu mau de kiem tra Page Cache flush. &#34;</span>, <span style="color:#ae81ff">20</span>)) <span style="color:#75715e">// ~1KB</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">start</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">iterations</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">data</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>			panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">manualFlush</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// Ep OS flush du lieu xuong dia</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Sync</span>() 
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>				panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">start</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">filename</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;test_go.dat&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">iters</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">5000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 1. OS quan ly</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">timeOS</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">writeTest</span>(<span style="color:#a6e22e">filename</span>, <span style="color:#a6e22e">iters</span>, <span style="color:#66d9ef">false</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Go - OS Managed: %v\n&#34;</span>, <span style="color:#a6e22e">timeOS</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 2. App tu flush</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">timeManual</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">writeTest</span>(<span style="color:#a6e22e">filename</span>, <span style="color:#a6e22e">iters</span>, <span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Go - Manual Flush (Sync): %v\n&#34;</span>, <span style="color:#a6e22e">timeManual</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Hỗ trợ O_DIRECT:</strong></p>
+<ul>
+<li>Trong <strong>Go</strong>, bạn có thể dùng gói <code>syscall</code> để truyền cờ <code>syscall.O_DIRECT</code>.</li>
+<li>Trong <strong>Rust</strong>, bạn thường dùng crate <code>libc</code> hoặc <code>nix</code> để gọi trực tiếp các hằng số hệ thống của Linux, vì thư viện chuẩn (<code>std</code>) của Rust cố tình giữ tính tương thích đa nền tảng nên không bao gồm <code>O_DIRECT</code> (vốn chỉ có trên Linux/Unix).
+%%
+Trên đây là lý thuyết chung về Page Cache ở khía cạnh hệ điều hành, áp dụng cho tất cả các ứng dụng, Page Cache là kỹ thuật của hệ điều hành, dùng chung cho tất cả các ứng dụng chạy trên hệ điều hành đó. Còn cụ thể một số ứng dụng đặc thù thì sẽ đi vào chi tiết sau.</li>
+</ul>
+<p>#TODO:</p>
+<ul>
+<li>Thuật toán quản lý Page Cache là gì? tức là đầy hoặc khi có ứng dụng cần RAM thì sẽ đẩy dữu liệu nào ra?</li>
+<li>Phân biệt DIRECT_IO (ko qua Page Cache) và BUFFERED_IO (qua Page Cache)</li>
+<li>Page Cache = Disk cache</li>
+<li>Kiểm tra lại phần background thread của kernel flush data từ Page Cache xuống đĩa có block gì ko?</li>
+</ul>
+<h2 id="6-ref">6. Ref</h2>
+<p>Một số link tham khảo:</p>
+<ul>
+<li><a href="https://biriukov.dev/docs/page-cache/0-linux-page-cache-for-sre/">https://biriukov.dev/docs/page-cache/0-linux-page-cache-for-sre/</a></li>
+<li><a href="https://www.scylladb.com/2017/10/05/io-access-methods-scylla/">https://www.scylladb.com/2017/10/05/io-access-methods-scylla/</a></li>
+</ul>
+<p>Giải thích thêm:</p>
+<ul>
+<li>
+<p><code>[2]</code>:  Linux 2.4 và trước 2.6 kernel dựa vào <strong>một</strong>* hoặc một số ít kernel thread để thực hiện việc flush dirty page (<code>bdflush</code> daemon). Kể từ Linux 2.6.0, cơ chế <code>pdflush</code> được giới thiệu để thay thế <code>bdflush</code> bằng cách duy trì một pool dedicated kernel threads, kernel sẽ duy trì từ 2-8 <code>pdflush</code> threads, tạo mới hoặc kill các <code>pdflush</code> thread dựa trên khối lượng công việc cần thực hiện. Đây là cải tiến đáng kể so với một thread trước đây, khi nhiều thread có thể ghi vào nhiều đĩa đồng thời. Tuy nhiên <code>pdflush</code> vẫn là cơ chế toàn cục (global mechanism), thread không gán cố định cho một đĩa cụ thể nào, do đó bất kỳ <code>pdflush</code> thread nào cũng có thể pick-up dirty page từ bất kỳ thiết bị nào để flush.</p>
+</li>
+<li>
+<p>Do là cơ chế toàn cục, nên dù nhiều thread, chúng vẫn lấy dữ liệu từ một hàng đợi chung và phải phối hợp với nhau để tránh xung đột. Nhân Linux dùng một cờ <code>bdi_pdflush</code> để đảm bảo chỉ có một luồng <code>pdflush</code> hoạt động trên một thiết bị nhất định tại một thời điểm, điều nhằm tránh cho 2 luồng <code>pdflush</code> ghi cùng vào một đĩa đồng thời và hạn chế tranh chấp (thread nào cũng muốn kiểm soát sector) - (<code>#TODO</code> về tắc nghẽn, hiệu suất nhiều thiết bị khác nhau)</p>
+</li>
+<li>
+<p>Vào khoảng 2008 - 2009, khi các hệ thống có nhiều ổ đĩa hơn, các thiết bị lưu trữ như SSD phổ biến hơn, các nhà phát triển nhân Linux thấy cần một cơ chế mới cải tiến hơn, đó là lúc per-device flusher threads ra đời. Hiểu đơn giản là từ cơ chế toàn cục, bây giờ, mỗi thiết bị sẽ có một thread riêng để quản lý việc ghi dirty page (đồng nghĩa dirty inode list sẽ phải move từ superblock level xuống backing_dev_info level). (Nhưng khi các thiết bị như NVMe sinh ra, chúng có thể xử lí lượng IOPS khổng lồ, thì single-thread-per-BDI lại chở thành bottleneck).</p>
+</li>
+<li>
+<p>FS-Cache/CacheFiles: Trong khi per-BDI thread đã giúp cải thiện hiệu suất cho local storage device, nhưng &ldquo;device&rdquo; không chỉ là các thiết bị local, mà còn là network hoặc distributed filesystem. Các hệ thống tập tin phân tán như NFS, SMB, và CephFS cuối cùng cũng cần flush các dirty page thông qua network tới remote server hoặc cluster storage. Và vì network latency (network round trips) và sự tắc ngẽn (shared network bandwidth) dẫn tới một thử thách khác. FSCache là một abstraction layer cho phép network filesystem có thể cache data ở local disk thay vì phải định kỳ pull data qua network hoặc chờ remote write. FSCache được thiết kế để transparent với user-application (kích hoạt qua mount option ví dụ <code>mount -t nfs -o fsc</code></p>
+</li>
+<li>
+<p><code>kthreadd</code> đóng vai trò như người quản lý, có PID bằng 2, được khởi tạo ngay sau khi kernel khởi tạo xong (sau <code>init</code> với PID là 1)</p>
+</li>
+<li>
+<p><code>kworker</code> là các tiến trình con, chịu sự quản lý của <code>kthreadd</code>, thực thi các công việc nền (background job) ví dụ như <code>pdflush</code></p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; ps -ef --forest                                                                     
+</span></span><span style="display:flex;"><span>UID          PID    PPID  C STIME TTY          TIME CMD
+</span></span><span style="display:flex;"><span>root           <span style="color:#ae81ff">2</span>       <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00 <span style="color:#f92672">[</span>kthreadd<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root           <span style="color:#ae81ff">3</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>pool_workqueue_release<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root           <span style="color:#ae81ff">4</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>kworker/R-rcu_g<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root           <span style="color:#ae81ff">5</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>kworker/R-rcu_p<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root           <span style="color:#ae81ff">6</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>kworker/R-slub_<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root           <span style="color:#ae81ff">7</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>kworker/R-netns<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root           <span style="color:#ae81ff">9</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>kworker/0:0H-events_highpri<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">12</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>kworker/R-mm_pe<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">13</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>rcu_tasks_kthread<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">14</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>rcu_tasks_rude_kthread<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">15</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>rcu_tasks_trace_kthread<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">16</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>ksoftirqd/0<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">17</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:29  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>rcu_preempt<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">18</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:06  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>migration/0<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">19</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>idle_inject/0<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">20</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>cpuhp/0<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">21</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>cpuhp/1<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">22</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>idle_inject/1<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">23</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:07  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>migration/1<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">24</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>ksoftirqd/1<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">26</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>kworker/1:0H-events_highpri<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">27</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>cpuhp/2<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">28</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>idle_inject/2<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">29</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:07  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>migration/2<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">30</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>ksoftirqd/2<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">32</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>kworker/2:0H-events_highpri<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">33</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>cpuhp/3<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">34</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>idle_inject/3<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">35</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:07  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>migration/3<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">36</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>ksoftirqd/3<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">38</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>kworker/3:0H-events_highpri<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">39</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>kdevtmpfs<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">40</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>kworker/R-inet_<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">41</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>kauditd<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>root          <span style="color:#ae81ff">43</span>       <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span> Jan09 ?        00:00:00  <span style="color:#ae81ff">\_</span> <span style="color:#f92672">[</span>khungtaskd<span style="color:#f92672">]</span>
+</span></span></code></pre></div>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h"
+              >Read other posts</span
+            >
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="http://localhost:1313/post/llms-101/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">llms-101</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="http://localhost:1313/post/giao-duc-pho-thong-tai-tp-hcm/">
+                  <span class="button__text">[RE] - Giáo dục phổ thông tại TP Hồ Chí Minh</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+    
+      
+        
+
+      
+    
+  </div>
+
+    </div>
+
+    
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user"><span> hàng nhà trồng 🌴 theo <a href="https://creativecommons.org/licenses/by-nc/4.0">giấy phép CC BY-NC 4.0</a></span><span>Themes created by <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span></div>
+      
+  </div>
+</footer>
+
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const lightbox = GLightbox({
+      selector: '.glightbox',
+      touchNavigation: true,
+      loop: true,
+      scrollLock: false
+    });
+  });
+</script>
+
+
+    
+  </div>
+
+  
+</body>
+
+</html>
