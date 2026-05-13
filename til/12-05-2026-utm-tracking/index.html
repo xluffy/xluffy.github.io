@@ -5,7 +5,7 @@
   
   
   <title>
-    13/05/2026 - How to persistent UTM tracking in GTM ::
+    12/05/2026 - Deploy tracking code via GTM ::
     /home/xluffy
   </title>
   
@@ -21,7 +21,7 @@
 />
 
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://localhost:1313/til/12-05-2026-how-to-persistent-utm-tracking-in-gtm/" />
+<link rel="canonical" href="http://localhost:1313/til/12-05-2026-utm-tracking/" />
 
 
 
@@ -53,21 +53,20 @@
 
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="13/05/2026 - How to persistent UTM tracking in GTM">
+  <meta name="twitter:title" content="12/05/2026 - Deploy tracking code via GTM">
 
 
 
-<meta property="og:url" content="http://localhost:1313/til/12-05-2026-how-to-persistent-utm-tracking-in-gtm/">
+<meta property="og:url" content="http://localhost:1313/til/12-05-2026-utm-tracking/">
   <meta property="og:site_name" content="/home/xluffy">
-  <meta property="og:title" content="13/05/2026 - How to persistent UTM tracking in GTM">
+  <meta property="og:title" content="12/05/2026 - Deploy tracking code via GTM">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="til">
-    <meta property="article:published_time" content="2026-05-13T00:00:00+00:00">
-    <meta property="article:modified_time" content="2026-05-13T00:00:00+00:00">
+    <meta property="article:published_time" content="2026-05-12T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-05-12T00:00:00+00:00">
     <meta property="article:tag" content="UTM">
     <meta property="article:tag" content="Tracking">
-    <meta property="article:tag" content="GTM">
 
 
 
@@ -178,11 +177,11 @@
   
 
   <div class="post">
-    <h1 class="post-title">13/05/2026 - How to persistent UTM tracking in GTM</h1>
+    <h1 class="post-title">12/05/2026 - Deploy tracking code via GTM</h1>
     <div class="post-meta">
       
         <span class="post-date">
-          2026-05-13
+          2026-05-12
         </span>
 
         
@@ -200,8 +199,6 @@
           <a href="http://localhost:1313/tags/utm/">#UTM</a>&nbsp;
         
           <a href="http://localhost:1313/tags/tracking/">#tracking</a>&nbsp;
-        
-          <a href="http://localhost:1313/tags/gtm/">#GTM</a>&nbsp;
         
       </span>
     
@@ -243,7 +240,8 @@ Tóm lại:</p>
 <li>Truy cập Google Analytic theo dõi số liệu và đánh giá kết quả</li>
 </ul>
 <h2 id="2-deploy-tracking-code">2. Deploy tracking code</h2>
-<p>Để tracking được các metrics trên website, chúng ta cần các công cụ để thu thập dữ liệu (Google Analytics, HotJar, Mixpanel, Heap &hellip;), để các công cụ thu thập được dữ liệu, chúng ta cần deploy lên website. Thông thường, trước đây để có thể deploy tracking code, Marketer sẽ gửi đoạn code tracking được gen bởi các Tool và nhờ Developer gắn vào Frontend, thông thường gắn vào thẻ <code>&lt;head&gt;</code> của HTML dạng như sau:</p>
+<p><img src="../images/website_visitor_tracking_tools.png" alt="">
+Để tracking được các metrics trên website, chúng ta cần các công cụ để thu thập dữ liệu (Google Analytics, HotJar, Mixpanel, Heap &hellip;), để các công cụ thu thập được dữ liệu, chúng ta cần deploy lên website. Thông thường, trước đây để có thể deploy tracking code, <strong>Marketer sẽ gửi đoạn code tracking được gen bởi các Tool và nhờ Developer gắn vào Frontend</strong>, thông thường gắn vào thẻ <code>&lt;head&gt;</code> của HTML dạng như sau:</p>
 <p><strong>MixPanel</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">&lt;!--</span> <span style="color:#a6e22e">Paste</span> <span style="color:#66d9ef">this</span> <span style="color:#a6e22e">right</span> <span style="color:#a6e22e">before</span> <span style="color:#a6e22e">your</span> <span style="color:#a6e22e">closing</span> <span style="color:#a6e22e">head</span> <span style="color:#a6e22e">tag</span> <span style="color:#f92672">--&gt;</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span><span style="color:#f92672">&gt;</span>
@@ -257,7 +255,7 @@ Tóm lại:</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">record_heatmap_data</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
 </span></span><span style="display:flex;"><span>    });
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span></code></pre></div><p>HotJar</p>
+</span></span></code></pre></div><p><strong>HotJar</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
 </span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">h</span>,<span style="color:#a6e22e">o</span>,<span style="color:#a6e22e">t</span>,<span style="color:#a6e22e">j</span>,<span style="color:#a6e22e">a</span>,<span style="color:#a6e22e">r</span>){
 </span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">hj</span><span style="color:#f92672">=</span><span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">hj</span><span style="color:#f92672">||</span><span style="color:#66d9ef">function</span>(){(<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">hj</span>.<span style="color:#a6e22e">q</span><span style="color:#f92672">=</span><span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">hj</span>.<span style="color:#a6e22e">q</span><span style="color:#f92672">||</span>[]).<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">arguments</span>)};
@@ -268,169 +266,51 @@ Tóm lại:</p>
 </span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">r</span>);
 </span></span><span style="display:flex;"><span>    })(window,document,<span style="color:#e6db74">&#39;https://static.hotjar.com/c/hotjar-&#39;</span>,<span style="color:#e6db74">&#39;.js?sv=&#39;</span>);
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span></code></pre></div><h2 id="3-persistent">3. Persistent</h2>
-<p>Parameter trên URL sẽ biến mất khi user navigate giữa các page. Ví dụ nếu user click vào link có UTM, sau đó click sang home-page, sang product page &hellip; giá trị UTM trên URL sẽ mất và lúc đó việc tracking sẽ không chính xác.</p>
-<p>Vấn đề càng trầm trọng hơn khi chiến dịch marketing là chiến dịch trả tiền và marketer cần đo lường tỉ lệ chuyển đổi từ chi phí ra đơn hàng.</p>
-<p>Ví dụ: Mong muốn user sau khi click vào Google Ads -&gt; dẫn vào trang cammpaign -&gt; Add sản phẩm vào cart -&gt; Thanh toán -&gt; Ra đơn.</p>
-<p>Khi user di chuyển giữa các trang, do parameter bị clear, nên chỉ ghi nhận vào trang campaign, và khi user thanh toán, GA ghi nhận đó là &ldquo;Direct traffic&rdquo; -&gt; khiến việc đánh giá hiệu quản chiến dịch dựa trên chi phí sẽ sai.</p>
-<p>Để giải quyết bài toán này, chúng ta cần &ldquo;tóm&rdquo; các tham số UTM và lưu vào đâu đó và khi cần dùng thì lấy lên lại. Cơ bản có 2 hướng:</p>
+</span></span></code></pre></div><p>Nhưng mấy ông Developer mặt lúc nào cũng nhăn nhăn, rất ghét, mỗi lần cần gắn gì, thay đổi code gì, mặt nhăn như khỉ, nhờ deploy mãi không được, nên sau này Google chế ra một cái gọi là Google Tag Manager, chỉ cần gắn code GTM một lần duy nhất trên website, các code tracking sau này sẽ được marketer quản lý, deploy thông qua giao diện Tag Manager.</p>
+<p>Gắn GTM code như <a href="https://support.google.com/tagmanager/answer/14847097?sjid=6652566438166035065-NC">hướng dẫn</a>, một cái trong thẻ head và một cái trong body. Sau đó submit và test qua công cụ <a href="https://tagassistant.google.com">https://tagassistant.google.com</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>  
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;  
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;  
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">&lt;!-- Google Tag Manager --&gt;</span>  
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">script</span>&gt;(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">w</span>,<span style="color:#a6e22e">d</span>,<span style="color:#a6e22e">s</span>,<span style="color:#a6e22e">l</span>,<span style="color:#a6e22e">i</span>){<span style="color:#a6e22e">w</span>[<span style="color:#a6e22e">l</span>]<span style="color:#f92672">=</span><span style="color:#a6e22e">w</span>[<span style="color:#a6e22e">l</span>]<span style="color:#f92672">||</span>[];<span style="color:#a6e22e">w</span>[<span style="color:#a6e22e">l</span>].<span style="color:#a6e22e">push</span>({<span style="color:#e6db74">&#39;gtm.start&#39;</span><span style="color:#f92672">:</span>  
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">new</span> Date().<span style="color:#a6e22e">getTime</span>(),<span style="color:#a6e22e">event</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;gtm.js&#39;</span>});<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f</span><span style="color:#f92672">=</span><span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">getElementsByTagName</span>(<span style="color:#a6e22e">s</span>)[<span style="color:#ae81ff">0</span>],  
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">j</span><span style="color:#f92672">=</span><span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">createElement</span>(<span style="color:#a6e22e">s</span>),<span style="color:#a6e22e">dl</span><span style="color:#f92672">=</span><span style="color:#a6e22e">l</span><span style="color:#f92672">!=</span><span style="color:#e6db74">&#39;dataLayer&#39;</span><span style="color:#f92672">?</span><span style="color:#e6db74">&#39;&amp;l=&#39;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">l</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;&#39;</span>;<span style="color:#a6e22e">j</span>.<span style="color:#66d9ef">async</span><span style="color:#f92672">=</span><span style="color:#66d9ef">true</span>;<span style="color:#a6e22e">j</span>.<span style="color:#a6e22e">src</span><span style="color:#f92672">=</span>  
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#39;https://www.googletagmanager.com/gtm.js?id=&#39;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">dl</span>;<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">parentNode</span>.<span style="color:#a6e22e">insertBefore</span>(<span style="color:#a6e22e">j</span>,<span style="color:#a6e22e">f</span>);  
+</span></span><span style="display:flex;"><span>	})(window,document,<span style="color:#e6db74">&#39;script&#39;</span>,<span style="color:#e6db74">&#39;dataLayer&#39;</span>,<span style="color:#e6db74">&#39;GTM-ABCDEFGH&#39;</span>);&lt;/<span style="color:#f92672">script</span>&gt;  
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">&lt;!-- End Google Tag Manager --&gt;</span>  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">title</span>&gt;Example Webpage&lt;/<span style="color:#f92672">title</span>&gt;  
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;  
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">&lt;!-- Google Tag Manager (noscript) --&gt;</span>  
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">noscript</span>&gt;&lt;<span style="color:#f92672">iframe</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.googletagmanager.com/ns.html?id=GTM-ABCDEFGH&#34;</span>  
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;display:none;visibility:hidden&#34;</span>&gt;&lt;/<span style="color:#f92672">iframe</span>&gt;&lt;/<span style="color:#f92672">noscript</span>&gt;  
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">&lt;!-- End Google Tag Manager (noscript) --&gt;</span>  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">&lt;!-- Content of your website --&gt;</span>  
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">h1</span>&gt;Welcome to My Website&lt;/<span style="color:#f92672">h1</span>&gt;  
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">p</span>&gt;This is a sample paragraph on my webpage.&lt;/<span style="color:#f92672">p</span>&gt;  
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><p>Kể từ bây giờ, Marketer khi muốn gắn thêm code tracking gì mới, chỉ cần quản lý thông qua <a href="https://tagmanager.google.com/">https://tagmanager.google.com/</a> theo các bước</p>
 <ul>
-<li>Lưu trữ phía trình duyệt - client - Lưu phía trình duyệt cũng có 2 dạng là:
+<li>Tạo một Tag mới, Tag mới có thể là các tool của third party hoặc Custom HTML hoặc từ self-template, community template &hellip;</li>
+<li>Config điều kiện event sẽ được trigger</li>
+<li>Submit để deploy (có quản lý version cơ bản)</li>
+</ul>
+<p>Ví dụ muốn custom một popup alert khi user load page có thể config như sau:</p>
 <ul>
-<li>Cookie: Cookie có thể truy cập ở client, và có thể attach vào header <code>Cookie</code> gửi lên server. Cookie có <code>expires</code>, hết hạn sẽ mất, cookie chỉ cho lưu tối đa 4KB</li>
-<li>LocalStorage chỉ có thể truy cập ở client, có dung lượng tối đa 10MB và chỉ bị clear khi user xóa cache</li>
+<li>Tạo Custom HTML Tag với đoạn code sau</li>
 </ul>
-</li>
-<li>Lưu trữ phía server side - cách này ổn nhất nhưng chỉ phù hợp nếu là owner của source code, cơ chế là khi user truy cập vào URL, Backend bóc tách, đọc UTM parameter và lưu vào session của người dùng (Database hoặc Redis), khi phát sinh chuyển đổi (checkout/payment) thì lấy lên để ghi nhận.</li>
-</ul>
-<p>Cả 2 cách trên, phù hợp cho developer, mặc dù với cách lưu ở phía client có thể treat để deploy qua GTM mà không cần phải là developer.</p>
-<p>Ngoài ra, có một cách khác nữa phù hợp với marketer đó là dùng các <strong>Custom Template</strong> như &ldquo;Persist UTM&rdquo; hoặc &ldquo;Simo Ahava&rsquo;s Cookie Tool&rdquo;, deploy qua GTM, tự động quét URL, lưu UTM vào cookie và đọc ngược lại, bản chất cũng như việc lưu ở client, nhưng không cần Developer hỗ trợ deploy.</p>
-<h2 id="3-triển-khai">3. Triển khai</h2>
-<p>Bài viết dành cho marketer, nên chỉ tập trung vào các giải pháp có thể triển khai thông qua GTM</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  (() =&gt; {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">KEYS</span> <span style="color:#f92672">=</span> [
-</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;utm_source&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;utm_medium&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;utm_campaign&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;utm_term&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;utm_content&#34;</span>,
-</span></span><span style="display:flex;"><span>    ];
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">COOKIE_DAYS</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">90</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ATTRIBUTION_MODE</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;first-touch&#34;</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// &#34;first-touch&#34; | &#34;last-touch&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getUrlParams</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">params</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">URLSearchParams</span>(window.<span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">search</span>);
-</span></span><span style="display:flex;"><span>	  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> {};
-</span></span><span style="display:flex;"><span>	  
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">KEYS</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">key</span>) =&gt; {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">key</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">value</span> <span style="color:#f92672">!==</span> <span style="color:#66d9ef">null</span>) {
-</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">result</span>[<span style="color:#a6e22e">key</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">value</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>      });
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getCookies</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> document.<span style="color:#a6e22e">cookie</span>
-</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#34;; &#34;</span>)
-</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">reduce</span>((<span style="color:#a6e22e">acc</span>, <span style="color:#a6e22e">cookie</span>) =&gt; {
-</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">value</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">cookie</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#34;=&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">acc</span>[<span style="color:#a6e22e">name</span>] <span style="color:#f92672">=</span> decodeURIComponent(<span style="color:#a6e22e">value</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">acc</span>;
-</span></span><span style="display:flex;"><span>        }, {});
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setCookie</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">days</span>) {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">expires</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(
-</span></span><span style="display:flex;"><span>        Date.<span style="color:#a6e22e">now</span>() <span style="color:#f92672">+</span> <span style="color:#a6e22e">days</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">86400000</span>
-</span></span><span style="display:flex;"><span>      ).<span style="color:#a6e22e">toUTCString</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      document.<span style="color:#a6e22e">cookie</span> <span style="color:#f92672">=</span> [
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74">=</span><span style="color:#e6db74">${</span>encodeURIComponent(<span style="color:#a6e22e">value</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">`expires=</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">expires</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;path=/&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;SameSite=Lax&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Secure&#34;</span>,
-</span></span><span style="display:flex;"><span>      ].<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#34;; &#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incomingParams</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getUrlParams</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">existingCookies</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getCookies</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">KEYS</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">key</span>) =&gt; {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hasExisting</span> <span style="color:#f92672">=</span> Boolean(<span style="color:#a6e22e">existingCookies</span>[<span style="color:#a6e22e">key</span>]);
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hasIncoming</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">incomingParams</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">hasIncoming</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">shouldWrite</span> <span style="color:#f92672">=</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">ATTRIBUTION_MODE</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#34;last-touch&#34;</span> <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">hasExisting</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">shouldWrite</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">setCookie</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">incomingParams</span>[<span style="color:#a6e22e">key</span>], <span style="color:#a6e22e">COOKIE_DAYS</span>);
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;Chào mừng bạn! Bạn vừa click vào một thành phần trên trang.&#34;</span>);
 </span></span><span style="display:flex;"><span>  })();
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  (() =&gt; {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">KEYS</span> <span style="color:#f92672">=</span> [
-</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;utm_source&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;utm_medium&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;utm_campaign&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;utm_term&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;utm_content&#34;</span>,
-</span></span><span style="display:flex;"><span>    ];
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">STORAGE_KEY</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;persisted_tracking_params&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getUrlParams</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">params</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">URLSearchParams</span>(window.<span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">search</span>);
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> {};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">KEYS</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">key</span>) =&gt; {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">key</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">value</span> <span style="color:#f92672">!==</span> <span style="color:#66d9ef">null</span>) {
-</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">result</span>[<span style="color:#a6e22e">key</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">value</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>      });
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setStorage</span>(<span style="color:#a6e22e">data</span>) {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">try</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">setItem</span>(
-</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">STORAGE_KEY</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">data</span>)
-</span></span><span style="display:flex;"><span>        );
-</span></span><span style="display:flex;"><span>      } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">error</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#34;Failed to save tracking params&#34;</span>, <span style="color:#a6e22e">error</span>);
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getStorage</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">try</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">stored</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">getItem</span>(<span style="color:#a6e22e">STORAGE_KEY</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">stored</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">stored</span>) <span style="color:#f92672">:</span> {};
-</span></span><span style="display:flex;"><span>      } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">error</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#34;Failed to read tracking params&#34;</span>, <span style="color:#a6e22e">error</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {};
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incomingParams</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getUrlParams</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">existing</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getStorage</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">KEYS</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">key</span>) =&gt; {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">incoming</span>[<span style="color:#a6e22e">key</span>] <span style="color:#f92672">!==</span> <span style="color:#66d9ef">undefined</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">existing</span>[<span style="color:#a6e22e">key</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">incoming</span>[<span style="color:#a6e22e">key</span>];
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    });
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">setStorage</span>(<span style="color:#a6e22e">existing</span>);
-</span></span><span style="display:flex;"><span>  })();
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span></code></pre></div><p>Credit:</p>
-<ul>
-<li><a href="https://defyn.com.au/how-to-persist-utm-parameters-across-your-website-and-pass-them-into-gravity-forms/">https://defyn.com.au/how-to-persist-utm-parameters-across-your-website-and-pass-them-into-gravity-forms/</a></li>
-<li><a href="https://www.linkedin.com/pulse/how-save-utm-parameters-cookie-use-them-form-fields-anson-lobo-i6nbc/">https://www.linkedin.com/pulse/how-save-utm-parameters-cookie-use-them-form-fields-anson-lobo-i6nbc/</a></li>
-<li><a href="https://medium.com/@DMSYAID/how-to-track-utm-parameters-in-google-tag-manager-using-custom-javascript-bec6b00af871">https://medium.com/@DMSYAID/how-to-track-utm-parameters-in-google-tag-manager-using-custom-javascript-bec6b00af871</a></li>
-<li><a href="https://apps.brixtemplates.com/framer-persistent-utm-attribution/script.js">https://apps.brixtemplates.com/framer-persistent-utm-attribution/script.js</a></li>
+</span></span></code></pre></div><ul>
+<li>Trigger All Pages</li>
 </ul>
+<p>Tương tự như vậy, để theo dõi lượt truy cập, chỉ cần tạo Tag cho Google Analytics là xong</p>
 
     </div>
     
