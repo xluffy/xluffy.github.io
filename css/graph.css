@@ -1,0 +1,126 @@
+/* Graph View Styles */
+
+.graph-container {
+  position: relative;
+  width: 100%;
+  height: 550px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--background);
+  border: 1px solid var(--border-color);
+}
+
+@media (max-width: 684px) {
+  .graph-container {
+    height: 400px;
+  }
+}
+
+.graph-container canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.graph-container canvas:active {
+  cursor: grabbing;
+}
+
+/* Tooltip */
+.graph-tooltip {
+  position: absolute;
+  pointer-events: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: inherit;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.15s;
+  background: var(--background-secondary);
+  color: var(--color);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.graph-tooltip.visible {
+  opacity: 1;
+}
+
+/* Legend */
+.graph-legend {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--color-secondary);
+  background: var(--background);
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  pointer-events: none;
+}
+
+.graph-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.graph-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.graph-legend-dot.tag {
+  background: #d06800;
+}
+
+body.dark-theme .graph-legend-dot.tag {
+  background: #ff9940;
+}
+
+.graph-legend-dot.post {
+  background: #0d7a96;
+}
+
+body.dark-theme .graph-legend-dot.post {
+  background: #5ccfe6;
+}
+
+/* Node count badge */
+.graph-node-count {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  font-size: 11px;
+  color: var(--color-secondary);
+  background: var(--background);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  pointer-events: none;
+}
+
+/* Mobile adjustments */
+@media (max-width: 684px) {
+  .graph-legend {
+    bottom: 6px;
+    left: 6px;
+    gap: 8px;
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+  .graph-node-count {
+    bottom: 6px;
+    right: 6px;
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+}
