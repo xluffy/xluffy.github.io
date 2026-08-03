@@ -1,0 +1,23 @@
+#: locale=en
+
+## Media
+
+### Title
+panorama_56AADA2E_5AB0_A6CD_4192_CD2DF716B57C.label = View 1
+panorama_56A687D9_5AB0_AD56_41D2_4F442B887C8B.label = View 2
+panorama_5785AB71_5AB0_E556_41B2_2652CBA43332.label = View 3
+panorama_56A6A587_5AB1_6DBB_41D5_ED8FE9E31C96.label = View 4
+panorama_56A74300_5AB1_66B5_4194_2FE32D4FFD28.label = View 5
+
+## Skin
+
+### Image
+Image_26321964_30BA_257E_41C4_D05E72E738FB.url = skin/Image_26321964_30BA_257E_41C4_D05E72E738FB_en.png
+Image_27F7E78F_304A_2DCA_41BE_A94E6272AC10.url = skin/Image_27F7E78F_304A_2DCA_41BE_A94E6272AC10_en.png
+
+## Tour
+
+### Description
+
+### Title
+tour.name = 360 IMPERIA SENSA PARK

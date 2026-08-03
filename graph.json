@@ -1,0 +1,1128 @@
+{
+  "nodes": [
+    {
+      "id": "alb-vs-nginx",
+      "title": "ALB vs nginx",
+      "type": "post",
+      "url": "/post/alb-vs-nginx/"
+    },
+    {
+      "id": "alb",
+      "type": "tag",
+      "url": "/tags/alb/"
+    },
+    {
+      "id": "nginx",
+      "type": "tag",
+      "url": "/tags/nginx/"
+    },
+    {
+      "id": "bet-ISP-Vietnam",
+      "title": "Nhà cung cấp dịch vụ Internet mạnh nhất Việt Nam",
+      "type": "post",
+      "url": "/post/bet-ISP-Vietnam/"
+    },
+    {
+      "id": "isp",
+      "type": "tag",
+      "url": "/tags/isp/"
+    },
+    {
+      "id": "internet",
+      "type": "tag",
+      "url": "/tags/internet/"
+    },
+    {
+      "id": "build-simple-bg-job-with-rabbitmq",
+      "title": "Build a simple background job with RabbitMQ",
+      "type": "post",
+      "url": "/post/build-simple-bg-job-with-rabbitmq/"
+    },
+    {
+      "id": "rabbitmq",
+      "type": "tag",
+      "url": "/tags/rabbitmq/"
+    },
+    {
+      "id": "bg-job",
+      "type": "tag",
+      "url": "/tags/bg-job/"
+    },
+    {
+      "id": "ruby",
+      "type": "tag",
+      "url": "/tags/ruby/"
+    },
+    {
+      "id": "how-to-restart-atlantis-the-right-way",
+      "title": "CF: How to Restart Atlantis the Right Way",
+      "type": "post",
+      "url": "/post/how-to-restart-atlantis-the-right-way/"
+    },
+    {
+      "id": "cloudflare",
+      "type": "tag",
+      "url": "/tags/cloudflare/"
+    },
+    {
+      "id": "atlantis",
+      "type": "tag",
+      "url": "/tags/atlantis/"
+    },
+    {
+      "id": "terraform",
+      "type": "tag",
+      "url": "/tags/terraform/"
+    },
+    {
+      "id": "k8s",
+      "type": "tag",
+      "url": "/tags/k8s/"
+    },
+    {
+      "id": "change-schema-of-huge-table-in-mysql",
+      "title": "Change schema of huge table in MySQL",
+      "type": "post",
+      "url": "/post/change-schema-of-huge-table-in-mysql/"
+    },
+    {
+      "id": "mysql",
+      "type": "tag",
+      "url": "/tags/mysql/"
+    },
+    {
+      "id": "percona",
+      "type": "tag",
+      "url": "/tags/percona/"
+    },
+    {
+      "id": "chaos-of-configuration",
+      "title": "Chaos of configuration",
+      "type": "post",
+      "url": "/post/chaos-of-configuration/"
+    },
+    {
+      "id": "rails",
+      "type": "tag",
+      "url": "/tags/rails/"
+    },
+    {
+      "id": "configuration",
+      "type": "tag",
+      "url": "/tags/configuration/"
+    },
+    {
+      "id": "deployment",
+      "type": "tag",
+      "url": "/tags/deployment/"
+    },
+    {
+      "id": "cloudflare-101",
+      "title": "Cloudflare 101",
+      "type": "post",
+      "url": "/post/cloudflare-101/"
+    },
+    {
+      "id": "security",
+      "type": "tag",
+      "url": "/tags/security/"
+    },
+    {
+      "id": "proxy",
+      "type": "tag",
+      "url": "/tags/proxy/"
+    },
+    {
+      "id": "delayed-replication-in-mysql",
+      "title": "Delayed Replication in MySQL",
+      "type": "post",
+      "url": "/post/delayed-replication-in-mysql/"
+    },
+    {
+      "id": "replication",
+      "type": "tag",
+      "url": "/tags/replication/"
+    },
+    {
+      "id": "docker-eco-system",
+      "title": "Docker Ecosystem",
+      "type": "post",
+      "url": "/post/docker-eco-system/"
+    },
+    {
+      "id": "docker",
+      "type": "tag",
+      "url": "/tags/docker/"
+    },
+    {
+      "id": "giao-duc-pho-thong-tai-tp-hcm",
+      "title": "[Self-research] - Giáo dục phổ thông tại TP Hồ Chí Minh",
+      "type": "post",
+      "url": "/post/giao-duc-pho-thong-tai-tp-hcm/"
+    },
+    {
+      "id": "hcm",
+      "type": "tag",
+      "url": "/tags/hcm/"
+    },
+    {
+      "id": "school",
+      "type": "tag",
+      "url": "/tags/school/"
+    },
+    {
+      "id": "ais",
+      "type": "tag",
+      "url": "/tags/ais/"
+    },
+    {
+      "id": "bis",
+      "type": "tag",
+      "url": "/tags/bis/"
+    },
+    {
+      "id": "bvis",
+      "type": "tag",
+      "url": "/tags/bvis/"
+    },
+    {
+      "id": "tas",
+      "type": "tag",
+      "url": "/tags/tas/"
+    },
+    {
+      "id": "houseplants-care-101",
+      "title": "Houseplants Care 101",
+      "type": "post",
+      "url": "/post/houseplants-care-101/"
+    },
+    {
+      "id": "growing",
+      "type": "tag",
+      "url": "/tags/growing/"
+    },
+    {
+      "id": "media",
+      "type": "tag",
+      "url": "/tags/media/"
+    },
+    {
+      "id": "water",
+      "type": "tag",
+      "url": "/tags/water/"
+    },
+    {
+      "id": "houseplants",
+      "type": "tag",
+      "url": "/tags/houseplants/"
+    },
+    {
+      "id": "oil",
+      "type": "tag",
+      "url": "/tags/oil/"
+    },
+    {
+      "id": "bugs",
+      "type": "tag",
+      "url": "/tags/bugs/"
+    },
+    {
+      "id": "pests",
+      "type": "tag",
+      "url": "/tags/pests/"
+    },
+    {
+      "id": "how-to-check-a-ip-is-in-a-blacklist",
+      "title": "How to check a IP is in a blacklist",
+      "type": "post",
+      "url": "/post/how-to-check-a-ip-is-in-a-blacklist/"
+    },
+    {
+      "id": "blacklist",
+      "type": "tag",
+      "url": "/tags/blacklist/"
+    },
+    {
+      "id": "dns",
+      "type": "tag",
+      "url": "/tags/dns/"
+    },
+    {
+      "id": "domain",
+      "type": "tag",
+      "url": "/tags/domain/"
+    },
+    {
+      "id": "how-to-fix-mysql-replication",
+      "title": "How to fix MySQL replication",
+      "type": "post",
+      "url": "/post/how-to-fix-mysql-replication/"
+    },
+    {
+      "id": "how-to-hash-store-password",
+      "title": "Băm và lưu password đúng cách",
+      "type": "post",
+      "url": "/post/how-to-hash-store-password/"
+    },
+    {
+      "id": "password",
+      "type": "tag",
+      "url": "/tags/password/"
+    },
+    {
+      "id": "hash",
+      "type": "tag",
+      "url": "/tags/hash/"
+    },
+    {
+      "id": "how-to-resolve-io-issue-on-cloud",
+      "title": "How to resolve I/O issue on cloud",
+      "type": "post",
+      "url": "/post/how-to-resolve-io-issue-on-cloud/"
+    },
+    {
+      "id": "cloud",
+      "type": "tag",
+      "url": "/tags/cloud/"
+    },
+    {
+      "id": "io",
+      "type": "tag",
+      "url": "/tags/io/"
+    },
+    {
+      "id": "how-to-setup-our-networking",
+      "title": "Setup hệ thống mạng cho cty vừa và nhỏ",
+      "type": "post",
+      "url": "/post/how-to-setup-our-networking/"
+    },
+    {
+      "id": "networking",
+      "type": "tag",
+      "url": "/tags/networking/"
+    },
+    {
+      "id": "improving-mongodb-perf-by-managing-indexes",
+      "title": "Improving MongoDB performance by managing indexes",
+      "type": "post",
+      "url": "/post/improving-mongodb-perf-by-managing-indexes/"
+    },
+    {
+      "id": "mongod",
+      "type": "tag",
+      "url": "/tags/mongod/"
+    },
+    {
+      "id": "index",
+      "type": "tag",
+      "url": "/tags/index/"
+    },
+    {
+      "id": "intro-mysql-replication",
+      "title": "Intro MySQL replication",
+      "type": "post",
+      "url": "/post/intro-mysql-replication/"
+    },
+    {
+      "id": "llms-101",
+      "title": "llms-101",
+      "type": "post",
+      "url": "/post/llms-101/"
+    },
+    {
+      "id": "ai",
+      "type": "tag",
+      "url": "/tags/ai/"
+    },
+    {
+      "id": "llms",
+      "type": "tag",
+      "url": "/tags/llms/"
+    },
+    {
+      "id": "openai",
+      "type": "tag",
+      "url": "/tags/openai/"
+    },
+    {
+      "id": "gemini",
+      "type": "tag",
+      "url": "/tags/gemini/"
+    },
+    {
+      "id": "claude",
+      "type": "tag",
+      "url": "/tags/claude/"
+    },
+    {
+      "id": "noted-c++",
+      "title": "Tham chiếu và con trỏ trong C++",
+      "type": "post",
+      "url": "/post/noted-c++/"
+    },
+    {
+      "id": "programming",
+      "type": "tag",
+      "url": "/tags/programming/"
+    },
+    {
+      "id": "c++",
+      "type": "tag",
+      "url": "/tags/c++/"
+    },
+    {
+      "id": "null-in-sql",
+      "title": "Null in SQL",
+      "type": "post",
+      "url": "/post/null-in-sql/"
+    },
+    {
+      "id": "sql",
+      "type": "tag",
+      "url": "/tags/sql/"
+    },
+    {
+      "id": "rails-for-devops-engineer",
+      "title": "Rails for DevOps engineer",
+      "type": "post",
+      "url": "/post/rails-for-devops-engineer/"
+    },
+    {
+      "id": "active-record",
+      "type": "tag",
+      "url": "/tags/active-record/"
+    },
+    {
+      "id": "sidekiq-how-to-reliability",
+      "title": "Sidekiq, how to reliability?",
+      "type": "post",
+      "url": "/post/sidekiq-how-to-reliability/"
+    },
+    {
+      "id": "sidekiq",
+      "type": "tag",
+      "url": "/tags/sidekiq/"
+    },
+    {
+      "id": "the-harness-is-all-you-need-mostly",
+      "title": "The harness is all you need (mostly)",
+      "type": "post",
+      "url": "/post/the-harness-is-all-you-need-mostly/"
+    },
+    {
+      "id": "productivity",
+      "type": "tag",
+      "url": "/tags/productivity/"
+    },
+    {
+      "id": "coding-agent",
+      "type": "tag",
+      "url": "/tags/coding-agent/"
+    },
+    {
+      "id": "try-out-umbrel-os",
+      "title": "Nghịch thử UmbrelOS",
+      "type": "post",
+      "url": "/post/try-out-umbrel-os/"
+    },
+    {
+      "id": "minipc",
+      "type": "tag",
+      "url": "/tags/minipc/"
+    },
+    {
+      "id": "umbrelos",
+      "type": "tag",
+      "url": "/tags/umbrelos/"
+    },
+    {
+      "id": "tailscale",
+      "type": "tag",
+      "url": "/tags/tailscale/"
+    },
+    {
+      "id": "jellyfin",
+      "type": "tag",
+      "url": "/tags/jellyfin/"
+    },
+    {
+      "id": "immich",
+      "type": "tag",
+      "url": "/tags/immich/"
+    },
+    {
+      "id": "n8n",
+      "type": "tag",
+      "url": "/tags/n8n/"
+    },
+    {
+      "id": "up-firmware-padavan-mi4",
+      "title": "Up firmware Padavan cho MI4",
+      "type": "post",
+      "url": "/post/up-firmware-padavan-mi4/"
+    },
+    {
+      "id": "mi4",
+      "type": "tag",
+      "url": "/tags/mi4/"
+    },
+    {
+      "id": "pandavan",
+      "type": "tag",
+      "url": "/tags/pandavan/"
+    },
+    {
+      "id": "vpc-architecture",
+      "title": "VPC architecture",
+      "type": "post",
+      "url": "/post/vpc-architecture/"
+    },
+    {
+      "id": "aws",
+      "type": "tag",
+      "url": "/tags/aws/"
+    },
+    {
+      "id": "vpc",
+      "type": "tag",
+      "url": "/tags/vpc/"
+    },
+    {
+      "id": "network",
+      "type": "tag",
+      "url": "/tags/network/"
+    },
+    {
+      "id": "architecture",
+      "type": "tag",
+      "url": "/tags/architecture/"
+    },
+    {
+      "id": "what-is-difference-between-ssl-tls-https",
+      "title": "What is difference between SSL, TLS, and HTTPs?",
+      "type": "post",
+      "url": "/post/what-is-difference-between-ssl-tls-https/"
+    },
+    {
+      "id": "tls",
+      "type": "tag",
+      "url": "/tags/tls/"
+    },
+    {
+      "id": "who-owns-my-encrypt-keys-on-cloud",
+      "title": "Who owns my encrypt keys on cloud?",
+      "type": "post",
+      "url": "/post/who-owns-my-encrypt-keys-on-cloud/"
+    },
+    {
+      "id": "12-02-2022-w1-setup-ansible-repo",
+      "title": "12/02/2022 - Week 1 - Setup Ansible repo",
+      "type": "post",
+      "url": "/til/12-02-2022-w1-setup-ansible-repo/"
+    },
+    {
+      "id": "ansible",
+      "type": "tag",
+      "url": "/tags/ansible/"
+    },
+    {
+      "id": "molecule",
+      "type": "tag",
+      "url": "/tags/molecule/"
+    },
+    {
+      "id": "testing",
+      "type": "tag",
+      "url": "/tags/testing/"
+    },
+    {
+      "id": "python",
+      "type": "tag",
+      "url": "/tags/python/"
+    },
+    {
+      "id": "poetry",
+      "type": "tag",
+      "url": "/tags/poetry/"
+    },
+    {
+      "id": "06-03-2022-w2-gce-multi-localssd-terraform",
+      "title": "06/03/2022 - Week 2 - GCE multi LocalSSD with Terraform",
+      "type": "post",
+      "url": "/til/06-03-2022-w2-gce-multi-localssd-terraform/"
+    },
+    {
+      "id": "gcp",
+      "type": "tag",
+      "url": "/tags/gcp/"
+    },
+    {
+      "id": "gce",
+      "type": "tag",
+      "url": "/tags/gce/"
+    },
+    {
+      "id": "localssd",
+      "type": "tag",
+      "url": "/tags/localssd/"
+    },
+    {
+      "id": "15-04-2026-drop-cap-markdown",
+      "title": "15/04/2026 - Drop Cap in Markdown",
+      "type": "post",
+      "url": "/til/15-04-2026-drop-cap-markdown/"
+    },
+    {
+      "id": "markdown",
+      "type": "tag",
+      "url": "/tags/markdown/"
+    },
+    {
+      "id": "writing",
+      "type": "tag",
+      "url": "/tags/writing/"
+    },
+    {
+      "id": "24-04-2026-uv-tool",
+      "title": "24/04/2026 - uv tool",
+      "type": "post",
+      "url": "/til/24-04-2026-uv-tool/"
+    },
+    {
+      "id": "uv",
+      "type": "tag",
+      "url": "/tags/uv/"
+    },
+    {
+      "id": "hf",
+      "type": "tag",
+      "url": "/tags/hf/"
+    },
+    {
+      "id": "12-05-2026-deploy-tracking-code-via-gmt",
+      "title": "12/05/2026 - Deploy tracking code via GTM",
+      "type": "post",
+      "url": "/til/12-05-2026-deploy-tracking-code-via-gmt/"
+    },
+    {
+      "id": "utm",
+      "type": "tag",
+      "url": "/tags/utm/"
+    },
+    {
+      "id": "tracking",
+      "type": "tag",
+      "url": "/tags/tracking/"
+    },
+    {
+      "id": "danh-muc-dau-tu",
+      "title": "Danh Mục Đầu Tư Tổng Hợp",
+      "type": "post",
+      "url": "/wiki/danh-muc-dau-tu/"
+    },
+    {
+      "id": "tai-chinh",
+      "type": "tag",
+      "url": "/tags/tai-chinh/"
+    },
+    {
+      "id": "dau-tu",
+      "type": "tag",
+      "url": "/tags/dau-tu/"
+    },
+    {
+      "id": "portfolio",
+      "type": "tag",
+      "url": "/tags/portfolio/"
+    },
+    {
+      "id": "asset-allocation",
+      "type": "tag",
+      "url": "/tags/asset-allocation/"
+    },
+    {
+      "id": "personal-finance",
+      "type": "tag",
+      "url": "/tags/personal-finance/"
+    },
+    {
+      "id": "index",
+      "title": "Báo cáo phân tích dự án & tiêu chí chọn căn hộ Imperia Sensa Park",
+      "type": "post",
+      "url": "/wiki/index/"
+    },
+    {
+      "id": "property",
+      "type": "tag",
+      "url": "/tags/property/"
+    },
+    {
+      "id": "apartment",
+      "type": "tag",
+      "url": "/tags/apartment/"
+    },
+    {
+      "id": "bat-dong-san",
+      "type": "tag",
+      "url": "/tags/bat-dong-san/"
+    },
+    {
+      "id": "welcome",
+      "title": "Welcome to my Second Brain",
+      "type": "post",
+      "url": "/wiki/welcome/"
+    },
+    {
+      "id": "meta",
+      "type": "tag",
+      "url": "/tags/meta/"
+    },
+    {
+      "id": "workflow",
+      "type": "tag",
+      "url": "/tags/workflow/"
+    }
+  ],
+  "links": [
+    {
+      "source": "alb-vs-nginx",
+      "target": "alb"
+    },
+    {
+      "source": "alb-vs-nginx",
+      "target": "nginx"
+    },
+    {
+      "source": "bet-ISP-Vietnam",
+      "target": "isp"
+    },
+    {
+      "source": "bet-ISP-Vietnam",
+      "target": "internet"
+    },
+    {
+      "source": "build-simple-bg-job-with-rabbitmq",
+      "target": "rabbitmq"
+    },
+    {
+      "source": "build-simple-bg-job-with-rabbitmq",
+      "target": "bg-job"
+    },
+    {
+      "source": "build-simple-bg-job-with-rabbitmq",
+      "target": "ruby"
+    },
+    {
+      "source": "how-to-restart-atlantis-the-right-way",
+      "target": "cloudflare"
+    },
+    {
+      "source": "how-to-restart-atlantis-the-right-way",
+      "target": "atlantis"
+    },
+    {
+      "source": "how-to-restart-atlantis-the-right-way",
+      "target": "terraform"
+    },
+    {
+      "source": "how-to-restart-atlantis-the-right-way",
+      "target": "k8s"
+    },
+    {
+      "source": "change-schema-of-huge-table-in-mysql",
+      "target": "mysql"
+    },
+    {
+      "source": "change-schema-of-huge-table-in-mysql",
+      "target": "percona"
+    },
+    {
+      "source": "chaos-of-configuration",
+      "target": "rails"
+    },
+    {
+      "source": "chaos-of-configuration",
+      "target": "configuration"
+    },
+    {
+      "source": "chaos-of-configuration",
+      "target": "deployment"
+    },
+    {
+      "source": "cloudflare-101",
+      "target": "cloudflare"
+    },
+    {
+      "source": "cloudflare-101",
+      "target": "security"
+    },
+    {
+      "source": "cloudflare-101",
+      "target": "proxy"
+    },
+    {
+      "source": "delayed-replication-in-mysql",
+      "target": "mysql"
+    },
+    {
+      "source": "delayed-replication-in-mysql",
+      "target": "replication"
+    },
+    {
+      "source": "docker-eco-system",
+      "target": "docker"
+    },
+    {
+      "source": "giao-duc-pho-thong-tai-tp-hcm",
+      "target": "hcm"
+    },
+    {
+      "source": "giao-duc-pho-thong-tai-tp-hcm",
+      "target": "school"
+    },
+    {
+      "source": "giao-duc-pho-thong-tai-tp-hcm",
+      "target": "ais"
+    },
+    {
+      "source": "giao-duc-pho-thong-tai-tp-hcm",
+      "target": "bis"
+    },
+    {
+      "source": "giao-duc-pho-thong-tai-tp-hcm",
+      "target": "bvis"
+    },
+    {
+      "source": "giao-duc-pho-thong-tai-tp-hcm",
+      "target": "tas"
+    },
+    {
+      "source": "houseplants-care-101",
+      "target": "growing"
+    },
+    {
+      "source": "houseplants-care-101",
+      "target": "media"
+    },
+    {
+      "source": "houseplants-care-101",
+      "target": "water"
+    },
+    {
+      "source": "houseplants-care-101",
+      "target": "houseplants"
+    },
+    {
+      "source": "houseplants-care-101",
+      "target": "oil"
+    },
+    {
+      "source": "houseplants-care-101",
+      "target": "bugs"
+    },
+    {
+      "source": "houseplants-care-101",
+      "target": "pests"
+    },
+    {
+      "source": "how-to-check-a-ip-is-in-a-blacklist",
+      "target": "blacklist"
+    },
+    {
+      "source": "how-to-check-a-ip-is-in-a-blacklist",
+      "target": "dns"
+    },
+    {
+      "source": "how-to-check-a-ip-is-in-a-blacklist",
+      "target": "domain"
+    },
+    {
+      "source": "how-to-fix-mysql-replication",
+      "target": "mysql"
+    },
+    {
+      "source": "how-to-fix-mysql-replication",
+      "target": "replication"
+    },
+    {
+      "source": "how-to-hash-store-password",
+      "target": "security"
+    },
+    {
+      "source": "how-to-hash-store-password",
+      "target": "password"
+    },
+    {
+      "source": "how-to-hash-store-password",
+      "target": "hash"
+    },
+    {
+      "source": "how-to-resolve-io-issue-on-cloud",
+      "target": "mysql"
+    },
+    {
+      "source": "how-to-resolve-io-issue-on-cloud",
+      "target": "cloud"
+    },
+    {
+      "source": "how-to-resolve-io-issue-on-cloud",
+      "target": "io"
+    },
+    {
+      "source": "how-to-setup-our-networking",
+      "target": "networking"
+    },
+    {
+      "source": "improving-mongodb-perf-by-managing-indexes",
+      "target": "mongod"
+    },
+    {
+      "source": "improving-mongodb-perf-by-managing-indexes",
+      "target": "index"
+    },
+    {
+      "source": "intro-mysql-replication",
+      "target": "mysql"
+    },
+    {
+      "source": "intro-mysql-replication",
+      "target": "replication"
+    },
+    {
+      "source": "llms-101",
+      "target": "ai"
+    },
+    {
+      "source": "llms-101",
+      "target": "llms"
+    },
+    {
+      "source": "llms-101",
+      "target": "openai"
+    },
+    {
+      "source": "llms-101",
+      "target": "gemini"
+    },
+    {
+      "source": "llms-101",
+      "target": "claude"
+    },
+    {
+      "source": "noted-c++",
+      "target": "programming"
+    },
+    {
+      "source": "noted-c++",
+      "target": "c++"
+    },
+    {
+      "source": "null-in-sql",
+      "target": "sql"
+    },
+    {
+      "source": "rails-for-devops-engineer",
+      "target": "rails"
+    },
+    {
+      "source": "rails-for-devops-engineer",
+      "target": "active-record"
+    },
+    {
+      "source": "sidekiq-how-to-reliability",
+      "target": "rails"
+    },
+    {
+      "source": "sidekiq-how-to-reliability",
+      "target": "sidekiq"
+    },
+    {
+      "source": "the-harness-is-all-you-need-mostly",
+      "target": "ai"
+    },
+    {
+      "source": "the-harness-is-all-you-need-mostly",
+      "target": "productivity"
+    },
+    {
+      "source": "the-harness-is-all-you-need-mostly",
+      "target": "coding-agent"
+    },
+    {
+      "source": "try-out-umbrel-os",
+      "target": "minipc"
+    },
+    {
+      "source": "try-out-umbrel-os",
+      "target": "umbrelos"
+    },
+    {
+      "source": "try-out-umbrel-os",
+      "target": "tailscale"
+    },
+    {
+      "source": "try-out-umbrel-os",
+      "target": "jellyfin"
+    },
+    {
+      "source": "try-out-umbrel-os",
+      "target": "immich"
+    },
+    {
+      "source": "try-out-umbrel-os",
+      "target": "n8n"
+    },
+    {
+      "source": "up-firmware-padavan-mi4",
+      "target": "mi4"
+    },
+    {
+      "source": "up-firmware-padavan-mi4",
+      "target": "pandavan"
+    },
+    {
+      "source": "vpc-architecture",
+      "target": "aws"
+    },
+    {
+      "source": "vpc-architecture",
+      "target": "vpc"
+    },
+    {
+      "source": "vpc-architecture",
+      "target": "network"
+    },
+    {
+      "source": "vpc-architecture",
+      "target": "architecture"
+    },
+    {
+      "source": "what-is-difference-between-ssl-tls-https",
+      "target": "security"
+    },
+    {
+      "source": "what-is-difference-between-ssl-tls-https",
+      "target": "tls"
+    },
+    {
+      "source": "who-owns-my-encrypt-keys-on-cloud",
+      "target": "security"
+    },
+    {
+      "source": "who-owns-my-encrypt-keys-on-cloud",
+      "target": "aws"
+    },
+    {
+      "source": "12-02-2022-w1-setup-ansible-repo",
+      "target": "ansible"
+    },
+    {
+      "source": "12-02-2022-w1-setup-ansible-repo",
+      "target": "molecule"
+    },
+    {
+      "source": "12-02-2022-w1-setup-ansible-repo",
+      "target": "testing"
+    },
+    {
+      "source": "12-02-2022-w1-setup-ansible-repo",
+      "target": "python"
+    },
+    {
+      "source": "12-02-2022-w1-setup-ansible-repo",
+      "target": "poetry"
+    },
+    {
+      "source": "06-03-2022-w2-gce-multi-localssd-terraform",
+      "target": "terraform"
+    },
+    {
+      "source": "06-03-2022-w2-gce-multi-localssd-terraform",
+      "target": "gcp"
+    },
+    {
+      "source": "06-03-2022-w2-gce-multi-localssd-terraform",
+      "target": "gce"
+    },
+    {
+      "source": "06-03-2022-w2-gce-multi-localssd-terraform",
+      "target": "localssd"
+    },
+    {
+      "source": "15-04-2026-drop-cap-markdown",
+      "target": "markdown"
+    },
+    {
+      "source": "15-04-2026-drop-cap-markdown",
+      "target": "writing"
+    },
+    {
+      "source": "24-04-2026-uv-tool",
+      "target": "python"
+    },
+    {
+      "source": "24-04-2026-uv-tool",
+      "target": "uv"
+    },
+    {
+      "source": "24-04-2026-uv-tool",
+      "target": "hf"
+    },
+    {
+      "source": "12-05-2026-deploy-tracking-code-via-gmt",
+      "target": "utm"
+    },
+    {
+      "source": "12-05-2026-deploy-tracking-code-via-gmt",
+      "target": "tracking"
+    },
+    {
+      "source": "danh-muc-dau-tu",
+      "target": "tai-chinh"
+    },
+    {
+      "source": "danh-muc-dau-tu",
+      "target": "dau-tu"
+    },
+    {
+      "source": "danh-muc-dau-tu",
+      "target": "portfolio"
+    },
+    {
+      "source": "danh-muc-dau-tu",
+      "target": "asset-allocation"
+    },
+    {
+      "source": "danh-muc-dau-tu",
+      "target": "personal-finance"
+    },
+    {
+      "source": "index",
+      "target": "tai-chinh"
+    },
+    {
+      "source": "index",
+      "target": "dau-tu"
+    },
+    {
+      "source": "index",
+      "target": "property"
+    },
+    {
+      "source": "index",
+      "target": "apartment"
+    },
+    {
+      "source": "index",
+      "target": "bat-dong-san"
+    },
+    {
+      "source": "welcome",
+      "target": "meta"
+    },
+    {
+      "source": "welcome",
+      "target": "workflow"
+    }
+  ]
+}
