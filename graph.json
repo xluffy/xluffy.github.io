@@ -646,6 +646,27 @@
       "url": "/tags/personal-finance/"
     },
     {
+      "id": "saigon-gold-buying-vlog",
+      "title": "Trên tay hành trình đi mua vàng tích trữ ở Sài Gòn",
+      "type": "post",
+      "url": "/wiki/saigon-gold-buying-vlog/"
+    },
+    {
+      "id": "vang",
+      "type": "tag",
+      "url": "/tags/vang/"
+    },
+    {
+      "id": "trai-nghiem",
+      "type": "tag",
+      "url": "/tags/trai-nghiem/"
+    },
+    {
+      "id": "gold",
+      "type": "tag",
+      "url": "/tags/gold/"
+    },
+    {
       "id": "index",
       "title": "Báo cáo phân tích dự án & tiêu chí chọn căn hộ Imperia Sensa Park",
       "type": "post",
@@ -1095,6 +1116,26 @@
     {
       "source": "danh-muc-dau-tu",
       "target": "personal-finance"
+    },
+    {
+      "source": "saigon-gold-buying-vlog",
+      "target": "tai-chinh"
+    },
+    {
+      "source": "saigon-gold-buying-vlog",
+      "target": "vang"
+    },
+    {
+      "source": "saigon-gold-buying-vlog",
+      "target": "trai-nghiem"
+    },
+    {
+      "source": "saigon-gold-buying-vlog",
+      "target": "gold"
+    },
+    {
+      "source": "saigon-gold-buying-vlog",
+      "target": "dau-tu"
     },
     {
       "source": "index",
