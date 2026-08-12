@@ -615,10 +615,10 @@
       "url": "/tags/tracking/"
     },
     {
-      "id": "danh-muc-dau-tu",
-      "title": "Danh Mục Đầu Tư Tổng Hợp",
+      "id": "chien-luoc-toi-uu-chi-phi-giao-duc",
+      "title": "Chiến lược đầu tư và tối ưu chi phí giáo dục",
       "type": "post",
-      "url": "/wiki/danh-muc-dau-tu/"
+      "url": "/wiki/chien-luoc-toi-uu-chi-phi-giao-duc/"
     },
     {
       "id": "tai-chinh",
@@ -626,9 +626,30 @@
       "url": "/tags/tai-chinh/"
     },
     {
+      "id": "giao-duc",
+      "type": "tag",
+      "url": "/tags/giao-duc/"
+    },
+    {
       "id": "dau-tu",
       "type": "tag",
       "url": "/tags/dau-tu/"
+    },
+    {
+      "id": "vinschool",
+      "type": "tag",
+      "url": "/tags/vinschool/"
+    },
+    {
+      "id": "hoc-phi",
+      "type": "tag",
+      "url": "/tags/hoc-phi/"
+    },
+    {
+      "id": "danh-muc-dau-tu",
+      "title": "Danh Mục Đầu Tư Tổng Hợp",
+      "type": "post",
+      "url": "/wiki/danh-muc-dau-tu/"
     },
     {
       "id": "portfolio",
@@ -1096,6 +1117,26 @@
     {
       "source": "12-05-2026-deploy-tracking-code-via-gmt",
       "target": "tracking"
+    },
+    {
+      "source": "chien-luoc-toi-uu-chi-phi-giao-duc",
+      "target": "tai-chinh"
+    },
+    {
+      "source": "chien-luoc-toi-uu-chi-phi-giao-duc",
+      "target": "giao-duc"
+    },
+    {
+      "source": "chien-luoc-toi-uu-chi-phi-giao-duc",
+      "target": "dau-tu"
+    },
+    {
+      "source": "chien-luoc-toi-uu-chi-phi-giao-duc",
+      "target": "vinschool"
+    },
+    {
+      "source": "chien-luoc-toi-uu-chi-phi-giao-duc",
+      "target": "hoc-phi"
     },
     {
       "source": "danh-muc-dau-tu",
