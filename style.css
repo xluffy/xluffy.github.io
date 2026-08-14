@@ -1,0 +1,48 @@
+/* Mobile fixes for hello-friend theme (phone width and below) */
+.wiki-single,
+.wiki-tree-page {
+  padding: 1rem 0;
+}
+
+@media (max-width: 683.98px) {
+  .post {
+    width: 100%;
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 20px 15px;
+  }
+
+  h1,
+  .post-title {
+    font-size: 1.5rem;
+  }
+
+  /* Wide tables scroll inside their container instead of overflowing */
+  table:not(.js-file-line-container) {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    table-layout: auto;
+    width: max-content;
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  td,
+  th {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .wiki-single,
+  .wiki-tree-page {
+    padding: 1rem 12px;
+  }
+}
+
+/* Clone the wiki created-at style for post and til dates */
+.post-meta {
+  font-size: 0.95rem;
+  color: #888;
+  margin: -0.75rem 0 1.25rem;
+}
