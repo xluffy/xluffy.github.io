@@ -46,3 +46,57 @@
   color: #888;
   margin: -0.75rem 0 1.25rem;
 }
+
+/* Keep the read-more link on one line (theme caps .button at 40% width) */
+a.read-more.button {
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+/* Desktop only: underline post titles on hover */
+@media (min-width: 684px) {
+  .post-title a:hover {
+    text-decoration: underline;
+  }
+
+  /* Less blank space between the header and the first card */
+  .content {
+    margin-top: 30px;
+  }
+}
+
+/* Mobile only: show at most 3 tags per list card */
+@media (max-width: 683.98px) {
+  .post.on-list .post-tags a:nth-of-type(n+4) {
+    display: none;
+  }
+
+  .post.on-list .post-tags {
+    font-size: 0.85rem;
+  }
+}
+
+/* Tighter list cards */
+.post.on-list {
+  margin: 16px auto;
+}
+
+.post.on-list .post-title {
+  margin-bottom: 12px;
+}
+
+.post.on-list .post-meta {
+  margin-bottom: 12px;
+}
+
+.post.on-list .post-tags {
+  margin-bottom: 14px;
+}
+
+.post.on-list .post-content {
+  margin-top: 0;
+}
+
+.post.on-list a.read-more {
+  margin: 12px 0;
+}
