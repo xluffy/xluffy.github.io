@@ -53,6 +53,15 @@ a.read-more.button {
   white-space: nowrap;
 }
 
+/* Voz emojis: scale to the surrounding text and align with the line */
+img.emoji {
+  height: 1.1em;
+  width: auto;
+  vertical-align: -0.15em;
+  display: inline;
+  margin: 0;
+}
+
 /* Desktop only: underline post titles on hover */
 @media (min-width: 684px) {
   .post-title a:hover {
