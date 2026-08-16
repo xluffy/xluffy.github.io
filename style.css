@@ -1,9 +1,4 @@
 /* Mobile fixes for hello-friend theme (phone width and below) */
-.wiki-single,
-.wiki-tree-page {
-  padding: 1rem 0;
-}
-
 @media (max-width: 683.98px) {
   .post {
     width: 100%;
@@ -32,11 +27,6 @@
   th {
     font-size: 0.9rem;
     padding: 8px;
-  }
-
-  .wiki-single,
-  .wiki-tree-page {
-    padding: 1rem 12px;
   }
 }
 
