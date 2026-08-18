@@ -1,0 +1,124 @@
+<!doctype html><html lang=en><head><link rel=dns-prefetch href=https://www.googletagmanager.com><link rel=preconnect href=https://www.googletagmanager.com crossorigin><script>(function(e,t,n,s,o){e[s]=e[s]||[],e[s].push({"gtm.start":(new Date).getTime(),event:"gtm.js"});var a=t.getElementsByTagName(n)[0],i=t.createElement(n),r=s!="dataLayer"?"&l="+s:"";i.async=!0,i.src="https://www.googletagmanager.com/gtm.js?id="+o+r,a.parentNode.insertBefore(i,a)})(window,document,"script","dataLayer","GTM-K62WF7M4")</script><title>Tags ::
+/home/xluffy — Tech notes, TIL, and random thoughts</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=keywords content><meta name=robots content="noodp"><link rel=canonical href=https://taoquangne.com/tags/page/5/><link rel=stylesheet href=https://taoquangne.com/assets/style.css><link rel=stylesheet href=https://taoquangne.com/style.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css><script src=https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js></script><link rel=apple-touch-icon-precomposed sizes=144x144 href=https://taoquangne.com/img/apple-touch-icon-144-precomposed.png><link rel="shortcut icon" href=https://taoquangne.com/img/favicon.png><link href=https://taoquangne.com/assets/fonts/Inter-Italic.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-Regular.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-Medium.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-MediumItalic.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-Bold.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://taoquangne.com/assets/fonts/Inter-BoldItalic.woff2 rel=preload type=font/woff2 as=font crossorigin><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://taoquangne.com/img/og-default.jpg"><meta name=twitter:title content="Tags"><meta property="og:url" content="https://taoquangne.com/tags/"><meta property="og:site_name" content="/home/xluffy"><meta property="og:title" content="Tags"><meta property="og:locale" content="en_us"><meta property="og:type" content="website"><meta property="og:image" content="https://taoquangne.com/img/og-default.jpg"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"\"Home\"","item":"\"https://taoquangne.com/\""},{"@type":"ListItem","position":2,"name":"\"Tags\""}]}</script><link rel=alternate type=application/rss+xml href=/tags/index.xml title=/home/xluffy></head><body><div class=container><header class=header><span class=header__inner><a href=/ class=logo style=text-decoration:none><span class=logo__mark><svg class="greater-icon" viewBox="0 0 44 44"><path fill="none" d="M15 8l14.729 14.382L15 35.367"/></svg>
+</span><span class=logo__text>/home/xluffy ft 🍄</span>
+<span class=logo__cursor></span>
+</a><span class=header__right><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=/post>post</a></li><li><a href=/wiki>brain</a></li><li><a href=/tags/>tags</a></li><li><a href=/til>til</a></li><li><a href=/about>about</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=/post>post</a></li><li><a href=/wiki>brain</a></li><li><a href=/tags/>tags</a></li><li><a href=/til>til</a></li><li><a href=/about>about</a></li></ul></nav><span class=menu-trigger><svg viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+</span><span class=theme-toggle><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none"><path d="M22 41c10.4934.0 19-8.5066 19-19C41 11.5066 32.4934 3 22 3 11.5066 3 3 11.5066 3 22s8.5066 19 19 19zM7 22C7 13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22z"/></svg></span></span></span></header><div class=content><div class=post><h2>Tags</h2><style>.tags-graph-box{border:1px solid var(--border-color,#ddd);border-radius:6px;overflow:hidden;margin:1.5rem 0;background:var(--background,#fff)}.tags-graph-box svg{display:block;width:100%;height:auto;cursor:grab}.tags-graph-box svg:active{cursor:grabbing}.tags-graph-box svg text{fill:currentColor}</style><div class=tags-graph-box><svg viewBox="0 0 960 640"/></div><script type=module>
+    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+    async function drawChart() {
+      const response = await fetch("https:\/\/taoquangne.com\/graph.json");
+      if (!response.ok) return;
+      const json = await response.json();
+
+      const width = 960;
+      const height = 640;
+
+      const links = json.links.map(d => ({ ...d }));
+      const nodes = json.nodes.map(d => ({ ...d }));
+
+      const simulation = d3.forceSimulation(nodes)
+        .force("link", d3.forceLink(links).id(d => d.id).distance(80))
+        .force("charge", d3.forceManyBody().strength(-400))
+        .force("x", d3.forceX())
+        .force("y", d3.forceY())
+        .force("collide", d3.forceCollide()
+          .radius(d => d.title ? 50 : 30)
+          .strength(0.6));
+
+      const svg = d3.select(".tags-graph-box svg")
+        .attr("viewBox", [-width / 2, -height / 2, width, height]);
+
+      
+      const g = svg.append("g");
+
+      svg.call(d3.zoom()
+        .scaleExtent([0.2, 5])
+        .on("zoom", (event) => {
+          g.attr("transform", event.transform);
+        }));
+
+      
+      const link = g.append("g")
+        .attr("stroke", "#999")
+        .attr("stroke-opacity", 0.5)
+        .selectAll("line")
+        .data(links)
+        .join("line")
+        .attr("stroke-width", d => Math.sqrt(d.value || 1));
+
+      
+      const node = g.append("g")
+        .attr("stroke", "#fff")
+        .attr("stroke-width", 1.5)
+        .selectAll("circle")
+        .data(nodes)
+        .join("circle")
+        .attr("r", d => d.title ? 10 : 7)
+        .attr("fill", d => d.title ? "#B0CFFF" : "#FFA7CE")
+        .style("transition", "r 0.2s ease");
+
+      node.append("title")
+        .text(d => d.title ? d.title : "#" + d.id);
+
+      
+      node.on("mouseenter", function() {
+        d3.select(this).transition().duration(150).attr("r", d => (d.title ? 14 : 10));
+      }).on("mouseleave", function() {
+        d3.select(this).transition().duration(150).attr("r", d => (d.title ? 10 : 7));
+      });
+
+      
+      node.call(d3.drag()
+        .on("start", (event) => {
+          if (!event.active) simulation.alphaTarget(0.3).restart();
+          event.subject.fx = event.subject.x;
+          event.subject.fy = event.subject.y;
+        })
+        .on("drag", (event) => {
+          event.subject.fx = event.x;
+          event.subject.fy = event.y;
+        })
+        .on("end", (event) => {
+          if (!event.active) simulation.alphaTarget(0);
+          event.subject.fx = null;
+          event.subject.fy = null;
+        }));
+
+      
+      const label = g.append("g")
+        .attr("text-anchor", "middle")
+        .selectAll("a")
+        .data(nodes)
+        .join("a")
+        .attr("href", d => d.url)
+        .append("text")
+        .attr("dy", d => d.title ? "-0.85em" : "0.35em")
+        .attr("font-size", d => d.title ? 12 : 10)
+        .attr("font-family", d => d.title ? "inherit" : "monospace")
+        .attr("fill", "currentColor")
+        .text(d => d.title ? d.title : "#" + d.id);
+
+      
+      simulation.on("tick", () => {
+        link
+          .attr("x1", d => d.source.x)
+          .attr("y1", d => d.source.y)
+          .attr("x2", d => d.target.x)
+          .attr("y2", d => d.target.y);
+
+        node
+          .attr("cx", d => d.x)
+          .attr("cy", d => d.y);
+
+        label
+          .attr("x", d => d.x)
+          .attr("y", d => d.y);
+      });
+
+      
+      simulation.alpha(0.5).restart();
+    }
+
+    drawChart();
+  </script></div></div><footer class=footer><div class=footer__inner><div class="copyright copyright--user"><span>hàng nhà trồng 🌴 theo <a href=https://creativecommons.org/licenses/by-nc/4.0>giấy phép CC BY-NC 4.0</a></span><span>Themes created by <a href=https://twitter.com/panr target=_blank rel=noopener>panr</a></span></div></div></footer><script src=https://taoquangne.com/assets/main.js></script><script src=https://taoquangne.com/assets/prism.js></script><script>document.addEventListener("DOMContentLoaded",function(){const e=GLightbox({selector:".glightbox",touchNavigation:!0,loop:!0,scrollLock:!1})})</script></div><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K62WF7M4" height=0 width=0 style=display:none;visibility:hidden></iframe></noscript></body></html>
