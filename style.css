@@ -99,3 +99,8 @@ img.emoji {
 .post.on-list a.read-more {
   margin: 12px 0;
 }
+
+/* ===== Footer ===== */
+.footer {
+  border-top: 1px solid var(--border-color);
+}
