@@ -688,6 +688,32 @@
       "url": "/tags/personal-finance/"
     },
     {
+      "id": "neobank-101",
+      "title": "Neobank 101: Ngân Hàng Số Thế Hệ Mới",
+      "type": "post",
+      "url": "/wiki/neobank-101/"
+    },
+    {
+      "id": "neobank",
+      "type": "tag",
+      "url": "/tags/neobank/"
+    },
+    {
+      "id": "fintech",
+      "type": "tag",
+      "url": "/tags/fintech/"
+    },
+    {
+      "id": "ngan-hang-so",
+      "type": "tag",
+      "url": "/tags/ngan-hang-so/"
+    },
+    {
+      "id": "thanh-toan",
+      "type": "tag",
+      "url": "/tags/thanh-toan/"
+    },
+    {
       "id": "index",
       "title": "Trên tay hành trình đi mua vàng tích trữ ở Sài Gòn",
       "type": "post",
@@ -1184,6 +1210,26 @@
     {
       "source": "danh-muc-dau-tu",
       "target": "personal-finance"
+    },
+    {
+      "source": "neobank-101",
+      "target": "tai-chinh"
+    },
+    {
+      "source": "neobank-101",
+      "target": "neobank"
+    },
+    {
+      "source": "neobank-101",
+      "target": "fintech"
+    },
+    {
+      "source": "neobank-101",
+      "target": "ngan-hang-so"
+    },
+    {
+      "source": "neobank-101",
+      "target": "thanh-toan"
     },
     {
       "source": "index",
