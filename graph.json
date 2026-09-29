@@ -750,6 +750,42 @@
       "url": "/tags/bat-dong-san/"
     },
     {
+      "id": "substipharm-medigen-hand-foot-mouth-vaccine-strategy",
+      "title": "Tổng quan về Substipharm, Medigen và Chiến lược Vắc xin Tay chân miệng",
+      "type": "post",
+      "url": "/wiki/substipharm-medigen-hand-foot-mouth-vaccine-strategy/"
+    },
+    {
+      "id": "substipharm",
+      "type": "tag",
+      "url": "/tags/substipharm/"
+    },
+    {
+      "id": "medigen",
+      "type": "tag",
+      "url": "/tags/medigen/"
+    },
+    {
+      "id": "vaccine",
+      "type": "tag",
+      "url": "/tags/vaccine/"
+    },
+    {
+      "id": "ev71",
+      "type": "tag",
+      "url": "/tags/ev71/"
+    },
+    {
+      "id": "hand-foot-mouth-disease",
+      "type": "tag",
+      "url": "/tags/hand-foot-mouth-disease/"
+    },
+    {
+      "id": "healthcare",
+      "type": "tag",
+      "url": "/tags/healthcare/"
+    },
+    {
       "id": "welcome",
       "title": "Welcome to my Second Brain",
       "type": "post",
@@ -1270,6 +1306,30 @@
     {
       "source": "index",
       "target": "bat-dong-san"
+    },
+    {
+      "source": "substipharm-medigen-hand-foot-mouth-vaccine-strategy",
+      "target": "substipharm"
+    },
+    {
+      "source": "substipharm-medigen-hand-foot-mouth-vaccine-strategy",
+      "target": "medigen"
+    },
+    {
+      "source": "substipharm-medigen-hand-foot-mouth-vaccine-strategy",
+      "target": "vaccine"
+    },
+    {
+      "source": "substipharm-medigen-hand-foot-mouth-vaccine-strategy",
+      "target": "ev71"
+    },
+    {
+      "source": "substipharm-medigen-hand-foot-mouth-vaccine-strategy",
+      "target": "hand-foot-mouth-disease"
+    },
+    {
+      "source": "substipharm-medigen-hand-foot-mouth-vaccine-strategy",
+      "target": "healthcare"
     },
     {
       "source": "welcome",
