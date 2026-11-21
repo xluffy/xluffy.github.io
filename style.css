@@ -105,108 +105,672 @@ img.emoji {
   border-top: 1px solid var(--border-color);
 }
 
-/* ===== Series page: grid of thumbnail cards (shortcodes series, series-item) ===== */
-.series {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1.5rem 1.25rem;
-  margin: 1rem 0 2rem;
+/* ===== Series page (shortcodes series-list, series, series-item) ===== */
+
+/* Filter bar: one button per group. JS removes the hidden attribute. */
+.sv-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 20px;
 }
 
-.series-item {
+.sv-filter[hidden],
+.sv[hidden] {
+  display: none;
+}
+
+.post-content .sv-filter__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   margin: 0;
-  text-align: center;
+  padding: 4px 12px;
+  border: none;
+  border-radius: 5px;
+  background: var(--background-secondary);
+  color: inherit;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
 }
 
-.post-content .series-item a {
-  border-bottom: none;
-  text-decoration: none;
+.post-content .sv-filter__btn:hover {
+  background: var(--border-color);
 }
 
-.series-thumb {
+.post-content .sv-filter__btn[aria-pressed="true"] {
+  background: var(--color);
+  color: var(--background);
+}
+
+.sv-filter__count {
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+/* One row: thumbnail on the left, name and meta on the right, review under them */
+.sv {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "thumb head"
+    "thumb review";
+  gap: 6px 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sv__thumb {
+  grid-area: thumb;
+  position: relative;
   display: block;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  align-self: start;
+  overflow: hidden;
+  border-radius: 8px;
+  aspect-ratio: 16 / 9;
+  background: var(--background-secondary);
 }
 
-.series-thumb img {
+.post-content .sv__thumb img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 100%;
+  margin: 0;
   object-fit: cover;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.35);
-  transition: box-shadow 0.35s ease;
+  transition: transform 0.3s ease;
 }
 
-/* Hover: the thumbnail pops up with a small spring overshoot */
-.series-item:hover {
-  position: relative;
-  z-index: 1;
+.sv__thumb:hover img {
+  transform: scale(1.04);
 }
 
-.series-item:hover .series-thumb {
-  transform: translateY(-6px) scale(1.08);
+/* Play button over trailer thumbnails */
+.sv__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  transition: background 0.2s ease;
 }
 
-.series-item:hover .series-thumb img {
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+.sv__play::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  border-style: solid;
+  border-width: 8px 0 8px 12px;
+  border-color: transparent transparent transparent #fff;
+}
+
+.sv__thumb:hover .sv__play {
+  background: rgba(0, 0, 0, 0.85);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .series-thumb {
+  .post-content .sv__thumb img {
     transition: none;
   }
 }
 
-.series-thumb--empty {
-  aspect-ratio: 16 / 9;
+.sv__thumb--empty {
   border: 1px dashed var(--border-color);
-  border-radius: 4px;
-  background: var(--background-secondary);
 }
 
-.series-item figcaption {
-  margin-top: 0.5rem;
+.sv__head {
+  grid-area: head;
+}
+
+.post-content .sv__title {
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+
+.sv__title a {
+  text-decoration: none;
+}
+
+.sv__title a:hover {
+  text-decoration: underline;
+}
+
+.sv__year {
+  font-weight: normal;
+  color: var(--color-secondary);
+}
+
+/* The rating and the info text wrap as whole blocks, so a line never starts with a dot */
+.sv__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 12px;
+  margin-top: 2px;
+  font-size: 0.85rem;
+  color: var(--color-secondary);
+}
+
+.sv__info {
+  white-space: nowrap;
+}
+
+.sv__rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: bold;
+}
+
+.post-content .sv__rating img {
+  display: inline-block;
+  height: 16px;
+  width: auto;
+  margin: 0;
+}
+
+.post-content .sv__review {
+  grid-area: review;
+  margin: 4px 0 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Phones: small thumbnail next to the name, review under both */
+@media (max-width: 683.98px) {
+  /* One line of filter buttons that scrolls sideways */
+  .sv-filter {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-right: -15px;
+    padding-right: 15px;
+    scrollbar-width: none;
+  }
+
+  .sv-filter::-webkit-scrollbar {
+    display: none;
+  }
+
+  .post-content .sv-filter__btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .sv {
+    grid-template-columns: 120px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "thumb head"
+      "review review";
+    gap: 10px 12px;
+    padding: 14px 0;
+  }
+
+  .post-content .sv__title {
+    font-size: 1rem;
+  }
+
+  .sv__play {
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+  }
+
+  .sv__play::after {
+    top: 9px;
+    left: 12px;
+    border-width: 6px 0 6px 9px;
+  }
+
+  .post-content .sv__review {
+    margin-top: 0;
+  }
+}
+
+/* ===== Home and list pages (layouts/_default/index.html, list.html, partials/entry.html) ===== */
+.home,
+.listing {
+  width: 1024px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: left;
+}
+
+.home__intro {
+  margin: 10px 0 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.home__intro-text,
+.home__intro-text p {
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--color-secondary);
+}
+
+.home__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 50px;
+  align-items: start;
+}
+
+/* Block header: a small title on the left, a "more" link on the right */
+.block-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.block-head__title {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+.block-head__more {
+  font-size: 0.85rem;
+  color: var(--color-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.block-head__more:hover {
+  color: var(--color);
+}
+
+/* Entry row: date column + title and tags */
+.entry {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: 0 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.entry:last-child {
+  border-bottom: none;
+}
+
+.entry__date {
+  grid-column: 1;
+  padding-top: 3px;
   font-size: 0.9rem;
-  line-height: 1.3;
-}
-
-.series-seasons {
   color: var(--color-secondary);
   white-space: nowrap;
 }
 
-.series-meta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-  margin-top: 0.3rem;
-  font-size: 0.85rem;
-  font-weight: bold;
-  color: var(--color-secondary);
+.entry__body {
+  grid-column: 2;
 }
 
-.series-rating {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.post-content .series-rating img {
-  display: inline-block;
+.entry__title {
   margin: 0;
-  height: 16px;
-  width: auto;
+  font-size: 1.15rem;
+  line-height: 1.4;
 }
 
-.post-content .series-item figcaption a:hover {
+.entry__title a {
+  text-decoration: none;
+}
+
+.entry__title a:hover {
   text-decoration: underline;
 }
 
+.entry__desc {
+  margin: 4px 0 0;
+  font-size: 0.95rem;
+  color: var(--color-secondary);
+}
+
+.entry__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 10px;
+  margin-top: 4px;
+  font-size: 0.85rem;
+}
+
+.entry__tags a,
+.aside-list a,
+.tag-cloud a {
+  text-decoration: none;
+}
+
+.entry__tags a {
+  color: var(--color-secondary);
+}
+
+.entry__tags a:hover,
+.tag-cloud a:hover {
+  color: var(--color);
+}
+
+.home .pagination {
+  margin-top: 30px;
+}
+
+/* Smaller paging buttons. The theme caps .button at 40% width, which cuts "Older posts" on phones. */
+.home .pagination .button {
+  max-width: none;
+  font-size: 0.9rem;
+}
+
+.home .pagination .button a {
+  padding: 6px 14px;
+  font-weight: 500;
+}
+
+.home .pagination .button:hover {
+  background: var(--border-color);
+}
+
+/* Home sidebar */
+.aside-box + .aside-box {
+  margin-top: 40px;
+}
+
+.aside-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.aside-list li {
+  padding: 10px 0;
+  line-height: 1.4;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.aside-list li:last-child {
+  border-bottom: none;
+}
+
+.aside-list a {
+  display: block;
+}
+
+.aside-list a:hover {
+  text-decoration: underline;
+}
+
+.aside-list time {
+  font-size: 0.8rem;
+  color: var(--color-secondary);
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.tag-cloud a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  border-radius: 5px;
+  background: var(--background-secondary);
+  font-size: 0.85rem;
+}
+
+.tag-cloud__count {
+  font-size: 0.75rem;
+  color: var(--color-secondary);
+}
+
+/* List page: header, then entries grouped by year */
+.listing__head {
+  margin: 10px 0 20px;
+}
+
+.listing__crumb {
+  font-size: 0.9rem;
+  color: var(--color-secondary);
+  text-decoration: none;
+}
+
+.listing__crumb:hover {
+  color: var(--color);
+}
+
+.listing__title {
+  margin: 0;
+}
+
+.listing__desc {
+  color: var(--color-secondary);
+}
+
+.listing__desc p {
+  margin: 6px 0 0;
+}
+
+.listing__count {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: var(--color-secondary);
+}
+
+.listing__year {
+  margin-top: 30px;
+}
+
+.listing__year-title {
+  margin: 0 0 4px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 1.375rem;
+}
+
+@media (max-width: 899.98px) {
+  .home__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+}
+
 @media (max-width: 683.98px) {
-  .series {
-    grid-template-columns: repeat(2, 1fr);
+  .home,
+  .listing {
+    padding: 0 15px;
+  }
+
+  .home__intro {
+    margin-top: 20px;
+  }
+
+  .home__intro-text,
+  .home__intro-text p {
+    font-size: 1rem;
+  }
+
+  /* Stack the date above the title */
+  .entry {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .entry__date,
+  .entry__body {
+    grid-column: 1;
+  }
+
+  .entry__date {
+    padding-top: 0;
+    font-size: 0.8rem;
+  }
+
+  .entry__title {
+    font-size: 1.05rem;
+  }
+
+  .listing__head {
+    margin-top: 20px;
+  }
+}
+
+/* ===== Detail pages (layouts/_default/single.html) ===== */
+.single__head .post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 10px;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  opacity: 1;
+}
+
+.single__head .post-tags a {
+  color: var(--color-secondary);
+}
+
+.single__head .post-tags a:hover {
+  color: var(--color);
+}
+
+/* Articles: a line under the header separates it from the text */
+.single .single__head {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.single .post-title {
+  margin-bottom: 12px;
+}
+
+.single .post-meta {
+  margin: 0 0 6px;
+  color: var(--color-secondary);
+}
+
+.single .post-content {
+  margin-top: 0;
+  line-height: 1.7;
+}
+
+.single__crumb {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: var(--color-secondary);
+}
+
+.single__crumb a {
+  text-decoration: none;
+}
+
+.single__crumb a:hover {
+  color: var(--color);
+}
+
+.single__crumb-sep {
+  margin: 0 6px;
+}
+
+/* Table of contents: a framed box above the text */
+.table-of-contents {
+  margin: 0 0 30px;
+  padding: 14px 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.table-of-contents__title {
+  margin: 0 0 6px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+.table-of-contents ul {
+  margin: 0 0 0 20px;
+  list-style: none;
+}
+
+.table-of-contents > nav > ul {
+  margin-left: 0;
+}
+
+.table-of-contents a {
+  text-decoration: none;
+}
+
+.table-of-contents a:hover {
+  text-decoration: underline;
+}
+
+/* Newer and older cards at the end of an article. Full titles, no cut text. */
+.post-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Same look as the theme buttons: grey fill, no border, 8px corners */
+.post-nav__item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: var(--background-secondary);
+  text-decoration: none;
+}
+
+.post-nav__item:hover {
+  background: var(--border-color);
+}
+
+.post-nav__item--older {
+  grid-column: 2;
+  text-align: right;
+}
+
+.post-nav__label {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+.post-nav__title {
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+@media (max-width: 683.98px) {
+  .single .single__head {
+    margin-bottom: 20px;
+  }
+
+  .post-nav {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    margin-top: 40px;
+  }
+
+  .post-nav__item--older {
+    grid-column: 1;
   }
 }

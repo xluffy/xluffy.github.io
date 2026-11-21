@@ -393,6 +393,17 @@
       "url": "/tags/active-record/"
     },
     {
+      "id": "review-2023",
+      "title": "Review 2023",
+      "type": "post",
+      "url": "/post/review-2023/"
+    },
+    {
+      "id": "review",
+      "type": "tag",
+      "url": "/tags/review/"
+    },
+    {
       "id": "sidekiq-how-to-reliability",
       "title": "Sidekiq, how to reliability?",
       "type": "post",
@@ -1046,6 +1057,10 @@
     {
       "source": "rails-for-devops-engineer",
       "target": "active-record"
+    },
+    {
+      "source": "review-2023",
+      "target": "review"
     },
     {
       "source": "sidekiq-how-to-reliability",
