@@ -1,3 +1,16 @@
+/* ===== Accessibility: text contrast (WCAG AA, 4.5:1) =====
+   The theme gray (#999 light, #73747b dark) is 2.8:1 to 3.1:1 on the page background.
+   These grays keep the same look and pass AA on the page background:
+   light #6e6e6e: 5.1:1 on #fff, 4.9:1 on #fafafa. Dark #9a9ba1: 5.2:1 on #292a2d.
+   On grey surfaces (--background-secondary), small text uses the main text color. */
+:root {
+  --color-secondary: #6e6e6e;
+}
+
+body.dark-theme {
+  --color-secondary: #9a9ba1;
+}
+
 /* Mobile fixes for hello-friend theme (phone width and below) */
 @media (max-width: 683.98px) {
   .post {
@@ -33,7 +46,7 @@
 /* Clone the wiki created-at style for post and til dates */
 .post-meta {
   font-size: 0.95rem;
-  color: #888;
+  color: var(--color-secondary);
   margin: -0.75rem 0 1.25rem;
 }
 
@@ -144,9 +157,9 @@ img.emoji {
   color: var(--background);
 }
 
+/* Same color as the label: a lighter count fails the contrast check on the grey button */
 .sv-filter__count {
   font-size: 0.75rem;
-  opacity: 0.6;
 }
 
 /* One row: thumbnail on the left, name and meta on the right, review under them */
@@ -431,18 +444,20 @@ img.emoji {
   text-decoration: underline;
 }
 
-.entry__desc {
-  margin: 4px 0 0;
-  font-size: 0.95rem;
-  color: var(--color-secondary);
-}
-
 .entry__tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0 10px;
-  margin-top: 4px;
+  margin-top: 2px;
   font-size: 0.85rem;
+}
+
+/* Tap targets of at least 24px (WCAG 2.5.8). The padding adds height without moving the text. */
+.entry__tags a,
+.single__head .post-tags a {
+  display: inline-block;
+  min-height: 24px;
+  padding: 2px 0;
 }
 
 .entry__tags a,
@@ -530,9 +545,9 @@ img.emoji {
   font-size: 0.85rem;
 }
 
+/* The chip is grey, so the count uses the label color to keep 4.5:1 contrast */
 .tag-cloud__count {
   font-size: 0.75rem;
-  color: var(--color-secondary);
 }
 
 /* List page: header, then entries grouped by year */
@@ -747,11 +762,11 @@ img.emoji {
   text-align: right;
 }
 
+/* The card is grey, so the label uses the main text color to keep 4.5:1 contrast */
 .post-nav__label {
   font-size: 0.8rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-secondary);
 }
 
 .post-nav__title {
